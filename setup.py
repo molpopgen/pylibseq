@@ -10,6 +10,13 @@ extensions=[
         extra_compile_args=["-std=c++11"],  
         extra_link_args=["-std=c++11"],
         libraries=["sequence"]),
+     Extension("libsequence.summstats",
+               sources=["libsequence/summstats.pyx"], # the Cython source and additional C++ source files
+               language="c++",                        # generate and compile C++ code
+               include_dirs=['.','include','..'], 
+               extra_compile_args=["-std=c++11"],  
+               extra_link_args=["-std=c++11"],
+               libraries=["sequence"]),
 ]
 
 setup(name='libsequence',
@@ -29,6 +36,6 @@ setup(name='libsequence',
       packages=['pyseq'],
       py_modules=[],
       scripts=[],
-      package_data={'libsequence':['*.pxd'],'libsequence.polytable':['*.pxd']},
+      package_data={'libsequence':['*.pxd'],'libsequence.polytable':['*.pxd'],'libsequence.summstats':['*.pxd']},
       ext_modules=cythonize(extensions))
 

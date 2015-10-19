@@ -1,5 +1,5 @@
 import libsequence.polytable as pypt
-
+import libsequence.summstats as sstats
 
 x = pypt.simData()
 x.assign([ (0.1,"01"),(0.2,"10") ])
@@ -20,3 +20,5 @@ for i in range(2):
 #x = pypt.polyTable()
 
 print x.size()
+
+sstats.polySIM(x)
