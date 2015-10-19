@@ -103,3 +103,24 @@ cdef class polySites(polyTable):
         self.thisptr = new PolySites()
     def __dealloc__(self):
         pass
+
+def removeGaps(polyTable p, gapchar = '-'):
+    RemoveGaps(p.thisptr,gapchar)
+
+def isValid(polyTable p):
+    return PolyTableValid(p.thisptr)
+
+def removeMono(polyTable p, bint skipOutgroup = False, unsigned outgroup = 0):
+    RemoveInvariantColumns(p.thisptr,skipOutgroup,outgroup)
+
+def freqFilter(polyTable p,unsigned mincount,bint haveOutgroup = False, unsigned outgroup = 0):
+    p.thisptr.ApplyFreqFilter(mincount,haveOutgroup,outgroup)
+
+def removeMissing(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):
+    p.thisptr.RemoveMissing(haveOutgroup,outgroup)
+
+def removeMultiHits(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):
+    p.thisptr.RemoveMultiHits(haveOutgroup,outgroup)
+
+def removeAmbiguous(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):
+    p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)

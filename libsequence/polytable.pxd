@@ -26,6 +26,17 @@ cdef extern from "Sequence/PolyTable.hpp" namespace "Sequence":
         double position(unsigned &) const
         unsigned numsites() const
         unsigned size() const
+
+        #non-const operations
+        void ApplyFreqFilter(const unsigned & mincount,
+                             const bint & haveOutgroup,
+                             const unsigned & outgroup)
+        void RemoveMultiHits(const bint & skipOutgroup,
+                             const unsigned & outgroup)
+        void RemoveMissing(const bint & skipOutgroup,
+                           const unsigned & outgroup)
+        void RemoveAmbiguous(const bint & skipOutgroup,
+                             const unsigned & outgroup)
         
                 
 cdef extern from "Sequence/SimData.hpp" namespace "Sequence":
@@ -36,6 +47,13 @@ cdef extern from "Sequence/SimData.hpp" namespace "Sequence":
 cdef extern from "Sequence/PolySites.hpp" namespace "Sequence":
     cdef cppclass PolySites(PolyTable):
         PolySites()
+
+cdef extern from "Sequence/PolyTableFunctions.hpp" namespace "Sequence":
+  void RemoveGaps(PolyTable *t, const char & gapchar)
+  void RemoveInvariantColumns(PolyTable *t,
+			      const bint & skipOutgroup,
+			      const unsigned & outgroup)
+  bint PolyTableValid(const PolyTable * t)
 
 cdef class polyTable:
     cdef PolyTable * thisptr
