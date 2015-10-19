@@ -7,14 +7,13 @@ from cython.operator import dereference as deref,postincrement as inc
 from polytable cimport PolyTable,SimData
 
 cdef class polyTable:
-    cdef PolyTable * thisptr
     def __cinit__(self):
         thisptr = NULL
     def __dealloc__(self):
         if self.thisptr != NULL:
             del self.thisptr
             self.thisptr = NULL
-    def size(self):
+    cpdef size(self):
         assert (self.thisptr != NULL)
         return self.thisptr.second.size()
     def __getitem__(self, size_t i):
@@ -29,12 +28,12 @@ cdef class polyTable:
     cpdef empty(self):
         assert (self.thisptr != NULL)
         return self.thisptr.empty()
-    def assign(self,const vector[polymorphicSite] & d):
+    cpdef assign(self,const vector[polymorphicSite] & d):
         assert (self.thisptr != NULL)
         cdef bint rv = self.thisptr.assign(d.const_begin(),d.const_end())
         if rv == False:
             raise RuntimeError("assign failed")
-    def assign_sep(self,const vector[double] & pos,const vector[string] & data):
+    cpdef assign_sep(self,const vector[double] & pos,const vector[string] & data):
         assert (self.thisptr != NULL)
         cdef bint rv =self.thisptr.assign[double,string](pos.data(),pos.size(),data.data(),data.size())
         if rv == False:

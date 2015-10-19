@@ -34,3 +34,17 @@ cdef extern from "Sequence/PolySites.hpp" namespace "Sequence":
     cdef cppclass PolySites(PolyTable):
         PolySites()
 
+cdef class polyTable:
+    cdef PolyTable * thisptr
+    cpdef size(self)
+    cpdef GetData(self)
+    cpdef GetPositions(self)
+    cpdef empty(self)
+    cpdef assign(self,const vector[polymorphicSite] & d)
+    cpdef assign_sep(self,const vector[double] & pos,const vector[string] & data)
+
+cdef class simData(polyTable):
+    pass
+
+cdef class polySites(polyTable):
+    pass
