@@ -18,10 +18,24 @@ cdef class polyTable:
         return self.thisptr.second.size()
     def __getitem__(self, size_t i):
         return self.thisptr.second[i]
-    
+    cpdef GetData(self):
+        return self.thisptr.GetData()
+    cpdef GetPositions(self):
+        return self.thisptr.GetPositions()
+    cpdef empty(self):
+        return self.thisptr.empty()
+    def assign(self,const vector[polymorphicSite] & d):
+        cdef bint rv = self.thisptr.assign(d.const_begin(),d.const_end())
+        if rv == False:
+            raise RuntimeError("assign failed")
+    def assign_sep(self,const vector[double] & pos,const vector[string] & data):
+        cdef bint rv =self.thisptr.assign[double,string](pos.data(),pos.size(),data.data(),data.size())
+        if rv == False:
+            raise RuntimeError("assign_sep failed")
+
 cdef class simData(polyTable):
-    def __cinit__(self,const vector[polymorphicSite] & data):
-        self.thisptr = new SimData(data.const_begin(),data.const_end())
+    def __cinit__(self):
+        self.thisptr = new SimData()
     def __dealloc__(self):
         pass
 

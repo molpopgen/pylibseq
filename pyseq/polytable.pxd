@@ -12,17 +12,25 @@ cdef extern from "Sequence/PolyTable.hpp" namespace "Sequence":
         vector[double].iterator pbegin()
         vector[double].iterator pend()
         vector[string] GetData() const
-        vector[string] GetPositions() const
+        vector[double] GetPositions() const
 
         bint assign(const psite_vec_const_itr &,
                     const psite_vec_const_itr & )
+        bint assign[NUMERIC,STRING]( const NUMERIC *,
+                                     const size_t &,
+                                     const STRING *,
+                                     const size_t & )
         bint empty() const
         double position(unsigned &) const
         unsigned numsites() const
         unsigned size() const
+        
                 
 cdef extern from "Sequence/SimData.hpp" namespace "Sequence":
     cdef cppclass SimData(PolyTable):
-        SimData( const psite_vec_const_itr &,
-                 const psite_vec_const_itr & )
+        SimData()
+
+cdef extern from "Sequence/PolySites.hpp" namespace "Sequence":
+    cdef cppclass PolySites(PolyTable):
+        PolySites()
 
