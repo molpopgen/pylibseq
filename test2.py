@@ -17,10 +17,11 @@ x.assign_sep(pos,data)
 for i in range(2):
     print "element i is", x[i]
 
-#x = pypt.polyTable()
 
 print x.size()
 
 ss = sstats.polySIM(x)
 
 print ss.thetapi()
+
+x = pypt.polyTable()

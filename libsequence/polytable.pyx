@@ -13,6 +13,8 @@ cdef class polyTable:
     .. note:: It is an error to directly use this class in Python.  An assertion will be triggered.  This is simply the base API for other types.
     """
     def __cinit__(self):
+        if self.__class__ == polyTable:
+            raise RuntimeError("polyTable cannot be used directly.  Use derived types instead")
         thisptr = NULL
     def __dealloc__(self):
         if self.thisptr != NULL:
