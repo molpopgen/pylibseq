@@ -22,7 +22,7 @@ cdef extern from "Sequence/PolySNP.hpp" namespace "Sequence":
         unsigned NumExternalMutations() const            #number of derived mutations 
         #summary statistics of the site frequency spectrum
         double TajimasD() const                          #Tajima's (1989) D
-        double Hprime (const bool & likeThorntonAndolfatto = false) const  #A normalized statistic related to Fay and Wu's H
+        double Hprime (const bool & likeThorntonAndolfatto) const  #A normalized statistic related to Fay and Wu's H
                       
         double Dnominator() const                        #Denominator of Tajima's D
         double FuLiD() const                             #Fu & Li's (1996) D
@@ -69,6 +69,9 @@ cdef extern from "Sequence/PolySIM.hpp" namespace "Sequence":
         int HudsonsHaplotypeTest (const int & subsize,const int & subss) const
         #recombination
         unsigned Minrec () const
+
+cdef class polySNP:
+    cdef PolySNP * thisptr
 
 cdef class polySIM:
     cdef PolySIM * thisptr
