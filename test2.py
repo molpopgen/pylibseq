@@ -21,4 +21,6 @@ for i in range(2):
 
 print x.size()
 
-sstats.polySIM(x)
+ss = sstats.polySIM(x)
+
+print ss.thetapi()

@@ -56,7 +56,7 @@ cdef extern from "Sequence/PolySIM.hpp" namespace "Sequence":
         unsigned NumExternalMutations () const
         #summary statistics of the site frequency spectrum
         double TajimasD () const
-        double Hprime (const bool & likeThorntonAndolfatto = false) const
+        double Hprime (const bool & likeThorntonAndolfatto) const
         double Dnominator () const
         double FuLiD () const
         double FuLiF () const
