@@ -1,6 +1,7 @@
 from libsequence.polytable cimport PolyTable,SimData,polyTable,simData
 from libcpp cimport bool
 from libcpp.vector cimport vector
+from libcpp.utility cimport pair
 
 cdef extern from "Sequence/PolySNP.hpp" namespace "Sequence":
     cdef cppclass PolySNP:
@@ -79,5 +80,9 @@ cdef class polySIM:
 
 ##Functions from libseq
 
-cdef extern from "Sequence/SummStats/lHaf.hpp":
+cdef extern from "Sequence/SummStats/lHaf.hpp" namespace "Sequence":
     vector[double] lHaf( const SimData & data, const double l )
+
+cdef extern from "Sequence/SummStats/nSL.hpp" namespace "Sequence":
+  pair[double,double] nSL(const unsigned & core, const SimData & d, const double * gmap)
+  pair[double,double] snSL(const SimData & d,const double minfreq, const double binsize, const double * gmap)

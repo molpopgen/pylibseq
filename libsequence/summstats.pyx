@@ -1,4 +1,6 @@
 from libcpp.cast cimport dynamic_cast
+from cython.view cimport array as cvarray
+from cpython cimport array
 from cython.operator cimport dereference as deref
 
 cdef class polySNP:
@@ -87,5 +89,14 @@ cdef class polySIM:
 def lhaf( polyTable pt, double l ):
     if isinstance(pt,simData):
         return lHaf(deref(dynamic_cast['SimData*'](pt.thisptr)),l)
+    else:
+        raise RuntimeError("lhaf: only simData objects are allowed")
+
+def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):
+    if isinstance(pt,simData):
+        if gmap is None:
+            return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,NULL)
+        else:
+            return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,&gmap[0])
     else:
         raise RuntimeError("lhaf: only simData objects are allowed")
