@@ -28,6 +28,8 @@ print ss.thetapi()
 w = lsw.simDataWindows(x,0.1,0.05)
 
 for i in range(len(w)):
-    print w[i]
+    print i
+    psi = sstats.polySIM(w[i])
+    print psi.thetapi()
 
-#x = pypt.polyTable()
+
