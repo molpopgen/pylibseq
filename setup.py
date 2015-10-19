@@ -3,8 +3,8 @@ from Cython.Build import cythonize
 import platform, glob, sys
 
 extensions=[
-     Extension("pyseq.polytable",
-               sources=["pyseq/polytable.pyx"], # the Cython source and additional C++ source files
+     Extension("libsequence.polytable",
+               sources=["libsequence/polytable.pyx"], # the Cython source and additional C++ source files
         language="c++",                        # generate and compile C++ code
         include_dirs=['.','include','..'], 
         extra_compile_args=["-std=c++11"],  
@@ -12,7 +12,7 @@ extensions=[
         libraries=["sequence"]),
 ]
 
-setup(name='pyseq',
+setup(name='libsequence',
       version='0.0.1',      
       author='Kevin R. Thornton',
       author_email='krthornt@uci.edu',
@@ -24,11 +24,11 @@ setup(name='pyseq',
       classifiers=['population genetics'],
       platforms=['Linux','OS X'],
       license='GPL >= 2',
-      provides=['pyseq.polytable'],
+      provides=['libsequence.polytable'],
       obsoletes=['none'],
       packages=['pyseq'],
       py_modules=[],
       scripts=[],
-      package_data={'pyseq':['*.pxd'],'pyseq.polytable':['*.pxd']},
+      package_data={'libsequence':['*.pxd'],'libsequence.polytable':['*.pxd']},
       ext_modules=cythonize(extensions))
 

@@ -1,4 +1,4 @@
-import pyseq.polytable as pypt
+import libsequence.polytable as pypt
 
 
 x = pypt.simData()
@@ -17,6 +17,6 @@ x.assign_sep(pos,data)
 for i in range(2):
     print "element i is", x[i]
 
-x = pypt.polyTable()
+#x = pypt.polyTable()
 
 print x.size()
