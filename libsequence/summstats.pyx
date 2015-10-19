@@ -1,4 +1,5 @@
 from libcpp.cast cimport dynamic_cast
+from cython.operator cimport dereference as deref
 
 cdef class polySNP:
     def __cinit__(self,polyTable p,bint haveOutgroup = False, unsigned outgroup = 0, bint totMuts = True):
@@ -81,3 +82,10 @@ cdef class polySIM:
         return self.thisptr.WallsBprime()
     def wallsq(self):
         return self.thisptr.WallsQ()
+
+##functions
+def lhaf( polyTable pt, double l ):
+    if isinstance(pt,simData):
+        return lHaf(deref(dynamic_cast['SimData*'](pt.thisptr)),l)
+    else:
+        raise RuntimeError("lhaf: only simData objects are allowed")

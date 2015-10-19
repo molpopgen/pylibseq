@@ -55,7 +55,7 @@ cdef class polyTable:
 
         Example:
 
-        >>> import pyseq.polytable as pypt
+        >>> import libsequence.polytable as pypt
         >>> x = pypt.simData()
         >>>> x.assign([ (0.1,"01"),(0.2,"10") ])
         """
@@ -69,7 +69,7 @@ cdef class polyTable:
 
         Example: 
 
-        >>> import pyseq.polytable as pypt
+        >>> import libsequence.polytable as pypt
         >>> x = pypt.simData()
         >>> pos = [0.1,0.2,0.3,0.4]
         >>> data = ["0101","1011"]
@@ -84,7 +84,7 @@ cdef class simData(polyTable):
     """
     A polymorphism table for binary data.  0/1 = ancestral/derived.
 
-    .. note:: See :class:`pyseq.polytable.polyTable`
+    .. note:: See :class:`libsequence.polytable.polyTable`
     """
     def __cinit__(self):
         self.thisptr = new SimData()
@@ -95,7 +95,7 @@ cdef class polySites(polyTable):
     """
     A polymorphism table for Sequence data.  0/1 = ancestral/derived.
 
-    .. note:: See :class:`pyseq.polytable.polyTable`
+    .. note:: See :class:`libsequence.polytable.polyTable`
     """
     def __cinit__(self):
         self.thisptr = new PolySites()
