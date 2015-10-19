@@ -17,6 +17,13 @@ extensions=[
                extra_compile_args=["-std=c++11"],  
                extra_link_args=["-std=c++11"],
                libraries=["sequence"]),
+    Extension("libsequence.windows",
+               sources=["libsequence/windows.pyx"], # the Cython source and additional C++ source files
+               language="c++",                        # generate and compile C++ code
+               include_dirs=['.','include','..'], 
+               extra_compile_args=["-std=c++11"],  
+               extra_link_args=["-std=c++11"],
+               libraries=["sequence"]),
 ]
 
 setup(name='libsequence',
@@ -36,6 +43,6 @@ setup(name='libsequence',
       packages=['libsequence'],
       py_modules=[],
       scripts=[],
-      package_data={'libsequence':['*.pxd'],'libsequence.polytable':['*.pxd'],'libsequence.summstats':['*.pxd']},
+      package_data={'libsequence':['*.pxd'],'libsequence.polytable':['*.pxd'],'libsequence.summstats':['*.pxd'],'libsequence.windows':['*.pxd']},
       ext_modules=cythonize(extensions))
 

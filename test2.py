@@ -1,5 +1,6 @@
 import libsequence.polytable as pypt
 import libsequence.summstats as sstats
+import libsequence.windows as lsw
 
 x = pypt.simData()
 x.assign([ (0.1,"01"),(0.2,"10") ])
@@ -24,4 +25,9 @@ ss = sstats.polySIM(x)
 
 print ss.thetapi()
 
-x = pypt.polyTable()
+w = lsw.simDataWindows(x,0.1,0.05)
+
+for i in range(len(w)):
+    print w[i]
+
+#x = pypt.polyTable()

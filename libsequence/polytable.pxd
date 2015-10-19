@@ -11,6 +11,8 @@ cdef extern from "Sequence/PolyTable.hpp" namespace "Sequence":
         vector[string].iterator end()
         vector[double].iterator pbegin()
         vector[double].iterator pend()
+        vector[pair[double,string]].const_iterator sbegin() const
+        vector[pair[double,string]].const_iterator send() const
         vector[string] GetData() const
         vector[double] GetPositions() const
 
@@ -29,6 +31,7 @@ cdef extern from "Sequence/PolyTable.hpp" namespace "Sequence":
 cdef extern from "Sequence/SimData.hpp" namespace "Sequence":
     cdef cppclass SimData(PolyTable):
         SimData()
+        SimData(const SimData &)
 
 cdef extern from "Sequence/PolySites.hpp" namespace "Sequence":
     cdef cppclass PolySites(PolyTable):
