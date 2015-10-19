@@ -24,10 +24,11 @@ setup(name='pyseq',
       classifiers=['population genetics'],
       platforms=['Linux','OS X'],
       license='GPL >= 2',
-      provides=['polytable'],
+      provides=['pyseq.polytable'],
       obsoletes=['none'],
       packages=['pyseq'],
       py_modules=[],
       scripts=[],
+      package_data={'pyseq':['*.pxd'],'pyseq.polytable':['*.pxd']},
       ext_modules=cythonize(extensions))
 
