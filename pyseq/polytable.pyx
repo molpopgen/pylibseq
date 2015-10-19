@@ -39,3 +39,8 @@ cdef class simData(polyTable):
     def __dealloc__(self):
         pass
 
+cdef class polySites(polyTable):
+    def __cinit__(self):
+        self.thisptr = new PolySites()
+    def __dealloc__(self):
+        pass
