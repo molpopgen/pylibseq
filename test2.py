@@ -9,10 +9,14 @@ print x.size()
 for i in range(2):
     print "element i is", x[i]
 
-pos = [0.1,0.3,0.4]
+pos = [0.1,0.2,0.3,0.4]
 data = ["0101","1011"]
 
 x.assign_sep(pos,data)
 
 for i in range(2):
     print "element i is", x[i]
+
+x = pypt.polyTable()
+
+print x.size()
