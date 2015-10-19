@@ -34,6 +34,11 @@ For example, if libsequence is installed into /opt:
 
    $ CPPFLAGS=-I/opt/include LDFLAGS=-L/opt/lib sudo python setup.py install
 
+Documentation:
+======================
+
+None, yet, except for a few docstrings...
+
 .. _libsequence: http://molpopgen.github.io/libsequence/
 .. _Cython: http://www.cython.org/
 .. _Python: http://www.cython.org/
