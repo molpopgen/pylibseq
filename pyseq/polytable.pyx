@@ -7,6 +7,11 @@ from cython.operator import dereference as deref,postincrement as inc
 from polytable cimport PolyTable,SimData
 
 cdef class polyTable:
+    """
+    libsequence's Sequence::PolyTable
+
+    .. note:: It is an error to directly use this class in Python.  An assertion will be triggered.  This is simply the base API for other types.
+    """
     def __cinit__(self):
         thisptr = NULL
     def __dealloc__(self):
@@ -14,38 +19,84 @@ cdef class polyTable:
             del self.thisptr
             self.thisptr = NULL
     cpdef size(self):
+        """
+        Get the sample size of the polymorphism table
+        """
         assert (self.thisptr != NULL)
         return self.thisptr.second.size()
     def __getitem__(self, size_t i):
         assert (self.thisptr != NULL)
         return self.thisptr.second[i]
     cpdef GetData(self):
+        """
+        Get the genotype data
+
+        :rtype: list
+        """
         assert (self.thisptr != NULL)
         return self.thisptr.GetData()
     cpdef GetPositions(self):
+        """
+        Get the mutation positions
+
+        :rtype: list
+        """
         assert (self.thisptr != NULL)
         return self.thisptr.GetPositions()
     cpdef empty(self):
+        """
+        Return True if sample size is 0
+        """
         assert (self.thisptr != NULL)
         return self.thisptr.empty()
     cpdef assign(self,const vector[polymorphicSite] & d):
+        """
+        Fill data from a list of tuples
+
+        Example:
+
+        >>> import pyseq.polytable as pypt
+        >>> x = pypt.simData()
+        >>>> x.assign([ (0.1,"01"),(0.2,"10") ])
+        """
         assert (self.thisptr != NULL)
         cdef bint rv = self.thisptr.assign(d.const_begin(),d.const_end())
         if rv == False:
             raise RuntimeError("assign failed")
     cpdef assign_sep(self,const vector[double] & pos,const vector[string] & data):
+        """
+        Fill object from two lists
+
+        Example: 
+
+        >>> import pyseq.polytable as pypt
+        >>> x = pypt.simData()
+        >>> pos = [0.1,0.2,0.3,0.4]
+        >>> data = ["0101","1011"]
+        >>> x.assign_sep(pos,data)
+        """
         assert (self.thisptr != NULL)
         cdef bint rv =self.thisptr.assign[double,string](pos.data(),pos.size(),data.data(),data.size())
         if rv == False:
             raise RuntimeError("assign_sep failed")
 
 cdef class simData(polyTable):
+    """
+    A polymorphism table for binary data.  0/1 = ancestral/derived.
+
+    .. note:: See :class:`pyseq.polytable.polyTable`
+    """
     def __cinit__(self):
         self.thisptr = new SimData()
     def __dealloc__(self):
         pass
 
 cdef class polySites(polyTable):
+    """
+    A polymorphism table for Sequence data.  0/1 = ancestral/derived.
+
+    .. note:: See :class:`pyseq.polytable.polyTable`
+    """
     def __cinit__(self):
         self.thisptr = new PolySites()
     def __dealloc__(self):
