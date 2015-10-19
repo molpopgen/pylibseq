@@ -11,7 +11,7 @@ for i in range(2):
     print "element i is", x[i]
 
 pos = [0.1,0.2,0.3,0.4]
-data = ["0101","1011"]
+data = ["0101","1011","0111","1110"]
 
 x.assign_sep(pos,data)
 
@@ -23,6 +23,7 @@ print x.size()
 
 ss = sstats.polySIM(x)
 
+print ss.numpoly()
 print ss.thetapi()
 
 w = lsw.simDataWindows(x,0.1,0.05)
@@ -30,6 +31,6 @@ w = lsw.simDataWindows(x,0.1,0.05)
 for i in range(len(w)):
     print i
     psi = sstats.polySIM(w[i])
-    print psi.thetapi()
+    print psi.thetapi(),' ',psi.tajimasd()
 
 
