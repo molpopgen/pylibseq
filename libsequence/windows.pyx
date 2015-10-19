@@ -9,6 +9,8 @@ cdef class simDataWindows:
         self.windows = new PolyTableSlice[SimData](d.thisptr.sbegin(),
                                                    d.thisptr.send(),
                                                    window_size,step_len,starting_pos,ending_pos)
+    def __dealloc__(self):
+        sel self.windows
     def __getitem__(self,i):
         cdef SimData d = deref(self.windows)[i]
         cdef vector[pair[double,string]] temp;
