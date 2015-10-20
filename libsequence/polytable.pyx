@@ -61,7 +61,7 @@ cdef class polyTable:
 
         >>> import libsequence.polytable as pypt
         >>> x = pypt.simData()
-        >>>> x.assign([ (0.1,"01"),(0.2,"10") ])
+        >>> x.assign([ (0.1,"01"),(0.2,"10") ])
         """
         assert (self.thisptr != NULL)
         cdef bint rv = self.thisptr.assign(d.const_begin(),d.const_end())
