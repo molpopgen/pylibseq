@@ -81,6 +81,14 @@ class test_functions_simData(unittest.TestCase):
         removeAmbiguous(x)
         pos = x.pos()
         self.assertEqual(pos,[0.1])
-        
+    def testRemoveGaps(self):
+        ##Remove sites other than a,g,c,t,n,0,1
+        d = [(0.1,"01010101"),(0.2,"1101-111")]
+        x = simData()
+        x.assign(d)
+        removeGaps(x,'-')
+        pos = x.pos()
+        self.assertEqual(pos,[0.1])
+                
 if __name__ == '__main__':
     unittest.main()
