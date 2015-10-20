@@ -12,7 +12,7 @@ This package serves two roles:
 
 What this package does **not** (currently) do:
 
-* provide an interface for I/O operations.  Python I/O and C++ I/O are fundamentally very different.  Bridging the gap requires either adding features to Cython and/or adding modules to this package that depend on Boost.Python, which would add an additional C++ dependency to this package.
+* provide an interface for I/O operations.  Python I/O and C++ I/O are fundamentally very different.  Bridging the gap requires either adding features to Cython and/or adding modules to this package that depend on the boost_ Python interface, which would add an additional C++ dependency to this package.
 
 Requirements:
 ===================================
@@ -61,5 +61,6 @@ Documentation:
 Eventually, documentation will be online.  Check the unit_test directory for working examples (well, working if the tests are passing!).
 
 .. _libsequence: http://molpopgen.github.io/libsequence/
+.. _boost: http://www.boost.org/
 .. _Cython: http://www.cython.org/
 .. _Python: http://www.cython.org/
