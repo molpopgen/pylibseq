@@ -29,29 +29,23 @@ long_desc = \
 """
 """
 
-extensions=[
-     Extension("libsequence.polytable",
-               sources=["libsequence/polytable.pyx"], # the Cython source and additional C++ source files
-        language="c++",                        # generate and compile C++ code
-        include_dirs=['.','include','..'], 
-        extra_compile_args=["-std=c++11"],  
-        extra_link_args=["-std=c++11"],
-        libraries=["sequence"]),
-     Extension("libsequence.summstats",
-               sources=["libsequence/summstats.pyx"], # the Cython source and additional C++ source files
-               language="c++",                        # generate and compile C++ code
-               include_dirs=['.','include','..'], 
-               extra_compile_args=["-std=c++11"],  
-               extra_link_args=["-std=c++11"],
-               libraries=["sequence"]),
-    Extension("libsequence.windows",
-               sources=["libsequence/windows.pyx"], # the Cython source and additional C++ source files
-               language="c++",                        # generate and compile C++ code
-               include_dirs=['.','include','..'], 
-               extra_compile_args=["-std=c++11"],  
-               extra_link_args=["-std=c++11"],
-               libraries=["sequence"]),
-]
+extensions = []
+pdata = {'libsequence':['*.pxd']}
+provided = []
+modules = ['polytable','summstats','windows']
+for i in modules:
+    extensions.append(Extension("libsequence."+i,
+                                sources=["libsequence/"+i+".pyx"],
+                                language="c++",                  
+                                include_dirs=['.','include','..'], 
+                                extra_compile_args=["-std=c++11"],  
+                                extra_link_args=["-std=c++11"],
+                                libraries=["sequence"])
+                                )
+    provided.append('libsequence.'+i)
+    pdata['libsequence.'+i]=['*.pxd']
+
+
 
 setup(name='@PACKAGE_NAME@',
       version='@PACKAGE_VERSION@',
@@ -67,12 +61,12 @@ setup(name='@PACKAGE_NAME@',
       classifiers=['population genetics'],
       platforms=['Linux','OS X'],
       license='GPL >= 2',
-      provides=['libsequence.polytable'],
+      provides=provided,
       obsoletes=['none'],
       packages=['libsequence'],
       py_modules=[],
       scripts=[],
-      package_data={'libsequence':['*.pxd'],'libsequence.polytable':['*.pxd'],'libsequence.summstats':['*.pxd'],'libsequence.windows':['*.pxd']},
+      package_data=pdata,
       ext_modules=cythonize(extensions)
 )
      
