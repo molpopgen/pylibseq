@@ -8,7 +8,7 @@ The bindings are implemented using Cython_.
 Requirements:
 ===================================
 
-* libsequence_ must be installed on your system
+* libsequence_ must be installed on your system.  **Currently, this package requires the dev branch of libsequence**
 * Python 2 or Python 3
 * Cython_ must be installed on your system.  (Eventually, this will go away as an installation requirement).
 * An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughtly, this means GCC >= 4.8 and clang >= 3.5.
