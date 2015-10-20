@@ -5,6 +5,9 @@ from libcpp.pair cimport pair
 from cython.operator cimport dereference as deref
 
 cdef class simDataWindows:
+    """
+    Calculate sliding windows from a :class:`libsequence.polytable.simData`
+    """
     def __cinit__(self, simData d, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):
         self.windows = new PolyTableSlice[SimData](d.thisptr.sbegin(),
                                                    d.thisptr.send(),
@@ -22,6 +25,9 @@ cdef class simDataWindows:
         return self.windows.size()
 
 cdef class polySitesWindows:
+    """
+    Calculate sliding windows from a :class:`libsequence.polytable.polySites`
+    """
     def __cinit__(self, polySites d, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):
         self.windows = new PolyTableSlice[PolySites](d.thisptr.sbegin(),
                                                      d.thisptr.send(),
