@@ -1,0 +1,78 @@
+#!/usr/bin/env python
+
+# setup.py.in.distutils
+#
+# Copyright 2012, 2013 Brandon Invergo <brandon@invergo.net>
+#
+# Copying and distribution of this file, with or without modification,
+# are permitted in any medium without royalty provided the copyright
+# notice and this notice are preserved.  This file is offered as-is,
+# without any warranty.
+
+
+from distutils.core import setup,Extension
+from Cython.Build import cythonize
+import platform, glob, sys
+
+if platform.system() == 'Linux':
+    doc_dir = '@prefix@/share/doc/@PACKAGE_TARNAME@'
+else:
+    try:
+        from win32com.shell import shellcon, shell
+        homedir = shell.SHGetFolderPath(0, shellcon.CSIDL_APPDATA, 0, 0)
+        appdir = '@PACKAGE_TARNAME@'
+        doc_dir = os.path.join(homedir, appdir)
+    except:
+        pass
+
+long_desc = \
+"""
+"""
+
+extensions=[
+     Extension("libsequence.polytable",
+               sources=["libsequence/polytable.pyx"], # the Cython source and additional C++ source files
+        language="c++",                        # generate and compile C++ code
+        include_dirs=['.','include','..'], 
+        extra_compile_args=["-std=c++11"],  
+        extra_link_args=["-std=c++11"],
+        libraries=["sequence"]),
+     Extension("libsequence.summstats",
+               sources=["libsequence/summstats.pyx"], # the Cython source and additional C++ source files
+               language="c++",                        # generate and compile C++ code
+               include_dirs=['.','include','..'], 
+               extra_compile_args=["-std=c++11"],  
+               extra_link_args=["-std=c++11"],
+               libraries=["sequence"]),
+    Extension("libsequence.windows",
+               sources=["libsequence/windows.pyx"], # the Cython source and additional C++ source files
+               language="c++",                        # generate and compile C++ code
+               include_dirs=['.','include','..'], 
+               extra_compile_args=["-std=c++11"],  
+               extra_link_args=["-std=c++11"],
+               libraries=["sequence"]),
+]
+
+setup(name='@PACKAGE_NAME@',
+      version='@PACKAGE_VERSION@',
+      author='',
+      author_email='@PACKAGE_BUGREPORT@',
+      maintainer='',
+      maintainer_email='',
+      url='',
+      description="""""",
+      long_description=long_desc,
+      data_files=[(doc_dir, ['COPYING', 'README'])],
+      download_url='',
+      classifiers=['population genetics'],
+      platforms=['Linux','OS X'],
+      license='GPL >= 2',
+      provides=['libsequence.polytable'],
+      obsoletes=['none'],
+      packages=['libsequence'],
+      py_modules=[],
+      scripts=[],
+      package_data={'libsequence':['*.pxd'],'libsequence.polytable':['*.pxd'],'libsequence.summstats':['*.pxd'],'libsequence.windows':['*.pxd']},
+      ext_modules=cythonize(extensions)
+)
+     
