@@ -97,7 +97,7 @@ cdef class simData(polyTable):
 
 cdef class polySites(polyTable):
     """
-    A polymorphism table for Sequence data.  0/1 = ancestral/derived.
+    A polymorphism table for Sequence data.  A/G/C/T/N/0/1 is the alphabet for analysis.
 
     .. note:: See :class:`libsequence.polytable.polyTable`
     """
