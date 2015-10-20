@@ -14,7 +14,7 @@ from distutils.core import setup,Extension
 from Cython.Build import cythonize
 import platform, glob, sys
 
-if platform.system() == 'Linux':
+if platform.system() == 'Linux' or platform.system() == 'Darwin':
     doc_dir = '@prefix@/share/doc/@PACKAGE_TARNAME@'
 else:
     try:
