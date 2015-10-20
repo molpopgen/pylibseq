@@ -54,7 +54,7 @@ Unit testing:
 Documentation:
 ======================
 
-None, yet, except for a few docstrings...
+Eventually, documentation will be online.  Check the unit_test directory for working examples (well, working if the tests are passing!).
 
 .. _libsequence: http://molpopgen.github.io/libsequence/
 .. _Cython: http://www.cython.org/
