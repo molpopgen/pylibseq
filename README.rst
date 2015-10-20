@@ -20,6 +20,7 @@ Installation:
 
 .. code-block:: bash
 
+   $ ./configure
    $ sudo python setup.py install
 
 If you have libsequence in a "funny location" (*e.g.*, something other that /usr/local):
