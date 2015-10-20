@@ -32,7 +32,7 @@ long_desc = \
 extensions = []
 pdata = {'libsequence':['*.pxd']}
 provided = []
-modules = ['polytable','summstats','windows']
+modules = ['polytable','summstats','windows','fst']
 for i in modules:
     extensions.append(Extension("libsequence."+i,
                                 sources=["libsequence/"+i+".pyx"],
