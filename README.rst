@@ -5,15 +5,22 @@ This package provides Python_ bindings for the C++11 library libsequence_.
 
 The bindings are implemented using Cython_.
 
+This package serves two roles:
+
+* It provides a means of using some of the more widely-used bits of libsequence_ within the Python language
+* The unit tests of this package also serve as unit tests for libsequence_.
+
 Requirements:
 ===================================
 
 * libsequence_ must be installed on your system.  **Currently, this package requires the dev branch of libsequence**
 * Python 2 or Python 3
 * Cython_ must be installed on your system.  (Eventually, this will go away as an installation requirement).
-* An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughtly, this means GCC >= 4.8 and clang >= 3.5.
+* An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughty, this means GCC >= 4.8 and clang >= 3.5.
 
 You should install libsequence_ from source and Cython_ via your favorite Python package manager.
+
+The supported platforms are Linux and OS X.
 
 Installation:
 =======================
@@ -34,6 +41,15 @@ For example, if libsequence is installed into /opt:
 .. code-block:: bash
 
    $ CPPFLAGS=-I/opt/include LDFLAGS=-L/opt/lib sudo python setup.py install
+
+Unit testing:
+=======================
+
+.. code-block:: bash
+
+   $ ./configure 
+   $ python setup.py build_ext -i
+   $ python -m unittest discover unit_test
 
 Documentation:
 ======================
