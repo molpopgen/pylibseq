@@ -31,7 +31,7 @@ cdef class polyTable:
         return self.thisptr.second[i]
     cpdef numsites(self):
         return self.thisptr.numsites()
-    cpdef GetData(self):
+    cpdef data(self):
         """
         Get the genotype data
 
@@ -39,7 +39,7 @@ cdef class polyTable:
         """
         assert (self.thisptr != NULL)
         return self.thisptr.GetData()
-    cpdef GetPositions(self):
+    cpdef pos(self):
         """
         Get the mutation positions
 

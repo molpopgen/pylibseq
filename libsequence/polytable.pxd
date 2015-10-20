@@ -59,8 +59,8 @@ cdef class polyTable:
     cdef PolyTable * thisptr
     cpdef size(self)
     cpdef numsites(self)
-    cpdef GetData(self)
-    cpdef GetPositions(self)
+    cpdef data(self)
+    cpdef pos(self)
     cpdef empty(self)
     cpdef assign(self,const vector[polymorphicSite] & d)
     cpdef assign_sep(self,const vector[double] & pos,const vector[string] & data)
