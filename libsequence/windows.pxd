@@ -7,7 +7,7 @@ cdef extern from "Sequence/PolyTableSlice.hpp" namespace "Sequence":
                        const double & window_size,
                        const double & step_len,
                        const double & starting_pos,
-                       const double & ending_pos)
+                       const double & ending_pos) except +
 
         T operator[](const unsigned &) const
         unsigned size() const
