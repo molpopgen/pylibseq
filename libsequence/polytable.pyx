@@ -108,7 +108,16 @@ cdef class polySites(polyTable):
 
 def removeGaps(polyTable p, gapchar = '-'):
     """
-    Remove all sites (columns) with gaps
+    Remove all sites (columns) with gaps.
+
+    Example:
+
+    >>> import libsequence.polytable as pypt
+    >>> x = pypt.polySites()
+    >>> x.assign_sep([0.1,0.2,0.3],["ATC","CGA","AT-"])
+    >>> pypt.removeGaps(x)
+    >>> x.pos()
+    [0.1, 0.2]
     """
     cdef char * gc = gapchar
     RemoveGaps(p.thisptr,gc[0])
