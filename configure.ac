@@ -63,7 +63,7 @@ dnl macros, put them in files in this directory.
 dnl----
 dnl
 m4_include([m4/python.m4])
-
+m4_include([m4/ax_cxx_compile_stdxx_11.m4])
 
 dnl###########################
 dnl Program/command support  #
@@ -319,7 +319,7 @@ dnl Python headers (ie -I/usr/lib/python). The results are stored in
 dnl PYTHON_INCLUDES
 dnl----
 dnl
-dnl PC_PYTHON_CHECK_INCLUDES
+PC_PYTHON_CHECK_INCLUDES
 
 
 dnl--PC_PYTHON_CHECK_HEADERS([ACTION-IF-PRESENT], [ACTION-IF-ABSENT])--
@@ -337,7 +337,7 @@ dnl This checks what LIBS flags are necessary to use the Python
 dnl libraries (ie -lpython). The results are stored in PYTHON_LIBS
 dnl----
 dnl
-dnl PC_PYTHON_CHECK_LIBS
+PC_PYTHON_CHECK_LIBS
 
 
 dnl--PC_PYTHON_TEST_LIBS([FUNCTION-TO-TEST], [ACTION-IF-PRESENT], [ACTION-IF-ABSENT])
@@ -396,6 +396,29 @@ dnl PC_PYTHON_CHECK_ABI_FLAGS
 dnl#########
 dnl Finish #
 dnl#########
+
+LIBSEQVERSION=`libsequenceConfig --version`
+
+dnl Check that libsequence version is sufficient
+if test "$LIBSEQVERSION" \> "1.8.6"
+then
+	echo "libsequence version $LIBSEQVERSION detected"
+else
+	AC_MSG_ERROR([libsequence >= 1.8.7 required, please install from http://github.com/molpopgen/libsequence])
+fi
+
+AX_CXX_COMPILE_STDCXX_11([noext],[mandatory])
+AC_LANG(C++)
+
+AC_CHECK_HEADER(Sequence/SummStats/Garud.hpp, , [AC_MSG_ERROR([Sequence/SummStats/Garud.hpp not found. libsequence (www.molpopgen.org) >= 1.8.8 required.])])
+AC_CHECK_HEADER(Sequence/SummStats/lHaf.hpp, , [AC_MSG_ERROR([Sequence/SummStats/lHaf.hpp not found. libsequence (www.molpopgen.org) >= 1.8.8 required.])])
+
+dnl check for C++ libraries that are required
+AC_LANG_SAVE
+          AC_LANG_CPLUSPLUS
+          AC_REQUIRE_CPP
+          AC_CHECK_LIB(sequence, main,,[AC_MSG_ERROR([libsequence runtime library does not seem to be here])])
+AC_LANG_RESTORE
 
 dnl Define the files to be configured
 AC_CONFIG_FILES([Makefile setup.py])
