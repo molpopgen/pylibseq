@@ -107,6 +107,9 @@ cdef class polySites(polyTable):
         pass
 
 def removeGaps(polyTable p, gapchar = '-'):
+    """
+    Remove all sites (columns) with gaps
+    """
     cdef char * gc = gapchar
     RemoveGaps(p.thisptr,gc[0])
 
