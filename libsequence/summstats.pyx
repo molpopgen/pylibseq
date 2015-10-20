@@ -63,23 +63,23 @@ cdef class polySIM:
         self.thisptr = new PolySIM(dynamic_cast['SimData*'](d.thisptr))
     def thetapi(self):
         """
-        "Sum of site heterozygosity."  :math:`\hat\theta_\pi = \sum_i^S\frac{c}{n}\frac{n-c-1}{n-1}`,
+        "Sum of site heterozygosity."  :math:`\\hat\\theta_\\pi = \\sum_i^S\\frac{c}{n}\\frac{n-c-1}{n-1}`,
         where :math:`S` is the number of polymorphisms and :math:`n` is the sample size.
         """
         return self.thisptr.ThetaPi()
     def thetaw (self):
         """
-        Watterson's estimator of :math:`\theta` from :math:`S`
+        Watterson's estimator of :math:`\\theta` from :math:`S`
         """
         return self.thisptr.ThetaW()
     def thetah (self):
         """
-        Fay and Wu's estimator of :math:`\theta`.
+        Fay and Wu's estimator of :math:`\\theta`.
         """
         return self.thisptr.ThetaH()
     def thetal (self):
         """
-        Normalized version of Fay and Wu's estimator of :math:`\theta`.
+        Normalized version of Fay and Wu's estimator of :math:`\\theta`.
         """
         return self.thisptr.ThetaL()
 
