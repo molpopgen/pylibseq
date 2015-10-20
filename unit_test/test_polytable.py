@@ -73,6 +73,14 @@ class test_functions_simData(unittest.TestCase):
         x = simData()
         x.assign(d)
         self.assertEqual(isValid(x),True)
+    def testRemoveAmbig(self):
+        ##Remove sites other than a,g,c,t,n,0,1
+        d = [(0.1,"01010101"),(0.2,"1101Q111")]
+        x = simData()
+        x.assign(d)
+        removeAmbiguous(x)
+        pos = x.pos()
+        self.assertEqual(pos,[0.1])
         
 if __name__ == '__main__':
     unittest.main()
