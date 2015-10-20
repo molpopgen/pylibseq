@@ -107,7 +107,8 @@ cdef class polySites(polyTable):
         pass
 
 def removeGaps(polyTable p, gapchar = '-'):
-    RemoveGaps(p.thisptr,gapchar)
+    cdef char * gc = gapchar
+    RemoveGaps(p.thisptr,gc[0])
 
 def isValid(polyTable p):
     return PolyTableValid(p.thisptr)
