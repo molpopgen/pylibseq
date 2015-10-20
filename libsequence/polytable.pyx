@@ -168,7 +168,7 @@ def freqFilter(polyTable p,unsigned mincount,bint haveOutgroup = False, unsigned
     :param haveOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     
-    .. note:: If haveOutgroup == True, this is a filter on derived mutation counts, otherwise it is a filter on minor allele counts.  If p is of type :class:`libsequence.polyTable.simData, this is a filter on derived mutation counts.
+    .. note:: If haveOutgroup == True, this is a filter on derived mutation counts, otherwise it is a filter on minor allele counts.  If p is of type :class:`libsequence.polyTable.simData`, this is a filter on derived mutation counts.
     """
     p.thisptr.ApplyFreqFilter(mincount,haveOutgroup,outgroup)
 
