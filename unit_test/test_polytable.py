@@ -68,6 +68,11 @@ class test_functions_simData(unittest.TestCase):
         freqFilter(x,2)
         pos = x.pos()
         self.assertEqual(pos,[0.1,0.2])
+    def testIsValid(self):
+        d = [(0.1,"01010101"),(0.2,"11011111")]
+        x = simData()
+        x.assign(d)
+        self.assertEqual(isValid(x),True)
         
 if __name__ == '__main__':
     unittest.main()
