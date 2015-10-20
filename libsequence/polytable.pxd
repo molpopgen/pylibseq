@@ -58,6 +58,7 @@ cdef extern from "Sequence/PolyTableFunctions.hpp" namespace "Sequence":
 cdef class polyTable:
     cdef PolyTable * thisptr
     cpdef size(self)
+    cpdef numsites(self)
     cpdef GetData(self)
     cpdef GetPositions(self)
     cpdef empty(self)

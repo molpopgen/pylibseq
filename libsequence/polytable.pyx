@@ -29,6 +29,8 @@ cdef class polyTable:
     def __getitem__(self, size_t i):
         assert (self.thisptr != NULL)
         return self.thisptr.second[i]
+    cpdef numsites(self):
+        return self.thisptr.numsites()
     cpdef GetData(self):
         """
         Get the genotype data
