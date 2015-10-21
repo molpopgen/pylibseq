@@ -104,6 +104,11 @@ cdef class polySNP:
         Jeff Wall's Q statistic
         """
         return self.thisptr.WallsQ()
+    def rm(self):
+        """
+        Hudson and Kaplan's lower bound on no. crossover events
+        """
+        return self.thisptr.Minrec()
 
 cdef class polySIM:
     """
@@ -210,6 +215,11 @@ cdef class polySIM:
         Jeff Wall's Q statistic
         """
         return self.thisptr.WallsQ()
+    def rm(self):
+        """
+        Hudson and Kaplan's lower bound on no. crossover events
+        """
+        return self.thisptr.Minrec()
 
 ##functions
 def lhaf( polyTable pt, double l ):
