@@ -397,6 +397,10 @@ dnl#########
 dnl Finish #
 dnl#########
 
+dnl Define the files to be configured
+AC_CONFIG_FILES([Makefile setup.py conf.py])
+AC_CONFIG_HEADERS([config.h])
+
 LIBSEQVERSION=`libsequenceConfig --version`
 
 dnl Check that libsequence version is sufficient
@@ -420,7 +424,6 @@ AC_LANG_SAVE
           AC_CHECK_LIB(sequence, main,,[AC_MSG_ERROR([libsequence runtime library does not seem to be here])])
 AC_LANG_RESTORE
 
-dnl Define the files to be configured
-AC_CONFIG_FILES([Makefile setup.py])
+
 dnl Generate config.status
 AC_OUTPUT
