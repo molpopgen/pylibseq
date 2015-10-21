@@ -5,9 +5,8 @@ from cython.operator cimport dereference as deref
 
 cdef extern from "<limits>" namespace "std" nogil:
     cdef cppclass numeric_limits[T]:
+        @staticmethod
         T max()
-        T min()
-        T epsilon()
         
 cdef class polySNP:
     """
@@ -266,8 +265,7 @@ def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned m
     cdef unsigned j = i + 1
     cdef vector[double] ldvals
     ldvals.resize(6)
-    cdef numeric_limits[double] nl
-    cdef double md = nl.max()
+    cdef double md = numeric_limits[double].max()
     if maxDist is not None:
         md = maxDist
     while Disequilibrium(p.thisptr,ldvals,&i,&j,haveOutgroup,outgroup,mincount,md):
