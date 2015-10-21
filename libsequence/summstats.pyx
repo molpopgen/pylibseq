@@ -11,6 +11,8 @@ cdef class polySNP:
     """
     def __cinit__(self,polyTable p,bint haveOutgroup = False, unsigned outgroup = 0, bint totMuts = True):
        self.thisptr = new PolySNP(p.thisptr,haveOutgroup,outgroup,totMuts)
+    def __dealloc__(self):
+        del self.thisptr
     def thetapi(self):
         """
         "Sum of site heterozygosity."  :math:`\\hat\\theta_\\pi = \\sum_i^S\\frac{c}{n}\\frac{n-c-1}{n-1}`,
@@ -115,6 +117,8 @@ cdef class polySIM:
     """
     def __cinit__(self,simData d):
         self.thisptr = new PolySIM(dynamic_cast['SimData*'](d.thisptr))
+    def __dealloc__(self):
+        del self.thisptr
     def thetapi(self):
         """
         "Sum of site heterozygosity."  :math:`\\hat\\theta_\\pi = \\sum_i^S\\frac{c}{n}\\frac{n-c-1}{n-1}`,
