@@ -61,7 +61,7 @@ Modifying the package
 
 You wll need to enable re-generation of the C++ source files:
 
-..code-block:: bash
+.. code-block:: bash
 
    $ ./configure --enable-cython
 
