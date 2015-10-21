@@ -634,6 +634,9 @@ CPPFLAGS
 LDFLAGS
 CXXFLAGS
 CXX
+CYTHONIZE
+CYTHONIMPORT
+EXTENSION
 PYTHON_LIBS
 PYTHON_INCLUDES
 pkgpyexecdir
@@ -692,6 +695,7 @@ ac_subst_files=''
 ac_user_opts='
 enable_option_checking
 with_virtualenv
+enable_cython
 '
       ac_precious_vars='build_alias
 host_alias
@@ -1310,6 +1314,12 @@ if test -n "$ac_init_help"; then
      short | recursive ) echo "Configuration of pyseq 0.0.1:";;
    esac
   cat <<\_ACEOF
+
+Optional Features:
+  --disable-option-checking  ignore unrecognized --enable/--with options
+  --disable-FEATURE       do not include FEATURE (same as --enable-FEATURE=no)
+  --enable-FEATURE[=ARG]  include FEATURE [ARG=yes]
+  --enable-cython         Use Cython for compilation
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -3247,6 +3257,20 @@ then
 else
 	as_fn_error $? "libsequence >= 1.8.7 required, please install from http://github.com/molpopgen/libsequence" "$LINENO" 5
 fi
+
+# Check whether --enable-cython was given.
+if test "${enable_cython+set}" = set; then :
+  enableval=$enable_cython; EXTENSION=".pyx"
+ CYTHONIMPORT="from Cython.Build import cythonize"
+ CYTHONIZE="cythonize(extensions,gdb_debug=False)"
+
+else
+  EXTENSION=".cpp"
+ CYTHONIMPORT=""
+ CYTHONIZE="extensions"
+
+fi
+
 
 ac_ext=cpp
 ac_cpp='$CXXCPP $CPPFLAGS'

@@ -35,7 +35,7 @@ provided = []
 modules = ['polytable','summstats','windows','fst']
 for i in modules:
     extensions.append(Extension("libsequence."+i,
-                                sources=["libsequence/"+i+".pyx"],
+                                sources=["libsequence/"+i+"@EXTENSION@"],
                                 language="c++",                  
                                 extra_compile_args=["-std=c++11"],  
                                 extra_link_args=["-std=c++11"],
@@ -48,11 +48,11 @@ for i in modules:
 
 setup(name='@PACKAGE_NAME@',
       version='@PACKAGE_VERSION@',
-      author='',
+      author='Kevin R. Thornton',
       author_email='@PACKAGE_BUGREPORT@',
-      maintainer='',
-      maintainer_email='',
-      url='',
+      maintainer='Kevin R. Thornton',
+      maintainer_email='krthornt@uci.edu',
+      url='http://github.com/molpopgen/pyseq',
       description="""""",
       long_description=long_desc,
       data_files=[(doc_dir, ['COPYING', 'README.rst'])],
@@ -66,6 +66,6 @@ setup(name='@PACKAGE_NAME@',
       py_modules=[],
       scripts=[],
       package_data=pdata,
-      ext_modules=cythonize(extensions)
+      ext_modules=@CYTHONIZE@
 )
      

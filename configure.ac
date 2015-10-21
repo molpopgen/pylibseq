@@ -411,6 +411,8 @@ else
 	AC_MSG_ERROR([libsequence >= 1.8.7 required, please install from http://github.com/molpopgen/libsequence])
 fi
 
+AC_ARG_ENABLE([cython],AS_HELP_STRING([--enable-cython],[Use Cython for compilation]),[AC_SUBST(EXTENSION,".pyx") AC_SUBST(CYTHONIMPORT,"from Cython.Build import cythonize") AC_SUBST(CYTHONIZE,"cythonize(extensions,gdb_debug=False)")],[AC_SUBST(EXTENSION,".cpp") AC_SUBST(CYTHONIMPORT,"") AC_SUBST(CYTHONIZE,"extensions")])
+
 AX_CXX_COMPILE_STDCXX_11([noext],[mandatory])
 AC_LANG(C++)
 
