@@ -37,7 +37,6 @@ for i in modules:
     extensions.append(Extension("libsequence."+i,
                                 sources=["libsequence/"+i+".pyx"],
                                 language="c++",                  
-                                include_dirs=['.','include','..'], 
                                 extra_compile_args=["-std=c++11"],  
                                 extra_link_args=["-std=c++11"],
                                 libraries=["sequence"])
