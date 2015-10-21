@@ -4,13 +4,19 @@ cdef class fst:
     """
     "Factory" object for :math:`F_{st}` calculations.
     """  
-    def __cinit__(self, polyTable p,const unsigned[:] config, const double[:] weights = None, bint haveOutgroup = False, unsigned outgroup = 0):
+    #def __cinit__(self, polyTable p,const unsigned[:] config, const double[:] weights = None, bint haveOutgroup = False, unsigned outgroup = 0):
+    def __cinit__(self, polyTable p,list config, list weights = None, bint haveOutgroup = False, unsigned outgroup = 0):
+        c = array.array('I',config)
+        cdef unsigned[:] cv = c
+        cdef double[:] wv
         if weights is None:
-            self.thisptr = new FST(p.thisptr,len(config),&config[0],NULL,haveOutgroup,outgroup)
+            self.thisptr = new FST(p.thisptr,len(config),&cv[0],NULL,haveOutgroup,outgroup)
         else:
+            w = array.array('d',weights)
+            wv = w
             if len(config) != len(weights):
                 raise RuntimeError("len(config) must equal len(weights)")
-            self.thisptr = new FST(p.thisptr,len(config),&config[0],&weights[0],haveOutgroup,outgroup)
+            self.thisptr = new FST(p.thisptr,len(config),&cv[0],&wv[0],haveOutgroup,outgroup)
     def hsm(self):
         """
         Hudson, Slatkin, Maddison
@@ -49,16 +55,27 @@ cdef class fst:
     def shared(self,unsigned i,unsigned j):
         """
         Returns positions of mutations shared between demes i and j
+
+        :rtype: list
+        
         """
-        return self.thisptr.shared(i,j)
+        return list(self.thisptr.shared(i,j))
     def priv(self,unsigned i,unsigned j):
         """
         Returns set of mutations private to i and private to j, when
         only demes i and j are compared
+
+        :return: dict. i and j are keys, and list of private positions are values
+        
+        :rtype: dict
         """
-        return self.thisptr.Private(i,j)
+        p = self.thisptr.Private(i,j)
+        return {i:list(p.first),j:list(p.second)}
     def fixed(self,unsigned i,unsigned j):
         """
         Returns set of fixed differences between i and j (only considering that comparison)
+
+        :rtype: list
         """
-        return self.thisptr.fixed(i,j)
+        f = self.thisptr.fixed(i,j)
+        return sorted(list(f))
