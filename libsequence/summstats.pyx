@@ -3,6 +3,12 @@ from cython.view cimport array as cvarray
 from cpython cimport array
 from cython.operator cimport dereference as deref
 
+cdef extern from "<limits>" namespace "std" nogil:
+    cdef cppclass numeric_limits[T]:
+        T max()
+        T min()
+        T epsilon()
+        
 cdef class polySNP:
     """
     "Factory" class to calculate summary statistics from nucleotide data.
@@ -236,3 +242,39 @@ def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] 
             return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,&gmap[0])
     else:
         raise RuntimeError("lhaf: only simData objects are allowed")
+
+def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):
+    """
+    Pairwise "linkage disequilibrium" (LD) statistics
+
+    :param p: A :class:`libsequence.polytable.polyTable`
+    :param haveOutgroup: if True, then ougtroup is the index of the outroup sequence in p
+    :param outgroup: The index of the outgroup sequence in p.  Not used if haveOutgroup is False
+    :param mincount: Ignore site pairs where one or both sites have minor alleles occur < mincount times
+    :param maxDist: Do not consider pairs of sites > maxDist units apart.  Default will be the maximum value of a C/C++ double.
+
+    .. note:: This function skips sites with missing data, gaps, etc.
+    """
+    rv = {'i':[],
+          'j':[],
+          'rsq':[],
+          'D':[],
+          'Dprime':[]}
+    if p.empty():
+        return rv
+    cdef unsigned i = 0
+    cdef unsigned j = i + 1
+    cdef vector[double] ldvals
+    ldvals.resize(6)
+    cdef numeric_limits[double] nl
+    cdef double md = nl.max()
+    if maxDist is not None:
+        md = maxDist
+    while Disequilibrium(p.thisptr,ldvals,&i,&j,haveOutgroup,outgroup,mincount,md):
+        if ldvals[5] == 0:  ##site pair NOT skipped
+            rv['i'].append(ldvals[0])
+            rv['j'].append(ldvals[1])
+            rv['rsq'].append(ldvals[2])
+            rv['D'].append(ldvals[3])
+            rv['Dprime'].append(ldvals[4])
+    return rv

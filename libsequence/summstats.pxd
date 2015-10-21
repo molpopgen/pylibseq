@@ -84,5 +84,8 @@ cdef extern from "Sequence/SummStats/lHaf.hpp" namespace "Sequence":
     vector[double] lHaf( const SimData & data, const double l )
 
 cdef extern from "Sequence/SummStats/nSL.hpp" namespace "Sequence":
-  pair[double,double] nSL(const unsigned & core, const SimData & d, const double * gmap)
-  pair[double,double] snSL(const SimData & d,const double minfreq, const double binsize, const double * gmap)
+    pair[double,double] nSL(const unsigned & core, const SimData & d, const double * gmap)
+    pair[double,double] snSL(const SimData & d,const double minfreq, const double binsize, const double * gmap)
+
+cdef extern from "Sequence/Recombination.hpp" namespace "Sequence::Recombination":
+    bint Disequilibrium(const PolyTable *, vector[double] &, unsigned *, unsigned *,const bint & , const unsigned &, const unsigned &, const double)
