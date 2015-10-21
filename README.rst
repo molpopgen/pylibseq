@@ -19,10 +19,11 @@ Requirements:
 
 * libsequence_ must be installed on your system.  **Currently, this package requires the dev branch of libsequence**
 * Python 2 or Python 3
-* Cython_ must be installed on your system.  (Eventually, this will go away as an installation requirement).
 * An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughty, this means GCC >= 4.8 and clang >= 3.5.
 
-You should install libsequence_ from source and Cython_ via your favorite Python package manager.
+You should install libsequence_ from source.
+
+If you want to modify the package, you will need Cython_ installed via your favorite Python package manager.
 
 The supported platforms are Linux and OS X.
 
@@ -54,6 +55,16 @@ Unit testing:
    $ ./configure 
    $ python setup.py build_ext -i
    $ python -m unittest discover unit_test
+
+Modifying the package
+=======================
+
+You wll need to enable re-generation of the C++ source files:
+
+..code-block:: bash
+
+   $ ./configure --enable-cython
+
 
 Documentation:
 ======================
