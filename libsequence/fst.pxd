@@ -15,9 +15,10 @@ cdef extern from "Sequence/FST.hpp" namespace "Sequence":
         double piT() const
         double piS() const
         double piD() const
-        set[double] shared(unsigned pop1, unsigned pop2) const
-        set[double] fixed(unsigned pop1, unsigned pop2) const
-        pair[set[double],set[double]] Private(unsigned pop1, unsigned pop2) const
+        ##This is really odd.  I cannot declare a fxn with const and except+???
+        set[double] shared(unsigned pop1, unsigned pop2) except+
+        set[double] fixed(unsigned pop1, unsigned pop2) except+
+        pair[set[double],set[double]] Private(unsigned pop1, unsigned pop2) except+
 
 cdef class fst:
     cdef FST * thisptr
