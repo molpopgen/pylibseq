@@ -43,6 +43,38 @@ class test_fst(unittest.TestCase):
         p = f.fixed(0,1)
         expected = [0.1,0.2]
         self.assertEqual(p,expected)
+    #shared/fixed/private will get exceptions from libsequence
+    #if i,j are out of range
+    def testExceptionShared(self):
+        with self.assertRaises(RuntimeError):
+            x = [(0.1,"0011"),(0.2,"1100"),
+            (0.3,"0100"),(0.4,"1101"),
+            (0.5,"0101")]
+            d = simData()
+            d.assign(x)
+            f = fst(d,[2,2])
+            #2 is out of range.
+            sh = f.shared(2,1)
+    def testExceptionFixed(self):
+        with self.assertRaises(RuntimeError):
+            x = [(0.1,"0011"),(0.2,"1100"),
+            (0.3,"0100"),(0.4,"1101"),
+            (0.5,"0101")]
+            d = simData()
+            d.assign(x)
+            f = fst(d,[2,2])
+            #2 is out of range.
+            sh = f.fixed(2,1)
+    def testExceptionPriv(self):
+        with self.assertRaises(RuntimeError):
+            x = [(0.1,"0011"),(0.2,"1100"),
+            (0.3,"0100"),(0.4,"1101"),
+            (0.5,"0101")]
+            d = simData()
+            d.assign(x)
+            f = fst(d,[2,2])
+            #2 is out of range.
+            sh = f.priv(2,1)
         
 if __name__ == '__main__':
     unittest.main()
