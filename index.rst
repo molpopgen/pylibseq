@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    README
+   doc/lifetimes
 
 Functions and classes
 ##########################################
