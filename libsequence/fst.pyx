@@ -16,6 +16,8 @@ cdef class fst:
             if len(config) != len(weights):
                 raise RuntimeError("len(config) must equal len(weights)")
             self.thisptr = new FST(p.thisptr,len(config),&cv[0],&wv[0],haveOutgroup,outgroup)
+    def __dealloc__(self):
+        del thisptr
     def hsm(self):
         """
         Hudson, Slatkin, Maddison
