@@ -7,7 +7,7 @@ from libsequence.polytable cimport polyTable,PolyTable
 cdef extern from "Sequence/FST.hpp" namespace "Sequence":
     cdef cppclass FST:
         FST( const PolyTable *, unsigned npop, const unsigned * config,
-             const double * weights, bint haveOutgroup, unsigned outgroup )
+             const double * weights, bint haveOutgroup, unsigned outgroup ) except +
         double HSM() const
         double Slatkin() const
         double HBK() const
