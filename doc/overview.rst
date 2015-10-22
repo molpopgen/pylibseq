@@ -151,17 +151,19 @@ See :class:`libsequence.summstats.polySIM` for more documentation
 .. code:: python
 
     from libsequence.summstats import polySIM
-    #Yes, these are silly data:
-    rawData = [(0.05,"01010101"),
-                   (0.1,"01010101"),
-                   (0.15,"01010101"),
-                   (0.2,"01010101"),
-                   (0.225,"01010101"),
-                   (0.25,"01010101"),
-                   (0.5,"01010101"),
-                   (0.95,"01010101"),
-                   (1.0,"01010101")]
-    sd.assign(rawData)
+    #ms 10 1 -s 10 -I 2 5 5 0.05
+    rawDataPos=[0.0997, 0.2551, 0.3600, 0.4831, 0.5205, 0.5668, 0.5824, 0.6213, 0.7499, 0.9669]
+    rawDataGenos=['0000001010',
+                  '0000000011',
+                  '0000001010',
+                  '0000001010',
+                  '0000001010',
+                  '1111010100',
+                  '1111010100',
+                  '1111110100',
+                  '1111010100',
+                  '1111010100']
+    sd.assign_sep(rawDataPos,rawDataGenos)
 
 .. code:: python
 
@@ -176,7 +178,7 @@ See :class:`libsequence.summstats.polySIM` for more documentation
 
 .. parsed-literal::
 
-    5.1428571428571415
+    4.822222222222222
 
 
 
@@ -189,7 +191,7 @@ See :class:`libsequence.summstats.polySIM` for more documentation
 
 .. parsed-literal::
 
-    3.4710743801652897
+    3.5348576237901534
 
 
 
@@ -202,7 +204,7 @@ See :class:`libsequence.summstats.polySIM` for more documentation
 
 .. parsed-literal::
 
-    2.359273329804373
+    1.6142469967484658
 
 
 
@@ -241,26 +243,26 @@ Sliding windows
 
 .. parsed-literal::
 
-    0.771349862259
-    1.15702479339
-    1.15702479339
-    1.15702479339
-    1.15702479339
-    0.385674931129
+    0.353485762379
+    0.353485762379
     0.0
     0.0
-    0.385674931129
-    0.385674931129
-    0.385674931129
+    0.353485762379
+    0.353485762379
+    0.353485762379
+    0.353485762379
+    0.353485762379
+    0.706971524758
+    1.06045728714
+    1.06045728714
+    0.353485762379
+    0.353485762379
+    0.353485762379
     0.0
     0.0
     0.0
-    0.0
-    0.0
-    0.0
-    0.385674931129
-    0.771349862259
-    0.385674931129
+    0.353485762379
+    0.353485762379
 
 
 :math:`F_{ST}`
@@ -276,7 +278,7 @@ a great overview.
 
     from libsequence.fst import fst
     sd.size()
-    f = fst(sd,[4,4])
+    f = fst(sd,[5,5])
 
 .. code:: python
 
@@ -288,7 +290,7 @@ a great overview.
 
 .. parsed-literal::
 
-    -0.3333333333333337
+    0.9268292682926829
 
 
 
@@ -302,7 +304,7 @@ a great overview.
 
 .. parsed-literal::
 
-    -0.14285714285714302
+    0.8636363636363636
 
 
 
@@ -316,7 +318,7 @@ a great overview.
 
 .. parsed-literal::
 
-    -0.14285714285714302
+    0.8636363636363635
 
 
 
@@ -330,7 +332,7 @@ a great overview.
 
 .. parsed-literal::
 
-    [0.25, 0.5, 0.1, 0.2, 1.0, 0.15, 0.05, 0.225, 0.95]
+    []
 
 
 
@@ -344,7 +346,7 @@ a great overview.
 
 .. parsed-literal::
 
-    {0: [], 1: []}
+    {0: [0.5824, 0.9669], 1: [0.5205]}
 
 
 
@@ -358,7 +360,6 @@ a great overview.
 
 .. parsed-literal::
 
-    []
-
+    [0.0997, 0.2551, 0.36, 0.4831, 0.5668, 0.6213, 0.7499]
 
 
