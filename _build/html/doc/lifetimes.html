@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Object lifetimes &mdash; pyseq 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="pyseq 0.1.0 documentation" href="../index.html" />
+    <link rel="prev" title="Example workflow" href="overview.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Example workflow"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pyseq 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="object-lifetimes">
+<h1>Object lifetimes<a class="headerlink" href="#object-lifetimes" title="Permalink to this headline">¶</a></h1>
+<p>This package provides two types of classes:</p>
+<ul class="simple">
+<li>Classes containing data, such as <a class="reference internal" href="../index.html#libsequence.polytable.simData" title="libsequence.polytable.simData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.simData</span></code></a> and <a class="reference internal" href="../index.html#libsequence.polytable.polySites" title="libsequence.polytable.polySites"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polySites</span></code></a></li>
+<li>Classes analyzing the data in the previous type of class, <em>e.g.</em> <a class="reference internal" href="../index.html#libsequence.summstats.polySIM" title="libsequence.summstats.polySIM"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.polySIM</span></code></a> and <a class="reference internal" href="../index.html#libsequence.summstats.polySNP" title="libsequence.summstats.polySNP"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.polySNP</span></code></a></li>
+</ul>
+<p>In general, one uses these objects as follows:</p>
+<div class="code python highlight-python"><div class="highlight"><pre><span class="c">#This is a &#39;data&#39; class:</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">simData</span><span class="p">()</span>
+<span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span> <span class="p">[(</span><span class="mf">0.1</span><span class="p">,</span><span class="s">&quot;010101&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s">&quot;101010&quot;</span><span class="p">)]</span> <span class="p">)</span>
+<span class="c">#This is an &quot;analyze data&quot; class:</span>
+<span class="n">analyze</span> <span class="o">=</span> <span class="n">polySim</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">analyze</span><span class="o">.</span><span class="n">tajimasd</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Objects that are &#8216;analyze data&#8217; types <strong>store pointers to the &#8216;data&#8217; types</strong>.  Thus, if you let the data go out of scope, delete it, reassign to it, or do any other sort of manipulation changing its internal state, then you will get a crash (segmentation fault) if you try to access members of the &#8216;analyze data&#8217; types.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="previous chapter">Example workflow</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/doc/lifetimes.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Example workflow"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pyseq 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Kevin Thornton.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

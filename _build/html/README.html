@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pyseq: Python bindings for libsequence &mdash; pyseq 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="pyseq 0.1.0 documentation" href="index.html" />
+    <link rel="next" title="Example workflow" href="doc/overview.html" />
+    <link rel="prev" title="Welcome to pyseq’s documentation!" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="doc/overview.html" title="Example workflow"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to pyseq’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyseq 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="pyseq-python-bindings-for-libsequence">
+<h1>pyseq: Python bindings for libsequence<a class="headerlink" href="#pyseq-python-bindings-for-libsequence" title="Permalink to this headline">¶</a></h1>
+<p>This package provides <a class="reference external" href="http://www.cython.org/">Python</a> bindings for the C++11 library <a class="reference external" href="http://molpopgen.github.io/libsequence/">libsequence</a>.</p>
+<p>The bindings are implemented using <a class="reference external" href="http://www.cython.org/">Cython</a>.</p>
+<p>This package serves two roles:</p>
+<ul class="simple">
+<li>It provides a means of using some of the more widely-used bits of <a class="reference external" href="http://molpopgen.github.io/libsequence/">libsequence</a> within the Python language</li>
+<li>The unit tests of this package also serve as unit tests for <a class="reference external" href="http://molpopgen.github.io/libsequence/">libsequence</a>.</li>
+</ul>
+<p>What this package does <strong>not</strong> (currently) do:</p>
+<ul class="simple">
+<li>provide an interface for I/O operations.  Python I/O and C++ I/O are fundamentally very different.  Bridging the gap requires either adding features to Cython and/or adding modules to this package that depend on the <a class="reference external" href="http://www.boost.org/">boost</a> Python interface, which would add an additional C++ dependency to this package.</li>
+</ul>
+<div class="section" id="requirements">
+<h2>Requirements:<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://molpopgen.github.io/libsequence/">libsequence</a> must be installed on your system.  <strong>Currently, this package requires the dev branch of libsequence</strong></li>
+<li>Python 2 or Python 3</li>
+<li>An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughty, this means GCC &gt;= 4.8 and clang &gt;= 3.5.</li>
+</ul>
+<p>You should install <a class="reference external" href="http://molpopgen.github.io/libsequence/">libsequence</a> from source.</p>
+<p>If you want to modify the package, you will need <a class="reference external" href="http://www.cython.org/">Cython</a> installed via your favorite Python package manager.</p>
+<p>The supported platforms are Linux and OS X.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation:<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./configure
+<span class="nv">$ </span>sudo python setup.py install
+</pre></div>
+</div>
+<p>If you have libsequence in a &#8220;funny location&#8221; (<em>e.g.</em>, something other that /usr/local):</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ CPPFLAGS</span><span class="o">=</span>-I/path/to/libsequence/headers <span class="nv">LDFLAGS</span><span class="o">=</span>-L/path/to/libsequence/library sudo python setup.py install
+</pre></div>
+</div>
+<p>For example, if libsequence is installed into /opt:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ CPPFLAGS</span><span class="o">=</span>-I/opt/include <span class="nv">LDFLAGS</span><span class="o">=</span>-L/opt/lib sudo python setup.py install
+</pre></div>
+</div>
+</div>
+<div class="section" id="unit-testing">
+<h2>Unit testing:<a class="headerlink" href="#unit-testing" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./configure
+<span class="nv">$ </span>python setup.py build_ext -i
+<span class="nv">$ </span>python -m unittest discover unit_test
+</pre></div>
+</div>
+</div>
+<div class="section" id="modifying-the-package">
+<h2>Modifying the package<a class="headerlink" href="#modifying-the-package" title="Permalink to this headline">¶</a></h2>
+<p>You wll need to enable re-generation of the C++ source files:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./configure --enable-cython
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation:<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>Eventually, documentation will be online.  Check the unit_test directory for working examples (well, working if the tests are passing!).</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">pyseq: Python bindings for libsequence</a><ul>
+<li><a class="reference internal" href="#requirements">Requirements:</a></li>
+<li><a class="reference internal" href="#installation">Installation:</a></li>
+<li><a class="reference internal" href="#unit-testing">Unit testing:</a></li>
+<li><a class="reference internal" href="#modifying-the-package">Modifying the package</a></li>
+<li><a class="reference internal" href="#documentation">Documentation:</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to pyseq&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="doc/overview.html"
+                        title="next chapter">Example workflow</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/README.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="doc/overview.html" title="Example workflow"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to pyseq’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">pyseq 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Kevin Thornton.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
