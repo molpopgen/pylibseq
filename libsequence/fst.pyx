@@ -60,7 +60,7 @@ cdef class fst:
         :rtype: list
         
         """
-        return list(self.thisptr.shared(i,j))
+        return sorted(list(self.thisptr.shared(i,j)))
     def priv(self,unsigned i,unsigned j):
         """
         Returns set of mutations private to i and private to j, when
@@ -71,7 +71,7 @@ cdef class fst:
         :rtype: dict
         """
         p = self.thisptr.Private(i,j)
-        return {i:list(p.first),j:list(p.second)}
+        return {i:sorted(list(p.first)),j:sorted(list(p.second))}
     def fixed(self,unsigned i,unsigned j):
         """
         Returns set of fixed differences between i and j (only considering that comparison)

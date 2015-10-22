@@ -10,11 +10,6 @@
         "extra_link_args": [
             "-std=c++11"
         ], 
-        "include_dirs": [
-            ".", 
-            "include", 
-            ".."
-        ], 
         "language": "c++", 
         "libraries": [
             "sequence"
@@ -2702,9 +2697,11 @@ static PyObject *__pyx_pw_11libsequence_3fst_3fst_19shared(PyObject *__pyx_v_sel
 static PyObject *__pyx_pf_11libsequence_3fst_3fst_18shared(struct __pyx_obj_11libsequence_3fst_fst *__pyx_v_self, unsigned int __pyx_v_i, unsigned int __pyx_v_j) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  std::set<double>  __pyx_t_1;
-  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_1 = NULL;
+  std::set<double>  __pyx_t_2;
   PyObject *__pyx_t_3 = NULL;
+  PyObject *__pyx_t_4 = NULL;
+  int __pyx_t_5;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2713,24 +2710,30 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_18shared(struct __pyx_obj_11li
   /* "libsequence/fst.pyx":63
  * 
  *         """
- *         return list(self.thisptr.shared(i,j))             # <<<<<<<<<<<<<<
+ *         return sorted(list(self.thisptr.shared(i,j)))             # <<<<<<<<<<<<<<
  *     def priv(self,unsigned i,unsigned j):
  *         """
  */
   __Pyx_XDECREF(__pyx_r);
   try {
-    __pyx_t_1 = __pyx_v_self->thisptr->shared(__pyx_v_i, __pyx_v_j);
+    __pyx_t_2 = __pyx_v_self->thisptr->shared(__pyx_v_i, __pyx_v_j);
   } catch(...) {
     __Pyx_CppExn2PyErr();
     {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
-  __pyx_t_2 = __pyx_convert_set_to_py_double(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PySequence_List(__pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __pyx_convert_set_to_py_double(__pyx_t_2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_r = __pyx_t_3;
+  __pyx_t_4 = PySequence_List(__pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_3 = PySequence_List(__pyx_t_4); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_1 = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
+  __pyx_t_5 = PyList_Sort(__pyx_t_1); if (unlikely(__pyx_t_5 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 63; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
   goto __pyx_L0;
 
   /* "libsequence/fst.pyx":56
@@ -2743,8 +2746,9 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_18shared(struct __pyx_obj_11li
 
   /* function exit code */
   __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_XDECREF(__pyx_t_4);
   __Pyx_AddTraceback("libsequence.fst.fst.shared", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2755,7 +2759,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_18shared(struct __pyx_obj_11li
 
 /* "libsequence/fst.pyx":64
  *         """
- *         return list(self.thisptr.shared(i,j))
+ *         return sorted(list(self.thisptr.shared(i,j)))
  *     def priv(self,unsigned i,unsigned j):             # <<<<<<<<<<<<<<
  *         """
  *         Returns set of mutations private to i and private to j, when
@@ -2832,6 +2836,8 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_20priv(struct __pyx_obj_11libs
   PyObject *__pyx_t_3 = NULL;
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  int __pyx_t_7;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -2841,7 +2847,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_20priv(struct __pyx_obj_11libs
  *         :rtype: dict
  *         """
  *         p = self.thisptr.Private(i,j)             # <<<<<<<<<<<<<<
- *         return {i:list(p.first),j:list(p.second)}
+ *         return {i:sorted(list(p.first)),j:sorted(list(p.second))}
  *     def fixed(self,unsigned i,unsigned j):
  */
   try {
@@ -2855,7 +2861,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_20priv(struct __pyx_obj_11libs
   /* "libsequence/fst.pyx":74
  *         """
  *         p = self.thisptr.Private(i,j)
- *         return {i:list(p.first),j:list(p.second)}             # <<<<<<<<<<<<<<
+ *         return {i:sorted(list(p.first)),j:sorted(list(p.second))}             # <<<<<<<<<<<<<<
  *     def fixed(self,unsigned i,unsigned j):
  *         """
  */
@@ -2864,31 +2870,43 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_20priv(struct __pyx_obj_11libs
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = __Pyx_PyInt_From_unsigned_int(__pyx_v_i); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __pyx_convert_set_to_py_double(__pyx_v_p.first); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = PySequence_List(__pyx_t_4); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = __pyx_convert_set_to_py_double(__pyx_v_p.first); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_t_3, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  __pyx_t_6 = PySequence_List(__pyx_t_5); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_5 = __Pyx_PyInt_From_unsigned_int(__pyx_v_j); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_5 = PySequence_List(__pyx_t_6); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __pyx_convert_set_to_py_double(__pyx_v_p.second); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PySequence_List(__pyx_t_3); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_4 = ((PyObject*)__pyx_t_5);
+  __pyx_t_5 = 0;
+  __pyx_t_7 = PyList_Sort(__pyx_t_4); if (unlikely(__pyx_t_7 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_2, __pyx_t_3, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_t_5, __pyx_t_4) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyInt_From_unsigned_int(__pyx_v_j); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = __pyx_convert_set_to_py_double(__pyx_v_p.second); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = PySequence_List(__pyx_t_5); if (unlikely(!__pyx_t_6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_5 = PySequence_List(__pyx_t_6); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_5);
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_3 = ((PyObject*)__pyx_t_5);
+  __pyx_t_5 = 0;
+  __pyx_t_7 = PyList_Sort(__pyx_t_3); if (unlikely(__pyx_t_7 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_2, __pyx_t_4, __pyx_t_3) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
   /* "libsequence/fst.pyx":64
  *         """
- *         return list(self.thisptr.shared(i,j))
+ *         return sorted(list(self.thisptr.shared(i,j)))
  *     def priv(self,unsigned i,unsigned j):             # <<<<<<<<<<<<<<
  *         """
  *         Returns set of mutations private to i and private to j, when
@@ -2900,6 +2918,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_20priv(struct __pyx_obj_11libs
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
   __Pyx_AddTraceback("libsequence.fst.fst.priv", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -2910,7 +2929,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_20priv(struct __pyx_obj_11libs
 
 /* "libsequence/fst.pyx":75
  *         p = self.thisptr.Private(i,j)
- *         return {i:list(p.first),j:list(p.second)}
+ *         return {i:sorted(list(p.first)),j:sorted(list(p.second))}
  *     def fixed(self,unsigned i,unsigned j):             # <<<<<<<<<<<<<<
  *         """
  *         Returns set of fixed differences between i and j (only considering that comparison)
@@ -3029,7 +3048,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_22fixed(struct __pyx_obj_11lib
 
   /* "libsequence/fst.pyx":75
  *         p = self.thisptr.Private(i,j)
- *         return {i:list(p.first),j:list(p.second)}
+ *         return {i:sorted(list(p.first)),j:sorted(list(p.second))}
  *     def fixed(self,unsigned i,unsigned j):             # <<<<<<<<<<<<<<
  *         """
  *         Returns set of fixed differences between i and j (only considering that comparison)
