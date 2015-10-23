@@ -7,4 +7,4 @@ The general form of their use is:
 
 .. code-block:: python
 
-   from lisequence.polytable cimport simData
+   from libsequence.polytable cimport simData
