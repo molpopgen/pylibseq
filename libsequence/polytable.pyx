@@ -85,7 +85,7 @@ cdef class polyTable:
             raise RuntimeError("assign_sep failed")
     def tolist(self):
         """
-        Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
+        Return data as list of tuples.
         """
         cdef vector[pair[double,string]] rv
         cdef vector[pair[double,string]].const_iterator b = self.thisptr.sbegin()

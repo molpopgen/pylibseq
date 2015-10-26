@@ -2426,12 +2426,12 @@ static PyObject *__pyx_pf_11libsequence_9polytable_9polyTable_18assign_sep(struc
  *             raise RuntimeError("assign_sep failed")
  *     def tolist(self):             # <<<<<<<<<<<<<<
  *         """
- *         Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
+ *         Return data as list of tuples.
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_11libsequence_9polytable_9polyTable_21tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static char __pyx_doc_11libsequence_9polytable_9polyTable_20tolist[] = "\n        Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.\n        ";
+static char __pyx_doc_11libsequence_9polytable_9polyTable_20tolist[] = "\n        Return data as list of tuples.\n        ";
 static PyObject *__pyx_pw_11libsequence_9polytable_9polyTable_21tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
@@ -2528,7 +2528,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_9polyTable_20tolist(struct __
  *             raise RuntimeError("assign_sep failed")
  *     def tolist(self):             # <<<<<<<<<<<<<<
  *         """
- *         Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
+ *         Return data as list of tuples.
  */
 
   /* function exit code */
