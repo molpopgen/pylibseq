@@ -570,8 +570,8 @@ struct __pyx_vtabstruct_11libsequence_9polytable_polyTable {
 static struct __pyx_vtabstruct_11libsequence_9polytable_polyTable *__pyx_vtabptr_11libsequence_9polytable_polyTable;
 
 
-/* "libsequence/polytable.pyx":87
- *             raise RuntimeError("assign_sep failed")
+/* "libsequence/polytable.pyx":98
+ *         return rv
  * 
  * cdef class simData(polyTable):             # <<<<<<<<<<<<<<
  *     """
@@ -584,7 +584,7 @@ struct __pyx_vtabstruct_11libsequence_9polytable_simData {
 static struct __pyx_vtabstruct_11libsequence_9polytable_simData *__pyx_vtabptr_11libsequence_9polytable_simData;
 
 
-/* "libsequence/polytable.pyx":98
+/* "libsequence/polytable.pyx":109
  *         pass
  * 
  * cdef class polySites(polyTable):             # <<<<<<<<<<<<<<
@@ -859,12 +859,9 @@ int __pyx_module_is_main_libsequence__polytable = 0;
 /* Implementation of 'libsequence.polytable' */
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_range;
-static char __pyx_k_b[] = "b";
-static char __pyx_k_e[] = "e";
 static char __pyx_k_p[] = "p";
 static char __pyx_k__4[] = "-";
 static char __pyx_k_gc[] = "gc";
-static char __pyx_k_rv[] = "rv";
 static char __pyx_k_pos[] = "pos";
 static char __pyx_k_data[] = "data";
 static char __pyx_k_main[] = "__main__";
@@ -874,7 +871,6 @@ static char __pyx_k_class[] = "__class__";
 static char __pyx_k_empty[] = "empty";
 static char __pyx_k_range[] = "range";
 static char __pyx_k_assign[] = "assign";
-static char __pyx_k_tolist[] = "tolist";
 static char __pyx_k_gapchar[] = "gapchar";
 static char __pyx_k_isValid[] = "isValid";
 static char __pyx_k_mincount[] = "mincount";
@@ -892,9 +888,9 @@ static char __pyx_k_assign_failed[] = "assign failed";
 static char __pyx_k_removeMissing[] = "removeMissing";
 static char __pyx_k_removeAmbiguous[] = "removeAmbiguous";
 static char __pyx_k_removeMultiHits[] = "removeMultiHits";
-static char __pyx_k_isValid_line_128[] = "isValid (line 128)";
+static char __pyx_k_isValid_line_139[] = "isValid (line 139)";
 static char __pyx_k_assign_sep_failed[] = "assign_sep failed";
-static char __pyx_k_removeGaps_line_109[] = "removeGaps (line 109)";
+static char __pyx_k_removeGaps_line_120[] = "removeGaps (line 120)";
 static char __pyx_k_libsequence_polytable[] = "libsequence.polytable";
 static char __pyx_k_polyTable_assign_line_56[] = "polyTable.assign (line 56)";
 static char __pyx_k_polyTable_assign_sep_line_70[] = "polyTable.assign_sep (line 70)";
@@ -915,17 +911,15 @@ static PyObject *__pyx_n_s_assign;
 static PyObject *__pyx_kp_s_assign_failed;
 static PyObject *__pyx_n_s_assign_sep;
 static PyObject *__pyx_kp_s_assign_sep_failed;
-static PyObject *__pyx_n_s_b;
 static PyObject *__pyx_n_s_class;
 static PyObject *__pyx_n_s_data;
-static PyObject *__pyx_n_s_e;
 static PyObject *__pyx_n_s_empty;
 static PyObject *__pyx_n_s_freqFilter;
 static PyObject *__pyx_n_s_gapchar;
 static PyObject *__pyx_n_s_gc;
 static PyObject *__pyx_n_s_haveOutgroup;
 static PyObject *__pyx_n_s_isValid;
-static PyObject *__pyx_kp_u_isValid_line_128;
+static PyObject *__pyx_kp_u_isValid_line_139;
 static PyObject *__pyx_n_s_libsequence_polytable;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_mincount;
@@ -940,15 +934,13 @@ static PyObject *__pyx_n_s_pyx_vtable;
 static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_removeAmbiguous;
 static PyObject *__pyx_n_s_removeGaps;
-static PyObject *__pyx_kp_u_removeGaps_line_109;
+static PyObject *__pyx_kp_u_removeGaps_line_120;
 static PyObject *__pyx_n_s_removeMissing;
 static PyObject *__pyx_n_s_removeMono;
 static PyObject *__pyx_n_s_removeMultiHits;
-static PyObject *__pyx_n_s_rv;
 static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_skipOutgroup;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_n_s_tolist;
 static int __pyx_pf_11libsequence_9polytable_9polyTable___cinit__(struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_self); /* proto */
 static void __pyx_pf_11libsequence_9polytable_9polyTable_2__dealloc__(struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11libsequence_9polytable_9polyTable_4size(struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_self); /* proto */
@@ -959,6 +951,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_9polyTable_12pos(struct __pyx
 static PyObject *__pyx_pf_11libsequence_9polytable_9polyTable_14empty(struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11libsequence_9polytable_9polyTable_16assign(struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_self, std::vector<Sequence::polymorphicSite>  __pyx_v_d); /* proto */
 static PyObject *__pyx_pf_11libsequence_9polytable_9polyTable_18assign_sep(struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_self, std::vector<double>  __pyx_v_pos, std::vector<std::string>  __pyx_v_data); /* proto */
+static PyObject *__pyx_pf_11libsequence_9polytable_9polyTable_20tolist(struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_self); /* proto */
 static int __pyx_pf_11libsequence_9polytable_7simData___cinit__(struct __pyx_obj_11libsequence_9polytable_simData *__pyx_v_self); /* proto */
 static void __pyx_pf_11libsequence_9polytable_7simData_2__dealloc__(CYTHON_UNUSED struct __pyx_obj_11libsequence_9polytable_simData *__pyx_v_self); /* proto */
 static int __pyx_pf_11libsequence_9polytable_9polySites___cinit__(struct __pyx_obj_11libsequence_9polytable_polySites *__pyx_v_self); /* proto */
@@ -970,7 +963,6 @@ static PyObject *__pyx_pf_11libsequence_9polytable_6freqFilter(CYTHON_UNUSED PyO
 static PyObject *__pyx_pf_11libsequence_9polytable_8removeMissing(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_p, int __pyx_v_haveOutgroup, unsigned int __pyx_v_outgroup); /* proto */
 static PyObject *__pyx_pf_11libsequence_9polytable_10removeMultiHits(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_p, int __pyx_v_haveOutgroup, unsigned int __pyx_v_outgroup); /* proto */
 static PyObject *__pyx_pf_11libsequence_9polytable_12removeAmbiguous(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_p, int __pyx_v_haveOutgroup, unsigned int __pyx_v_outgroup); /* proto */
-static PyObject *__pyx_pf_11libsequence_9polytable_14tolist(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_p); /* proto */
 static PyObject *__pyx_tp_new_11libsequence_9polytable_polyTable(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_11libsequence_9polytable_simData(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_11libsequence_9polytable_polySites(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -984,7 +976,6 @@ static PyObject *__pyx_tuple__11;
 static PyObject *__pyx_tuple__13;
 static PyObject *__pyx_tuple__15;
 static PyObject *__pyx_tuple__17;
-static PyObject *__pyx_tuple__19;
 static PyObject *__pyx_codeobj__6;
 static PyObject *__pyx_codeobj__8;
 static PyObject *__pyx_codeobj__10;
@@ -992,7 +983,6 @@ static PyObject *__pyx_codeobj__12;
 static PyObject *__pyx_codeobj__14;
 static PyObject *__pyx_codeobj__16;
 static PyObject *__pyx_codeobj__18;
-static PyObject *__pyx_codeobj__20;
 
 /* "libsequence/polytable.pyx":15
  *     .. note:: It is an error to directly use this class in Python.  An assertion will be triggered.  This is simply the base API for other types.
@@ -2289,7 +2279,7 @@ static PyObject *__pyx_f_11libsequence_9polytable_9polyTable_assign_sep(struct _
  *         cdef bint rv =self.thisptr.assign[double,string](pos.data(),pos.size(),data.data(),data.size())
  *         if rv == False:             # <<<<<<<<<<<<<<
  *             raise RuntimeError("assign_sep failed")
- * 
+ *     def tolist(self):
  */
   __pyx_t_9 = ((__pyx_v_rv == 0) != 0);
   if (__pyx_t_9) {
@@ -2298,8 +2288,8 @@ static PyObject *__pyx_f_11libsequence_9polytable_9polyTable_assign_sep(struct _
  *         cdef bint rv =self.thisptr.assign[double,string](pos.data(),pos.size(),data.data(),data.size())
  *         if rv == False:
  *             raise RuntimeError("assign_sep failed")             # <<<<<<<<<<<<<<
- * 
- * cdef class simData(polyTable):
+ *     def tolist(self):
+ *         """
  */
     __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 85; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_1);
@@ -2312,7 +2302,7 @@ static PyObject *__pyx_f_11libsequence_9polytable_9polyTable_assign_sep(struct _
  *         cdef bint rv =self.thisptr.assign[double,string](pos.data(),pos.size(),data.data(),data.size())
  *         if rv == False:             # <<<<<<<<<<<<<<
  *             raise RuntimeError("assign_sep failed")
- * 
+ *     def tolist(self):
  */
   }
 
@@ -2431,7 +2421,128 @@ static PyObject *__pyx_pf_11libsequence_9polytable_9polyTable_18assign_sep(struc
   return __pyx_r;
 }
 
-/* "libsequence/polytable.pyx":93
+/* "libsequence/polytable.pyx":86
+ *         if rv == False:
+ *             raise RuntimeError("assign_sep failed")
+ *     def tolist(self):             # <<<<<<<<<<<<<<
+ *         """
+ *         Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11libsequence_9polytable_9polyTable_21tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static char __pyx_doc_11libsequence_9polytable_9polyTable_20tolist[] = "\n        Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.\n        ";
+static PyObject *__pyx_pw_11libsequence_9polytable_9polyTable_21tolist(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("tolist (wrapper)", 0);
+  __pyx_r = __pyx_pf_11libsequence_9polytable_9polyTable_20tolist(((struct __pyx_obj_11libsequence_9polytable_polyTable *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11libsequence_9polytable_9polyTable_20tolist(struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_self) {
+  std::vector<std::pair<double,std::string> >  __pyx_v_rv;
+  std::vector<std::pair<double,std::string> > ::const_iterator __pyx_v_b;
+  std::vector<std::pair<double,std::string> > ::const_iterator __pyx_v_e;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("tolist", 0);
+
+  /* "libsequence/polytable.pyx":91
+ *         """
+ *         cdef vector[pair[double,string]] rv
+ *         cdef vector[pair[double,string]].const_iterator b = self.thisptr.sbegin()             # <<<<<<<<<<<<<<
+ *         cdef vector[pair[double,string]].const_iterator e = self.thisptr.send()
+ *         while b < e:
+ */
+  __pyx_v_b = __pyx_v_self->thisptr->sbegin();
+
+  /* "libsequence/polytable.pyx":92
+ *         cdef vector[pair[double,string]] rv
+ *         cdef vector[pair[double,string]].const_iterator b = self.thisptr.sbegin()
+ *         cdef vector[pair[double,string]].const_iterator e = self.thisptr.send()             # <<<<<<<<<<<<<<
+ *         while b < e:
+ *             rv.push_back(deref(b))
+ */
+  __pyx_v_e = __pyx_v_self->thisptr->send();
+
+  /* "libsequence/polytable.pyx":93
+ *         cdef vector[pair[double,string]].const_iterator b = self.thisptr.sbegin()
+ *         cdef vector[pair[double,string]].const_iterator e = self.thisptr.send()
+ *         while b < e:             # <<<<<<<<<<<<<<
+ *             rv.push_back(deref(b))
+ *             inc(b)
+ */
+  while (1) {
+    __pyx_t_1 = ((__pyx_v_b < __pyx_v_e) != 0);
+    if (!__pyx_t_1) break;
+
+    /* "libsequence/polytable.pyx":94
+ *         cdef vector[pair[double,string]].const_iterator e = self.thisptr.send()
+ *         while b < e:
+ *             rv.push_back(deref(b))             # <<<<<<<<<<<<<<
+ *             inc(b)
+ *         return rv
+ */
+    try {
+      __pyx_v_rv.push_back((*__pyx_v_b));
+    } catch(...) {
+      __Pyx_CppExn2PyErr();
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 94; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    }
+
+    /* "libsequence/polytable.pyx":95
+ *         while b < e:
+ *             rv.push_back(deref(b))
+ *             inc(b)             # <<<<<<<<<<<<<<
+ *         return rv
+ * 
+ */
+    (__pyx_v_b++);
+  }
+
+  /* "libsequence/polytable.pyx":96
+ *             rv.push_back(deref(b))
+ *             inc(b)
+ *         return rv             # <<<<<<<<<<<<<<
+ * 
+ * cdef class simData(polyTable):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(__pyx_v_rv); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 96; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "libsequence/polytable.pyx":86
+ *         if rv == False:
+ *             raise RuntimeError("assign_sep failed")
+ *     def tolist(self):             # <<<<<<<<<<<<<<
+ *         """
+ *         Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("libsequence.polytable.polyTable.tolist", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "libsequence/polytable.pyx":104
  *     .. note:: See :class:`libsequence.polytable.polyTable`
  *     """
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -2460,7 +2571,7 @@ static int __pyx_pf_11libsequence_9polytable_7simData___cinit__(struct __pyx_obj
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "libsequence/polytable.pyx":94
+  /* "libsequence/polytable.pyx":105
  *     """
  *     def __cinit__(self):
  *         self.thisptr = new SimData()             # <<<<<<<<<<<<<<
@@ -2469,7 +2580,7 @@ static int __pyx_pf_11libsequence_9polytable_7simData___cinit__(struct __pyx_obj
  */
   __pyx_v_self->__pyx_base.thisptr = new Sequence::SimData();
 
-  /* "libsequence/polytable.pyx":93
+  /* "libsequence/polytable.pyx":104
  *     .. note:: See :class:`libsequence.polytable.polyTable`
  *     """
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -2483,7 +2594,7 @@ static int __pyx_pf_11libsequence_9polytable_7simData___cinit__(struct __pyx_obj
   return __pyx_r;
 }
 
-/* "libsequence/polytable.pyx":95
+/* "libsequence/polytable.pyx":106
  *     def __cinit__(self):
  *         self.thisptr = new SimData()
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -2510,7 +2621,7 @@ static void __pyx_pf_11libsequence_9polytable_7simData_2__dealloc__(CYTHON_UNUSE
   __Pyx_RefNannyFinishContext();
 }
 
-/* "libsequence/polytable.pyx":104
+/* "libsequence/polytable.pyx":115
  *     .. note:: See :class:`libsequence.polytable.polyTable`
  *     """
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -2539,7 +2650,7 @@ static int __pyx_pf_11libsequence_9polytable_9polySites___cinit__(struct __pyx_o
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "libsequence/polytable.pyx":105
+  /* "libsequence/polytable.pyx":116
  *     """
  *     def __cinit__(self):
  *         self.thisptr = new PolySites()             # <<<<<<<<<<<<<<
@@ -2548,7 +2659,7 @@ static int __pyx_pf_11libsequence_9polytable_9polySites___cinit__(struct __pyx_o
  */
   __pyx_v_self->__pyx_base.thisptr = new Sequence::PolySites();
 
-  /* "libsequence/polytable.pyx":104
+  /* "libsequence/polytable.pyx":115
  *     .. note:: See :class:`libsequence.polytable.polyTable`
  *     """
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -2562,7 +2673,7 @@ static int __pyx_pf_11libsequence_9polytable_9polySites___cinit__(struct __pyx_o
   return __pyx_r;
 }
 
-/* "libsequence/polytable.pyx":106
+/* "libsequence/polytable.pyx":117
  *     def __cinit__(self):
  *         self.thisptr = new PolySites()
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -2589,7 +2700,7 @@ static void __pyx_pf_11libsequence_9polytable_9polySites_2__dealloc__(CYTHON_UNU
   __Pyx_RefNannyFinishContext();
 }
 
-/* "libsequence/polytable.pyx":109
+/* "libsequence/polytable.pyx":120
  *         pass
  * 
  * def removeGaps(polyTable p, gapchar = '-'):             # <<<<<<<<<<<<<<
@@ -2635,7 +2746,7 @@ static PyObject *__pyx_pw_11libsequence_9polytable_1removeGaps(PyObject *__pyx_s
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "removeGaps") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "removeGaps") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2650,13 +2761,13 @@ static PyObject *__pyx_pw_11libsequence_9polytable_1removeGaps(PyObject *__pyx_s
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("removeGaps", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("removeGaps", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("libsequence.polytable.removeGaps", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_11libsequence_9polytable_removeGaps(__pyx_self, __pyx_v_p, __pyx_v_gapchar);
 
   /* function exit code */
@@ -2678,17 +2789,17 @@ static PyObject *__pyx_pf_11libsequence_9polytable_removeGaps(CYTHON_UNUSED PyOb
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("removeGaps", 0);
 
-  /* "libsequence/polytable.pyx":125
+  /* "libsequence/polytable.pyx":136
  *     [0.1, 0.2]
  *     """
  *     cdef char * gc = gapchar             # <<<<<<<<<<<<<<
  *     RemoveGaps(p.thisptr,gc[0])
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_AsString(__pyx_v_gapchar); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 125; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyObject_AsString(__pyx_v_gapchar); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 136; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_v_gc = __pyx_t_1;
 
-  /* "libsequence/polytable.pyx":126
+  /* "libsequence/polytable.pyx":137
  *     """
  *     cdef char * gc = gapchar
  *     RemoveGaps(p.thisptr,gc[0])             # <<<<<<<<<<<<<<
@@ -2697,7 +2808,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_removeGaps(CYTHON_UNUSED PyOb
  */
   Sequence::RemoveGaps(__pyx_v_p->thisptr, (__pyx_v_gc[0]));
 
-  /* "libsequence/polytable.pyx":109
+  /* "libsequence/polytable.pyx":120
  *         pass
  * 
  * def removeGaps(polyTable p, gapchar = '-'):             # <<<<<<<<<<<<<<
@@ -2717,7 +2828,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_removeGaps(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "libsequence/polytable.pyx":128
+/* "libsequence/polytable.pyx":139
  *     RemoveGaps(p.thisptr,gc[0])
  * 
  * def isValid(polyTable p):             # <<<<<<<<<<<<<<
@@ -2736,7 +2847,7 @@ static PyObject *__pyx_pw_11libsequence_9polytable_3isValid(PyObject *__pyx_self
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("isValid (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_11libsequence_9polytable_2isValid(__pyx_self, ((struct __pyx_obj_11libsequence_9polytable_polyTable *)__pyx_v_p));
 
   /* function exit code */
@@ -2757,7 +2868,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_2isValid(CYTHON_UNUSED PyObje
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("isValid", 0);
 
-  /* "libsequence/polytable.pyx":150
+  /* "libsequence/polytable.pyx":161
  *     False
  *     """
  *     return PolyTableValid(p.thisptr)             # <<<<<<<<<<<<<<
@@ -2765,13 +2876,13 @@ static PyObject *__pyx_pf_11libsequence_9polytable_2isValid(CYTHON_UNUSED PyObje
  * def removeMono(polyTable p, bint skipOutgroup = False, unsigned outgroup = 0):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(Sequence::PolyTableValid(__pyx_v_p->thisptr)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 150; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = __Pyx_PyBool_FromLong(Sequence::PolyTableValid(__pyx_v_p->thisptr)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 161; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "libsequence/polytable.pyx":128
+  /* "libsequence/polytable.pyx":139
  *     RemoveGaps(p.thisptr,gc[0])
  * 
  * def isValid(polyTable p):             # <<<<<<<<<<<<<<
@@ -2790,7 +2901,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_2isValid(CYTHON_UNUSED PyObje
   return __pyx_r;
 }
 
-/* "libsequence/polytable.pyx":152
+/* "libsequence/polytable.pyx":163
  *     return PolyTableValid(p.thisptr)
  * 
  * def removeMono(polyTable p, bint skipOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
@@ -2842,7 +2953,7 @@ static PyObject *__pyx_pw_11libsequence_9polytable_5removeMono(PyObject *__pyx_s
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "removeMono") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 152; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "removeMono") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2855,25 +2966,25 @@ static PyObject *__pyx_pw_11libsequence_9polytable_5removeMono(PyObject *__pyx_s
     }
     __pyx_v_p = ((struct __pyx_obj_11libsequence_9polytable_polyTable *)values[0]);
     if (values[1]) {
-      __pyx_v_skipOutgroup = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_skipOutgroup == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 152; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_skipOutgroup = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_skipOutgroup == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_skipOutgroup = ((int)0);
     }
     if (values[2]) {
-      __pyx_v_outgroup = __Pyx_PyInt_As_unsigned_int(values[2]); if (unlikely((__pyx_v_outgroup == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 152; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_outgroup = __Pyx_PyInt_As_unsigned_int(values[2]); if (unlikely((__pyx_v_outgroup == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_outgroup = ((unsigned int)0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("removeMono", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 152; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("removeMono", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("libsequence.polytable.removeMono", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 152; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_11libsequence_9polytable_4removeMono(__pyx_self, __pyx_v_p, __pyx_v_skipOutgroup, __pyx_v_outgroup);
 
   /* function exit code */
@@ -2890,7 +3001,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_4removeMono(CYTHON_UNUSED PyO
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("removeMono", 0);
 
-  /* "libsequence/polytable.pyx":160
+  /* "libsequence/polytable.pyx":171
  *     :param outgroup: The index of the outgroup sequence in p
  *     """
  *     RemoveInvariantColumns(p.thisptr,skipOutgroup,outgroup)             # <<<<<<<<<<<<<<
@@ -2899,7 +3010,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_4removeMono(CYTHON_UNUSED PyO
  */
   Sequence::RemoveInvariantColumns(__pyx_v_p->thisptr, __pyx_v_skipOutgroup, __pyx_v_outgroup);
 
-  /* "libsequence/polytable.pyx":152
+  /* "libsequence/polytable.pyx":163
  *     return PolyTableValid(p.thisptr)
  * 
  * def removeMono(polyTable p, bint skipOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
@@ -2914,7 +3025,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_4removeMono(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "libsequence/polytable.pyx":162
+/* "libsequence/polytable.pyx":173
  *     RemoveInvariantColumns(p.thisptr,skipOutgroup,outgroup)
  * 
  * def freqFilter(polyTable p,unsigned mincount,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
@@ -2959,7 +3070,7 @@ static PyObject *__pyx_pw_11libsequence_9polytable_7freqFilter(PyObject *__pyx_s
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_mincount)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("freqFilter", 0, 2, 4, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("freqFilter", 0, 2, 4, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (kw_args > 0) {
@@ -2973,7 +3084,7 @@ static PyObject *__pyx_pw_11libsequence_9polytable_7freqFilter(PyObject *__pyx_s
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "freqFilter") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "freqFilter") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2986,27 +3097,27 @@ static PyObject *__pyx_pw_11libsequence_9polytable_7freqFilter(PyObject *__pyx_s
       }
     }
     __pyx_v_p = ((struct __pyx_obj_11libsequence_9polytable_polyTable *)values[0]);
-    __pyx_v_mincount = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_mincount == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_mincount = __Pyx_PyInt_As_unsigned_int(values[1]); if (unlikely((__pyx_v_mincount == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     if (values[2]) {
-      __pyx_v_haveOutgroup = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_haveOutgroup == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_haveOutgroup = __Pyx_PyObject_IsTrue(values[2]); if (unlikely((__pyx_v_haveOutgroup == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_haveOutgroup = ((int)0);
     }
     if (values[3]) {
-      __pyx_v_outgroup = __Pyx_PyInt_As_unsigned_int(values[3]); if (unlikely((__pyx_v_outgroup == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_outgroup = __Pyx_PyInt_As_unsigned_int(values[3]); if (unlikely((__pyx_v_outgroup == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_outgroup = ((unsigned int)0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("freqFilter", 0, 2, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("freqFilter", 0, 2, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("libsequence.polytable.freqFilter", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_11libsequence_9polytable_6freqFilter(__pyx_self, __pyx_v_p, __pyx_v_mincount, __pyx_v_haveOutgroup, __pyx_v_outgroup);
 
   /* function exit code */
@@ -3023,7 +3134,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_6freqFilter(CYTHON_UNUSED PyO
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("freqFilter", 0);
 
-  /* "libsequence/polytable.pyx":173
+  /* "libsequence/polytable.pyx":184
  *     .. note:: If haveOutgroup == True, this is a filter on derived mutation counts, otherwise it is a filter on minor allele counts.  If p is of type :class:`libsequence.polyTable.simData`, this is a filter on derived mutation counts.
  *     """
  *     p.thisptr.ApplyFreqFilter(mincount,haveOutgroup,outgroup)             # <<<<<<<<<<<<<<
@@ -3032,7 +3143,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_6freqFilter(CYTHON_UNUSED PyO
  */
   __pyx_v_p->thisptr->ApplyFreqFilter(__pyx_v_mincount, __pyx_v_haveOutgroup, __pyx_v_outgroup);
 
-  /* "libsequence/polytable.pyx":162
+  /* "libsequence/polytable.pyx":173
  *     RemoveInvariantColumns(p.thisptr,skipOutgroup,outgroup)
  * 
  * def freqFilter(polyTable p,unsigned mincount,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
@@ -3047,7 +3158,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_6freqFilter(CYTHON_UNUSED PyO
   return __pyx_r;
 }
 
-/* "libsequence/polytable.pyx":175
+/* "libsequence/polytable.pyx":186
  *     p.thisptr.ApplyFreqFilter(mincount,haveOutgroup,outgroup)
  * 
  * def removeMissing(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
@@ -3099,7 +3210,7 @@ static PyObject *__pyx_pw_11libsequence_9polytable_9removeMissing(PyObject *__py
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "removeMissing") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "removeMissing") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3112,25 +3223,25 @@ static PyObject *__pyx_pw_11libsequence_9polytable_9removeMissing(PyObject *__py
     }
     __pyx_v_p = ((struct __pyx_obj_11libsequence_9polytable_polyTable *)values[0]);
     if (values[1]) {
-      __pyx_v_haveOutgroup = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_haveOutgroup == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_haveOutgroup = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_haveOutgroup == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_haveOutgroup = ((int)0);
     }
     if (values[2]) {
-      __pyx_v_outgroup = __Pyx_PyInt_As_unsigned_int(values[2]); if (unlikely((__pyx_v_outgroup == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_outgroup = __Pyx_PyInt_As_unsigned_int(values[2]); if (unlikely((__pyx_v_outgroup == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_outgroup = ((unsigned int)0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("removeMissing", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("removeMissing", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("libsequence.polytable.removeMissing", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_11libsequence_9polytable_8removeMissing(__pyx_self, __pyx_v_p, __pyx_v_haveOutgroup, __pyx_v_outgroup);
 
   /* function exit code */
@@ -3147,7 +3258,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_8removeMissing(CYTHON_UNUSED 
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("removeMissing", 0);
 
-  /* "libsequence/polytable.pyx":184
+  /* "libsequence/polytable.pyx":195
  *     :param outgroup: The index of the outgroup sequence in p
  *     """
  *     p.thisptr.RemoveMissing(haveOutgroup,outgroup)             # <<<<<<<<<<<<<<
@@ -3156,7 +3267,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_8removeMissing(CYTHON_UNUSED 
  */
   __pyx_v_p->thisptr->RemoveMissing(__pyx_v_haveOutgroup, __pyx_v_outgroup);
 
-  /* "libsequence/polytable.pyx":175
+  /* "libsequence/polytable.pyx":186
  *     p.thisptr.ApplyFreqFilter(mincount,haveOutgroup,outgroup)
  * 
  * def removeMissing(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
@@ -3171,7 +3282,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_8removeMissing(CYTHON_UNUSED 
   return __pyx_r;
 }
 
-/* "libsequence/polytable.pyx":186
+/* "libsequence/polytable.pyx":197
  *     p.thisptr.RemoveMissing(haveOutgroup,outgroup)
  * 
  * def removeMultiHits(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
@@ -3223,7 +3334,7 @@ static PyObject *__pyx_pw_11libsequence_9polytable_11removeMultiHits(PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "removeMultiHits") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "removeMultiHits") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3236,25 +3347,25 @@ static PyObject *__pyx_pw_11libsequence_9polytable_11removeMultiHits(PyObject *_
     }
     __pyx_v_p = ((struct __pyx_obj_11libsequence_9polytable_polyTable *)values[0]);
     if (values[1]) {
-      __pyx_v_haveOutgroup = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_haveOutgroup == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_haveOutgroup = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_haveOutgroup == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_haveOutgroup = ((int)0);
     }
     if (values[2]) {
-      __pyx_v_outgroup = __Pyx_PyInt_As_unsigned_int(values[2]); if (unlikely((__pyx_v_outgroup == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_outgroup = __Pyx_PyInt_As_unsigned_int(values[2]); if (unlikely((__pyx_v_outgroup == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_outgroup = ((unsigned int)0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("removeMultiHits", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("removeMultiHits", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("libsequence.polytable.removeMultiHits", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_11libsequence_9polytable_10removeMultiHits(__pyx_self, __pyx_v_p, __pyx_v_haveOutgroup, __pyx_v_outgroup);
 
   /* function exit code */
@@ -3271,7 +3382,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_10removeMultiHits(CYTHON_UNUS
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("removeMultiHits", 0);
 
-  /* "libsequence/polytable.pyx":194
+  /* "libsequence/polytable.pyx":205
  *     :param outgroup: The index of the outgroup sequence in p
  *     """
  *     p.thisptr.RemoveMultiHits(haveOutgroup,outgroup)             # <<<<<<<<<<<<<<
@@ -3280,7 +3391,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_10removeMultiHits(CYTHON_UNUS
  */
   __pyx_v_p->thisptr->RemoveMultiHits(__pyx_v_haveOutgroup, __pyx_v_outgroup);
 
-  /* "libsequence/polytable.pyx":186
+  /* "libsequence/polytable.pyx":197
  *     p.thisptr.RemoveMissing(haveOutgroup,outgroup)
  * 
  * def removeMultiHits(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
@@ -3295,7 +3406,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_10removeMultiHits(CYTHON_UNUS
   return __pyx_r;
 }
 
-/* "libsequence/polytable.pyx":196
+/* "libsequence/polytable.pyx":207
  *     p.thisptr.RemoveMultiHits(haveOutgroup,outgroup)
  * 
  * def removeAmbiguous(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
@@ -3347,7 +3458,7 @@ static PyObject *__pyx_pw_11libsequence_9polytable_13removeAmbiguous(PyObject *_
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "removeAmbiguous") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "removeAmbiguous") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3360,25 +3471,25 @@ static PyObject *__pyx_pw_11libsequence_9polytable_13removeAmbiguous(PyObject *_
     }
     __pyx_v_p = ((struct __pyx_obj_11libsequence_9polytable_polyTable *)values[0]);
     if (values[1]) {
-      __pyx_v_haveOutgroup = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_haveOutgroup == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_haveOutgroup = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_haveOutgroup == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_haveOutgroup = ((int)0);
     }
     if (values[2]) {
-      __pyx_v_outgroup = __Pyx_PyInt_As_unsigned_int(values[2]); if (unlikely((__pyx_v_outgroup == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_outgroup = __Pyx_PyInt_As_unsigned_int(values[2]); if (unlikely((__pyx_v_outgroup == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_outgroup = ((unsigned int)0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("removeAmbiguous", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("removeAmbiguous", 0, 1, 3, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("libsequence.polytable.removeAmbiguous", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_11libsequence_9polytable_12removeAmbiguous(__pyx_self, __pyx_v_p, __pyx_v_haveOutgroup, __pyx_v_outgroup);
 
   /* function exit code */
@@ -3395,16 +3506,16 @@ static PyObject *__pyx_pf_11libsequence_9polytable_12removeAmbiguous(CYTHON_UNUS
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("removeAmbiguous", 0);
 
-  /* "libsequence/polytable.pyx":204
+  /* "libsequence/polytable.pyx":215
  *     :param outgroup: The index of the outgroup sequence in p
  *     """
  *     p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)             # <<<<<<<<<<<<<<
  * 
- * def tolist(polyTable p):
+ * 
  */
   __pyx_v_p->thisptr->RemoveAmbiguous(__pyx_v_haveOutgroup, __pyx_v_outgroup);
 
-  /* "libsequence/polytable.pyx":196
+  /* "libsequence/polytable.pyx":207
  *     p.thisptr.RemoveMultiHits(haveOutgroup,outgroup)
  * 
  * def removeAmbiguous(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
@@ -3414,133 +3525,6 @@ static PyObject *__pyx_pf_11libsequence_9polytable_12removeAmbiguous(CYTHON_UNUS
 
   /* function exit code */
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "libsequence/polytable.pyx":206
- *     p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)
- * 
- * def tolist(polyTable p):             # <<<<<<<<<<<<<<
- *     """
- *     Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_11libsequence_9polytable_15tolist(PyObject *__pyx_self, PyObject *__pyx_v_p); /*proto*/
-static char __pyx_doc_11libsequence_9polytable_14tolist[] = "\n    Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.\n    ";
-static PyMethodDef __pyx_mdef_11libsequence_9polytable_15tolist = {"tolist", (PyCFunction)__pyx_pw_11libsequence_9polytable_15tolist, METH_O, __pyx_doc_11libsequence_9polytable_14tolist};
-static PyObject *__pyx_pw_11libsequence_9polytable_15tolist(PyObject *__pyx_self, PyObject *__pyx_v_p) {
-  CYTHON_UNUSED int __pyx_lineno = 0;
-  CYTHON_UNUSED const char *__pyx_filename = NULL;
-  CYTHON_UNUSED int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("tolist (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_11libsequence_9polytable_14tolist(__pyx_self, ((struct __pyx_obj_11libsequence_9polytable_polyTable *)__pyx_v_p));
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_11libsequence_9polytable_14tolist(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_p) {
-  std::vector<std::pair<double,std::string> >  __pyx_v_rv;
-  std::vector<std::pair<double,std::string> > ::const_iterator __pyx_v_b;
-  std::vector<std::pair<double,std::string> > ::const_iterator __pyx_v_e;
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  int __pyx_t_1;
-  PyObject *__pyx_t_2 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("tolist", 0);
-
-  /* "libsequence/polytable.pyx":211
- *     """
- *     cdef vector[pair[double,string]] rv
- *     cdef vector[pair[double,string]].const_iterator b = p.thisptr.sbegin()             # <<<<<<<<<<<<<<
- *     cdef vector[pair[double,string]].const_iterator e = p.thisptr.send()
- *     while b < e:
- */
-  __pyx_v_b = __pyx_v_p->thisptr->sbegin();
-
-  /* "libsequence/polytable.pyx":212
- *     cdef vector[pair[double,string]] rv
- *     cdef vector[pair[double,string]].const_iterator b = p.thisptr.sbegin()
- *     cdef vector[pair[double,string]].const_iterator e = p.thisptr.send()             # <<<<<<<<<<<<<<
- *     while b < e:
- *         rv.push_back(deref(b))
- */
-  __pyx_v_e = __pyx_v_p->thisptr->send();
-
-  /* "libsequence/polytable.pyx":213
- *     cdef vector[pair[double,string]].const_iterator b = p.thisptr.sbegin()
- *     cdef vector[pair[double,string]].const_iterator e = p.thisptr.send()
- *     while b < e:             # <<<<<<<<<<<<<<
- *         rv.push_back(deref(b))
- *         inc(b)
- */
-  while (1) {
-    __pyx_t_1 = ((__pyx_v_b < __pyx_v_e) != 0);
-    if (!__pyx_t_1) break;
-
-    /* "libsequence/polytable.pyx":214
- *     cdef vector[pair[double,string]].const_iterator e = p.thisptr.send()
- *     while b < e:
- *         rv.push_back(deref(b))             # <<<<<<<<<<<<<<
- *         inc(b)
- *     return rv
- */
-    try {
-      __pyx_v_rv.push_back((*__pyx_v_b));
-    } catch(...) {
-      __Pyx_CppExn2PyErr();
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 214; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-    }
-
-    /* "libsequence/polytable.pyx":215
- *     while b < e:
- *         rv.push_back(deref(b))
- *         inc(b)             # <<<<<<<<<<<<<<
- *     return rv
- */
-    (__pyx_v_b++);
-  }
-
-  /* "libsequence/polytable.pyx":216
- *         rv.push_back(deref(b))
- *         inc(b)
- *     return rv             # <<<<<<<<<<<<<<
- */
-  __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(__pyx_v_rv); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 216; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_r = __pyx_t_2;
-  __pyx_t_2 = 0;
-  goto __pyx_L0;
-
-  /* "libsequence/polytable.pyx":206
- *     p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)
- * 
- * def tolist(polyTable p):             # <<<<<<<<<<<<<<
- *     """
- *     Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("libsequence.polytable.tolist", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -4680,6 +4664,7 @@ static PyMethodDef __pyx_methods_11libsequence_9polytable_polyTable[] = {
   {"empty", (PyCFunction)__pyx_pw_11libsequence_9polytable_9polyTable_15empty, METH_NOARGS, __pyx_doc_11libsequence_9polytable_9polyTable_14empty},
   {"assign", (PyCFunction)__pyx_pw_11libsequence_9polytable_9polyTable_17assign, METH_O, __pyx_doc_11libsequence_9polytable_9polyTable_16assign},
   {"assign_sep", (PyCFunction)__pyx_pw_11libsequence_9polytable_9polyTable_19assign_sep, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11libsequence_9polytable_9polyTable_18assign_sep},
+  {"tolist", (PyCFunction)__pyx_pw_11libsequence_9polytable_9polyTable_21tolist, METH_NOARGS, __pyx_doc_11libsequence_9polytable_9polyTable_20tolist},
   {0, 0, 0, 0}
 };
 
@@ -4978,17 +4963,15 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_assign_failed, __pyx_k_assign_failed, sizeof(__pyx_k_assign_failed), 0, 0, 1, 0},
   {&__pyx_n_s_assign_sep, __pyx_k_assign_sep, sizeof(__pyx_k_assign_sep), 0, 0, 1, 1},
   {&__pyx_kp_s_assign_sep_failed, __pyx_k_assign_sep_failed, sizeof(__pyx_k_assign_sep_failed), 0, 0, 1, 0},
-  {&__pyx_n_s_b, __pyx_k_b, sizeof(__pyx_k_b), 0, 0, 1, 1},
   {&__pyx_n_s_class, __pyx_k_class, sizeof(__pyx_k_class), 0, 0, 1, 1},
   {&__pyx_n_s_data, __pyx_k_data, sizeof(__pyx_k_data), 0, 0, 1, 1},
-  {&__pyx_n_s_e, __pyx_k_e, sizeof(__pyx_k_e), 0, 0, 1, 1},
   {&__pyx_n_s_empty, __pyx_k_empty, sizeof(__pyx_k_empty), 0, 0, 1, 1},
   {&__pyx_n_s_freqFilter, __pyx_k_freqFilter, sizeof(__pyx_k_freqFilter), 0, 0, 1, 1},
   {&__pyx_n_s_gapchar, __pyx_k_gapchar, sizeof(__pyx_k_gapchar), 0, 0, 1, 1},
   {&__pyx_n_s_gc, __pyx_k_gc, sizeof(__pyx_k_gc), 0, 0, 1, 1},
   {&__pyx_n_s_haveOutgroup, __pyx_k_haveOutgroup, sizeof(__pyx_k_haveOutgroup), 0, 0, 1, 1},
   {&__pyx_n_s_isValid, __pyx_k_isValid, sizeof(__pyx_k_isValid), 0, 0, 1, 1},
-  {&__pyx_kp_u_isValid_line_128, __pyx_k_isValid_line_128, sizeof(__pyx_k_isValid_line_128), 0, 1, 0, 0},
+  {&__pyx_kp_u_isValid_line_139, __pyx_k_isValid_line_139, sizeof(__pyx_k_isValid_line_139), 0, 1, 0, 0},
   {&__pyx_n_s_libsequence_polytable, __pyx_k_libsequence_polytable, sizeof(__pyx_k_libsequence_polytable), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_mincount, __pyx_k_mincount, sizeof(__pyx_k_mincount), 0, 0, 1, 1},
@@ -5003,15 +4986,13 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_removeAmbiguous, __pyx_k_removeAmbiguous, sizeof(__pyx_k_removeAmbiguous), 0, 0, 1, 1},
   {&__pyx_n_s_removeGaps, __pyx_k_removeGaps, sizeof(__pyx_k_removeGaps), 0, 0, 1, 1},
-  {&__pyx_kp_u_removeGaps_line_109, __pyx_k_removeGaps_line_109, sizeof(__pyx_k_removeGaps_line_109), 0, 1, 0, 0},
+  {&__pyx_kp_u_removeGaps_line_120, __pyx_k_removeGaps_line_120, sizeof(__pyx_k_removeGaps_line_120), 0, 1, 0, 0},
   {&__pyx_n_s_removeMissing, __pyx_k_removeMissing, sizeof(__pyx_k_removeMissing), 0, 0, 1, 1},
   {&__pyx_n_s_removeMono, __pyx_k_removeMono, sizeof(__pyx_k_removeMono), 0, 0, 1, 1},
   {&__pyx_n_s_removeMultiHits, __pyx_k_removeMultiHits, sizeof(__pyx_k_removeMultiHits), 0, 0, 1, 1},
-  {&__pyx_n_s_rv, __pyx_k_rv, sizeof(__pyx_k_rv), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
   {&__pyx_n_s_skipOutgroup, __pyx_k_skipOutgroup, sizeof(__pyx_k_skipOutgroup), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
-  {&__pyx_n_s_tolist, __pyx_k_tolist, sizeof(__pyx_k_tolist), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
@@ -5052,108 +5033,96 @@ static int __Pyx_InitCachedConstants(void) {
  *         cdef bint rv =self.thisptr.assign[double,string](pos.data(),pos.size(),data.data(),data.size())
  *         if rv == False:
  *             raise RuntimeError("assign_sep failed")             # <<<<<<<<<<<<<<
- * 
- * cdef class simData(polyTable):
+ *     def tolist(self):
+ *         """
  */
   __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_assign_sep_failed); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 85; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "libsequence/polytable.pyx":109
+  /* "libsequence/polytable.pyx":120
  *         pass
  * 
  * def removeGaps(polyTable p, gapchar = '-'):             # <<<<<<<<<<<<<<
  *     """
  *     Remove all sites (columns) with gaps.
  */
-  __pyx_tuple__5 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_gapchar, __pyx_n_s_gc); if (unlikely(!__pyx_tuple__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__5 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_gapchar, __pyx_n_s_gc); if (unlikely(!__pyx_tuple__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_removeGaps, 109, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_removeGaps, 120, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "libsequence/polytable.pyx":128
+  /* "libsequence/polytable.pyx":139
  *     RemoveGaps(p.thisptr,gc[0])
  * 
  * def isValid(polyTable p):             # <<<<<<<<<<<<<<
  *     """
  *     Return True if p only contains the characters A,C,G,T,N,-,0,1.
  */
-  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_n_s_p); if (unlikely(!__pyx_tuple__7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__7 = PyTuple_Pack(1, __pyx_n_s_p); if (unlikely(!__pyx_tuple__7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_isValid, 128, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_isValid, 139, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "libsequence/polytable.pyx":152
+  /* "libsequence/polytable.pyx":163
  *     return PolyTableValid(p.thisptr)
  * 
  * def removeMono(polyTable p, bint skipOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
  *     """
  *     Remove invariant sites from p
  */
-  __pyx_tuple__9 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_skipOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 152; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__9 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_skipOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_removeMono, 152, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 152; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_removeMono, 163, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "libsequence/polytable.pyx":162
+  /* "libsequence/polytable.pyx":173
  *     RemoveInvariantColumns(p.thisptr,skipOutgroup,outgroup)
  * 
  * def freqFilter(polyTable p,unsigned mincount,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
  *     """
  *     Remove all sites with mutation count <= mincount
  */
-  __pyx_tuple__11 = PyTuple_Pack(4, __pyx_n_s_p, __pyx_n_s_mincount, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__11 = PyTuple_Pack(4, __pyx_n_s_p, __pyx_n_s_mincount, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_freqFilter, 162, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_freqFilter, 173, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "libsequence/polytable.pyx":175
+  /* "libsequence/polytable.pyx":186
  *     p.thisptr.ApplyFreqFilter(mincount,haveOutgroup,outgroup)
  * 
  * def removeMissing(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
  *     """
  *     Remove all sites missing data (the 'N' or 'n' character)
  */
-  __pyx_tuple__13 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__13 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_removeMissing, 175, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_removeMissing, 186, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "libsequence/polytable.pyx":186
+  /* "libsequence/polytable.pyx":197
  *     p.thisptr.RemoveMissing(haveOutgroup,outgroup)
  * 
  * def removeMultiHits(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
  *     """
  *     Remove all sites with more than two character states.
  */
-  __pyx_tuple__15 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__15)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__15 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__15)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_removeMultiHits, 186, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_removeMultiHits, 197, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "libsequence/polytable.pyx":196
+  /* "libsequence/polytable.pyx":207
  *     p.thisptr.RemoveMultiHits(haveOutgroup,outgroup)
  * 
  * def removeAmbiguous(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
  *     """
  *     Remove all sites with characters not in the set A,G,C,T,N,0,1,-.
  */
-  __pyx_tuple__17 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__17)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__17 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__17)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_removeAmbiguous, 196, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-
-  /* "libsequence/polytable.pyx":206
- *     p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)
- * 
- * def tolist(polyTable p):             # <<<<<<<<<<<<<<
- *     """
- *     Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
- */
-  __pyx_tuple__19 = PyTuple_Pack(4, __pyx_n_s_p, __pyx_n_s_rv, __pyx_n_s_b, __pyx_n_s_e); if (unlikely(!__pyx_tuple__19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_tuple__19);
-  __Pyx_GIVEREF(__pyx_tuple__19);
-  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_tolist, 206, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_removeAmbiguous, 207, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5270,18 +5239,18 @@ PyMODINIT_FUNC PyInit_polytable(void)
   __pyx_vtabptr_11libsequence_9polytable_simData = &__pyx_vtable_11libsequence_9polytable_simData;
   __pyx_vtable_11libsequence_9polytable_simData.__pyx_base = *__pyx_vtabptr_11libsequence_9polytable_polyTable;
   __pyx_type_11libsequence_9polytable_simData.tp_base = __pyx_ptype_11libsequence_9polytable_polyTable;
-  if (PyType_Ready(&__pyx_type_11libsequence_9polytable_simData) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_11libsequence_9polytable_simData) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_11libsequence_9polytable_simData.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_11libsequence_9polytable_simData.tp_dict, __pyx_vtabptr_11libsequence_9polytable_simData) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "simData", (PyObject *)&__pyx_type_11libsequence_9polytable_simData) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 87; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_SetVtable(__pyx_type_11libsequence_9polytable_simData.tp_dict, __pyx_vtabptr_11libsequence_9polytable_simData) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "simData", (PyObject *)&__pyx_type_11libsequence_9polytable_simData) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_11libsequence_9polytable_simData = &__pyx_type_11libsequence_9polytable_simData;
   __pyx_vtabptr_11libsequence_9polytable_polySites = &__pyx_vtable_11libsequence_9polytable_polySites;
   __pyx_vtable_11libsequence_9polytable_polySites.__pyx_base = *__pyx_vtabptr_11libsequence_9polytable_polyTable;
   __pyx_type_11libsequence_9polytable_polySites.tp_base = __pyx_ptype_11libsequence_9polytable_polyTable;
-  if (PyType_Ready(&__pyx_type_11libsequence_9polytable_polySites) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyType_Ready(&__pyx_type_11libsequence_9polytable_polySites) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_type_11libsequence_9polytable_polySites.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_11libsequence_9polytable_polySites.tp_dict, __pyx_vtabptr_11libsequence_9polytable_polySites) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyObject_SetAttrString(__pyx_m, "polySites", (PyObject *)&__pyx_type_11libsequence_9polytable_polySites) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 98; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (__Pyx_SetVtable(__pyx_type_11libsequence_9polytable_polySites.tp_dict, __pyx_vtabptr_11libsequence_9polytable_polySites) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyObject_SetAttrString(__pyx_m, "polySites", (PyObject *)&__pyx_type_11libsequence_9polytable_polySites) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_11libsequence_9polytable_polySites = &__pyx_type_11libsequence_9polytable_polySites;
   /*--- Type import code ---*/
   /*--- Variable import code ---*/
@@ -5291,100 +5260,88 @@ PyMODINIT_FUNC PyInit_polytable(void)
   if (__Pyx_patch_abc() < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   #endif
 
-  /* "libsequence/polytable.pyx":109
+  /* "libsequence/polytable.pyx":120
  *         pass
  * 
  * def removeGaps(polyTable p, gapchar = '-'):             # <<<<<<<<<<<<<<
  *     """
  *     Remove all sites (columns) with gaps.
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_1removeGaps, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_1removeGaps, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_removeGaps, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 109; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_removeGaps, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 120; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "libsequence/polytable.pyx":128
+  /* "libsequence/polytable.pyx":139
  *     RemoveGaps(p.thisptr,gc[0])
  * 
  * def isValid(polyTable p):             # <<<<<<<<<<<<<<
  *     """
  *     Return True if p only contains the characters A,C,G,T,N,-,0,1.
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_3isValid, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_3isValid, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_isValid, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 128; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_isValid, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 139; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "libsequence/polytable.pyx":152
+  /* "libsequence/polytable.pyx":163
  *     return PolyTableValid(p.thisptr)
  * 
  * def removeMono(polyTable p, bint skipOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
  *     """
  *     Remove invariant sites from p
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_5removeMono, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 152; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_5removeMono, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_removeMono, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 152; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_removeMono, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 163; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "libsequence/polytable.pyx":162
+  /* "libsequence/polytable.pyx":173
  *     RemoveInvariantColumns(p.thisptr,skipOutgroup,outgroup)
  * 
  * def freqFilter(polyTable p,unsigned mincount,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
  *     """
  *     Remove all sites with mutation count <= mincount
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_7freqFilter, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_7freqFilter, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_freqFilter, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 162; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_freqFilter, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 173; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "libsequence/polytable.pyx":175
+  /* "libsequence/polytable.pyx":186
  *     p.thisptr.ApplyFreqFilter(mincount,haveOutgroup,outgroup)
  * 
  * def removeMissing(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
  *     """
  *     Remove all sites missing data (the 'N' or 'n' character)
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_9removeMissing, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_9removeMissing, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_removeMissing, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 175; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_removeMissing, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "libsequence/polytable.pyx":186
+  /* "libsequence/polytable.pyx":197
  *     p.thisptr.RemoveMissing(haveOutgroup,outgroup)
  * 
  * def removeMultiHits(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
  *     """
  *     Remove all sites with more than two character states.
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_11removeMultiHits, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_11removeMultiHits, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_removeMultiHits, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 186; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_removeMultiHits, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 197; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "libsequence/polytable.pyx":196
+  /* "libsequence/polytable.pyx":207
  *     p.thisptr.RemoveMultiHits(haveOutgroup,outgroup)
  * 
  * def removeAmbiguous(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):             # <<<<<<<<<<<<<<
  *     """
  *     Remove all sites with characters not in the set A,G,C,T,N,0,1,-.
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_13removeAmbiguous, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_13removeAmbiguous, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_removeAmbiguous, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-
-  /* "libsequence/polytable.pyx":206
- *     p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)
- * 
- * def tolist(polyTable p):             # <<<<<<<<<<<<<<
- *     """
- *     Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
- */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_15tolist, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tolist, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_removeAmbiguous, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 207; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "libsequence/polytable.pyx":1
@@ -5396,8 +5353,8 @@ PyMODINIT_FUNC PyInit_polytable(void)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_polyTable_assign_line_56, __pyx_kp_u_Fill_data_from_a_list_of_tuples) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_polyTable_assign_sep_line_70, __pyx_kp_u_Fill_object_from_two_lists_Exam) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_removeGaps_line_109, __pyx_kp_u_Remove_all_sites_columns_with_g) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_isValid_line_128, __pyx_kp_u_Return_True_if_p_only_contains) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_removeGaps_line_120, __pyx_kp_u_Remove_all_sites_columns_with_g) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_isValid_line_139, __pyx_kp_u_Return_True_if_p_only_contains) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 

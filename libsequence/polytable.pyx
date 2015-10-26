@@ -83,7 +83,18 @@ cdef class polyTable:
         cdef bint rv =self.thisptr.assign[double,string](pos.data(),pos.size(),data.data(),data.size())
         if rv == False:
             raise RuntimeError("assign_sep failed")
-
+    def tolist(self):
+        """
+        Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
+        """
+        cdef vector[pair[double,string]] rv
+        cdef vector[pair[double,string]].const_iterator b = self.thisptr.sbegin()
+        cdef vector[pair[double,string]].const_iterator e = self.thisptr.send()
+        while b < e:
+            rv.push_back(deref(b))
+            inc(b)
+        return rv
+    
 cdef class simData(polyTable):
     """
     A polymorphism table for binary data.  0/1 = ancestral/derived.
@@ -203,14 +214,4 @@ def removeAmbiguous(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0
     """
     p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)
 
-def tolist(polyTable p):
-    """
-    Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
-    """
-    cdef vector[pair[double,string]] rv
-    cdef vector[pair[double,string]].const_iterator b = p.thisptr.sbegin()
-    cdef vector[pair[double,string]].const_iterator e = p.thisptr.send()
-    while b < e:
-        rv.push_back(deref(b))
-        inc(b)
-    return rv
+
