@@ -10,11 +10,6 @@
         "extra_link_args": [
             "-std=c++11"
         ], 
-        "include_dirs": [
-            ".", 
-            "include", 
-            ".."
-        ], 
         "language": "c++", 
         "libraries": [
             "sequence"
@@ -768,6 +763,45 @@ static CYTHON_INLINE unsigned int __Pyx_PyInt_As_unsigned_int(PyObject *);
 
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_int(unsigned int value);
 
+#ifndef __Pyx_CppExn2PyErr
+#include <new>
+#include <typeinfo>
+#include <stdexcept>
+#include <ios>
+static void __Pyx_CppExn2PyErr() {
+  try {
+    if (PyErr_Occurred())
+      ; // let the latest Python exn pass through and ignore the current one
+    else
+      throw;
+  } catch (const std::bad_alloc& exn) {
+    PyErr_SetString(PyExc_MemoryError, exn.what());
+  } catch (const std::bad_cast& exn) {
+    PyErr_SetString(PyExc_TypeError, exn.what());
+  } catch (const std::domain_error& exn) {
+    PyErr_SetString(PyExc_ValueError, exn.what());
+  } catch (const std::invalid_argument& exn) {
+    PyErr_SetString(PyExc_ValueError, exn.what());
+  } catch (const std::ios_base::failure& exn) {
+    PyErr_SetString(PyExc_IOError, exn.what());
+  } catch (const std::out_of_range& exn) {
+    PyErr_SetString(PyExc_IndexError, exn.what());
+  } catch (const std::overflow_error& exn) {
+    PyErr_SetString(PyExc_OverflowError, exn.what());
+  } catch (const std::range_error& exn) {
+    PyErr_SetString(PyExc_ArithmeticError, exn.what());
+  } catch (const std::underflow_error& exn) {
+    PyErr_SetString(PyExc_ArithmeticError, exn.what());
+  } catch (const std::exception& exn) {
+    PyErr_SetString(PyExc_RuntimeError, exn.what());
+  }
+  catch (...)
+  {
+    PyErr_SetString(PyExc_RuntimeError, "Unknown exception");
+  }
+}
+#endif
+
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
 static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *);
@@ -818,15 +852,19 @@ static PyObject *__pyx_convert_vector_to_py_std_3a__3a_string(const std::vector<
 static PyObject *__pyx_convert_vector_to_py_double(const std::vector<double>  &); /*proto*/
 static PyObject *__pyx_convert_pair_to_py_double____std_3a__3a_string(std::pair<double,std::string>  const &); /*proto*/
 static PyObject *__pyx_convert_vector_to_py_Sequence_3a__3a_polymorphicSite(const std::vector<Sequence::polymorphicSite>  &); /*proto*/
+static PyObject *__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(const std::vector<std::pair<double,std::string> >  &); /*proto*/
 #define __Pyx_MODULE_NAME "libsequence.polytable"
 int __pyx_module_is_main_libsequence__polytable = 0;
 
 /* Implementation of 'libsequence.polytable' */
 static PyObject *__pyx_builtin_RuntimeError;
 static PyObject *__pyx_builtin_range;
+static char __pyx_k_b[] = "b";
+static char __pyx_k_e[] = "e";
 static char __pyx_k_p[] = "p";
 static char __pyx_k__4[] = "-";
 static char __pyx_k_gc[] = "gc";
+static char __pyx_k_rv[] = "rv";
 static char __pyx_k_pos[] = "pos";
 static char __pyx_k_data[] = "data";
 static char __pyx_k_main[] = "__main__";
@@ -836,6 +874,7 @@ static char __pyx_k_class[] = "__class__";
 static char __pyx_k_empty[] = "empty";
 static char __pyx_k_range[] = "range";
 static char __pyx_k_assign[] = "assign";
+static char __pyx_k_tolist[] = "tolist";
 static char __pyx_k_gapchar[] = "gapchar";
 static char __pyx_k_isValid[] = "isValid";
 static char __pyx_k_mincount[] = "mincount";
@@ -876,8 +915,10 @@ static PyObject *__pyx_n_s_assign;
 static PyObject *__pyx_kp_s_assign_failed;
 static PyObject *__pyx_n_s_assign_sep;
 static PyObject *__pyx_kp_s_assign_sep_failed;
+static PyObject *__pyx_n_s_b;
 static PyObject *__pyx_n_s_class;
 static PyObject *__pyx_n_s_data;
+static PyObject *__pyx_n_s_e;
 static PyObject *__pyx_n_s_empty;
 static PyObject *__pyx_n_s_freqFilter;
 static PyObject *__pyx_n_s_gapchar;
@@ -903,9 +944,11 @@ static PyObject *__pyx_kp_u_removeGaps_line_109;
 static PyObject *__pyx_n_s_removeMissing;
 static PyObject *__pyx_n_s_removeMono;
 static PyObject *__pyx_n_s_removeMultiHits;
+static PyObject *__pyx_n_s_rv;
 static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_skipOutgroup;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_n_s_tolist;
 static int __pyx_pf_11libsequence_9polytable_9polyTable___cinit__(struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_self); /* proto */
 static void __pyx_pf_11libsequence_9polytable_9polyTable_2__dealloc__(struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11libsequence_9polytable_9polyTable_4size(struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_self); /* proto */
@@ -927,6 +970,7 @@ static PyObject *__pyx_pf_11libsequence_9polytable_6freqFilter(CYTHON_UNUSED PyO
 static PyObject *__pyx_pf_11libsequence_9polytable_8removeMissing(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_p, int __pyx_v_haveOutgroup, unsigned int __pyx_v_outgroup); /* proto */
 static PyObject *__pyx_pf_11libsequence_9polytable_10removeMultiHits(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_p, int __pyx_v_haveOutgroup, unsigned int __pyx_v_outgroup); /* proto */
 static PyObject *__pyx_pf_11libsequence_9polytable_12removeAmbiguous(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_p, int __pyx_v_haveOutgroup, unsigned int __pyx_v_outgroup); /* proto */
+static PyObject *__pyx_pf_11libsequence_9polytable_14tolist(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_p); /* proto */
 static PyObject *__pyx_tp_new_11libsequence_9polytable_polyTable(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_11libsequence_9polytable_simData(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_tp_new_11libsequence_9polytable_polySites(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -940,6 +984,7 @@ static PyObject *__pyx_tuple__11;
 static PyObject *__pyx_tuple__13;
 static PyObject *__pyx_tuple__15;
 static PyObject *__pyx_tuple__17;
+static PyObject *__pyx_tuple__19;
 static PyObject *__pyx_codeobj__6;
 static PyObject *__pyx_codeobj__8;
 static PyObject *__pyx_codeobj__10;
@@ -947,6 +992,7 @@ static PyObject *__pyx_codeobj__12;
 static PyObject *__pyx_codeobj__14;
 static PyObject *__pyx_codeobj__16;
 static PyObject *__pyx_codeobj__18;
+static PyObject *__pyx_codeobj__20;
 
 /* "libsequence/polytable.pyx":15
  *     .. note:: It is an error to directly use this class in Python.  An assertion will be triggered.  This is simply the base API for other types.
@@ -3353,6 +3399,8 @@ static PyObject *__pyx_pf_11libsequence_9polytable_12removeAmbiguous(CYTHON_UNUS
  *     :param outgroup: The index of the outgroup sequence in p
  *     """
  *     p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)             # <<<<<<<<<<<<<<
+ * 
+ * def tolist(polyTable p):
  */
   __pyx_v_p->thisptr->RemoveAmbiguous(__pyx_v_haveOutgroup, __pyx_v_outgroup);
 
@@ -3366,6 +3414,133 @@ static PyObject *__pyx_pf_11libsequence_9polytable_12removeAmbiguous(CYTHON_UNUS
 
   /* function exit code */
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "libsequence/polytable.pyx":206
+ *     p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)
+ * 
+ * def tolist(polyTable p):             # <<<<<<<<<<<<<<
+ *     """
+ *     Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11libsequence_9polytable_15tolist(PyObject *__pyx_self, PyObject *__pyx_v_p); /*proto*/
+static char __pyx_doc_11libsequence_9polytable_14tolist[] = "\n    Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.\n    ";
+static PyMethodDef __pyx_mdef_11libsequence_9polytable_15tolist = {"tolist", (PyCFunction)__pyx_pw_11libsequence_9polytable_15tolist, METH_O, __pyx_doc_11libsequence_9polytable_14tolist};
+static PyObject *__pyx_pw_11libsequence_9polytable_15tolist(PyObject *__pyx_self, PyObject *__pyx_v_p) {
+  CYTHON_UNUSED int __pyx_lineno = 0;
+  CYTHON_UNUSED const char *__pyx_filename = NULL;
+  CYTHON_UNUSED int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("tolist (wrapper)", 0);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_11libsequence_9polytable_14tolist(__pyx_self, ((struct __pyx_obj_11libsequence_9polytable_polyTable *)__pyx_v_p));
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11libsequence_9polytable_14tolist(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_p) {
+  std::vector<std::pair<double,std::string> >  __pyx_v_rv;
+  std::vector<std::pair<double,std::string> > ::const_iterator __pyx_v_b;
+  std::vector<std::pair<double,std::string> > ::const_iterator __pyx_v_e;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("tolist", 0);
+
+  /* "libsequence/polytable.pyx":211
+ *     """
+ *     cdef vector[pair[double,string]] rv
+ *     cdef vector[pair[double,string]].const_iterator b = p.thisptr.sbegin()             # <<<<<<<<<<<<<<
+ *     cdef vector[pair[double,string]].const_iterator e = p.thisptr.send()
+ *     while b < e:
+ */
+  __pyx_v_b = __pyx_v_p->thisptr->sbegin();
+
+  /* "libsequence/polytable.pyx":212
+ *     cdef vector[pair[double,string]] rv
+ *     cdef vector[pair[double,string]].const_iterator b = p.thisptr.sbegin()
+ *     cdef vector[pair[double,string]].const_iterator e = p.thisptr.send()             # <<<<<<<<<<<<<<
+ *     while b < e:
+ *         rv.push_back(deref(b))
+ */
+  __pyx_v_e = __pyx_v_p->thisptr->send();
+
+  /* "libsequence/polytable.pyx":213
+ *     cdef vector[pair[double,string]].const_iterator b = p.thisptr.sbegin()
+ *     cdef vector[pair[double,string]].const_iterator e = p.thisptr.send()
+ *     while b < e:             # <<<<<<<<<<<<<<
+ *         rv.push_back(deref(b))
+ *         inc(b)
+ */
+  while (1) {
+    __pyx_t_1 = ((__pyx_v_b < __pyx_v_e) != 0);
+    if (!__pyx_t_1) break;
+
+    /* "libsequence/polytable.pyx":214
+ *     cdef vector[pair[double,string]].const_iterator e = p.thisptr.send()
+ *     while b < e:
+ *         rv.push_back(deref(b))             # <<<<<<<<<<<<<<
+ *         inc(b)
+ *     return rv
+ */
+    try {
+      __pyx_v_rv.push_back((*__pyx_v_b));
+    } catch(...) {
+      __Pyx_CppExn2PyErr();
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 214; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    }
+
+    /* "libsequence/polytable.pyx":215
+ *     while b < e:
+ *         rv.push_back(deref(b))
+ *         inc(b)             # <<<<<<<<<<<<<<
+ *     return rv
+ */
+    (__pyx_v_b++);
+  }
+
+  /* "libsequence/polytable.pyx":216
+ *         rv.push_back(deref(b))
+ *         inc(b)
+ *     return rv             # <<<<<<<<<<<<<<
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_2 = __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(__pyx_v_rv); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 216; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
+  goto __pyx_L0;
+
+  /* "libsequence/polytable.pyx":206
+ *     p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)
+ * 
+ * def tolist(polyTable p):             # <<<<<<<<<<<<<<
+ *     """
+ *     Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("libsequence.polytable.tolist", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -4399,6 +4574,61 @@ static PyObject *__pyx_convert_vector_to_py_Sequence_3a__3a_polymorphicSite(cons
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
+
+static PyObject *__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(const std::vector<std::pair<double,std::string> >  &__pyx_v_v) {
+  size_t __pyx_v_i;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  size_t __pyx_t_2;
+  size_t __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___", 0);
+
+  /* "vector.to_py":68
+ * @cname("__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___")
+ * cdef object __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(vector[X]& v):
+ *     return [X_to_py(v[i]) for i in range(v.size())]             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __pyx_v_v.size();
+  for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
+    __pyx_v_i = __pyx_t_3;
+    __pyx_t_4 = __pyx_convert_pair_to_py_double____std_3a__3a_string((__pyx_v_v[__pyx_v_i])); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  }
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "vector.to_py":67
+ * 
+ * @cname("__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___")
+ * cdef object __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(vector[X]& v):             # <<<<<<<<<<<<<<
+ *     return [X_to_py(v[i]) for i in range(v.size())]
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("vector.to_py.__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
 static struct __pyx_vtabstruct_11libsequence_9polytable_polyTable __pyx_vtable_11libsequence_9polytable_polyTable;
 
 static PyObject *__pyx_tp_new_11libsequence_9polytable_polyTable(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
@@ -4748,8 +4978,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_s_assign_failed, __pyx_k_assign_failed, sizeof(__pyx_k_assign_failed), 0, 0, 1, 0},
   {&__pyx_n_s_assign_sep, __pyx_k_assign_sep, sizeof(__pyx_k_assign_sep), 0, 0, 1, 1},
   {&__pyx_kp_s_assign_sep_failed, __pyx_k_assign_sep_failed, sizeof(__pyx_k_assign_sep_failed), 0, 0, 1, 0},
+  {&__pyx_n_s_b, __pyx_k_b, sizeof(__pyx_k_b), 0, 0, 1, 1},
   {&__pyx_n_s_class, __pyx_k_class, sizeof(__pyx_k_class), 0, 0, 1, 1},
   {&__pyx_n_s_data, __pyx_k_data, sizeof(__pyx_k_data), 0, 0, 1, 1},
+  {&__pyx_n_s_e, __pyx_k_e, sizeof(__pyx_k_e), 0, 0, 1, 1},
   {&__pyx_n_s_empty, __pyx_k_empty, sizeof(__pyx_k_empty), 0, 0, 1, 1},
   {&__pyx_n_s_freqFilter, __pyx_k_freqFilter, sizeof(__pyx_k_freqFilter), 0, 0, 1, 1},
   {&__pyx_n_s_gapchar, __pyx_k_gapchar, sizeof(__pyx_k_gapchar), 0, 0, 1, 1},
@@ -4775,9 +5007,11 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_removeMissing, __pyx_k_removeMissing, sizeof(__pyx_k_removeMissing), 0, 0, 1, 1},
   {&__pyx_n_s_removeMono, __pyx_k_removeMono, sizeof(__pyx_k_removeMono), 0, 0, 1, 1},
   {&__pyx_n_s_removeMultiHits, __pyx_k_removeMultiHits, sizeof(__pyx_k_removeMultiHits), 0, 0, 1, 1},
+  {&__pyx_n_s_rv, __pyx_k_rv, sizeof(__pyx_k_rv), 0, 0, 1, 1},
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
   {&__pyx_n_s_skipOutgroup, __pyx_k_skipOutgroup, sizeof(__pyx_k_skipOutgroup), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_n_s_tolist, __pyx_k_tolist, sizeof(__pyx_k_tolist), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
@@ -4908,6 +5142,18 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
   __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_removeAmbiguous, 196, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+
+  /* "libsequence/polytable.pyx":206
+ *     p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)
+ * 
+ * def tolist(polyTable p):             # <<<<<<<<<<<<<<
+ *     """
+ *     Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
+ */
+  __pyx_tuple__19 = PyTuple_Pack(4, __pyx_n_s_p, __pyx_n_s_rv, __pyx_n_s_b, __pyx_n_s_e); if (unlikely(!__pyx_tuple__19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_tuple__19);
+  __Pyx_GIVEREF(__pyx_tuple__19);
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(1, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_tolist, 206, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5129,6 +5375,18 @@ PyMODINIT_FUNC PyInit_polytable(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_removeAmbiguous, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
+  /* "libsequence/polytable.pyx":206
+ *     p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)
+ * 
+ * def tolist(polyTable p):             # <<<<<<<<<<<<<<
+ *     """
+ *     Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
+ */
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9polytable_15tolist, NULL, __pyx_n_s_libsequence_polytable); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_tolist, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 206; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
   /* "libsequence/polytable.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
  * from libcpp.vector cimport vector
@@ -5145,8 +5403,8 @@ PyMODINIT_FUNC PyInit_polytable(void)
 
   /* "vector.to_py":67
  * 
- * @cname("__pyx_convert_vector_to_py_Sequence_3a__3a_polymorphicSite")
- * cdef object __pyx_convert_vector_to_py_Sequence_3a__3a_polymorphicSite(vector[X]& v):             # <<<<<<<<<<<<<<
+ * @cname("__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___")
+ * cdef object __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(vector[X]& v):             # <<<<<<<<<<<<<<
  *     return [X_to_py(v[i]) for i in range(v.size())]
  * 
  */

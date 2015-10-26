@@ -202,3 +202,15 @@ def removeAmbiguous(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0
     :param outgroup: The index of the outgroup sequence in p
     """
     p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)
+
+def tolist(polyTable p):
+    """
+    Convert a :class:`libsequence.polytable.polyTable` into a list of tuples.
+    """
+    cdef vector[pair[double,string]] rv
+    cdef vector[pair[double,string]].const_iterator b = p.thisptr.sbegin()
+    cdef vector[pair[double,string]].const_iterator e = p.thisptr.send()
+    while b < e:
+        rv.push_back(deref(b))
+        inc(b)
+    return rv

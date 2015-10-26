@@ -10,11 +10,6 @@
         "extra_link_args": [
             "-std=c++11"
         ], 
-        "include_dirs": [
-            ".", 
-            "include", 
-            ".."
-        ], 
         "language": "c++", 
         "libraries": [
             "sequence"
