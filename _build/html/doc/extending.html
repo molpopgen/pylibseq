@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Overview: module code &mdash; pyseq 0.1.1 documentation</title>
+    <title>Using the package in your own projects &mdash; pyseq 0.1.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -24,7 +24,8 @@
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pyseq 0.1.1 documentation" href="../index.html" /> 
+    <link rel="top" title="pyseq 0.1.1 documentation" href="../index.html" />
+    <link rel="prev" title="Object lifetimes" href="lifetimes.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -36,6 +37,9 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="lifetimes.html" title="Object lifetimes"
+             accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">pyseq 0.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
@@ -45,17 +49,31 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="libsequence/polytable.html">libsequence.polytable</a></li>
-<li><a href="libsequence/summstats.html">libsequence.summstats</a></li>
-<li><a href="libsequence/windows.html">libsequence.windows</a></li>
-</ul>
+  <div class="section" id="using-the-package-in-your-own-projects">
+<h1>Using the package in your own projects<a class="headerlink" href="#using-the-package-in-your-own-projects" title="Permalink to this headline">¶</a></h1>
+<p>This package&#8217;s function can be used either directly in Python code.  Alternately, you can use it directly in Cython code, too.  The basic types are defined in Cython &#8221;.pxd&#8221; files, and are this accessible.  See the Cython documentation for details.</p>
+<p>The general form of their use is:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">libsequence.polytable</span> <span class="nn">cimport</span> <span class="nn">simData</span>
+</pre></div>
+</div>
+</div>
+
 
           </div>
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="lifetimes.html"
+                        title="previous chapter">Object lifetimes</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/doc/extending.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
@@ -82,6 +100,9 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
+        <li class="right" >
+          <a href="lifetimes.html" title="Object lifetimes"
+             >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">pyseq 0.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>

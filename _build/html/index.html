@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to pyseq’s documentation! &mdash; pyseq 0.1.0 documentation</title>
+    <title>Welcome to pyseq’s documentation! &mdash; pyseq 0.1.1 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.0',
+        VERSION:     '0.1.1',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pyseq 0.1.0 documentation" href="#" />
+    <link rel="top" title="pyseq 0.1.1 documentation" href="#" />
     <link rel="next" title="pyseq: Python bindings for libsequence" href="README.html" /> 
   </head>
   <body role="document">
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="README.html" title="pyseq: Python bindings for libsequence"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pyseq 0.1.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pyseq 0.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -70,6 +70,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="doc/lifetimes.html">Object lifetimes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc/extending.html">Using the package in your own projects</a></li>
 </ul>
 </div>
 <div class="section" id="module-libsequence.polytable">
@@ -216,6 +217,12 @@
 <dd><p>Get the sample size of the polymorphism table</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="libsequence.polytable.polyTable.tolist">
+<code class="descname">tolist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.polyTable.tolist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return data as list of tuples.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="function">
@@ -334,6 +341,28 @@
 </dd></dl>
 
 <span class="target" id="module-libsequence.summstats"></span><dl class="function">
+<dt id="libsequence.summstats.garudStats">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">garudStats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.garudStats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Statistics from Garud et al. doi:10.1371/journal.pgen.1005004.g011</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pt</strong> &#8211; A <a class="reference internal" href="#libsequence.polytable.polyTable" title="libsequence.polytable.polyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polyTable</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The H1, H12, and H2/H1 statistics</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only <a class="reference internal" href="#libsequence.polytable.simData" title="libsequence.polytable.simData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.simData</span></code></a> types currently supported</p>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="libsequence.summstats.ld">
 <code class="descclassname">libsequence.summstats.</code><code class="descname">ld</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.ld" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pairwise &#8220;linkage disequilibrium&#8221; (LD) statistics</p>
@@ -355,6 +384,28 @@
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This function skips sites with missing data, gaps, etc.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.lhaf">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">lhaf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.lhaf" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math">\(l-HAF\)</span> from Ronen et al. DOI:10.1371/journal.pgen.1005527</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pt</strong> &#8211; A <a class="reference internal" href="#libsequence.polytable.polyTable" title="libsequence.polytable.polyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polyTable</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The <span class="math">\(l-HAF\)</span> statistic for each haplotype in pt</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only <a class="reference internal" href="#libsequence.polytable.simData" title="libsequence.polytable.simData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.simData</span></code></a> types currently supported</p>
 </div>
 </dd></dl>
 
@@ -599,6 +650,38 @@ where <span class="math">\(S\)</span> is the number of polymorphisms and <span c
 
 </dd></dl>
 
+<dl class="function">
+<dt id="libsequence.summstats.std_nSL">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">std_nSL</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.std_nSL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Standardized <span class="math">\(nS_L\)</span> statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pt</strong> &#8211; A <a class="reference internal" href="#libsequence.polytable.polyTable" title="libsequence.polytable.polyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polyTable</span></code></a></li>
+<li><strong>minfreq</strong> &#8211; Ignore markers with frequency &lt; this value</li>
+<li><strong>binsize</strong> &#8211; Standardize statistic in frequency bings of this width</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parma gmap:</th><td class="field-body"><p class="first">A genetic map.  The length of this array should be equal to the number of sites in pt, and represent the positions of those sites on the genetic map.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Max absolute value of this statistic over all bins.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only <a class="reference internal" href="#libsequence.polytable.simData" title="libsequence.polytable.simData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.simData</span></code></a> types currently supported</p>
+</div>
+</dd></dl>
+
 <span class="target" id="module-libsequence.windows"></span><dl class="class">
 <dt id="libsequence.windows.polySitesWindows">
 <em class="property">class </em><code class="descclassname">libsequence.windows.</code><code class="descname">polySitesWindows</code><a class="headerlink" href="#libsequence.windows.polySitesWindows" title="Permalink to this definition">¶</a></dt>
@@ -678,7 +761,7 @@ where <span class="math">\(S\)</span> is the number of polymorphisms and <span c
         <li class="right" >
           <a href="README.html" title="pyseq: Python bindings for libsequence"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pyseq 0.1.0 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pyseq 0.1.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
