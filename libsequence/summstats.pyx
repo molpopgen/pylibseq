@@ -253,7 +253,7 @@ def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] 
     :param binsize: Standardize statistic in frequency bings of this width
     :parma gmap: A genetic map.  The length of this array should be equal to the number of sites in pt, and represent the positions of those sites on the genetic map.
 
-    :return: Max absolute value of this statistic over all bins.
+    :return: A tuple. The first value is max |standardized nSL| over all bins.  The second is max |iHS| over all bins, where iHS is calculated according to Ferrer-Admetlla et al.
 
     :rtype: float
 

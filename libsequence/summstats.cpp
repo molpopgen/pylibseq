@@ -10,11 +10,6 @@
         "extra_link_args": [
             "-std=c++11"
         ], 
-        "include_dirs": [
-            ".", 
-            "include", 
-            ".."
-        ], 
         "language": "c++", 
         "libraries": [
             "sequence"
@@ -4806,7 +4801,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_lhaf(CYTHON_UNUSED PyObject *
 
 /* Python wrapper */
 static PyObject *__pyx_pw_11libsequence_9summstats_3std_nSL(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11libsequence_9summstats_2std_nSL[] = "\n    Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077\n\n    :param pt: A :class:`libsequence.polytable.polyTable`\n    :param minfreq: Ignore markers with frequency < this value\n    :param binsize: Standardize statistic in frequency bings of this width\n    :parma gmap: A genetic map.  The length of this array should be equal to the number of sites in pt, and represent the positions of those sites on the genetic map.\n\n    :return: Max absolute value of this statistic over all bins.\n\n    :rtype: float\n\n    .. note:: Only :class:`libsequence.polytable.simData` types currently supported\n    ";
+static char __pyx_doc_11libsequence_9summstats_2std_nSL[] = "\n    Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077\n\n    :param pt: A :class:`libsequence.polytable.polyTable`\n    :param minfreq: Ignore markers with frequency < this value\n    :param binsize: Standardize statistic in frequency bings of this width\n    :parma gmap: A genetic map.  The length of this array should be equal to the number of sites in pt, and represent the positions of those sites on the genetic map.\n\n    :return: A tuple. The first value is max |standardized nSL| over all bins.  The second is max |iHS| over all bins, where iHS is calculated according to Ferrer-Admetlla et al.\n\n    :rtype: float\n\n    .. note:: Only :class:`libsequence.polytable.simData` types currently supported\n    ";
 static PyMethodDef __pyx_mdef_11libsequence_9summstats_3std_nSL = {"std_nSL", (PyCFunction)__pyx_pw_11libsequence_9summstats_3std_nSL, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11libsequence_9summstats_2std_nSL};
 static PyObject *__pyx_pw_11libsequence_9summstats_3std_nSL(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_pt = 0;
