@@ -276,3 +276,22 @@ def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned m
             rv['D'].append(ldvals[3])
             rv['Dprime'].append(ldvals[4])
     return rv
+
+def garudStats(polyTable pt):
+   """
+   Statistics from Garud et al. doi:10.1371/journal.pgen.1005004.g011
+
+   :param pt: A :class:`libsequence.polytable.polyTable`
+
+   :return: The H1, H12, and H2/H1 statistics
+
+   :rtype dict: 
+
+   .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+   """
+   cdef GarudStats stats
+   if isinstance(pt,simData):
+       stats = H1H12(deref(dynamic_cast['SimData*'](pt.thisptr)))
+       return {"H1":stats.H1,"H12":stats.H12,"H2H1":stats.H2H1}
+   else:
+       raise RuntimeError("garudStats: only simData objects are allowed")       
