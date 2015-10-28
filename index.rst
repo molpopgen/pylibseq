@@ -14,6 +14,7 @@ Contents:
    README
    doc/overview
    doc/lifetimes
+   doc/extending
 
 Functions and classes
 ##########################################

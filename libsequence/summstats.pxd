@@ -79,6 +79,13 @@ cdef class polySIM:
     cdef PolySIM * thisptr
 
 ##Functions from libseq
+cdef extern from "Sequence/SummStats/Garud.hpp" namespace "Sequence":
+    cdef cppclass GarudStats:
+        double H1
+        double H12
+        double H2H1
+
+    GarudStats H1H12(const SimData &)
 
 cdef extern from "Sequence/SummStats/lHaf.hpp" namespace "Sequence":
     vector[double] lHaf( const SimData & data, const double l )

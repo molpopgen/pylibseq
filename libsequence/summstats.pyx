@@ -228,12 +228,37 @@ cdef class polySIM:
 
 ##functions
 def lhaf( polyTable pt, double l ):
+    """
+    :math:`l-HAF` from Ronen et al. DOI:10.1371/journal.pgen.1005527
+    
+    :param pt: A :class:`libsequence.polytable.polyTable`
+    
+    :return: The :math:`l-HAF` statistic for each haplotype in pt
+    
+    :rtype: list
+    
+    .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+    """
     if isinstance(pt,simData):
         return lHaf(deref(dynamic_cast['SimData*'](pt.thisptr)),l)
     else:
         raise RuntimeError("lhaf: only simData objects are allowed")
 
 def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):
+    """
+    Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077
+
+    :param pt: A :class:`libsequence.polytable.polyTable`
+    :param minfreq: Ignore markers with frequency < this value
+    :param binsize: Standardize statistic in frequency bings of this width
+    :parma gmap: A genetic map.  The length of this array should be equal to the number of sites in pt, and represent the positions of those sites on the genetic map.
+
+    :return: Max absolute value of this statistic over all bins.
+
+    :rtype: float
+
+    .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+    """
     if isinstance(pt,simData):
         if gmap is None:
             return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,NULL)
@@ -276,3 +301,22 @@ def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned m
             rv['D'].append(ldvals[3])
             rv['Dprime'].append(ldvals[4])
     return rv
+
+def garudStats(polyTable pt):
+   """
+   Statistics from Garud et al. doi:10.1371/journal.pgen.1005004.g011
+
+   :param pt: A :class:`libsequence.polytable.polyTable`
+
+   :return: The H1, H12, and H2/H1 statistics
+
+   :rtype: dict
+
+   .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+   """
+   cdef GarudStats stats
+   if isinstance(pt,simData):
+       stats = H1H12(deref(dynamic_cast['SimData*'](pt.thisptr)))
+       return {"H1":stats.H1,"H12":stats.H12,"H2H1":stats.H2H1}
+   else:
+       raise RuntimeError("garudStats: only simData objects are allowed")       
