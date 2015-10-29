@@ -244,12 +244,16 @@ def lhaf( polyTable pt, double l ):
     else:
         raise RuntimeError("lhaf: only simData objects are allowed")
 
-def nSLiHs(polyTable pt, unsigned core, double[:] gmap = None):
+def nSLiHS(polyTable pt, double[:] gmap = None):
     if isinstance(pt,simData):
+        rv = []
         if gmap is None:
-            return nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL)
+            for core in range(pt.numsites()):
+                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL))
         else:
-            return nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),&gmap[0])
+            for core in range(pt.numsites()):
+                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL))
+        return rv
     else:
         raise RuntimeError("nSL: only simData objects are allowed")
     
