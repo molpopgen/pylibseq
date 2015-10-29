@@ -244,6 +244,15 @@ def lhaf( polyTable pt, double l ):
     else:
         raise RuntimeError("lhaf: only simData objects are allowed")
 
+def nSLiHs(polyTable pt, unsigned core, double[:] gmap = None):
+    if isinstance(pt,simData):
+        if gmap is None:
+            return nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL)
+        else:
+            return nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),&gmap[0])
+    else:
+        raise RuntimeError("nSL: only simData objects are allowed")
+    
 def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):
     """
     Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077
@@ -320,3 +329,4 @@ def garudStats(polyTable pt):
        return {"H1":stats.H1,"H12":stats.H12,"H2H1":stats.H2H1}
    else:
        raise RuntimeError("garudStats: only simData objects are allowed")       
+
