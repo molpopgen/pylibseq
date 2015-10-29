@@ -263,7 +263,7 @@ def nSLiHS(polyTable pt, double[:] gmap = None):
                 rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL))
         else:
             for core in range(pt.numsites()):
-                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL))
+                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),&gmap[0]))
         return rv
     else:
         raise RuntimeError("nSL: only simData objects are allowed")
