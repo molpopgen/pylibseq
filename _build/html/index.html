@@ -140,6 +140,29 @@
 <p class="first admonition-title">Note</p>
 <p class="last">See <a class="reference internal" href="#libsequence.polytable.polyTable" title="libsequence.polytable.polyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polyTable</span></code></a></p>
 </div>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> &#8211; A list</li>
+<li><strong>y</strong> &#8211; A list</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If x is None and y is None, and empty object is created.</p>
+<p>If y is None, x must be a list of tuples (position, &#8220;string&#8221;)</p>
+<p>if neither x nor y are None, x is a list of positions, and y a list of haplotypes.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="kn">as</span> <span class="nn">polyt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">polySites</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">polySites</span><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="s">&quot;ATTA&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s">&quot;GGGC&quot;</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">polySites</span><span class="p">(</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],[</span><span class="s">&quot;AG&quot;</span><span class="p">,</span><span class="s">&quot;TG&quot;</span><span class="p">,</span><span class="s">&quot;TG&quot;</span><span class="p">,</span><span class="s">&quot;AC&quot;</span><span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="class">
@@ -338,6 +361,29 @@
 <p class="first admonition-title">Note</p>
 <p class="last">See <a class="reference internal" href="#libsequence.polytable.polyTable" title="libsequence.polytable.polyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polyTable</span></code></a></p>
 </div>
+<p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> &#8211; A list</li>
+<li><strong>y</strong> &#8211; A list</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>If x is None and y is None, and empty object is created.</p>
+<p>If y is None, x must be a list of tuples (position, &#8220;string&#8221;)</p>
+<p>if neither x nor y are None, x is a list of positions, and y a list of haplotypes.</p>
+<p>Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="kn">as</span> <span class="nn">polyt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">simData</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">simData</span><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="s">&quot;0101&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s">&quot;1010&quot;</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">simData</span><span class="p">(</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],[</span><span class="s">&quot;01&quot;</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;01&quot;</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">]</span> <span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <span class="target" id="module-libsequence.summstats"></span><dl class="function">
@@ -398,6 +444,28 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pt</strong> &#8211; A <a class="reference internal" href="#libsequence.polytable.polyTable" title="libsequence.polytable.polyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polyTable</span></code></a></td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The <span class="math">\(l-HAF\)</span> statistic for each haplotype in pt</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Only <a class="reference internal" href="#libsequence.polytable.simData" title="libsequence.polytable.simData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.simData</span></code></a> types currently supported</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.nSLiHS">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">nSLiHS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.nSLiHS" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#8220;Raw&#8221;/unstandardizes <span class="math">\(nS_L\)</span> and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pt</strong> &#8211; A <a class="reference internal" href="#libsequence.polytable.polyTable" title="libsequence.polytable.polyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polyTable</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of (nSL,iHS) tuples</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
 </tr>
@@ -651,8 +719,8 @@ where <span class="math">\(S\)</span> is the number of polymorphisms and <span c
 </dd></dl>
 
 <dl class="function">
-<dt id="libsequence.summstats.std_nSL">
-<code class="descclassname">libsequence.summstats.</code><code class="descname">std_nSL</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.std_nSL" title="Permalink to this definition">¶</a></dt>
+<dt id="libsequence.summstats.std_nSLiHS">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">std_nSLiHS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.std_nSLiHS" title="Permalink to this definition">¶</a></dt>
 <dd><p>Standardized <span class="math">\(nS_L\)</span> statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -668,11 +736,17 @@ where <span class="math">\(S\)</span> is the number of polymorphisms and <span c
 <tr class="field-even field"><th class="field-name">Parma gmap:</th><td class="field-body"><p class="first">A genetic map.  The length of this array should be equal to the number of sites in pt, and represent the positions of those sites on the genetic map.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A tuple. The first value is max <a href="#id1"><span class="problematic" id="id2">|standardized nSL|</span></a> over all bins.  The second is max <a href="#id3"><span class="problematic" id="id4">|iHS|</span></a> over all bins, where iHS is calculated according to Ferrer-Admetlla et al.</p>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A tuple. The first value is max standardized nSL over all bins.  The second is max iHS over all bins, where iHS is calculated according to Ferrer-Admetlla et al.</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
-</td>
+</tbody>
+</table>
+<p>The maxmimums are calculated based on absolute value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float</td>
 </tr>
 </tbody>
 </table>
