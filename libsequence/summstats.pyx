@@ -245,6 +245,17 @@ def lhaf( polyTable pt, double l ):
         raise RuntimeError("lhaf: only simData objects are allowed")
 
 def nSLiHS(polyTable pt, double[:] gmap = None):
+    """
+    "Raw" :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
+
+    :param pt: A :class:`libsequence.polytable.polyTable`
+
+    :return: A list of (nSL,iHS) tuples
+
+    :rtype: list
+    
+    .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+    """
     if isinstance(pt,simData):
         rv = []
         if gmap is None:
