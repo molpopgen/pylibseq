@@ -164,8 +164,8 @@ cdef class polySites(polyTable):
         >>> import libsequence.polytable as polyt
         >>> x = polyt.polySites()
         >>> x = polyt.polySites( [ (0.1,"ATTA"),(0.2,"GGGC") ] )
-        >>> x = polyt.simData( [0.2,0.2],["AG","TG","TG","AC"] )
-        
+        >>> x = polyt.polySites( [0.2,0.2],["AG","TG","TG","AC"] )
+
         """
         if x is None:
             if y is None:
