@@ -13,5 +13,8 @@ class test_nSL(unittest.TestCase):
         x.assign(d)
         stats = nSLiHS(x)
         self.assertEqual(len(stats),x.numsites())
+
+if __name__ == '__main__':
+    unittest.main()
         
     
