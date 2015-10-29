@@ -19,8 +19,8 @@ cdef class simDataWindows:
             d2 = deref(self.windows)[i]
             temp.assign(d2.sbegin(),d2.send())
             self.wins.append(simData(temp))
-    def __dealloc__(self):
         del self.windows
+    def __dealloc__(self):
         self.wins=[]
     def __iter__(self):
         return iter(self.wins)
@@ -29,7 +29,7 @@ cdef class simDataWindows:
     def __getitem__(self,i):
         return self.wins[i]
     def __len__(self):
-        return self.windows.size()
+        return len(self.wins)
 
 cdef class polySitesWindows:
     """
@@ -46,8 +46,8 @@ cdef class polySitesWindows:
             d2 = deref(self.windows)[i]
             temp.assign(d2.sbegin(),d2.send())
             self.wins.append(polySites(temp))
-    def __dealloc__(self):
         del self.windows
+    def __dealloc__(self):
         self.wins=[]
     def __iter__(self):
         return iter(self.wins)
@@ -56,5 +56,5 @@ cdef class polySitesWindows:
     def __getitem__(self,i):
         return self.wins[i]
     def __len__(self):
-        return self.windows.size()
+        return len(self.wins)
     

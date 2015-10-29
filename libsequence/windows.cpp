@@ -1138,7 +1138,7 @@ static int __pyx_pf_11libsequence_7windows_14simDataWindows___cinit__(struct __p
  *             d2 = deref(self.windows)[i]
  *             temp.assign(d2.sbegin(),d2.send())             # <<<<<<<<<<<<<<
  *             self.wins.append(simData(temp))
- *     def __dealloc__(self):
+ *         del self.windows
  */
     try {
       __pyx_v_temp.assign(__pyx_v_d2.sbegin(), __pyx_v_d2.send());
@@ -1151,8 +1151,8 @@ static int __pyx_pf_11libsequence_7windows_14simDataWindows___cinit__(struct __p
  *             d2 = deref(self.windows)[i]
  *             temp.assign(d2.sbegin(),d2.send())
  *             self.wins.append(simData(temp))             # <<<<<<<<<<<<<<
- *     def __dealloc__(self):
  *         del self.windows
+ *     def __dealloc__(self):
  */
     __pyx_t_2 = __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(__pyx_v_temp); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
@@ -1167,6 +1167,15 @@ static int __pyx_pf_11libsequence_7windows_14simDataWindows___cinit__(struct __p
     __pyx_t_6 = __Pyx_PyObject_Append(__pyx_v_self->wins, __pyx_t_2); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
+
+  /* "libsequence/windows.pyx":22
+ *             temp.assign(d2.sbegin(),d2.send())
+ *             self.wins.append(simData(temp))
+ *         del self.windows             # <<<<<<<<<<<<<<
+ *     def __dealloc__(self):
+ *         self.wins=[]
+ */
+  delete __pyx_v_self->windows;
 
   /* "libsequence/windows.pyx":11
  *     Calculate sliding windows from a :class:`libsequence.polytable.simData`
@@ -1189,12 +1198,12 @@ static int __pyx_pf_11libsequence_7windows_14simDataWindows___cinit__(struct __p
   return __pyx_r;
 }
 
-/* "libsequence/windows.pyx":22
- *             temp.assign(d2.sbegin(),d2.send())
+/* "libsequence/windows.pyx":23
  *             self.wins.append(simData(temp))
- *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         del self.windows
+ *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         self.wins=[]
+ *     def __iter__(self):
  */
 
 /* Python wrapper */
@@ -1216,18 +1225,9 @@ static void __pyx_pf_11libsequence_7windows_14simDataWindows_2__dealloc__(struct
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "libsequence/windows.pyx":23
- *             self.wins.append(simData(temp))
- *     def __dealloc__(self):
- *         del self.windows             # <<<<<<<<<<<<<<
- *         self.wins=[]
- *     def __iter__(self):
- */
-  delete __pyx_v_self->windows;
-
   /* "libsequence/windows.pyx":24
- *     def __dealloc__(self):
  *         del self.windows
+ *     def __dealloc__(self):
  *         self.wins=[]             # <<<<<<<<<<<<<<
  *     def __iter__(self):
  *         return iter(self.wins)
@@ -1240,12 +1240,12 @@ static void __pyx_pf_11libsequence_7windows_14simDataWindows_2__dealloc__(struct
   __pyx_v_self->wins = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "libsequence/windows.pyx":22
- *             temp.assign(d2.sbegin(),d2.send())
+  /* "libsequence/windows.pyx":23
  *             self.wins.append(simData(temp))
- *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         del self.windows
+ *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         self.wins=[]
+ *     def __iter__(self):
  */
 
   /* function exit code */
@@ -1258,7 +1258,7 @@ static void __pyx_pf_11libsequence_7windows_14simDataWindows_2__dealloc__(struct
 }
 
 /* "libsequence/windows.pyx":25
- *         del self.windows
+ *     def __dealloc__(self):
  *         self.wins=[]
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         return iter(self.wins)
@@ -1306,7 +1306,7 @@ static PyObject *__pyx_pf_11libsequence_7windows_14simDataWindows_4__iter__(stru
   goto __pyx_L0;
 
   /* "libsequence/windows.pyx":25
- *         del self.windows
+ *     def __dealloc__(self):
  *         self.wins=[]
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         return iter(self.wins)
@@ -1428,7 +1428,7 @@ static PyObject *__pyx_pf_11libsequence_7windows_14simDataWindows_8__getitem__(s
  *     def __getitem__(self,i):
  *         return self.wins[i]             # <<<<<<<<<<<<<<
  *     def __len__(self):
- *         return self.windows.size()
+ *         return len(self.wins)
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = PyObject_GetItem(__pyx_v_self->wins, __pyx_v_i); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 30; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
@@ -1460,7 +1460,7 @@ static PyObject *__pyx_pf_11libsequence_7windows_14simDataWindows_8__getitem__(s
  *     def __getitem__(self,i):
  *         return self.wins[i]
  *     def __len__(self):             # <<<<<<<<<<<<<<
- *         return self.windows.size()
+ *         return len(self.wins)
  * 
  */
 
@@ -1480,27 +1480,40 @@ static Py_ssize_t __pyx_pw_11libsequence_7windows_14simDataWindows_11__len__(PyO
 static Py_ssize_t __pyx_pf_11libsequence_7windows_14simDataWindows_10__len__(struct __pyx_obj_11libsequence_7windows_simDataWindows *__pyx_v_self) {
   Py_ssize_t __pyx_r;
   __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  Py_ssize_t __pyx_t_2;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__len__", 0);
 
   /* "libsequence/windows.pyx":32
  *         return self.wins[i]
  *     def __len__(self):
- *         return self.windows.size()             # <<<<<<<<<<<<<<
+ *         return len(self.wins)             # <<<<<<<<<<<<<<
  * 
  * cdef class polySitesWindows:
  */
-  __pyx_r = __pyx_v_self->windows->size();
+  __pyx_t_1 = __pyx_v_self->wins;
+  __Pyx_INCREF(__pyx_t_1);
+  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
   goto __pyx_L0;
 
   /* "libsequence/windows.pyx":31
  *     def __getitem__(self,i):
  *         return self.wins[i]
  *     def __len__(self):             # <<<<<<<<<<<<<<
- *         return self.windows.size()
+ *         return len(self.wins)
  * 
  */
 
   /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("libsequence.windows.simDataWindows.__len__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -1784,7 +1797,7 @@ static int __pyx_pf_11libsequence_7windows_16polySitesWindows___cinit__(struct _
  *             d2 = deref(self.windows)[i]
  *             temp.assign(d2.sbegin(),d2.send())             # <<<<<<<<<<<<<<
  *             self.wins.append(polySites(temp))
- *     def __dealloc__(self):
+ *         del self.windows
  */
     try {
       __pyx_v_temp.assign(__pyx_v_d2.sbegin(), __pyx_v_d2.send());
@@ -1797,8 +1810,8 @@ static int __pyx_pf_11libsequence_7windows_16polySitesWindows___cinit__(struct _
  *             d2 = deref(self.windows)[i]
  *             temp.assign(d2.sbegin(),d2.send())
  *             self.wins.append(polySites(temp))             # <<<<<<<<<<<<<<
- *     def __dealloc__(self):
  *         del self.windows
+ *     def __dealloc__(self):
  */
     __pyx_t_2 = __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(__pyx_v_temp); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_2);
@@ -1813,6 +1826,15 @@ static int __pyx_pf_11libsequence_7windows_16polySitesWindows___cinit__(struct _
     __pyx_t_6 = __Pyx_PyObject_Append(__pyx_v_self->wins, __pyx_t_2); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
+
+  /* "libsequence/windows.pyx":49
+ *             temp.assign(d2.sbegin(),d2.send())
+ *             self.wins.append(polySites(temp))
+ *         del self.windows             # <<<<<<<<<<<<<<
+ *     def __dealloc__(self):
+ *         self.wins=[]
+ */
+  delete __pyx_v_self->windows;
 
   /* "libsequence/windows.pyx":38
  *     Calculate sliding windows from a :class:`libsequence.polytable.polySites`
@@ -1835,12 +1857,12 @@ static int __pyx_pf_11libsequence_7windows_16polySitesWindows___cinit__(struct _
   return __pyx_r;
 }
 
-/* "libsequence/windows.pyx":49
- *             temp.assign(d2.sbegin(),d2.send())
+/* "libsequence/windows.pyx":50
  *             self.wins.append(polySites(temp))
- *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         del self.windows
+ *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         self.wins=[]
+ *     def __iter__(self):
  */
 
 /* Python wrapper */
@@ -1862,18 +1884,9 @@ static void __pyx_pf_11libsequence_7windows_16polySitesWindows_2__dealloc__(stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "libsequence/windows.pyx":50
- *             self.wins.append(polySites(temp))
- *     def __dealloc__(self):
- *         del self.windows             # <<<<<<<<<<<<<<
- *         self.wins=[]
- *     def __iter__(self):
- */
-  delete __pyx_v_self->windows;
-
   /* "libsequence/windows.pyx":51
- *     def __dealloc__(self):
  *         del self.windows
+ *     def __dealloc__(self):
  *         self.wins=[]             # <<<<<<<<<<<<<<
  *     def __iter__(self):
  *         return iter(self.wins)
@@ -1886,12 +1899,12 @@ static void __pyx_pf_11libsequence_7windows_16polySitesWindows_2__dealloc__(stru
   __pyx_v_self->wins = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "libsequence/windows.pyx":49
- *             temp.assign(d2.sbegin(),d2.send())
+  /* "libsequence/windows.pyx":50
  *             self.wins.append(polySites(temp))
- *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         del self.windows
+ *     def __dealloc__(self):             # <<<<<<<<<<<<<<
  *         self.wins=[]
+ *     def __iter__(self):
  */
 
   /* function exit code */
@@ -1904,7 +1917,7 @@ static void __pyx_pf_11libsequence_7windows_16polySitesWindows_2__dealloc__(stru
 }
 
 /* "libsequence/windows.pyx":52
- *         del self.windows
+ *     def __dealloc__(self):
  *         self.wins=[]
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         return iter(self.wins)
@@ -1952,7 +1965,7 @@ static PyObject *__pyx_pf_11libsequence_7windows_16polySitesWindows_4__iter__(st
   goto __pyx_L0;
 
   /* "libsequence/windows.pyx":52
- *         del self.windows
+ *     def __dealloc__(self):
  *         self.wins=[]
  *     def __iter__(self):             # <<<<<<<<<<<<<<
  *         return iter(self.wins)
@@ -2074,7 +2087,7 @@ static PyObject *__pyx_pf_11libsequence_7windows_16polySitesWindows_8__getitem__
  *     def __getitem__(self,i):
  *         return self.wins[i]             # <<<<<<<<<<<<<<
  *     def __len__(self):
- *         return self.windows.size()
+ *         return len(self.wins)
  */
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_1 = PyObject_GetItem(__pyx_v_self->wins, __pyx_v_i); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
@@ -2106,7 +2119,7 @@ static PyObject *__pyx_pf_11libsequence_7windows_16polySitesWindows_8__getitem__
  *     def __getitem__(self,i):
  *         return self.wins[i]
  *     def __len__(self):             # <<<<<<<<<<<<<<
- *         return self.windows.size()
+ *         return len(self.wins)
  * 
  */
 
@@ -2126,26 +2139,39 @@ static Py_ssize_t __pyx_pw_11libsequence_7windows_16polySitesWindows_11__len__(P
 static Py_ssize_t __pyx_pf_11libsequence_7windows_16polySitesWindows_10__len__(struct __pyx_obj_11libsequence_7windows_polySitesWindows *__pyx_v_self) {
   Py_ssize_t __pyx_r;
   __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  Py_ssize_t __pyx_t_2;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__len__", 0);
 
   /* "libsequence/windows.pyx":59
  *         return self.wins[i]
  *     def __len__(self):
- *         return self.windows.size()             # <<<<<<<<<<<<<<
+ *         return len(self.wins)             # <<<<<<<<<<<<<<
  * 
  */
-  __pyx_r = __pyx_v_self->windows->size();
+  __pyx_t_1 = __pyx_v_self->wins;
+  __Pyx_INCREF(__pyx_t_1);
+  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 59; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
   goto __pyx_L0;
 
   /* "libsequence/windows.pyx":58
  *     def __getitem__(self,i):
  *         return self.wins[i]
  *     def __len__(self):             # <<<<<<<<<<<<<<
- *         return self.windows.size()
+ *         return len(self.wins)
  * 
  */
 
   /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("libsequence.windows.polySitesWindows.__len__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
