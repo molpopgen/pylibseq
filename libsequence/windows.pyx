@@ -12,15 +12,22 @@ cdef class simDataWindows:
         self.windows = new PolyTableSlice[SimData](d.thisptr.sbegin(),
                                                    d.thisptr.send(),
                                                    window_size,step_len,starting_pos,ending_pos)
+        self.wins = list()
+        cdef SimData d2
+        cdef vector[pair[double,string]] temp
+        for i in range(self.windows.size()):
+            d2 = deref(self.windows)[i]
+            temp.assign(d2.sbegin(),d2.send())
+            self.wins.append(simData(temp))
     def __dealloc__(self):
         del self.windows
+        self.wins=[]
+    def __iter__(self):
+        return iter(self.wins)
+    def __next__(self):
+        return next(self.wins)
     def __getitem__(self,i):
-        cdef SimData d = deref(self.windows)[i]
-        cdef vector[pair[double,string]] temp;
-        temp.assign(d.sbegin(),d.send())
-        rv = simData()
-        rv.assign(temp)
-        return rv
+        return self.wins[i]
     def __len__(self):
         return self.windows.size()
 
@@ -32,15 +39,22 @@ cdef class polySitesWindows:
         self.windows = new PolyTableSlice[PolySites](d.thisptr.sbegin(),
                                                      d.thisptr.send(),
                                                      window_size,step_len,starting_pos,ending_pos)
+        self.wins = list()
+        cdef PolySites d2
+        cdef vector[pair[double,string]] temp
+        for i in range(self.windows.size()):
+            d2 = deref(self.windows)[i]
+            temp.assign(d2.sbegin(),d2.send())
+            self.wins.append(polySites(temp))
     def __dealloc__(self):
         del self.windows
+        self.wins=[]
+    def __iter__(self):
+        return iter(self.wins)
+    def __next__(self):
+        return next(self.wins)
     def __getitem__(self,i):
-        cdef PolySites d = deref(self.windows)[i]
-        cdef vector[pair[double,string]] temp;
-        temp.assign(d.sbegin(),d.send())
-        rv = simData()
-        rv.assign(temp)
-        return rv
+        return self.wins[i]
     def __len__(self):
         return self.windows.size()
     

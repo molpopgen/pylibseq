@@ -17,7 +17,9 @@ ctypedef PolyTableSlice[PolySites] PolySitesWindows
 
 cdef class simDataWindows:
     cdef SimDataWindows * windows
-
+    cdef public object wins
+    
 cdef class polySitesWindows:
     cdef PolySitesWindows * windows
+    cdef public object wins
         
