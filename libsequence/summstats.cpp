@@ -1639,7 +1639,6 @@ static char __pyx_k_fortran[] = "fortran";
 static char __pyx_k_maxDist[] = "maxDist";
 static char __pyx_k_memview[] = "memview";
 static char __pyx_k_minfreq[] = "minfreq";
-static char __pyx_k_std_nSL[] = "std_nSL";
 static char __pyx_k_totMuts[] = "totMuts";
 static char __pyx_k_Ellipsis[] = "Ellipsis";
 static char __pyx_k_itemsize[] = "itemsize";
@@ -1651,6 +1650,7 @@ static char __pyx_k_IndexError[] = "IndexError";
 static char __pyx_k_ValueError[] = "ValueError";
 static char __pyx_k_garudStats[] = "garudStats";
 static char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
+static char __pyx_k_std_nSLiHS[] = "std_nSLiHS";
 static char __pyx_k_MemoryError[] = "MemoryError";
 static char __pyx_k_RuntimeError[] = "RuntimeError";
 static char __pyx_k_haveOutgroup[] = "haveOutgroup";
@@ -1778,8 +1778,8 @@ static PyObject *__pyx_n_s_shape;
 static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_start;
 static PyObject *__pyx_n_s_stats;
-static PyObject *__pyx_n_s_std_nSL;
 static PyObject *__pyx_kp_s_std_nSL_only_simData_objects_are;
+static PyObject *__pyx_n_s_std_nSLiHS;
 static PyObject *__pyx_n_s_step;
 static PyObject *__pyx_n_s_stop;
 static PyObject *__pyx_kp_s_strided_and_direct;
@@ -1833,7 +1833,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_7polySIM_36wallsq(struct __py
 static PyObject *__pyx_pf_11libsequence_9summstats_7polySIM_38rm(struct __pyx_obj_11libsequence_9summstats_polySIM *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11libsequence_9summstats_lhaf(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_pt, double __pyx_v_l); /* proto */
 static PyObject *__pyx_pf_11libsequence_9summstats_2nSLiHS(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_pt, __Pyx_memviewslice __pyx_v_gmap); /* proto */
-static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_pt, double __pyx_v_minfreq, double __pyx_v_binsize, __Pyx_memviewslice __pyx_v_gmap); /* proto */
+static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSLiHS(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_pt, double __pyx_v_minfreq, double __pyx_v_binsize, __Pyx_memviewslice __pyx_v_gmap); /* proto */
 static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_p, int __pyx_v_haveOutgroup, unsigned int __pyx_v_outgroup, unsigned int __pyx_v_mincount, PyObject *__pyx_v_maxDist); /* proto */
 static PyObject *__pyx_pf_11libsequence_9summstats_8garudStats(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_pt); /* proto */
 static int __pyx_pf_7cpython_5array_5array___getbuffer__(arrayobject *__pyx_v_self, Py_buffer *__pyx_v_info, CYTHON_UNUSED int __pyx_v_flags); /* proto */
@@ -4809,12 +4809,12 @@ static PyObject *__pyx_pf_11libsequence_9summstats_lhaf(CYTHON_UNUSED PyObject *
  * 
  * def nSLiHS(polyTable pt, double[:] gmap = None):             # <<<<<<<<<<<<<<
  *     """
- *     "Raw" :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
+ *     "Raw"/unstandardizes :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_11libsequence_9summstats_3nSLiHS(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11libsequence_9summstats_2nSLiHS[] = "\n    \"Raw\" :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.\n\n    :param pt: A :class:`libsequence.polytable.polyTable`\n\n    :return: A list of (nSL,iHS) tuples\n\n    :rtype: list\n    \n    .. note:: Only :class:`libsequence.polytable.simData` types currently supported\n    ";
+static char __pyx_doc_11libsequence_9summstats_2nSLiHS[] = "\n    \"Raw\"/unstandardizes :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.\n\n    :param pt: A :class:`libsequence.polytable.polyTable`\n\n    :return: A list of (nSL,iHS) tuples\n\n    :rtype: list\n    \n    .. note:: Only :class:`libsequence.polytable.simData` types currently supported\n    ";
 static PyMethodDef __pyx_mdef_11libsequence_9summstats_3nSLiHS = {"nSLiHS", (PyCFunction)__pyx_pw_11libsequence_9summstats_3nSLiHS, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11libsequence_9summstats_2nSLiHS};
 static PyObject *__pyx_pw_11libsequence_9summstats_3nSLiHS(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_pt = 0;
@@ -5156,7 +5156,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_2nSLiHS(CYTHON_UNUSED PyObjec
  *     else:
  *         raise RuntimeError("nSL: only simData objects are allowed")             # <<<<<<<<<<<<<<
  * 
- * def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):
+ * def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):
  */
   /*else*/ {
     __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 269; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -5171,7 +5171,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_2nSLiHS(CYTHON_UNUSED PyObjec
  * 
  * def nSLiHS(polyTable pt, double[:] gmap = None):             # <<<<<<<<<<<<<<
  *     """
- *     "Raw" :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
+ *     "Raw"/unstandardizes :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
  */
 
   /* function exit code */
@@ -5192,16 +5192,16 @@ static PyObject *__pyx_pf_11libsequence_9summstats_2nSLiHS(CYTHON_UNUSED PyObjec
 /* "libsequence/summstats.pyx":271
  *         raise RuntimeError("nSL: only simData objects are allowed")
  * 
- * def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):             # <<<<<<<<<<<<<<
+ * def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):             # <<<<<<<<<<<<<<
  *     """
  *     Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11libsequence_9summstats_5std_nSL(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11libsequence_9summstats_4std_nSL[] = "\n    Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077\n\n    :param pt: A :class:`libsequence.polytable.polyTable`\n    :param minfreq: Ignore markers with frequency < this value\n    :param binsize: Standardize statistic in frequency bings of this width\n    :parma gmap: A genetic map.  The length of this array should be equal to the number of sites in pt, and represent the positions of those sites on the genetic map.\n\n    :return: A tuple. The first value is max |standardized nSL| over all bins.  The second is max |iHS| over all bins, where iHS is calculated according to Ferrer-Admetlla et al.\n\n    :rtype: float\n\n    .. note:: Only :class:`libsequence.polytable.simData` types currently supported\n    ";
-static PyMethodDef __pyx_mdef_11libsequence_9summstats_5std_nSL = {"std_nSL", (PyCFunction)__pyx_pw_11libsequence_9summstats_5std_nSL, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11libsequence_9summstats_4std_nSL};
-static PyObject *__pyx_pw_11libsequence_9summstats_5std_nSL(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_11libsequence_9summstats_5std_nSLiHS(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_11libsequence_9summstats_4std_nSLiHS[] = "\n    Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077\n\n    :param pt: A :class:`libsequence.polytable.polyTable`\n    :param minfreq: Ignore markers with frequency < this value\n    :param binsize: Standardize statistic in frequency bings of this width\n    :parma gmap: A genetic map.  The length of this array should be equal to the number of sites in pt, and represent the positions of those sites on the genetic map.\n\n    :return: A tuple. The first value is max standardized nSL over all bins.  The second is max iHS over all bins, where iHS is calculated according to Ferrer-Admetlla et al.\n    The maxmimums are calculated based on absolute value.\n\n    :rtype: float\n\n    .. note:: Only :class:`libsequence.polytable.simData` types currently supported\n    ";
+static PyMethodDef __pyx_mdef_11libsequence_9summstats_5std_nSLiHS = {"std_nSLiHS", (PyCFunction)__pyx_pw_11libsequence_9summstats_5std_nSLiHS, METH_VARARGS|METH_KEYWORDS, __pyx_doc_11libsequence_9summstats_4std_nSLiHS};
+static PyObject *__pyx_pw_11libsequence_9summstats_5std_nSLiHS(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_pt = 0;
   double __pyx_v_minfreq;
   double __pyx_v_binsize;
@@ -5211,7 +5211,7 @@ static PyObject *__pyx_pw_11libsequence_9summstats_5std_nSL(PyObject *__pyx_self
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("std_nSL (wrapper)", 0);
+  __Pyx_RefNannySetupContext("std_nSLiHS (wrapper)", 0);
   {
     static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_pt,&__pyx_n_s_minfreq,&__pyx_n_s_binsize,&__pyx_n_s_gmap,0};
     PyObject* values[4] = {0,0,0,0};
@@ -5248,7 +5248,7 @@ static PyObject *__pyx_pw_11libsequence_9summstats_5std_nSL(PyObject *__pyx_self
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "std_nSL") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "std_nSLiHS") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -5280,14 +5280,14 @@ static PyObject *__pyx_pw_11libsequence_9summstats_5std_nSL(PyObject *__pyx_self
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("std_nSL", 0, 1, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("std_nSLiHS", 0, 1, 4, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("libsequence.summstats.std_nSL", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("libsequence.summstats.std_nSLiHS", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
   if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_pt), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "pt", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_11libsequence_9summstats_4std_nSL(__pyx_self, __pyx_v_pt, __pyx_v_minfreq, __pyx_v_binsize, __pyx_v_gmap);
+  __pyx_r = __pyx_pf_11libsequence_9summstats_4std_nSLiHS(__pyx_self, __pyx_v_pt, __pyx_v_minfreq, __pyx_v_binsize, __pyx_v_gmap);
 
   /* function exit code */
   goto __pyx_L0;
@@ -5298,7 +5298,7 @@ static PyObject *__pyx_pw_11libsequence_9summstats_5std_nSL(PyObject *__pyx_self
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_pt, double __pyx_v_minfreq, double __pyx_v_binsize, __Pyx_memviewslice __pyx_v_gmap) {
+static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSLiHS(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_pt, double __pyx_v_minfreq, double __pyx_v_binsize, __Pyx_memviewslice __pyx_v_gmap) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
@@ -5310,9 +5310,9 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("std_nSL", 0);
+  __Pyx_RefNannySetupContext("std_nSLiHS", 0);
 
-  /* "libsequence/summstats.pyx":286
+  /* "libsequence/summstats.pyx":287
  *     .. note:: Only :class:`libsequence.polytable.simData` types currently supported
  *     """
  *     if isinstance(pt,simData):             # <<<<<<<<<<<<<<
@@ -5323,7 +5323,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "libsequence/summstats.pyx":287
+    /* "libsequence/summstats.pyx":288
  *     """
  *     if isinstance(pt,simData):
  *         if gmap is None:             # <<<<<<<<<<<<<<
@@ -5333,7 +5333,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
     __pyx_t_2 = ((((PyObject *) __pyx_v_gmap.memview) == Py_None) != 0);
     if (__pyx_t_2) {
 
-      /* "libsequence/summstats.pyx":288
+      /* "libsequence/summstats.pyx":289
  *     if isinstance(pt,simData):
  *         if gmap is None:
  *             return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,NULL)             # <<<<<<<<<<<<<<
@@ -5345,15 +5345,15 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
         __pyx_t_3 = dynamic_cast<Sequence::SimData *>(__pyx_v_pt->thisptr);
       } catch(...) {
         __Pyx_CppExn2PyErr();
-        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 289; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
-      __pyx_t_4 = __pyx_convert_pair_to_py_double____double(Sequence::snSL((*__pyx_t_3), __pyx_v_minfreq, __pyx_v_binsize, NULL)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 288; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __pyx_convert_pair_to_py_double____double(Sequence::snSL((*__pyx_t_3), __pyx_v_minfreq, __pyx_v_binsize, NULL)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 289; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_r = __pyx_t_4;
       __pyx_t_4 = 0;
       goto __pyx_L0;
 
-      /* "libsequence/summstats.pyx":287
+      /* "libsequence/summstats.pyx":288
  *     """
  *     if isinstance(pt,simData):
  *         if gmap is None:             # <<<<<<<<<<<<<<
@@ -5362,7 +5362,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
  */
     }
 
-    /* "libsequence/summstats.pyx":290
+    /* "libsequence/summstats.pyx":291
  *             return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,NULL)
  *         else:
  *             return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,&gmap[0])             # <<<<<<<<<<<<<<
@@ -5375,7 +5375,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
         __pyx_t_3 = dynamic_cast<Sequence::SimData *>(__pyx_v_pt->thisptr);
       } catch(...) {
         __Pyx_CppExn2PyErr();
-        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 290; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 291; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
       __pyx_t_5 = 0;
       __pyx_t_6 = -1;
@@ -5385,16 +5385,16 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
       } else if (unlikely(__pyx_t_5 >= __pyx_v_gmap.shape[0])) __pyx_t_6 = 0;
       if (unlikely(__pyx_t_6 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_6);
-        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 290; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        {__pyx_filename = __pyx_f[0]; __pyx_lineno = 291; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       }
-      __pyx_t_4 = __pyx_convert_pair_to_py_double____double(Sequence::snSL((*__pyx_t_3), __pyx_v_minfreq, __pyx_v_binsize, (&(*((double *) ( /* dim=0 */ (__pyx_v_gmap.data + __pyx_t_5 * __pyx_v_gmap.strides[0]) )))))); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 290; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_4 = __pyx_convert_pair_to_py_double____double(Sequence::snSL((*__pyx_t_3), __pyx_v_minfreq, __pyx_v_binsize, (&(*((double *) ( /* dim=0 */ (__pyx_v_gmap.data + __pyx_t_5 * __pyx_v_gmap.strides[0]) )))))); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 291; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_r = __pyx_t_4;
       __pyx_t_4 = 0;
       goto __pyx_L0;
     }
 
-    /* "libsequence/summstats.pyx":286
+    /* "libsequence/summstats.pyx":287
  *     .. note:: Only :class:`libsequence.polytable.simData` types currently supported
  *     """
  *     if isinstance(pt,simData):             # <<<<<<<<<<<<<<
@@ -5403,7 +5403,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
  */
   }
 
-  /* "libsequence/summstats.pyx":292
+  /* "libsequence/summstats.pyx":293
  *             return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,&gmap[0])
  *     else:
  *         raise RuntimeError("std_nSL: only simData objects are allowed")             # <<<<<<<<<<<<<<
@@ -5411,17 +5411,17 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
  * def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):
  */
   /*else*/ {
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_Raise(__pyx_t_4, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
   /* "libsequence/summstats.pyx":271
  *         raise RuntimeError("nSL: only simData objects are allowed")
  * 
- * def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):             # <<<<<<<<<<<<<<
+ * def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):             # <<<<<<<<<<<<<<
  *     """
  *     Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077
  */
@@ -5429,7 +5429,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("libsequence.summstats.std_nSL", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("libsequence.summstats.std_nSLiHS", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __PYX_XDEC_MEMVIEW(&__pyx_v_gmap, 1);
@@ -5438,7 +5438,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
   return __pyx_r;
 }
 
-/* "libsequence/summstats.pyx":294
+/* "libsequence/summstats.pyx":295
  *         raise RuntimeError("std_nSL: only simData objects are allowed")
  * 
  * def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):             # <<<<<<<<<<<<<<
@@ -5505,7 +5505,7 @@ static PyObject *__pyx_pw_11libsequence_9summstats_7ld(PyObject *__pyx_self, PyO
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "ld") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "ld") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -5520,17 +5520,17 @@ static PyObject *__pyx_pw_11libsequence_9summstats_7ld(PyObject *__pyx_self, PyO
     }
     __pyx_v_p = ((struct __pyx_obj_11libsequence_9polytable_polyTable *)values[0]);
     if (values[1]) {
-      __pyx_v_haveOutgroup = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_haveOutgroup == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_haveOutgroup = __Pyx_PyObject_IsTrue(values[1]); if (unlikely((__pyx_v_haveOutgroup == (int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_haveOutgroup = ((int)0);
     }
     if (values[2]) {
-      __pyx_v_outgroup = __Pyx_PyInt_As_unsigned_int(values[2]); if (unlikely((__pyx_v_outgroup == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_outgroup = __Pyx_PyInt_As_unsigned_int(values[2]); if (unlikely((__pyx_v_outgroup == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_outgroup = ((unsigned int)0);
     }
     if (values[3]) {
-      __pyx_v_mincount = __Pyx_PyInt_As_unsigned_int(values[3]); if (unlikely((__pyx_v_mincount == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_mincount = __Pyx_PyInt_As_unsigned_int(values[3]); if (unlikely((__pyx_v_mincount == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_mincount = ((unsigned int)1);
     }
@@ -5538,13 +5538,13 @@ static PyObject *__pyx_pw_11libsequence_9summstats_7ld(PyObject *__pyx_self, PyO
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("ld", 0, 1, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("ld", 0, 1, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("libsequence.summstats.ld", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_p), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "p", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_11libsequence_9summstats_6ld(__pyx_self, __pyx_v_p, __pyx_v_haveOutgroup, __pyx_v_outgroup, __pyx_v_mincount, __pyx_v_maxDist);
 
   /* function exit code */
@@ -5575,84 +5575,84 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("ld", 0);
 
-  /* "libsequence/summstats.pyx":306
+  /* "libsequence/summstats.pyx":307
  *     .. note:: This function skips sites with missing data, gaps, etc.
  *     """
  *     rv = {'i':[],             # <<<<<<<<<<<<<<
  *           'j':[],
  *           'rsq':[],
  */
-  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_i, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_i, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "libsequence/summstats.pyx":307
+  /* "libsequence/summstats.pyx":308
  *     """
  *     rv = {'i':[],
  *           'j':[],             # <<<<<<<<<<<<<<
  *           'rsq':[],
  *           'D':[],
  */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_j, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_j, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "libsequence/summstats.pyx":308
+  /* "libsequence/summstats.pyx":309
  *     rv = {'i':[],
  *           'j':[],
  *           'rsq':[],             # <<<<<<<<<<<<<<
  *           'D':[],
  *           'Dprime':[]}
  */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 308; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 309; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_rsq, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_rsq, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "libsequence/summstats.pyx":309
+  /* "libsequence/summstats.pyx":310
  *           'j':[],
  *           'rsq':[],
  *           'D':[],             # <<<<<<<<<<<<<<
  *           'Dprime':[]}
  *     if p.empty():
  */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 309; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 310; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_D, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_D, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "libsequence/summstats.pyx":310
+  /* "libsequence/summstats.pyx":311
  *           'rsq':[],
  *           'D':[],
  *           'Dprime':[]}             # <<<<<<<<<<<<<<
  *     if p.empty():
  *         return rv
  */
-  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 310; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_Dprime, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 306; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_Dprime, __pyx_t_2) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 307; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_rv = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "libsequence/summstats.pyx":311
+  /* "libsequence/summstats.pyx":312
  *           'D':[],
  *           'Dprime':[]}
  *     if p.empty():             # <<<<<<<<<<<<<<
  *         return rv
  *     cdef unsigned i = 0
  */
-  __pyx_t_1 = ((struct __pyx_vtabstruct_11libsequence_9polytable_polyTable *)__pyx_v_p->__pyx_vtab)->empty(__pyx_v_p, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = ((struct __pyx_vtabstruct_11libsequence_9polytable_polyTable *)__pyx_v_p->__pyx_vtab)->empty(__pyx_v_p, 0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 312; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_3 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 311; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_3 < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 312; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_3) {
 
-    /* "libsequence/summstats.pyx":312
+    /* "libsequence/summstats.pyx":313
  *           'Dprime':[]}
  *     if p.empty():
  *         return rv             # <<<<<<<<<<<<<<
@@ -5664,7 +5664,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
     __pyx_r = __pyx_v_rv;
     goto __pyx_L0;
 
-    /* "libsequence/summstats.pyx":311
+    /* "libsequence/summstats.pyx":312
  *           'D':[],
  *           'Dprime':[]}
  *     if p.empty():             # <<<<<<<<<<<<<<
@@ -5673,7 +5673,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "libsequence/summstats.pyx":313
+  /* "libsequence/summstats.pyx":314
  *     if p.empty():
  *         return rv
  *     cdef unsigned i = 0             # <<<<<<<<<<<<<<
@@ -5682,7 +5682,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_i = 0;
 
-  /* "libsequence/summstats.pyx":314
+  /* "libsequence/summstats.pyx":315
  *         return rv
  *     cdef unsigned i = 0
  *     cdef unsigned j = i + 1             # <<<<<<<<<<<<<<
@@ -5691,7 +5691,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_j = (__pyx_v_i + 1);
 
-  /* "libsequence/summstats.pyx":316
+  /* "libsequence/summstats.pyx":317
  *     cdef unsigned j = i + 1
  *     cdef vector[double] ldvals
  *     ldvals.resize(6)             # <<<<<<<<<<<<<<
@@ -5702,10 +5702,10 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
     __pyx_v_ldvals.resize(6);
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 316; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 317; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "libsequence/summstats.pyx":317
+  /* "libsequence/summstats.pyx":318
  *     cdef vector[double] ldvals
  *     ldvals.resize(6)
  *     cdef double md = numeric_limits[double].max()             # <<<<<<<<<<<<<<
@@ -5714,7 +5714,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
  */
   __pyx_v_md = std::numeric_limits<double> ::max();
 
-  /* "libsequence/summstats.pyx":318
+  /* "libsequence/summstats.pyx":319
  *     ldvals.resize(6)
  *     cdef double md = numeric_limits[double].max()
  *     if maxDist is not None:             # <<<<<<<<<<<<<<
@@ -5725,17 +5725,17 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
   __pyx_t_4 = (__pyx_t_3 != 0);
   if (__pyx_t_4) {
 
-    /* "libsequence/summstats.pyx":319
+    /* "libsequence/summstats.pyx":320
  *     cdef double md = numeric_limits[double].max()
  *     if maxDist is not None:
  *         md = maxDist             # <<<<<<<<<<<<<<
  *     while Disequilibrium(p.thisptr,ldvals,&i,&j,haveOutgroup,outgroup,mincount,md):
  *         if ldvals[5] == 0:  ##site pair NOT skipped
  */
-    __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_v_maxDist); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 319; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = __pyx_PyFloat_AsDouble(__pyx_v_maxDist); if (unlikely((__pyx_t_5 == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 320; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __pyx_v_md = __pyx_t_5;
 
-    /* "libsequence/summstats.pyx":318
+    /* "libsequence/summstats.pyx":319
  *     ldvals.resize(6)
  *     cdef double md = numeric_limits[double].max()
  *     if maxDist is not None:             # <<<<<<<<<<<<<<
@@ -5744,7 +5744,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "libsequence/summstats.pyx":320
+  /* "libsequence/summstats.pyx":321
  *     if maxDist is not None:
  *         md = maxDist
  *     while Disequilibrium(p.thisptr,ldvals,&i,&j,haveOutgroup,outgroup,mincount,md):             # <<<<<<<<<<<<<<
@@ -5755,7 +5755,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
     __pyx_t_4 = (Sequence::Recombination::Disequilibrium(__pyx_v_p->thisptr, __pyx_v_ldvals, (&__pyx_v_i), (&__pyx_v_j), __pyx_v_haveOutgroup, __pyx_v_outgroup, __pyx_v_mincount, __pyx_v_md) != 0);
     if (!__pyx_t_4) break;
 
-    /* "libsequence/summstats.pyx":321
+    /* "libsequence/summstats.pyx":322
  *         md = maxDist
  *     while Disequilibrium(p.thisptr,ldvals,&i,&j,haveOutgroup,outgroup,mincount,md):
  *         if ldvals[5] == 0:  ##site pair NOT skipped             # <<<<<<<<<<<<<<
@@ -5765,82 +5765,82 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
     __pyx_t_4 = (((__pyx_v_ldvals[5]) == 0.0) != 0);
     if (__pyx_t_4) {
 
-      /* "libsequence/summstats.pyx":322
+      /* "libsequence/summstats.pyx":323
  *     while Disequilibrium(p.thisptr,ldvals,&i,&j,haveOutgroup,outgroup,mincount,md):
  *         if ldvals[5] == 0:  ##site pair NOT skipped
  *             rv['i'].append(ldvals[0])             # <<<<<<<<<<<<<<
  *             rv['j'].append(ldvals[1])
  *             rv['rsq'].append(ldvals[2])
  */
-      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_rv, __pyx_n_s_i); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 322; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_rv, __pyx_n_s_i); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 323; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = PyFloat_FromDouble((__pyx_v_ldvals[0])); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 322; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = PyFloat_FromDouble((__pyx_v_ldvals[0])); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 323; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 322; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 323; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "libsequence/summstats.pyx":323
+      /* "libsequence/summstats.pyx":324
  *         if ldvals[5] == 0:  ##site pair NOT skipped
  *             rv['i'].append(ldvals[0])
  *             rv['j'].append(ldvals[1])             # <<<<<<<<<<<<<<
  *             rv['rsq'].append(ldvals[2])
  *             rv['D'].append(ldvals[3])
  */
-      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_rv, __pyx_n_s_j); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 323; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_rv, __pyx_n_s_j); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 324; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = PyFloat_FromDouble((__pyx_v_ldvals[1])); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 323; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyFloat_FromDouble((__pyx_v_ldvals[1])); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 324; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_1); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 323; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_1); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 324; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "libsequence/summstats.pyx":324
+      /* "libsequence/summstats.pyx":325
  *             rv['i'].append(ldvals[0])
  *             rv['j'].append(ldvals[1])
  *             rv['rsq'].append(ldvals[2])             # <<<<<<<<<<<<<<
  *             rv['D'].append(ldvals[3])
  *             rv['Dprime'].append(ldvals[4])
  */
-      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_rv, __pyx_n_s_rsq); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 324; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_rv, __pyx_n_s_rsq); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 325; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = PyFloat_FromDouble((__pyx_v_ldvals[2])); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 324; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = PyFloat_FromDouble((__pyx_v_ldvals[2])); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 325; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 324; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 325; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "libsequence/summstats.pyx":325
+      /* "libsequence/summstats.pyx":326
  *             rv['j'].append(ldvals[1])
  *             rv['rsq'].append(ldvals[2])
  *             rv['D'].append(ldvals[3])             # <<<<<<<<<<<<<<
  *             rv['Dprime'].append(ldvals[4])
  *     return rv
  */
-      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_rv, __pyx_n_s_D); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 325; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+      __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_rv, __pyx_n_s_D); if (unlikely(__pyx_t_2 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 326; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = PyFloat_FromDouble((__pyx_v_ldvals[3])); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 325; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_1 = PyFloat_FromDouble((__pyx_v_ldvals[3])); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 326; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_1); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 325; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_2, __pyx_t_1); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 326; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "libsequence/summstats.pyx":326
+      /* "libsequence/summstats.pyx":327
  *             rv['rsq'].append(ldvals[2])
  *             rv['D'].append(ldvals[3])
  *             rv['Dprime'].append(ldvals[4])             # <<<<<<<<<<<<<<
  *     return rv
  * 
  */
-      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_rv, __pyx_n_s_Dprime); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 326; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+      __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_rv, __pyx_n_s_Dprime); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 327; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_2 = PyFloat_FromDouble((__pyx_v_ldvals[4])); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 326; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_2 = PyFloat_FromDouble((__pyx_v_ldvals[4])); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 327; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 326; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      __pyx_t_6 = __Pyx_PyObject_Append(__pyx_t_1, __pyx_t_2); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 327; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-      /* "libsequence/summstats.pyx":321
+      /* "libsequence/summstats.pyx":322
  *         md = maxDist
  *     while Disequilibrium(p.thisptr,ldvals,&i,&j,haveOutgroup,outgroup,mincount,md):
  *         if ldvals[5] == 0:  ##site pair NOT skipped             # <<<<<<<<<<<<<<
@@ -5850,7 +5850,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
     }
   }
 
-  /* "libsequence/summstats.pyx":327
+  /* "libsequence/summstats.pyx":328
  *             rv['D'].append(ldvals[3])
  *             rv['Dprime'].append(ldvals[4])
  *     return rv             # <<<<<<<<<<<<<<
@@ -5862,7 +5862,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
   __pyx_r = __pyx_v_rv;
   goto __pyx_L0;
 
-  /* "libsequence/summstats.pyx":294
+  /* "libsequence/summstats.pyx":295
  *         raise RuntimeError("std_nSL: only simData objects are allowed")
  * 
  * def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):             # <<<<<<<<<<<<<<
@@ -5883,7 +5883,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "libsequence/summstats.pyx":329
+/* "libsequence/summstats.pyx":330
  *     return rv
  * 
  * def garudStats(polyTable pt):             # <<<<<<<<<<<<<<
@@ -5902,7 +5902,7 @@ static PyObject *__pyx_pw_11libsequence_9summstats_9garudStats(PyObject *__pyx_s
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("garudStats (wrapper)", 0);
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_pt), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "pt", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 329; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_pt), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "pt", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 330; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_r = __pyx_pf_11libsequence_9summstats_8garudStats(__pyx_self, ((struct __pyx_obj_11libsequence_9polytable_polyTable *)__pyx_v_pt));
 
   /* function exit code */
@@ -5928,7 +5928,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_8garudStats(CYTHON_UNUSED PyO
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("garudStats", 0);
 
-  /* "libsequence/summstats.pyx":342
+  /* "libsequence/summstats.pyx":343
  *    """
  *    cdef GarudStats stats
  *    if isinstance(pt,simData):             # <<<<<<<<<<<<<<
@@ -5939,7 +5939,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_8garudStats(CYTHON_UNUSED PyO
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "libsequence/summstats.pyx":343
+    /* "libsequence/summstats.pyx":344
  *    cdef GarudStats stats
  *    if isinstance(pt,simData):
  *        stats = H1H12(deref(dynamic_cast['SimData*'](pt.thisptr)))             # <<<<<<<<<<<<<<
@@ -5950,11 +5950,11 @@ static PyObject *__pyx_pf_11libsequence_9summstats_8garudStats(CYTHON_UNUSED PyO
       __pyx_t_3 = dynamic_cast<Sequence::SimData *>(__pyx_v_pt->thisptr);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 343; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 344; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     }
     __pyx_v_stats = Sequence::H1H12((*__pyx_t_3));
 
-    /* "libsequence/summstats.pyx":344
+    /* "libsequence/summstats.pyx":345
  *    if isinstance(pt,simData):
  *        stats = H1H12(deref(dynamic_cast['SimData*'](pt.thisptr)))
  *        return {"H1":stats.H1,"H12":stats.H12,"H2H1":stats.H2H1}             # <<<<<<<<<<<<<<
@@ -5962,25 +5962,25 @@ static PyObject *__pyx_pf_11libsequence_9summstats_8garudStats(CYTHON_UNUSED PyO
  *        raise RuntimeError("garudStats: only simData objects are allowed")
  */
     __Pyx_XDECREF(__pyx_r);
-    __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 344; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = PyDict_New(); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 345; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = PyFloat_FromDouble(__pyx_v_stats.H1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 344; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = PyFloat_FromDouble(__pyx_v_stats.H1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 345; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_H1, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 344; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_H1, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 345; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyFloat_FromDouble(__pyx_v_stats.H12); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 344; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = PyFloat_FromDouble(__pyx_v_stats.H12); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 345; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_H12, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 344; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_H12, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 345; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_t_5 = PyFloat_FromDouble(__pyx_v_stats.H2H1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 344; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_5 = PyFloat_FromDouble(__pyx_v_stats.H2H1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 345; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_5);
-    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_H2H1, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 344; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_H2H1, __pyx_t_5) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 345; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_r = __pyx_t_4;
     __pyx_t_4 = 0;
     goto __pyx_L0;
 
-    /* "libsequence/summstats.pyx":342
+    /* "libsequence/summstats.pyx":343
  *    """
  *    cdef GarudStats stats
  *    if isinstance(pt,simData):             # <<<<<<<<<<<<<<
@@ -5989,21 +5989,21 @@ static PyObject *__pyx_pf_11libsequence_9summstats_8garudStats(CYTHON_UNUSED PyO
  */
   }
 
-  /* "libsequence/summstats.pyx":346
+  /* "libsequence/summstats.pyx":347
  *        return {"H1":stats.H1,"H12":stats.H12,"H2H1":stats.H2H1}
  *    else:
  *        raise RuntimeError("garudStats: only simData objects are allowed")             # <<<<<<<<<<<<<<
  * 
  */
   /*else*/ {
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 346; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 347; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_Raise(__pyx_t_4, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 346; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 347; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   }
 
-  /* "libsequence/summstats.pyx":329
+  /* "libsequence/summstats.pyx":330
  *     return rv
  * 
  * def garudStats(polyTable pt):             # <<<<<<<<<<<<<<
@@ -19312,8 +19312,8 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_size, __pyx_k_size, sizeof(__pyx_k_size), 0, 0, 1, 1},
   {&__pyx_n_s_start, __pyx_k_start, sizeof(__pyx_k_start), 0, 0, 1, 1},
   {&__pyx_n_s_stats, __pyx_k_stats, sizeof(__pyx_k_stats), 0, 0, 1, 1},
-  {&__pyx_n_s_std_nSL, __pyx_k_std_nSL, sizeof(__pyx_k_std_nSL), 0, 0, 1, 1},
   {&__pyx_kp_s_std_nSL_only_simData_objects_are, __pyx_k_std_nSL_only_simData_objects_are, sizeof(__pyx_k_std_nSL_only_simData_objects_are), 0, 0, 1, 0},
+  {&__pyx_n_s_std_nSLiHS, __pyx_k_std_nSLiHS, sizeof(__pyx_k_std_nSLiHS), 0, 0, 1, 1},
   {&__pyx_n_s_step, __pyx_k_step, sizeof(__pyx_k_step), 0, 0, 1, 1},
   {&__pyx_n_s_stop, __pyx_k_stop, sizeof(__pyx_k_stop), 0, 0, 1, 1},
   {&__pyx_kp_s_strided_and_direct, __pyx_k_strided_and_direct, sizeof(__pyx_k_strided_and_direct), 0, 0, 1, 0},
@@ -19362,30 +19362,30 @@ static int __Pyx_InitCachedConstants(void) {
  *     else:
  *         raise RuntimeError("nSL: only simData objects are allowed")             # <<<<<<<<<<<<<<
  * 
- * def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):
+ * def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):
  */
   __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_s_nSL_only_simData_objects_are_all); if (unlikely(!__pyx_tuple__3)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 269; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "libsequence/summstats.pyx":292
+  /* "libsequence/summstats.pyx":293
  *             return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,&gmap[0])
  *     else:
  *         raise RuntimeError("std_nSL: only simData objects are allowed")             # <<<<<<<<<<<<<<
  * 
  * def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_std_nSL_only_simData_objects_are); if (unlikely(!__pyx_tuple__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_std_nSL_only_simData_objects_are); if (unlikely(!__pyx_tuple__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 293; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "libsequence/summstats.pyx":346
+  /* "libsequence/summstats.pyx":347
  *        return {"H1":stats.H1,"H12":stats.H12,"H2H1":stats.H2H1}
  *    else:
  *        raise RuntimeError("garudStats: only simData objects are allowed")             # <<<<<<<<<<<<<<
  * 
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_garudStats_only_simData_objects); if (unlikely(!__pyx_tuple__6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 346; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_s_garudStats_only_simData_objects); if (unlikely(!__pyx_tuple__6)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 347; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
@@ -19552,7 +19552,7 @@ static int __Pyx_InitCachedConstants(void) {
  * 
  * def nSLiHS(polyTable pt, double[:] gmap = None):             # <<<<<<<<<<<<<<
  *     """
- *     "Raw" :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
+ *     "Raw"/unstandardizes :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
  */
   __pyx_tuple__22 = PyTuple_Pack(4, __pyx_n_s_pt, __pyx_n_s_gmap, __pyx_n_s_rv, __pyx_n_s_core); if (unlikely(!__pyx_tuple__22)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 247; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__22);
@@ -19562,38 +19562,38 @@ static int __Pyx_InitCachedConstants(void) {
   /* "libsequence/summstats.pyx":271
  *         raise RuntimeError("nSL: only simData objects are allowed")
  * 
- * def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):             # <<<<<<<<<<<<<<
+ * def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):             # <<<<<<<<<<<<<<
  *     """
  *     Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077
  */
   __pyx_tuple__24 = PyTuple_Pack(4, __pyx_n_s_pt, __pyx_n_s_minfreq, __pyx_n_s_binsize, __pyx_n_s_gmap); if (unlikely(!__pyx_tuple__24)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__24);
   __Pyx_GIVEREF(__pyx_tuple__24);
-  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_std_nSL, 271, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_std_nSLiHS, 271, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "libsequence/summstats.pyx":294
+  /* "libsequence/summstats.pyx":295
  *         raise RuntimeError("std_nSL: only simData objects are allowed")
  * 
  * def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):             # <<<<<<<<<<<<<<
  *     """
  *     Pairwise "linkage disequilibrium" (LD) statistics
  */
-  __pyx_tuple__26 = PyTuple_Pack(10, __pyx_n_s_p, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup, __pyx_n_s_mincount, __pyx_n_s_maxDist, __pyx_n_s_rv, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_ldvals, __pyx_n_s_md); if (unlikely(!__pyx_tuple__26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__26 = PyTuple_Pack(10, __pyx_n_s_p, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup, __pyx_n_s_mincount, __pyx_n_s_maxDist, __pyx_n_s_rv, __pyx_n_s_i, __pyx_n_s_j, __pyx_n_s_ldvals, __pyx_n_s_md); if (unlikely(!__pyx_tuple__26)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__26);
   __Pyx_GIVEREF(__pyx_tuple__26);
-  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(5, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_ld, 294, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__27 = (PyObject*)__Pyx_PyCode_New(5, 0, 10, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__26, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_ld, 295, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__27)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
-  /* "libsequence/summstats.pyx":329
+  /* "libsequence/summstats.pyx":330
  *     return rv
  * 
  * def garudStats(polyTable pt):             # <<<<<<<<<<<<<<
  *    """
  *    Statistics from Garud et al. doi:10.1371/journal.pgen.1005004.g011
  */
-  __pyx_tuple__28 = PyTuple_Pack(2, __pyx_n_s_pt, __pyx_n_s_stats); if (unlikely(!__pyx_tuple__28)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 329; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__28 = PyTuple_Pack(2, __pyx_n_s_pt, __pyx_n_s_stats); if (unlikely(!__pyx_tuple__28)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 330; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__28);
   __Pyx_GIVEREF(__pyx_tuple__28);
-  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_garudStats, 329, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 329; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__29 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__28, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_garudStats, 330, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__29)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 330; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "View.MemoryView":278
  *         return self.name
@@ -19834,7 +19834,7 @@ PyMODINIT_FUNC PyInit_summstats(void)
  * 
  * def nSLiHS(polyTable pt, double[:] gmap = None):             # <<<<<<<<<<<<<<
  *     """
- *     "Raw" :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
+ *     "Raw"/unstandardizes :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
  */
   __pyx_t_2 = __Pyx_PyObject_to_MemoryviewSlice_ds_double(Py_None);
   if (unlikely(!__pyx_t_2.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 247; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -19849,7 +19849,7 @@ PyMODINIT_FUNC PyInit_summstats(void)
   /* "libsequence/summstats.pyx":271
  *         raise RuntimeError("nSL: only simData objects are allowed")
  * 
- * def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):             # <<<<<<<<<<<<<<
+ * def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):             # <<<<<<<<<<<<<<
  *     """
  *     Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077
  */
@@ -19858,33 +19858,33 @@ PyMODINIT_FUNC PyInit_summstats(void)
   __pyx_k__4 = __pyx_t_2;
   __pyx_t_2.memview = NULL;
   __pyx_t_2.data = NULL;
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9summstats_5std_nSL, NULL, __pyx_n_s_libsequence_summstats); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9summstats_5std_nSLiHS, NULL, __pyx_n_s_libsequence_summstats); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_std_nSL, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_std_nSLiHS, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "libsequence/summstats.pyx":294
+  /* "libsequence/summstats.pyx":295
  *         raise RuntimeError("std_nSL: only simData objects are allowed")
  * 
  * def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):             # <<<<<<<<<<<<<<
  *     """
  *     Pairwise "linkage disequilibrium" (LD) statistics
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9summstats_7ld, NULL, __pyx_n_s_libsequence_summstats); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9summstats_7ld, NULL, __pyx_n_s_libsequence_summstats); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ld, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 294; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_ld, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 295; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "libsequence/summstats.pyx":329
+  /* "libsequence/summstats.pyx":330
  *     return rv
  * 
  * def garudStats(polyTable pt):             # <<<<<<<<<<<<<<
  *    """
  *    Statistics from Garud et al. doi:10.1371/journal.pgen.1005004.g011
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9summstats_9garudStats, NULL, __pyx_n_s_libsequence_summstats); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 329; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_11libsequence_9summstats_9garudStats, NULL, __pyx_n_s_libsequence_summstats); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 330; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_garudStats, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 329; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_garudStats, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 330; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "libsequence/summstats.pyx":1
