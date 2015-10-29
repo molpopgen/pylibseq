@@ -289,7 +289,7 @@ def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] 
         else:
             return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,&gmap[0])
     else:
-        raise RuntimeError("lhaf: only simData objects are allowed")
+        raise RuntimeError("std_nSL: only simData objects are allowed")
 
 def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):
     """

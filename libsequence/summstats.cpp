@@ -1688,6 +1688,7 @@ static char __pyx_k_Unable_to_convert_item_to_object[] = "Unable to convert item
 static char __pyx_k_got_differing_extents_in_dimensi[] = "got differing extents in dimension %d (got %d and %d)";
 static char __pyx_k_lhaf_only_simData_objects_are_al[] = "lhaf: only simData objects are allowed";
 static char __pyx_k_nSL_only_simData_objects_are_all[] = "nSL: only simData objects are allowed";
+static char __pyx_k_std_nSL_only_simData_objects_are[] = "std_nSL: only simData objects are allowed";
 static char __pyx_k_unable_to_allocate_shape_and_str[] = "unable to allocate shape and strides.";
 static PyObject *__pyx_n_s_ASCII;
 static PyObject *__pyx_kp_s_Buffer_view_does_not_expose_stri;
@@ -1778,6 +1779,7 @@ static PyObject *__pyx_n_s_size;
 static PyObject *__pyx_n_s_start;
 static PyObject *__pyx_n_s_stats;
 static PyObject *__pyx_n_s_std_nSL;
+static PyObject *__pyx_kp_s_std_nSL_only_simData_objects_are;
 static PyObject *__pyx_n_s_step;
 static PyObject *__pyx_n_s_stop;
 static PyObject *__pyx_kp_s_strided_and_direct;
@@ -5365,7 +5367,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
  *         else:
  *             return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,&gmap[0])             # <<<<<<<<<<<<<<
  *     else:
- *         raise RuntimeError("lhaf: only simData objects are allowed")
+ *         raise RuntimeError("std_nSL: only simData objects are allowed")
  */
     /*else*/ {
       __Pyx_XDECREF(__pyx_r);
@@ -5404,7 +5406,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
   /* "libsequence/summstats.pyx":292
  *             return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,&gmap[0])
  *     else:
- *         raise RuntimeError("lhaf: only simData objects are allowed")             # <<<<<<<<<<<<<<
+ *         raise RuntimeError("std_nSL: only simData objects are allowed")             # <<<<<<<<<<<<<<
  * 
  * def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):
  */
@@ -5437,7 +5439,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_4std_nSL(CYTHON_UNUSED PyObje
 }
 
 /* "libsequence/summstats.pyx":294
- *         raise RuntimeError("lhaf: only simData objects are allowed")
+ *         raise RuntimeError("std_nSL: only simData objects are allowed")
  * 
  * def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):             # <<<<<<<<<<<<<<
  *     """
@@ -5861,7 +5863,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_6ld(CYTHON_UNUSED PyObject *_
   goto __pyx_L0;
 
   /* "libsequence/summstats.pyx":294
- *         raise RuntimeError("lhaf: only simData objects are allowed")
+ *         raise RuntimeError("std_nSL: only simData objects are allowed")
  * 
  * def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):             # <<<<<<<<<<<<<<
  *     """
@@ -19311,6 +19313,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_start, __pyx_k_start, sizeof(__pyx_k_start), 0, 0, 1, 1},
   {&__pyx_n_s_stats, __pyx_k_stats, sizeof(__pyx_k_stats), 0, 0, 1, 1},
   {&__pyx_n_s_std_nSL, __pyx_k_std_nSL, sizeof(__pyx_k_std_nSL), 0, 0, 1, 1},
+  {&__pyx_kp_s_std_nSL_only_simData_objects_are, __pyx_k_std_nSL_only_simData_objects_are, sizeof(__pyx_k_std_nSL_only_simData_objects_are), 0, 0, 1, 0},
   {&__pyx_n_s_step, __pyx_k_step, sizeof(__pyx_k_step), 0, 0, 1, 1},
   {&__pyx_n_s_stop, __pyx_k_stop, sizeof(__pyx_k_stop), 0, 0, 1, 1},
   {&__pyx_kp_s_strided_and_direct, __pyx_k_strided_and_direct, sizeof(__pyx_k_strided_and_direct), 0, 0, 1, 0},
@@ -19368,11 +19371,11 @@ static int __Pyx_InitCachedConstants(void) {
   /* "libsequence/summstats.pyx":292
  *             return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,&gmap[0])
  *     else:
- *         raise RuntimeError("lhaf: only simData objects are allowed")             # <<<<<<<<<<<<<<
+ *         raise RuntimeError("std_nSL: only simData objects are allowed")             # <<<<<<<<<<<<<<
  * 
  * def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_lhaf_only_simData_objects_are_al); if (unlikely(!__pyx_tuple__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_s_std_nSL_only_simData_objects_are); if (unlikely(!__pyx_tuple__5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 292; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
@@ -19569,7 +19572,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_codeobj__25 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__24, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_kevin_src_pyseq_libsequen, __pyx_n_s_std_nSL, 271, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__25)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 271; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "libsequence/summstats.pyx":294
- *         raise RuntimeError("lhaf: only simData objects are allowed")
+ *         raise RuntimeError("std_nSL: only simData objects are allowed")
  * 
  * def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):             # <<<<<<<<<<<<<<
  *     """
@@ -19861,7 +19864,7 @@ PyMODINIT_FUNC PyInit_summstats(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "libsequence/summstats.pyx":294
- *         raise RuntimeError("lhaf: only simData objects are allowed")
+ *         raise RuntimeError("std_nSL: only simData objects are allowed")
  * 
  * def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):             # <<<<<<<<<<<<<<
  *     """
