@@ -4901,6 +4901,8 @@ static PyObject *__pyx_pf_11libsequence_9summstats_2nSLiHS(CYTHON_UNUSED PyObjec
   unsigned int __pyx_t_7;
   Sequence::SimData *__pyx_t_8;
   int __pyx_t_9;
+  Py_ssize_t __pyx_t_10;
+  int __pyx_t_11;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -5042,7 +5044,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_2nSLiHS(CYTHON_UNUSED PyObjec
  *                 rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL))
  *         else:
  *             for core in range(pt.numsites()):             # <<<<<<<<<<<<<<
- *                 rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL))
+ *                 rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),&gmap[0]))
  *         return rv
  */
     /*else*/ {
@@ -5102,7 +5104,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_2nSLiHS(CYTHON_UNUSED PyObjec
         /* "libsequence/summstats.pyx":266
  *         else:
  *             for core in range(pt.numsites()):
- *                 rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL))             # <<<<<<<<<<<<<<
+ *                 rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),&gmap[0]))             # <<<<<<<<<<<<<<
  *         return rv
  *     else:
  */
@@ -5113,7 +5115,17 @@ static PyObject *__pyx_pf_11libsequence_9summstats_2nSLiHS(CYTHON_UNUSED PyObjec
           __Pyx_CppExn2PyErr();
           {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         }
-        __pyx_t_4 = __pyx_convert_pair_to_py_double____double(Sequence::nSL(__pyx_t_7, (*__pyx_t_8), NULL)); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        __pyx_t_10 = 0;
+        __pyx_t_11 = -1;
+        if (__pyx_t_10 < 0) {
+          __pyx_t_10 += __pyx_v_gmap.shape[0];
+          if (unlikely(__pyx_t_10 < 0)) __pyx_t_11 = 0;
+        } else if (unlikely(__pyx_t_10 >= __pyx_v_gmap.shape[0])) __pyx_t_11 = 0;
+        if (unlikely(__pyx_t_11 != -1)) {
+          __Pyx_RaiseBufferIndexError(__pyx_t_11);
+          {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+        }
+        __pyx_t_4 = __pyx_convert_pair_to_py_double____double(Sequence::nSL(__pyx_t_7, (*__pyx_t_8), (&(*((double *) ( /* dim=0 */ (__pyx_v_gmap.data + __pyx_t_10 * __pyx_v_gmap.strides[0]) )))))); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_GOTREF(__pyx_t_4);
         __pyx_t_9 = __Pyx_PyList_Append(__pyx_v_rv, __pyx_t_4); if (unlikely(__pyx_t_9 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 266; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -5122,7 +5134,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_2nSLiHS(CYTHON_UNUSED PyObjec
  *                 rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL))
  *         else:
  *             for core in range(pt.numsites()):             # <<<<<<<<<<<<<<
- *                 rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL))
+ *                 rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),&gmap[0]))
  *         return rv
  */
       }
@@ -5132,7 +5144,7 @@ static PyObject *__pyx_pf_11libsequence_9summstats_2nSLiHS(CYTHON_UNUSED PyObjec
 
     /* "libsequence/summstats.pyx":267
  *             for core in range(pt.numsites()):
- *                 rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL))
+ *                 rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),&gmap[0]))
  *         return rv             # <<<<<<<<<<<<<<
  *     else:
  *         raise RuntimeError("nSL: only simData objects are allowed")
