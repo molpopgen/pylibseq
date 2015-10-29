@@ -105,6 +105,36 @@ cdef class simData(polyTable):
         self.thisptr = new SimData()
     def __dealloc__(self):
         pass
+    def __init__(self,object x = None, object y = None):
+        """
+        Constructor
+
+        :param x: A list
+        :param y: A list
+
+        If x is None and y is None, and empty object is created.
+        
+        If y is None, x must be a list of tuples (position, "string")
+
+        if neither x nor y are None, x is a list of positions, and y a list of haplotypes.
+
+        Example:
+
+        >>> import libsequence.polytable as polyt
+        >>> x = polyt.simData()
+        >>> x = polyt.simData( [ (0.1,"0101"),(0.2,"1010") ] )
+        >>> x = polyt.simData( [0.2,0.2],["01","10","01","10"] )
+        """
+        if x is None:
+            if y is None:
+                pass
+            else:
+                raise RuntimeError("y must be None if x is None")
+        else:
+            if y is None:
+                self.assign(x)
+            else:
+                self.assign_sep(x,y)
 
 cdef class polySites(polyTable):
     """
@@ -116,7 +146,38 @@ cdef class polySites(polyTable):
         self.thisptr = new PolySites()
     def __dealloc__(self):
         pass
+    def __init__(self,list x = None, list y = None):
+        """
+        Constructor
 
+        :param x: A list
+        :param y: A list
+
+        If x is None and y is None, and empty object is created.
+        
+        If y is None, x must be a list of tuples (position, "string")
+
+        if neither x nor y are None, x is a list of positions, and y a list of haplotypes.
+
+        Example:
+
+        >>> import libsequence.polytable as polyt
+        >>> x = polyt.polySites()
+        >>> x = polyt.polySites( [ (0.1,"ATTA"),(0.2,"GGGC") ] )
+        >>> x = polyt.simData( [0.2,0.2],["AG","TG","TG","AC"] )
+        
+        """
+        if x is None:
+            if y is None:
+                pass
+            else:
+                raise RuntimeError("y must be None if x is None")
+        else:
+            if y is None:
+                self.assign(x)
+            else:
+                self.assign_sep(x,y)
+                
 def removeGaps(polyTable p, gapchar = '-'):
     """
     Remove all sites (columns) with gaps.
