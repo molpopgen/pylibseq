@@ -244,7 +244,31 @@ def lhaf( polyTable pt, double l ):
     else:
         raise RuntimeError("lhaf: only simData objects are allowed")
 
-def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):
+def nSLiHS(polyTable pt, double[:] gmap = None):
+    """
+    "Raw"/unstandardizes :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
+
+    :param pt: A :class:`libsequence.polytable.polyTable`
+
+    :return: A list of (nSL,iHS) tuples
+
+    :rtype: list
+    
+    .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+    """
+    if isinstance(pt,simData):
+        rv = []
+        if gmap is None:
+            for core in range(pt.numsites()):
+                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL))
+        else:
+            for core in range(pt.numsites()):
+                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),&gmap[0]))
+        return rv
+    else:
+        raise RuntimeError("nSL: only simData objects are allowed")
+    
+def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):
     """
     Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077
 
@@ -253,7 +277,8 @@ def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] 
     :param binsize: Standardize statistic in frequency bings of this width
     :parma gmap: A genetic map.  The length of this array should be equal to the number of sites in pt, and represent the positions of those sites on the genetic map.
 
-    :return: A tuple. The first value is max |standardized nSL| over all bins.  The second is max |iHS| over all bins, where iHS is calculated according to Ferrer-Admetlla et al.
+    :return: A tuple. The first value is max standardized nSL over all bins.  The second is max iHS over all bins, where iHS is calculated according to Ferrer-Admetlla et al.
+    The maxmimums are calculated based on absolute value.
 
     :rtype: float
 
@@ -265,7 +290,7 @@ def std_nSL(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] 
         else:
             return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,&gmap[0])
     else:
-        raise RuntimeError("lhaf: only simData objects are allowed")
+        raise RuntimeError("std_nSL: only simData objects are allowed")
 
 def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):
     """
@@ -320,3 +345,4 @@ def garudStats(polyTable pt):
        return {"H1":stats.H1,"H12":stats.H12,"H2H1":stats.H2H1}
    else:
        raise RuntimeError("garudStats: only simData objects are allowed")       
+
