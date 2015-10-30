@@ -15,9 +15,6 @@ cdef extern from "Sequence/PolyTableSlice.hpp" namespace "Sequence":
 ctypedef PolyTableSlice[SimData] SimDataWindows
 ctypedef PolyTableSlice[PolySites] PolySitesWindows
 
-cdef class simDataWindows:
-    cdef SimDataWindows * windows
-
-cdef class polySitesWindows:
-    cdef PolySitesWindows * windows
+cdef class Windows:
+    cdef public object windows
         

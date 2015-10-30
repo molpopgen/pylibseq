@@ -486,6 +486,7 @@ static const char *__pyx_filename;
 
 static const char *__pyx_f[] = {
   "libsequence/windows.pyx",
+  "stringsource",
   "libsequence/polytable.pxd",
 };
 
@@ -493,8 +494,7 @@ static const char *__pyx_f[] = {
 struct __pyx_obj_11libsequence_9polytable_polyTable;
 struct __pyx_obj_11libsequence_9polytable_simData;
 struct __pyx_obj_11libsequence_9polytable_polySites;
-struct __pyx_obj_11libsequence_7windows_simDataWindows;
-struct __pyx_obj_11libsequence_7windows_polySitesWindows;
+struct __pyx_obj_11libsequence_7windows_Windows;
 
 /* "libsequence/polysitevector.pxd":9
  *     ctypedef vector[polymorphicSite] polySiteVector
@@ -528,7 +528,7 @@ typedef Sequence::PolyTableSlice<Sequence::SimData>  __pyx_t_11libsequence_7wind
  * ctypedef PolyTableSlice[SimData] SimDataWindows
  * ctypedef PolyTableSlice[PolySites] PolySitesWindows             # <<<<<<<<<<<<<<
  * 
- * cdef class simDataWindows:
+ * cdef class Windows:
  */
 typedef Sequence::PolyTableSlice<Sequence::PolySites>  __pyx_t_11libsequence_7windows_PolySitesWindows;
 
@@ -572,26 +572,13 @@ struct __pyx_obj_11libsequence_9polytable_polySites {
 /* "libsequence/windows.pxd":18
  * ctypedef PolyTableSlice[PolySites] PolySitesWindows
  * 
- * cdef class simDataWindows:             # <<<<<<<<<<<<<<
- *     cdef SimDataWindows * windows
+ * cdef class Windows:             # <<<<<<<<<<<<<<
+ *     cdef public object windows
  * 
  */
-struct __pyx_obj_11libsequence_7windows_simDataWindows {
+struct __pyx_obj_11libsequence_7windows_Windows {
   PyObject_HEAD
-  __pyx_t_11libsequence_7windows_SimDataWindows *windows;
-};
-
-
-/* "libsequence/windows.pxd":21
- *     cdef SimDataWindows * windows
- * 
- * cdef class polySitesWindows:             # <<<<<<<<<<<<<<
- *     cdef PolySitesWindows * windows
- * 
- */
-struct __pyx_obj_11libsequence_7windows_polySitesWindows {
-  PyObject_HEAD
-  __pyx_t_11libsequence_7windows_PolySitesWindows *windows;
+  PyObject *windows;
 };
 
 
@@ -705,6 +692,45 @@ static struct __pyx_vtabstruct_11libsequence_9polytable_polySites *__pyx_vtabptr
 #define __Pyx_CLEAR(r)    do { PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);} while(0)
 #define __Pyx_XCLEAR(r)   do { if((r) != NULL) {PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);}} while(0)
 
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject* attr_name) {
+    PyTypeObject* tp = Py_TYPE(obj);
+    if (likely(tp->tp_getattro))
+        return tp->tp_getattro(obj, attr_name);
+#if PY_MAJOR_VERSION < 3
+    if (likely(tp->tp_getattr))
+        return tp->tp_getattr(obj, PyString_AS_STRING(attr_name));
+#endif
+    return PyObject_GetAttr(obj, attr_name);
+}
+#else
+#define __Pyx_PyObject_GetAttrStr(o,n) PyObject_GetAttr(o,n)
+#endif
+
+static PyObject *__Pyx_GetBuiltinName(PyObject *name);
+
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE int __Pyx_PyList_Append(PyObject* list, PyObject* x) {
+    PyListObject* L = (PyListObject*) list;
+    Py_ssize_t len = Py_SIZE(list);
+    if (likely(L->allocated > len) & likely(len > (L->allocated >> 1))) {
+        Py_INCREF(x);
+        PyList_SET_ITEM(list, len, x);
+        Py_SIZE(list) = len+1;
+        return 0;
+    }
+    return PyList_Append(list, x);
+}
+#else
+#define __Pyx_PyList_Append(L,x) PyList_Append(L,x)
+#endif
+
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
+#else
+#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
+#endif
+
 static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
     Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
 
@@ -717,10 +743,30 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
 static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, int none_allowed,
     const char *name, int exact);
 
+static CYTHON_INLINE void __Pyx_ErrRestore(PyObject *type, PyObject *value, PyObject *tb);
+static CYTHON_INLINE void __Pyx_ErrFetch(PyObject **type, PyObject **value, PyObject **tb);
+
+static void __Pyx_WriteUnraisable(const char *name, int clineno,
+                                  int lineno, const char *filename,
+                                  int full_traceback, int nogil);
+
+#define __Pyx_PyIter_Next(obj) __Pyx_PyIter_Next2(obj, NULL)
+static CYTHON_INLINE PyObject *__Pyx_PyIter_Next2(PyObject *, PyObject *);
+
 #if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw);
+static CYTHON_INLINE int __Pyx_ListComp_Append(PyObject* list, PyObject* x) {
+    PyListObject* L = (PyListObject*) list;
+    Py_ssize_t len = Py_SIZE(list);
+    if (likely(L->allocated > len)) {
+        Py_INCREF(x);
+        PyList_SET_ITEM(list, len, x);
+        Py_SIZE(list) = len+1;
+        return 0;
+    }
+    return PyList_Append(list, x);
+}
 #else
-#define __Pyx_PyObject_Call(func, arg, kw) PyObject_Call(func, arg, kw)
+#define __Pyx_ListComp_Append(L,x) PyList_Append(L,x)
 #endif
 
 static void* __Pyx_GetVtable(PyObject *dict);
@@ -781,7 +827,11 @@ static void __Pyx_CppExn2PyErr() {
 }
 #endif
 
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_int(unsigned int value);
+
 static CYTHON_INLINE unsigned int __Pyx_PyInt_As_unsigned_int(PyObject *);
+
+static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *);
 
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value);
 
@@ -823,413 +873,367 @@ static PyTypeObject *__pyx_ptype_11libsequence_9polytable_polySites = 0;
 
 /* Module declarations from 'libcpp.pair' */
 
+/* Module declarations from 'libcpp.cast' */
+
 /* Module declarations from 'libsequence.windows' */
-static PyTypeObject *__pyx_ptype_11libsequence_7windows_simDataWindows = 0;
-static PyTypeObject *__pyx_ptype_11libsequence_7windows_polySitesWindows = 0;
+static PyTypeObject *__pyx_ptype_11libsequence_7windows_Windows = 0;
+static PyObject *__pyx_f_11libsequence_7windows_fill_from_SimData(Sequence::SimData const *, double, double, double, double); /*proto*/
+static PyObject *__pyx_f_11libsequence_7windows_fill_from_PolySites(Sequence::PolySites const *, double, double, double, double); /*proto*/
+static CYTHON_INLINE PyObject *__pyx_convert_PyObject_string_to_py_std__in_string(std::string const &); /*proto*/
+static CYTHON_INLINE PyObject *__pyx_convert_PyUnicode_string_to_py_std__in_string(std::string const &); /*proto*/
+static CYTHON_INLINE PyObject *__pyx_convert_PyStr_string_to_py_std__in_string(std::string const &); /*proto*/
+static CYTHON_INLINE PyObject *__pyx_convert_PyBytes_string_to_py_std__in_string(std::string const &); /*proto*/
+static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_string(std::string const &); /*proto*/
+static PyObject *__pyx_convert_pair_to_py_double____std_3a__3a_string(std::pair<double,std::string>  const &); /*proto*/
+static PyObject *__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(const std::vector<std::pair<double,std::string> >  &); /*proto*/
 #define __Pyx_MODULE_NAME "libsequence.windows"
 int __pyx_module_is_main_libsequence__windows = 0;
 
 /* Implementation of 'libsequence.windows' */
-static char __pyx_k_d[] = "d";
+static PyObject *__pyx_builtin_range;
+static char __pyx_k_pt[] = "pt";
 static char __pyx_k_main[] = "__main__";
 static char __pyx_k_test[] = "__test__";
+static char __pyx_k_range[] = "range";
 static char __pyx_k_step_len[] = "step_len";
 static char __pyx_k_ending_pos[] = "ending_pos";
 static char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
 static char __pyx_k_window_size[] = "window_size";
 static char __pyx_k_starting_pos[] = "starting_pos";
-static PyObject *__pyx_n_s_d;
 static PyObject *__pyx_n_s_ending_pos;
 static PyObject *__pyx_n_s_main;
+static PyObject *__pyx_n_s_pt;
 static PyObject *__pyx_n_s_pyx_vtable;
+static PyObject *__pyx_n_s_range;
 static PyObject *__pyx_n_s_starting_pos;
 static PyObject *__pyx_n_s_step_len;
 static PyObject *__pyx_n_s_test;
 static PyObject *__pyx_n_s_window_size;
-static int __pyx_pf_11libsequence_7windows_14simDataWindows___cinit__(struct __pyx_obj_11libsequence_7windows_simDataWindows *__pyx_v_self, struct __pyx_obj_11libsequence_9polytable_simData *__pyx_v_d, double __pyx_v_window_size, double __pyx_v_step_len, double __pyx_v_starting_pos, double __pyx_v_ending_pos); /* proto */
-static void __pyx_pf_11libsequence_7windows_14simDataWindows_2__dealloc__(struct __pyx_obj_11libsequence_7windows_simDataWindows *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11libsequence_7windows_14simDataWindows_4__getitem__(struct __pyx_obj_11libsequence_7windows_simDataWindows *__pyx_v_self, PyObject *__pyx_v_i); /* proto */
-static Py_ssize_t __pyx_pf_11libsequence_7windows_14simDataWindows_6__len__(struct __pyx_obj_11libsequence_7windows_simDataWindows *__pyx_v_self); /* proto */
-static int __pyx_pf_11libsequence_7windows_16polySitesWindows___cinit__(struct __pyx_obj_11libsequence_7windows_polySitesWindows *__pyx_v_self, struct __pyx_obj_11libsequence_9polytable_polySites *__pyx_v_d, double __pyx_v_window_size, double __pyx_v_step_len, double __pyx_v_starting_pos, double __pyx_v_ending_pos); /* proto */
-static void __pyx_pf_11libsequence_7windows_16polySitesWindows_2__dealloc__(struct __pyx_obj_11libsequence_7windows_polySitesWindows *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_11libsequence_7windows_16polySitesWindows_4__getitem__(struct __pyx_obj_11libsequence_7windows_polySitesWindows *__pyx_v_self, PyObject *__pyx_v_i); /* proto */
-static Py_ssize_t __pyx_pf_11libsequence_7windows_16polySitesWindows_6__len__(struct __pyx_obj_11libsequence_7windows_polySitesWindows *__pyx_v_self); /* proto */
-static PyObject *__pyx_tp_new_11libsequence_7windows_simDataWindows(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_11libsequence_7windows_polySitesWindows(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static int __pyx_pf_11libsequence_7windows_7Windows___cinit__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_pt, double __pyx_v_window_size, double __pyx_v_step_len, double __pyx_v_starting_pos, double __pyx_v_ending_pos); /* proto */
+static void __pyx_pf_11libsequence_7windows_7Windows_2__dealloc__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11libsequence_7windows_7Windows_4__iter__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11libsequence_7windows_7Windows_6__next__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11libsequence_7windows_7Windows_8__getitem__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self, PyObject *__pyx_v_i); /* proto */
+static Py_ssize_t __pyx_pf_11libsequence_7windows_7Windows_10__len__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_11libsequence_7windows_7Windows_7windows___get__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self); /* proto */
+static int __pyx_pf_11libsequence_7windows_7Windows_7windows_2__set__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
+static int __pyx_pf_11libsequence_7windows_7Windows_7windows_4__del__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self); /* proto */
+static PyObject *__pyx_tp_new_11libsequence_7windows_Windows(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 
-/* "libsequence/windows.pyx":11
- *     Calculate sliding windows from a :class:`libsequence.polytable.simData`
- *     """
- *     def __cinit__(self, simData d, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):             # <<<<<<<<<<<<<<
- *         self.windows = new PolyTableSlice[SimData](d.thisptr.sbegin(),
- *                                                    d.thisptr.send(),
+/* "libsequence/windows.pyx":8
+ * from cython.operator cimport dereference as deref
+ * 
+ * cdef fill_from_SimData(const SimData *d ,double window_size, double step_len, double starting_pos, double ending_pos):             # <<<<<<<<<<<<<<
+ *     cdef PolyTableSlice[SimData] * windows=new PolyTableSlice[SimData](d.sbegin(),d.send(),window_size,step_len,starting_pos,ending_pos)
+ *     cdef SimData d2
  */
 
-/* Python wrapper */
-static int __pyx_pw_11libsequence_7windows_14simDataWindows_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_11libsequence_7windows_14simDataWindows_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_11libsequence_9polytable_simData *__pyx_v_d = 0;
-  double __pyx_v_window_size;
-  double __pyx_v_step_len;
-  double __pyx_v_starting_pos;
-  double __pyx_v_ending_pos;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  int __pyx_r;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_d,&__pyx_n_s_window_size,&__pyx_n_s_step_len,&__pyx_n_s_starting_pos,&__pyx_n_s_ending_pos,0};
-    PyObject* values[5] = {0,0,0,0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
-        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
-        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_d)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        case  1:
-        if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_window_size)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 3, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-        }
-        case  2:
-        if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_step_len)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 3, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-        }
-        case  3:
-        if (kw_args > 0) {
-          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_starting_pos);
-          if (value) { values[3] = value; kw_args--; }
-        }
-        case  4:
-        if (kw_args > 0) {
-          PyObject* value = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ending_pos);
-          if (value) { values[4] = value; kw_args--; }
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-      }
-    } else {
-      switch (PyTuple_GET_SIZE(__pyx_args)) {
-        case  5: values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
-        case  4: values[3] = PyTuple_GET_ITEM(__pyx_args, 3);
-        case  3: values[2] = PyTuple_GET_ITEM(__pyx_args, 2);
-        values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-    }
-    __pyx_v_d = ((struct __pyx_obj_11libsequence_9polytable_simData *)values[0]);
-    __pyx_v_window_size = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_window_size == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_step_len = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_step_len == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    if (values[3]) {
-      __pyx_v_starting_pos = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_starting_pos == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    } else {
-      __pyx_v_starting_pos = ((double)0.);
-    }
-    if (values[4]) {
-      __pyx_v_ending_pos = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_ending_pos == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    } else {
-      __pyx_v_ending_pos = ((double)1.0);
-    }
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 3, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("libsequence.windows.simDataWindows.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return -1;
-  __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_d), __pyx_ptype_11libsequence_9polytable_simData, 1, "d", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 11; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_11libsequence_7windows_14simDataWindows___cinit__(((struct __pyx_obj_11libsequence_7windows_simDataWindows *)__pyx_v_self), __pyx_v_d, __pyx_v_window_size, __pyx_v_step_len, __pyx_v_starting_pos, __pyx_v_ending_pos);
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = -1;
-  __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static int __pyx_pf_11libsequence_7windows_14simDataWindows___cinit__(struct __pyx_obj_11libsequence_7windows_simDataWindows *__pyx_v_self, struct __pyx_obj_11libsequence_9polytable_simData *__pyx_v_d, double __pyx_v_window_size, double __pyx_v_step_len, double __pyx_v_starting_pos, double __pyx_v_ending_pos) {
-  int __pyx_r;
+static PyObject *__pyx_f_11libsequence_7windows_fill_from_SimData(Sequence::SimData const *__pyx_v_d, double __pyx_v_window_size, double __pyx_v_step_len, double __pyx_v_starting_pos, double __pyx_v_ending_pos) {
+  Sequence::PolyTableSlice<Sequence::SimData>  *__pyx_v_windows;
+  Sequence::SimData __pyx_v_d2;
+  std::vector<std::pair<double,std::string> >  __pyx_v_temp;
+  PyObject *__pyx_v_wins = NULL;
+  unsigned int __pyx_v_i;
+  PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   Sequence::PolyTableSlice<Sequence::SimData>  *__pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  unsigned int __pyx_t_3;
+  unsigned int __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  int __pyx_t_6;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__cinit__", 0);
+  __Pyx_RefNannySetupContext("fill_from_SimData", 0);
+
+  /* "libsequence/windows.pyx":9
+ * 
+ * cdef fill_from_SimData(const SimData *d ,double window_size, double step_len, double starting_pos, double ending_pos):
+ *     cdef PolyTableSlice[SimData] * windows=new PolyTableSlice[SimData](d.sbegin(),d.send(),window_size,step_len,starting_pos,ending_pos)             # <<<<<<<<<<<<<<
+ *     cdef SimData d2
+ *     cdef vector[pair[double,string]] temp
+ */
+  try {
+    __pyx_t_1 = new Sequence::PolyTableSlice<Sequence::SimData> (__pyx_v_d->sbegin(), __pyx_v_d->send(), __pyx_v_window_size, __pyx_v_step_len, __pyx_v_starting_pos, __pyx_v_ending_pos);
+  } catch(...) {
+    __Pyx_CppExn2PyErr();
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 9; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_v_windows = __pyx_t_1;
 
   /* "libsequence/windows.pyx":12
- *     """
- *     def __cinit__(self, simData d, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):
- *         self.windows = new PolyTableSlice[SimData](d.thisptr.sbegin(),             # <<<<<<<<<<<<<<
- *                                                    d.thisptr.send(),
- *                                                    window_size,step_len,starting_pos,ending_pos)
+ *     cdef SimData d2
+ *     cdef vector[pair[double,string]] temp
+ *     wins = []             # <<<<<<<<<<<<<<
+ *     for i in range(windows.size()):
+ *         d2=deref(windows)[i]
  */
-  try {
-    __pyx_t_1 = new Sequence::PolyTableSlice<Sequence::SimData> (__pyx_v_d->__pyx_base.thisptr->sbegin(), __pyx_v_d->__pyx_base.thisptr->send(), __pyx_v_window_size, __pyx_v_step_len, __pyx_v_starting_pos, __pyx_v_ending_pos);
-  } catch(...) {
-    __Pyx_CppExn2PyErr();
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  }
-  __pyx_v_self->windows = __pyx_t_1;
-
-  /* "libsequence/windows.pyx":11
- *     Calculate sliding windows from a :class:`libsequence.polytable.simData`
- *     """
- *     def __cinit__(self, simData d, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):             # <<<<<<<<<<<<<<
- *         self.windows = new PolyTableSlice[SimData](d.thisptr.sbegin(),
- *                                                    d.thisptr.send(),
- */
-
-  /* function exit code */
-  __pyx_r = 0;
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __Pyx_AddTraceback("libsequence.windows.simDataWindows.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = -1;
-  __pyx_L0:;
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "libsequence/windows.pyx":15
- *                                                    d.thisptr.send(),
- *                                                    window_size,step_len,starting_pos,ending_pos)
- *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         del self.windows
- *     def __getitem__(self,i):
- */
-
-/* Python wrapper */
-static void __pyx_pw_11libsequence_7windows_14simDataWindows_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_11libsequence_7windows_14simDataWindows_3__dealloc__(PyObject *__pyx_v_self) {
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_11libsequence_7windows_14simDataWindows_2__dealloc__(((struct __pyx_obj_11libsequence_7windows_simDataWindows *)__pyx_v_self));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-}
-
-static void __pyx_pf_11libsequence_7windows_14simDataWindows_2__dealloc__(struct __pyx_obj_11libsequence_7windows_simDataWindows *__pyx_v_self) {
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__dealloc__", 0);
-
-  /* "libsequence/windows.pyx":16
- *                                                    window_size,step_len,starting_pos,ending_pos)
- *     def __dealloc__(self):
- *         del self.windows             # <<<<<<<<<<<<<<
- *     def __getitem__(self,i):
- *         cdef SimData d = deref(self.windows)[i]
- */
-  delete __pyx_v_self->windows;
-
-  /* "libsequence/windows.pyx":15
- *                                                    d.thisptr.send(),
- *                                                    window_size,step_len,starting_pos,ending_pos)
- *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         del self.windows
- *     def __getitem__(self,i):
- */
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-}
-
-/* "libsequence/windows.pyx":17
- *     def __dealloc__(self):
- *         del self.windows
- *     def __getitem__(self,i):             # <<<<<<<<<<<<<<
- *         cdef SimData d = deref(self.windows)[i]
- *         cdef vector[pair[double,string]] temp;
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_11libsequence_7windows_14simDataWindows_5__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_i); /*proto*/
-static PyObject *__pyx_pw_11libsequence_7windows_14simDataWindows_5__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_i) {
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__getitem__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11libsequence_7windows_14simDataWindows_4__getitem__(((struct __pyx_obj_11libsequence_7windows_simDataWindows *)__pyx_v_self), ((PyObject *)__pyx_v_i));
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_11libsequence_7windows_14simDataWindows_4__getitem__(struct __pyx_obj_11libsequence_7windows_simDataWindows *__pyx_v_self, PyObject *__pyx_v_i) {
-  Sequence::SimData __pyx_v_d;
-  std::vector<std::pair<double,std::string> >  __pyx_v_temp;
-  struct __pyx_obj_11libsequence_9polytable_simData *__pyx_v_rv = NULL;
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  unsigned int __pyx_t_1;
-  PyObject *__pyx_t_2 = NULL;
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__getitem__", 0);
-
-  /* "libsequence/windows.pyx":18
- *         del self.windows
- *     def __getitem__(self,i):
- *         cdef SimData d = deref(self.windows)[i]             # <<<<<<<<<<<<<<
- *         cdef vector[pair[double,string]] temp;
- *         temp.assign(d.sbegin(),d.send())
- */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_int(__pyx_v_i); if (unlikely((__pyx_t_1 == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 18; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_v_d = ((*__pyx_v_self->windows)[__pyx_t_1]);
-
-  /* "libsequence/windows.pyx":20
- *         cdef SimData d = deref(self.windows)[i]
- *         cdef vector[pair[double,string]] temp;
- *         temp.assign(d.sbegin(),d.send())             # <<<<<<<<<<<<<<
- *         rv = simData()
- *         rv.assign(temp)
- */
-  try {
-    __pyx_v_temp.assign(__pyx_v_d.sbegin(), __pyx_v_d.send());
-  } catch(...) {
-    __Pyx_CppExn2PyErr();
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 20; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  }
-
-  /* "libsequence/windows.pyx":21
- *         cdef vector[pair[double,string]] temp;
- *         temp.assign(d.sbegin(),d.send())
- *         rv = simData()             # <<<<<<<<<<<<<<
- *         rv.assign(temp)
- *         return rv
- */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11libsequence_9polytable_simData), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 12; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_v_rv = ((struct __pyx_obj_11libsequence_9polytable_simData *)__pyx_t_2);
+  __pyx_v_wins = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "libsequence/windows.pyx":22
- *         temp.assign(d.sbegin(),d.send())
- *         rv = simData()
- *         rv.assign(temp)             # <<<<<<<<<<<<<<
- *         return rv
- *     def __len__(self):
+  /* "libsequence/windows.pyx":13
+ *     cdef vector[pair[double,string]] temp
+ *     wins = []
+ *     for i in range(windows.size()):             # <<<<<<<<<<<<<<
+ *         d2=deref(windows)[i]
+ *         temp.assign(d2.sbegin(),d2.send())
  */
-  __pyx_t_2 = ((struct __pyx_vtabstruct_11libsequence_9polytable_simData *)__pyx_v_rv->__pyx_base.__pyx_vtab)->__pyx_base.assign(((struct __pyx_obj_11libsequence_9polytable_polyTable *)__pyx_v_rv), __pyx_v_temp, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 22; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_3 = __pyx_v_windows->size();
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_i = __pyx_t_4;
 
-  /* "libsequence/windows.pyx":23
- *         rv = simData()
- *         rv.assign(temp)
- *         return rv             # <<<<<<<<<<<<<<
- *     def __len__(self):
- *         return self.windows.size()
+    /* "libsequence/windows.pyx":14
+ *     wins = []
+ *     for i in range(windows.size()):
+ *         d2=deref(windows)[i]             # <<<<<<<<<<<<<<
+ *         temp.assign(d2.sbegin(),d2.send())
+ *         wins.append(simData(temp))
  */
-  __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_rv));
-  __pyx_r = ((PyObject *)__pyx_v_rv);
-  goto __pyx_L0;
+    __pyx_v_d2 = ((*__pyx_v_windows)[__pyx_v_i]);
+
+    /* "libsequence/windows.pyx":15
+ *     for i in range(windows.size()):
+ *         d2=deref(windows)[i]
+ *         temp.assign(d2.sbegin(),d2.send())             # <<<<<<<<<<<<<<
+ *         wins.append(simData(temp))
+ *     del windows
+ */
+    try {
+      __pyx_v_temp.assign(__pyx_v_d2.sbegin(), __pyx_v_d2.send());
+    } catch(...) {
+      __Pyx_CppExn2PyErr();
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 15; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    }
+
+    /* "libsequence/windows.pyx":16
+ *         d2=deref(windows)[i]
+ *         temp.assign(d2.sbegin(),d2.send())
+ *         wins.append(simData(temp))             # <<<<<<<<<<<<<<
+ *     del windows
+ *     return wins
+ */
+    __pyx_t_2 = __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(__pyx_v_temp); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2);
+    __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11libsequence_9polytable_simData), __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_wins, __pyx_t_2); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 16; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  }
 
   /* "libsequence/windows.pyx":17
- *     def __dealloc__(self):
- *         del self.windows
- *     def __getitem__(self,i):             # <<<<<<<<<<<<<<
- *         cdef SimData d = deref(self.windows)[i]
- *         cdef vector[pair[double,string]] temp;
+ *         temp.assign(d2.sbegin(),d2.send())
+ *         wins.append(simData(temp))
+ *     del windows             # <<<<<<<<<<<<<<
+ *     return wins
+ * 
+ */
+  delete __pyx_v_windows;
+
+  /* "libsequence/windows.pyx":18
+ *         wins.append(simData(temp))
+ *     del windows
+ *     return wins             # <<<<<<<<<<<<<<
+ * 
+ * cdef fill_from_PolySites(const PolySites *d ,double window_size, double step_len, double starting_pos, double ending_pos):
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_wins);
+  __pyx_r = __pyx_v_wins;
+  goto __pyx_L0;
+
+  /* "libsequence/windows.pyx":8
+ * from cython.operator cimport dereference as deref
+ * 
+ * cdef fill_from_SimData(const SimData *d ,double window_size, double step_len, double starting_pos, double ending_pos):             # <<<<<<<<<<<<<<
+ *     cdef PolyTableSlice[SimData] * windows=new PolyTableSlice[SimData](d.sbegin(),d.send(),window_size,step_len,starting_pos,ending_pos)
+ *     cdef SimData d2
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("libsequence.windows.simDataWindows.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("libsequence.windows.fill_from_SimData", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
   __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_rv);
+  __Pyx_XDECREF(__pyx_v_wins);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "libsequence/windows.pyx":24
- *         rv.assign(temp)
- *         return rv
- *     def __len__(self):             # <<<<<<<<<<<<<<
- *         return self.windows.size()
+/* "libsequence/windows.pyx":20
+ *     return wins
  * 
+ * cdef fill_from_PolySites(const PolySites *d ,double window_size, double step_len, double starting_pos, double ending_pos):             # <<<<<<<<<<<<<<
+ *     cdef PolyTableSlice[PolySites] * windows=new PolyTableSlice[PolySites](d.sbegin(),d.send(),window_size,step_len,starting_pos,ending_pos)
+ *     cdef PolySites d2
  */
 
-/* Python wrapper */
-static Py_ssize_t __pyx_pw_11libsequence_7windows_14simDataWindows_7__len__(PyObject *__pyx_v_self); /*proto*/
-static Py_ssize_t __pyx_pw_11libsequence_7windows_14simDataWindows_7__len__(PyObject *__pyx_v_self) {
-  Py_ssize_t __pyx_r;
+static PyObject *__pyx_f_11libsequence_7windows_fill_from_PolySites(Sequence::PolySites const *__pyx_v_d, double __pyx_v_window_size, double __pyx_v_step_len, double __pyx_v_starting_pos, double __pyx_v_ending_pos) {
+  Sequence::PolyTableSlice<Sequence::PolySites>  *__pyx_v_windows;
+  Sequence::PolySites __pyx_v_d2;
+  std::vector<std::pair<double,std::string> >  __pyx_v_temp;
+  PyObject *__pyx_v_wins = NULL;
+  unsigned int __pyx_v_i;
+  PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__len__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11libsequence_7windows_14simDataWindows_6__len__(((struct __pyx_obj_11libsequence_7windows_simDataWindows *)__pyx_v_self));
+  Sequence::PolyTableSlice<Sequence::PolySites>  *__pyx_t_1;
+  PyObject *__pyx_t_2 = NULL;
+  unsigned int __pyx_t_3;
+  unsigned int __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  int __pyx_t_6;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("fill_from_PolySites", 0);
 
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static Py_ssize_t __pyx_pf_11libsequence_7windows_14simDataWindows_6__len__(struct __pyx_obj_11libsequence_7windows_simDataWindows *__pyx_v_self) {
-  Py_ssize_t __pyx_r;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__len__", 0);
-
-  /* "libsequence/windows.pyx":25
- *         return rv
- *     def __len__(self):
- *         return self.windows.size()             # <<<<<<<<<<<<<<
+  /* "libsequence/windows.pyx":21
  * 
- * cdef class polySitesWindows:
+ * cdef fill_from_PolySites(const PolySites *d ,double window_size, double step_len, double starting_pos, double ending_pos):
+ *     cdef PolyTableSlice[PolySites] * windows=new PolyTableSlice[PolySites](d.sbegin(),d.send(),window_size,step_len,starting_pos,ending_pos)             # <<<<<<<<<<<<<<
+ *     cdef PolySites d2
+ *     cdef vector[pair[double,string]] temp
  */
-  __pyx_r = __pyx_v_self->windows->size();
-  goto __pyx_L0;
+  try {
+    __pyx_t_1 = new Sequence::PolyTableSlice<Sequence::PolySites> (__pyx_v_d->sbegin(), __pyx_v_d->send(), __pyx_v_window_size, __pyx_v_step_len, __pyx_v_starting_pos, __pyx_v_ending_pos);
+  } catch(...) {
+    __Pyx_CppExn2PyErr();
+    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 21; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  }
+  __pyx_v_windows = __pyx_t_1;
 
   /* "libsequence/windows.pyx":24
- *         rv.assign(temp)
- *         return rv
- *     def __len__(self):             # <<<<<<<<<<<<<<
- *         return self.windows.size()
+ *     cdef PolySites d2
+ *     cdef vector[pair[double,string]] temp
+ *     wins = []             # <<<<<<<<<<<<<<
+ *     for i in range(windows.size()):
+ *         d2=deref(windows)[i]
+ */
+  __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 24; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_v_wins = ((PyObject*)__pyx_t_2);
+  __pyx_t_2 = 0;
+
+  /* "libsequence/windows.pyx":25
+ *     cdef vector[pair[double,string]] temp
+ *     wins = []
+ *     for i in range(windows.size()):             # <<<<<<<<<<<<<<
+ *         d2=deref(windows)[i]
+ *         temp.assign(d2.sbegin(),d2.send())
+ */
+  __pyx_t_3 = __pyx_v_windows->size();
+  for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
+    __pyx_v_i = __pyx_t_4;
+
+    /* "libsequence/windows.pyx":26
+ *     wins = []
+ *     for i in range(windows.size()):
+ *         d2=deref(windows)[i]             # <<<<<<<<<<<<<<
+ *         temp.assign(d2.sbegin(),d2.send())
+ *         wins.append(simData(temp))
+ */
+    __pyx_v_d2 = ((*__pyx_v_windows)[__pyx_v_i]);
+
+    /* "libsequence/windows.pyx":27
+ *     for i in range(windows.size()):
+ *         d2=deref(windows)[i]
+ *         temp.assign(d2.sbegin(),d2.send())             # <<<<<<<<<<<<<<
+ *         wins.append(simData(temp))
+ *     del windows
+ */
+    try {
+      __pyx_v_temp.assign(__pyx_v_d2.sbegin(), __pyx_v_d2.send());
+    } catch(...) {
+      __Pyx_CppExn2PyErr();
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    }
+
+    /* "libsequence/windows.pyx":28
+ *         d2=deref(windows)[i]
+ *         temp.assign(d2.sbegin(),d2.send())
+ *         wins.append(simData(temp))             # <<<<<<<<<<<<<<
+ *     del windows
+ *     return wins
+ */
+    __pyx_t_2 = __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(__pyx_v_temp); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_GIVEREF(__pyx_t_2);
+    PyTuple_SET_ITEM(__pyx_t_5, 0, __pyx_t_2);
+    __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11libsequence_9polytable_simData), __pyx_t_5, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+    __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_wins, __pyx_t_2); if (unlikely(__pyx_t_6 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 28; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  }
+
+  /* "libsequence/windows.pyx":29
+ *         temp.assign(d2.sbegin(),d2.send())
+ *         wins.append(simData(temp))
+ *     del windows             # <<<<<<<<<<<<<<
+ *     return wins
  * 
+ */
+  delete __pyx_v_windows;
+
+  /* "libsequence/windows.pyx":30
+ *         wins.append(simData(temp))
+ *     del windows
+ *     return wins             # <<<<<<<<<<<<<<
+ * 
+ * cdef class Windows:
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_wins);
+  __pyx_r = __pyx_v_wins;
+  goto __pyx_L0;
+
+  /* "libsequence/windows.pyx":20
+ *     return wins
+ * 
+ * cdef fill_from_PolySites(const PolySites *d ,double window_size, double step_len, double starting_pos, double ending_pos):             # <<<<<<<<<<<<<<
+ *     cdef PolyTableSlice[PolySites] * windows=new PolyTableSlice[PolySites](d.sbegin(),d.send(),window_size,step_len,starting_pos,ending_pos)
+ *     cdef PolySites d2
  */
 
   /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_AddTraceback("libsequence.windows.fill_from_PolySites", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
   __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_wins);
+  __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "libsequence/windows.pyx":31
- *     Calculate sliding windows from a :class:`libsequence.polytable.polySites`
+/* "libsequence/windows.pyx":36
+ *     An iterable list of sliding windows created from a :class:`libsequence.polytable.polyTable`
  *     """
- *     def __cinit__(self, polySites d, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):             # <<<<<<<<<<<<<<
- *         self.windows = new PolyTableSlice[PolySites](d.thisptr.sbegin(),
- *                                                      d.thisptr.send(),
+ *     def __cinit__(self, polyTable pt, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):             # <<<<<<<<<<<<<<
+ *         if isinstance(pt,simData):
+ *             self.windows = fill_from_SimData(dynamic_cast['SimData*'](pt.thisptr),window_size,step_len,starting_pos,ending_pos)
  */
 
 /* Python wrapper */
-static int __pyx_pw_11libsequence_7windows_16polySitesWindows_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_11libsequence_7windows_16polySitesWindows_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  struct __pyx_obj_11libsequence_9polytable_polySites *__pyx_v_d = 0;
+static int __pyx_pw_11libsequence_7windows_7Windows_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_11libsequence_7windows_7Windows_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_pt = 0;
   double __pyx_v_window_size;
   double __pyx_v_step_len;
   double __pyx_v_starting_pos;
@@ -1241,7 +1245,7 @@ static int __pyx_pw_11libsequence_7windows_16polySitesWindows_1__cinit__(PyObjec
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_d,&__pyx_n_s_window_size,&__pyx_n_s_step_len,&__pyx_n_s_starting_pos,&__pyx_n_s_ending_pos,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_pt,&__pyx_n_s_window_size,&__pyx_n_s_step_len,&__pyx_n_s_starting_pos,&__pyx_n_s_ending_pos,0};
     PyObject* values[5] = {0,0,0,0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -1258,17 +1262,17 @@ static int __pyx_pw_11libsequence_7windows_16polySitesWindows_1__cinit__(PyObjec
       kw_args = PyDict_Size(__pyx_kwds);
       switch (pos_args) {
         case  0:
-        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_d)) != 0)) kw_args--;
+        if (likely((values[0] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_pt)) != 0)) kw_args--;
         else goto __pyx_L5_argtuple_error;
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_window_size)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 3, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 3, 5, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_step_len)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 3, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 3, 5, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (kw_args > 0) {
@@ -1282,7 +1286,7 @@ static int __pyx_pw_11libsequence_7windows_16polySitesWindows_1__cinit__(PyObjec
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1295,30 +1299,30 @@ static int __pyx_pw_11libsequence_7windows_16polySitesWindows_1__cinit__(PyObjec
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_d = ((struct __pyx_obj_11libsequence_9polytable_polySites *)values[0]);
-    __pyx_v_window_size = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_window_size == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_step_len = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_step_len == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_pt = ((struct __pyx_obj_11libsequence_9polytable_polyTable *)values[0]);
+    __pyx_v_window_size = __pyx_PyFloat_AsDouble(values[1]); if (unlikely((__pyx_v_window_size == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_step_len = __pyx_PyFloat_AsDouble(values[2]); if (unlikely((__pyx_v_step_len == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     if (values[3]) {
-      __pyx_v_starting_pos = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_starting_pos == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_starting_pos = __pyx_PyFloat_AsDouble(values[3]); if (unlikely((__pyx_v_starting_pos == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_starting_pos = ((double)0.);
     }
     if (values[4]) {
-      __pyx_v_ending_pos = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_ending_pos == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+      __pyx_v_ending_pos = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_ending_pos == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
     } else {
       __pyx_v_ending_pos = ((double)1.0);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 3, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 3, 5, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
-  __Pyx_AddTraceback("libsequence.windows.polySitesWindows.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("libsequence.windows.Windows.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_d), __pyx_ptype_11libsequence_9polytable_polySites, 1, "d", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 31; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_r = __pyx_pf_11libsequence_7windows_16polySitesWindows___cinit__(((struct __pyx_obj_11libsequence_7windows_polySitesWindows *)__pyx_v_self), __pyx_v_d, __pyx_v_window_size, __pyx_v_step_len, __pyx_v_starting_pos, __pyx_v_ending_pos);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_pt), __pyx_ptype_11libsequence_9polytable_polyTable, 1, "pt", 0))) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 36; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_r = __pyx_pf_11libsequence_7windows_7Windows___cinit__(((struct __pyx_obj_11libsequence_7windows_Windows *)__pyx_v_self), __pyx_v_pt, __pyx_v_window_size, __pyx_v_step_len, __pyx_v_starting_pos, __pyx_v_ending_pos);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1329,256 +1333,898 @@ static int __pyx_pw_11libsequence_7windows_16polySitesWindows_1__cinit__(PyObjec
   return __pyx_r;
 }
 
-static int __pyx_pf_11libsequence_7windows_16polySitesWindows___cinit__(struct __pyx_obj_11libsequence_7windows_polySitesWindows *__pyx_v_self, struct __pyx_obj_11libsequence_9polytable_polySites *__pyx_v_d, double __pyx_v_window_size, double __pyx_v_step_len, double __pyx_v_starting_pos, double __pyx_v_ending_pos) {
+static int __pyx_pf_11libsequence_7windows_7Windows___cinit__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_pt, double __pyx_v_window_size, double __pyx_v_step_len, double __pyx_v_starting_pos, double __pyx_v_ending_pos) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
-  Sequence::PolyTableSlice<Sequence::PolySites>  *__pyx_t_1;
+  int __pyx_t_1;
+  int __pyx_t_2;
+  Sequence::SimData *__pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  Sequence::PolySites *__pyx_t_5;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "libsequence/windows.pyx":32
+  /* "libsequence/windows.pyx":37
  *     """
- *     def __cinit__(self, polySites d, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):
- *         self.windows = new PolyTableSlice[PolySites](d.thisptr.sbegin(),             # <<<<<<<<<<<<<<
- *                                                      d.thisptr.send(),
- *                                                      window_size,step_len,starting_pos,ending_pos)
+ *     def __cinit__(self, polyTable pt, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):
+ *         if isinstance(pt,simData):             # <<<<<<<<<<<<<<
+ *             self.windows = fill_from_SimData(dynamic_cast['SimData*'](pt.thisptr),window_size,step_len,starting_pos,ending_pos)
+ *         else:
  */
-  try {
-    __pyx_t_1 = new Sequence::PolyTableSlice<Sequence::PolySites> (__pyx_v_d->__pyx_base.thisptr->sbegin(), __pyx_v_d->__pyx_base.thisptr->send(), __pyx_v_window_size, __pyx_v_step_len, __pyx_v_starting_pos, __pyx_v_ending_pos);
-  } catch(...) {
-    __Pyx_CppExn2PyErr();
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  }
-  __pyx_v_self->windows = __pyx_t_1;
+  __pyx_t_1 = __Pyx_TypeCheck(((PyObject *)__pyx_v_pt), __pyx_ptype_11libsequence_9polytable_simData); 
+  __pyx_t_2 = (__pyx_t_1 != 0);
+  if (__pyx_t_2) {
 
-  /* "libsequence/windows.pyx":31
- *     Calculate sliding windows from a :class:`libsequence.polytable.polySites`
+    /* "libsequence/windows.pyx":38
+ *     def __cinit__(self, polyTable pt, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):
+ *         if isinstance(pt,simData):
+ *             self.windows = fill_from_SimData(dynamic_cast['SimData*'](pt.thisptr),window_size,step_len,starting_pos,ending_pos)             # <<<<<<<<<<<<<<
+ *         else:
+ *             self.windows = fill_from_PolySites(dynamic_cast['PolySites*'](pt.thisptr),window_size,step_len,starting_pos,ending_pos)
+ */
+    try {
+      __pyx_t_3 = dynamic_cast<Sequence::SimData *>(__pyx_v_pt->thisptr);
+    } catch(...) {
+      __Pyx_CppExn2PyErr();
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    }
+    __pyx_t_4 = __pyx_f_11libsequence_7windows_fill_from_SimData(__pyx_t_3, __pyx_v_window_size, __pyx_v_step_len, __pyx_v_starting_pos, __pyx_v_ending_pos); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_4);
+    __Pyx_GOTREF(__pyx_v_self->windows);
+    __Pyx_DECREF(__pyx_v_self->windows);
+    __pyx_v_self->windows = __pyx_t_4;
+    __pyx_t_4 = 0;
+
+    /* "libsequence/windows.pyx":37
  *     """
- *     def __cinit__(self, polySites d, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):             # <<<<<<<<<<<<<<
- *         self.windows = new PolyTableSlice[PolySites](d.thisptr.sbegin(),
- *                                                      d.thisptr.send(),
+ *     def __cinit__(self, polyTable pt, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):
+ *         if isinstance(pt,simData):             # <<<<<<<<<<<<<<
+ *             self.windows = fill_from_SimData(dynamic_cast['SimData*'](pt.thisptr),window_size,step_len,starting_pos,ending_pos)
+ *         else:
+ */
+    goto __pyx_L3;
+  }
+
+  /* "libsequence/windows.pyx":40
+ *             self.windows = fill_from_SimData(dynamic_cast['SimData*'](pt.thisptr),window_size,step_len,starting_pos,ending_pos)
+ *         else:
+ *             self.windows = fill_from_PolySites(dynamic_cast['PolySites*'](pt.thisptr),window_size,step_len,starting_pos,ending_pos)             # <<<<<<<<<<<<<<
+ *     def __dealloc__(self):
+ *         self.windows=[]
+ */
+  /*else*/ {
+    try {
+      __pyx_t_5 = dynamic_cast<Sequence::PolySites *>(__pyx_v_pt->thisptr);
+    } catch(...) {
+      __Pyx_CppExn2PyErr();
+      {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    }
+    __pyx_t_4 = __pyx_f_11libsequence_7windows_fill_from_PolySites(__pyx_t_5, __pyx_v_window_size, __pyx_v_step_len, __pyx_v_starting_pos, __pyx_v_ending_pos); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_GIVEREF(__pyx_t_4);
+    __Pyx_GOTREF(__pyx_v_self->windows);
+    __Pyx_DECREF(__pyx_v_self->windows);
+    __pyx_v_self->windows = __pyx_t_4;
+    __pyx_t_4 = 0;
+  }
+  __pyx_L3:;
+
+  /* "libsequence/windows.pyx":36
+ *     An iterable list of sliding windows created from a :class:`libsequence.polytable.polyTable`
+ *     """
+ *     def __cinit__(self, polyTable pt, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):             # <<<<<<<<<<<<<<
+ *         if isinstance(pt,simData):
+ *             self.windows = fill_from_SimData(dynamic_cast['SimData*'](pt.thisptr),window_size,step_len,starting_pos,ending_pos)
  */
 
   /* function exit code */
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("libsequence.windows.polySitesWindows.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("libsequence.windows.Windows.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "libsequence/windows.pyx":35
- *                                                      d.thisptr.send(),
- *                                                      window_size,step_len,starting_pos,ending_pos)
+/* "libsequence/windows.pyx":41
+ *         else:
+ *             self.windows = fill_from_PolySites(dynamic_cast['PolySites*'](pt.thisptr),window_size,step_len,starting_pos,ending_pos)
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         del self.windows
- *     def __getitem__(self,i):
+ *         self.windows=[]
+ *     def __iter__(self):
  */
 
 /* Python wrapper */
-static void __pyx_pw_11libsequence_7windows_16polySitesWindows_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_11libsequence_7windows_16polySitesWindows_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_11libsequence_7windows_7Windows_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_11libsequence_7windows_7Windows_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_11libsequence_7windows_16polySitesWindows_2__dealloc__(((struct __pyx_obj_11libsequence_7windows_polySitesWindows *)__pyx_v_self));
+  __pyx_pf_11libsequence_7windows_7Windows_2__dealloc__(((struct __pyx_obj_11libsequence_7windows_Windows *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_11libsequence_7windows_16polySitesWindows_2__dealloc__(struct __pyx_obj_11libsequence_7windows_polySitesWindows *__pyx_v_self) {
+static void __pyx_pf_11libsequence_7windows_7Windows_2__dealloc__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "libsequence/windows.pyx":36
- *                                                      window_size,step_len,starting_pos,ending_pos)
+  /* "libsequence/windows.pyx":42
+ *             self.windows = fill_from_PolySites(dynamic_cast['PolySites*'](pt.thisptr),window_size,step_len,starting_pos,ending_pos)
  *     def __dealloc__(self):
- *         del self.windows             # <<<<<<<<<<<<<<
- *     def __getitem__(self,i):
- *         cdef PolySites d = deref(self.windows)[i]
+ *         self.windows=[]             # <<<<<<<<<<<<<<
+ *     def __iter__(self):
+ *         return iter(self.windows)
  */
-  delete __pyx_v_self->windows;
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_1);
+  __Pyx_GOTREF(__pyx_v_self->windows);
+  __Pyx_DECREF(__pyx_v_self->windows);
+  __pyx_v_self->windows = __pyx_t_1;
+  __pyx_t_1 = 0;
 
-  /* "libsequence/windows.pyx":35
- *                                                      d.thisptr.send(),
- *                                                      window_size,step_len,starting_pos,ending_pos)
+  /* "libsequence/windows.pyx":41
+ *         else:
+ *             self.windows = fill_from_PolySites(dynamic_cast['PolySites*'](pt.thisptr),window_size,step_len,starting_pos,ending_pos)
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         del self.windows
- *     def __getitem__(self,i):
+ *         self.windows=[]
+ *     def __iter__(self):
  */
 
   /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_WriteUnraisable("libsequence.windows.Windows.__dealloc__", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
+  __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
-/* "libsequence/windows.pyx":37
+/* "libsequence/windows.pyx":43
  *     def __dealloc__(self):
- *         del self.windows
- *     def __getitem__(self,i):             # <<<<<<<<<<<<<<
- *         cdef PolySites d = deref(self.windows)[i]
- *         cdef vector[pair[double,string]] temp;
+ *         self.windows=[]
+ *     def __iter__(self):             # <<<<<<<<<<<<<<
+ *         return iter(self.windows)
+ *     def __next__(self):
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_11libsequence_7windows_16polySitesWindows_5__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_i); /*proto*/
-static PyObject *__pyx_pw_11libsequence_7windows_16polySitesWindows_5__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_i) {
+static PyObject *__pyx_pw_11libsequence_7windows_7Windows_5__iter__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11libsequence_7windows_7Windows_5__iter__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__getitem__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11libsequence_7windows_16polySitesWindows_4__getitem__(((struct __pyx_obj_11libsequence_7windows_polySitesWindows *)__pyx_v_self), ((PyObject *)__pyx_v_i));
+  __Pyx_RefNannySetupContext("__iter__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_11libsequence_7windows_7Windows_4__iter__(((struct __pyx_obj_11libsequence_7windows_Windows *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_11libsequence_7windows_16polySitesWindows_4__getitem__(struct __pyx_obj_11libsequence_7windows_polySitesWindows *__pyx_v_self, PyObject *__pyx_v_i) {
-  Sequence::PolySites __pyx_v_d;
-  std::vector<std::pair<double,std::string> >  __pyx_v_temp;
-  struct __pyx_obj_11libsequence_9polytable_simData *__pyx_v_rv = NULL;
+static PyObject *__pyx_pf_11libsequence_7windows_7Windows_4__iter__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  unsigned int __pyx_t_1;
+  PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
-  __Pyx_RefNannySetupContext("__getitem__", 0);
+  __Pyx_RefNannySetupContext("__iter__", 0);
 
-  /* "libsequence/windows.pyx":38
- *         del self.windows
- *     def __getitem__(self,i):
- *         cdef PolySites d = deref(self.windows)[i]             # <<<<<<<<<<<<<<
- *         cdef vector[pair[double,string]] temp;
- *         temp.assign(d.sbegin(),d.send())
- */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_int(__pyx_v_i); if (unlikely((__pyx_t_1 == (unsigned int)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_v_d = ((*__pyx_v_self->windows)[__pyx_t_1]);
-
-  /* "libsequence/windows.pyx":40
- *         cdef PolySites d = deref(self.windows)[i]
- *         cdef vector[pair[double,string]] temp;
- *         temp.assign(d.sbegin(),d.send())             # <<<<<<<<<<<<<<
- *         rv = simData()
- *         rv.assign(temp)
- */
-  try {
-    __pyx_v_temp.assign(__pyx_v_d.sbegin(), __pyx_v_d.send());
-  } catch(...) {
-    __Pyx_CppExn2PyErr();
-    {__pyx_filename = __pyx_f[0]; __pyx_lineno = 40; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  }
-
-  /* "libsequence/windows.pyx":41
- *         cdef vector[pair[double,string]] temp;
- *         temp.assign(d.sbegin(),d.send())
- *         rv = simData()             # <<<<<<<<<<<<<<
- *         rv.assign(temp)
- *         return rv
- */
-  __pyx_t_2 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_11libsequence_9polytable_simData), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __pyx_v_rv = ((struct __pyx_obj_11libsequence_9polytable_simData *)__pyx_t_2);
-  __pyx_t_2 = 0;
-
-  /* "libsequence/windows.pyx":42
- *         temp.assign(d.sbegin(),d.send())
- *         rv = simData()
- *         rv.assign(temp)             # <<<<<<<<<<<<<<
- *         return rv
- *     def __len__(self):
- */
-  __pyx_t_2 = ((struct __pyx_vtabstruct_11libsequence_9polytable_simData *)__pyx_v_rv->__pyx_base.__pyx_vtab)->__pyx_base.assign(((struct __pyx_obj_11libsequence_9polytable_polyTable *)__pyx_v_rv), __pyx_v_temp, 0); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 42; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "libsequence/windows.pyx":43
- *         rv = simData()
- *         rv.assign(temp)
- *         return rv             # <<<<<<<<<<<<<<
- *     def __len__(self):
- *         return self.windows.size()
+  /* "libsequence/windows.pyx":44
+ *         self.windows=[]
+ *     def __iter__(self):
+ *         return iter(self.windows)             # <<<<<<<<<<<<<<
+ *     def __next__(self):
+ *         return next(self.windows)
  */
   __Pyx_XDECREF(__pyx_r);
-  __Pyx_INCREF(((PyObject *)__pyx_v_rv));
-  __pyx_r = ((PyObject *)__pyx_v_rv);
+  __pyx_t_1 = __pyx_v_self->windows;
+  __Pyx_INCREF(__pyx_t_1);
+  __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "libsequence/windows.pyx":37
+  /* "libsequence/windows.pyx":43
  *     def __dealloc__(self):
- *         del self.windows
- *     def __getitem__(self,i):             # <<<<<<<<<<<<<<
- *         cdef PolySites d = deref(self.windows)[i]
- *         cdef vector[pair[double,string]] temp;
+ *         self.windows=[]
+ *     def __iter__(self):             # <<<<<<<<<<<<<<
+ *         return iter(self.windows)
+ *     def __next__(self):
  */
 
   /* function exit code */
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("libsequence.windows.polySitesWindows.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("libsequence.windows.Windows.__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
-  __Pyx_XDECREF((PyObject *)__pyx_v_rv);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "libsequence/windows.pyx":44
- *         rv.assign(temp)
- *         return rv
- *     def __len__(self):             # <<<<<<<<<<<<<<
- *         return self.windows.size()
- * 
+/* "libsequence/windows.pyx":45
+ *     def __iter__(self):
+ *         return iter(self.windows)
+ *     def __next__(self):             # <<<<<<<<<<<<<<
+ *         return next(self.windows)
+ *     def __getitem__(self,i):
  */
 
 /* Python wrapper */
-static Py_ssize_t __pyx_pw_11libsequence_7windows_16polySitesWindows_7__len__(PyObject *__pyx_v_self); /*proto*/
-static Py_ssize_t __pyx_pw_11libsequence_7windows_16polySitesWindows_7__len__(PyObject *__pyx_v_self) {
-  Py_ssize_t __pyx_r;
+static PyObject *__pyx_pw_11libsequence_7windows_7Windows_7__next__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11libsequence_7windows_7Windows_7__next__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__len__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_11libsequence_7windows_16polySitesWindows_6__len__(((struct __pyx_obj_11libsequence_7windows_polySitesWindows *)__pyx_v_self));
+  __Pyx_RefNannySetupContext("__next__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_11libsequence_7windows_7Windows_6__next__(((struct __pyx_obj_11libsequence_7windows_Windows *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static Py_ssize_t __pyx_pf_11libsequence_7windows_16polySitesWindows_6__len__(struct __pyx_obj_11libsequence_7windows_polySitesWindows *__pyx_v_self) {
-  Py_ssize_t __pyx_r;
+static PyObject *__pyx_pf_11libsequence_7windows_7Windows_6__next__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("__len__", 0);
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__next__", 0);
 
-  /* "libsequence/windows.pyx":45
- *         return rv
- *     def __len__(self):
- *         return self.windows.size()             # <<<<<<<<<<<<<<
- * 
+  /* "libsequence/windows.pyx":46
+ *         return iter(self.windows)
+ *     def __next__(self):
+ *         return next(self.windows)             # <<<<<<<<<<<<<<
+ *     def __getitem__(self,i):
+ *         return self.windows[i]
  */
-  __pyx_r = __pyx_v_self->windows->size();
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __pyx_v_self->windows;
+  __Pyx_INCREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyIter_Next(__pyx_t_1); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 46; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "libsequence/windows.pyx":44
- *         rv.assign(temp)
- *         return rv
+  /* "libsequence/windows.pyx":45
+ *     def __iter__(self):
+ *         return iter(self.windows)
+ *     def __next__(self):             # <<<<<<<<<<<<<<
+ *         return next(self.windows)
+ *     def __getitem__(self,i):
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_AddTraceback("libsequence.windows.Windows.__next__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "libsequence/windows.pyx":47
+ *     def __next__(self):
+ *         return next(self.windows)
+ *     def __getitem__(self,i):             # <<<<<<<<<<<<<<
+ *         return self.windows[i]
+ *     def __len__(self):
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11libsequence_7windows_7Windows_9__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_i); /*proto*/
+static PyObject *__pyx_pw_11libsequence_7windows_7Windows_9__getitem__(PyObject *__pyx_v_self, PyObject *__pyx_v_i) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__getitem__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_11libsequence_7windows_7Windows_8__getitem__(((struct __pyx_obj_11libsequence_7windows_Windows *)__pyx_v_self), ((PyObject *)__pyx_v_i));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11libsequence_7windows_7Windows_8__getitem__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self, PyObject *__pyx_v_i) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__getitem__", 0);
+
+  /* "libsequence/windows.pyx":48
+ *         return next(self.windows)
+ *     def __getitem__(self,i):
+ *         return self.windows[i]             # <<<<<<<<<<<<<<
+ *     def __len__(self):
+ *         return len(self.windows)
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyObject_GetItem(__pyx_v_self->windows, __pyx_v_i); if (unlikely(__pyx_t_1 == NULL)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 48; __pyx_clineno = __LINE__; goto __pyx_L1_error;};
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "libsequence/windows.pyx":47
+ *     def __next__(self):
+ *         return next(self.windows)
+ *     def __getitem__(self,i):             # <<<<<<<<<<<<<<
+ *         return self.windows[i]
+ *     def __len__(self):
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("libsequence.windows.Windows.__getitem__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "libsequence/windows.pyx":49
+ *     def __getitem__(self,i):
+ *         return self.windows[i]
  *     def __len__(self):             # <<<<<<<<<<<<<<
- *         return self.windows.size()
+ *         return len(self.windows)
+ * 
+ */
+
+/* Python wrapper */
+static Py_ssize_t __pyx_pw_11libsequence_7windows_7Windows_11__len__(PyObject *__pyx_v_self); /*proto*/
+static Py_ssize_t __pyx_pw_11libsequence_7windows_7Windows_11__len__(PyObject *__pyx_v_self) {
+  Py_ssize_t __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__len__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_11libsequence_7windows_7Windows_10__len__(((struct __pyx_obj_11libsequence_7windows_Windows *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static Py_ssize_t __pyx_pf_11libsequence_7windows_7Windows_10__len__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self) {
+  Py_ssize_t __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  Py_ssize_t __pyx_t_2;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__len__", 0);
+
+  /* "libsequence/windows.pyx":50
+ *         return self.windows[i]
+ *     def __len__(self):
+ *         return len(self.windows)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_t_1 = __pyx_v_self->windows;
+  __Pyx_INCREF(__pyx_t_1);
+  __pyx_t_2 = PyObject_Length(__pyx_t_1); if (unlikely(__pyx_t_2 == -1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_r = __pyx_t_2;
+  goto __pyx_L0;
+
+  /* "libsequence/windows.pyx":49
+ *     def __getitem__(self,i):
+ *         return self.windows[i]
+ *     def __len__(self):             # <<<<<<<<<<<<<<
+ *         return len(self.windows)
  * 
  */
 
   /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("libsequence.windows.Windows.__len__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_tp_new_11libsequence_7windows_simDataWindows(PyTypeObject *t, PyObject *a, PyObject *k) {
+/* "libsequence/windows.pxd":19
+ * 
+ * cdef class Windows:
+ *     cdef public object windows             # <<<<<<<<<<<<<<
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_11libsequence_7windows_7Windows_7windows_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_11libsequence_7windows_7Windows_7windows_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_11libsequence_7windows_7Windows_7windows___get__(((struct __pyx_obj_11libsequence_7windows_Windows *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_11libsequence_7windows_7Windows_7windows___get__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __Pyx_INCREF(__pyx_v_self->windows);
+  __pyx_r = __pyx_v_self->windows;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_11libsequence_7windows_7Windows_7windows_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_11libsequence_7windows_7Windows_7windows_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_11libsequence_7windows_7Windows_7windows_2__set__(((struct __pyx_obj_11libsequence_7windows_Windows *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_11libsequence_7windows_7Windows_7windows_2__set__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__", 0);
+  __Pyx_INCREF(__pyx_v_value);
+  __Pyx_GIVEREF(__pyx_v_value);
+  __Pyx_GOTREF(__pyx_v_self->windows);
+  __Pyx_DECREF(__pyx_v_self->windows);
+  __pyx_v_self->windows = __pyx_v_value;
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_11libsequence_7windows_7Windows_7windows_5__del__(PyObject *__pyx_v_self); /*proto*/
+static int __pyx_pw_11libsequence_7windows_7Windows_7windows_5__del__(PyObject *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_11libsequence_7windows_7Windows_7windows_4__del__(((struct __pyx_obj_11libsequence_7windows_Windows *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_11libsequence_7windows_7Windows_7windows_4__del__(struct __pyx_obj_11libsequence_7windows_Windows *__pyx_v_self) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__del__", 0);
+  __Pyx_INCREF(Py_None);
+  __Pyx_GIVEREF(Py_None);
+  __Pyx_GOTREF(__pyx_v_self->windows);
+  __Pyx_DECREF(__pyx_v_self->windows);
+  __pyx_v_self->windows = Py_None;
+
+  /* function exit code */
+  __pyx_r = 0;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "string.to_py":31
+ * 
+ * @cname("__pyx_convert_PyObject_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyObject_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyObject_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+static CYTHON_INLINE PyObject *__pyx_convert_PyObject_string_to_py_std__in_string(std::string const &__pyx_v_s) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__pyx_convert_PyObject_string_to_py_std__in_string", 0);
+
+  /* "string.to_py":32
+ * @cname("__pyx_convert_PyObject_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyObject_string_to_py_std__in_string(const string& s):
+ *     return __Pyx_PyObject_FromStringAndSize(s.data(), s.size())             # <<<<<<<<<<<<<<
+ * cdef extern from *:
+ *     cdef object __Pyx_PyUnicode_FromStringAndSize(char*, size_t)
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyObject_FromStringAndSize(__pyx_v_s.data(), __pyx_v_s.size()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "string.to_py":31
+ * 
+ * @cname("__pyx_convert_PyObject_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyObject_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyObject_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("string.to_py.__pyx_convert_PyObject_string_to_py_std__in_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "string.to_py":37
+ * 
+ * @cname("__pyx_convert_PyUnicode_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyUnicode_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyUnicode_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+static CYTHON_INLINE PyObject *__pyx_convert_PyUnicode_string_to_py_std__in_string(std::string const &__pyx_v_s) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__pyx_convert_PyUnicode_string_to_py_std__in_string", 0);
+
+  /* "string.to_py":38
+ * @cname("__pyx_convert_PyUnicode_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyUnicode_string_to_py_std__in_string(const string& s):
+ *     return __Pyx_PyUnicode_FromStringAndSize(s.data(), s.size())             # <<<<<<<<<<<<<<
+ * cdef extern from *:
+ *     cdef object __Pyx_PyStr_FromStringAndSize(char*, size_t)
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyUnicode_FromStringAndSize(__pyx_v_s.data(), __pyx_v_s.size()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "string.to_py":37
+ * 
+ * @cname("__pyx_convert_PyUnicode_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyUnicode_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyUnicode_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("string.to_py.__pyx_convert_PyUnicode_string_to_py_std__in_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "string.to_py":43
+ * 
+ * @cname("__pyx_convert_PyStr_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyStr_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyStr_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+static CYTHON_INLINE PyObject *__pyx_convert_PyStr_string_to_py_std__in_string(std::string const &__pyx_v_s) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__pyx_convert_PyStr_string_to_py_std__in_string", 0);
+
+  /* "string.to_py":44
+ * @cname("__pyx_convert_PyStr_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyStr_string_to_py_std__in_string(const string& s):
+ *     return __Pyx_PyStr_FromStringAndSize(s.data(), s.size())             # <<<<<<<<<<<<<<
+ * cdef extern from *:
+ *     cdef object __Pyx_PyBytes_FromStringAndSize(char*, size_t)
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyStr_FromStringAndSize(__pyx_v_s.data(), __pyx_v_s.size()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 44; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "string.to_py":43
+ * 
+ * @cname("__pyx_convert_PyStr_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyStr_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyStr_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("string.to_py.__pyx_convert_PyStr_string_to_py_std__in_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "string.to_py":49
+ * 
+ * @cname("__pyx_convert_PyBytes_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyBytes_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyBytes_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+static CYTHON_INLINE PyObject *__pyx_convert_PyBytes_string_to_py_std__in_string(std::string const &__pyx_v_s) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__pyx_convert_PyBytes_string_to_py_std__in_string", 0);
+
+  /* "string.to_py":50
+ * @cname("__pyx_convert_PyBytes_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyBytes_string_to_py_std__in_string(const string& s):
+ *     return __Pyx_PyBytes_FromStringAndSize(s.data(), s.size())             # <<<<<<<<<<<<<<
+ * cdef extern from *:
+ *     cdef object __Pyx_PyByteArray_FromStringAndSize(char*, size_t)
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyBytes_FromStringAndSize(__pyx_v_s.data(), __pyx_v_s.size()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 50; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "string.to_py":49
+ * 
+ * @cname("__pyx_convert_PyBytes_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyBytes_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyBytes_FromStringAndSize(s.data(), s.size())
+ * cdef extern from *:
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("string.to_py.__pyx_convert_PyBytes_string_to_py_std__in_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "string.to_py":55
+ * 
+ * @cname("__pyx_convert_PyByteArray_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyByteArray_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyByteArray_FromStringAndSize(s.data(), s.size())
+ * 
+ */
+
+static CYTHON_INLINE PyObject *__pyx_convert_PyByteArray_string_to_py_std__in_string(std::string const &__pyx_v_s) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__pyx_convert_PyByteArray_string_to_py_std__in_string", 0);
+
+  /* "string.to_py":56
+ * @cname("__pyx_convert_PyByteArray_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyByteArray_string_to_py_std__in_string(const string& s):
+ *     return __Pyx_PyByteArray_FromStringAndSize(s.data(), s.size())             # <<<<<<<<<<<<<<
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyByteArray_FromStringAndSize(__pyx_v_s.data(), __pyx_v_s.size()); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 56; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "string.to_py":55
+ * 
+ * @cname("__pyx_convert_PyByteArray_string_to_py_std__in_string")
+ * cdef inline object __pyx_convert_PyByteArray_string_to_py_std__in_string(const string& s):             # <<<<<<<<<<<<<<
+ *     return __Pyx_PyByteArray_FromStringAndSize(s.data(), s.size())
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("string.to_py.__pyx_convert_PyByteArray_string_to_py_std__in_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pair.to_py":180
+ * 
+ * @cname("__pyx_convert_pair_to_py_double____std_3a__3a_string")
+ * cdef object __pyx_convert_pair_to_py_double____std_3a__3a_string(const pair[X,Y]& p):             # <<<<<<<<<<<<<<
+ *     return X_to_py(p.first), Y_to_py(p.second)
+ * 
+ */
+
+static PyObject *__pyx_convert_pair_to_py_double____std_3a__3a_string(std::pair<double,std::string>  const &__pyx_v_p) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__pyx_convert_pair_to_py_double____std_3a__3a_string", 0);
+
+  /* "pair.to_py":181
+ * @cname("__pyx_convert_pair_to_py_double____std_3a__3a_string")
+ * cdef object __pyx_convert_pair_to_py_double____std_3a__3a_string(const pair[X,Y]& p):
+ *     return X_to_py(p.first), Y_to_py(p.second)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_p.first); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __pyx_convert_PyObject_string_to_py_std__in_string(__pyx_v_p.second); if (unlikely(!__pyx_t_2)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 181; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_2);
+  __pyx_t_1 = 0;
+  __pyx_t_2 = 0;
+  __pyx_r = __pyx_t_3;
+  __pyx_t_3 = 0;
+  goto __pyx_L0;
+
+  /* "pair.to_py":180
+ * 
+ * @cname("__pyx_convert_pair_to_py_double____std_3a__3a_string")
+ * cdef object __pyx_convert_pair_to_py_double____std_3a__3a_string(const pair[X,Y]& p):             # <<<<<<<<<<<<<<
+ *     return X_to_py(p.first), Y_to_py(p.second)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("pair.to_py.__pyx_convert_pair_to_py_double____std_3a__3a_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "vector.to_py":67
+ * 
+ * @cname("__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___")
+ * cdef object __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(vector[X]& v):             # <<<<<<<<<<<<<<
+ *     return [X_to_py(v[i]) for i in range(v.size())]
+ * 
+ */
+
+static PyObject *__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(const std::vector<std::pair<double,std::string> >  &__pyx_v_v) {
+  size_t __pyx_v_i;
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  size_t __pyx_t_2;
+  size_t __pyx_t_3;
+  PyObject *__pyx_t_4 = NULL;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___", 0);
+
+  /* "vector.to_py":68
+ * @cname("__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___")
+ * cdef object __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(vector[X]& v):
+ *     return [X_to_py(v[i]) for i in range(v.size())]             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __pyx_v_v.size();
+  for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
+    __pyx_v_i = __pyx_t_3;
+    __pyx_t_4 = __pyx_convert_pair_to_py_double____std_3a__3a_string((__pyx_v_v[__pyx_v_i])); if (unlikely(!__pyx_t_4)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_GOTREF(__pyx_t_4);
+    if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_t_4))) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  }
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* "vector.to_py":67
+ * 
+ * @cname("__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___")
+ * cdef object __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(vector[X]& v):             # <<<<<<<<<<<<<<
+ *     return [X_to_py(v[i]) for i in range(v.size())]
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_4);
+  __Pyx_AddTraceback("vector.to_py.__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_tp_new_11libsequence_7windows_Windows(PyTypeObject *t, PyObject *a, PyObject *k) {
+  struct __pyx_obj_11libsequence_7windows_Windows *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -1586,29 +2232,52 @@ static PyObject *__pyx_tp_new_11libsequence_7windows_simDataWindows(PyTypeObject
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  if (unlikely(__pyx_pw_11libsequence_7windows_14simDataWindows_1__cinit__(o, a, k) < 0)) {
+  p = ((struct __pyx_obj_11libsequence_7windows_Windows *)o);
+  p->windows = Py_None; Py_INCREF(Py_None);
+  if (unlikely(__pyx_pw_11libsequence_7windows_7Windows_1__cinit__(o, a, k) < 0)) {
     Py_DECREF(o); o = 0;
   }
   return o;
 }
 
-static void __pyx_tp_dealloc_11libsequence_7windows_simDataWindows(PyObject *o) {
+static void __pyx_tp_dealloc_11libsequence_7windows_Windows(PyObject *o) {
+  struct __pyx_obj_11libsequence_7windows_Windows *p = (struct __pyx_obj_11libsequence_7windows_Windows *)o;
   #if PY_VERSION_HEX >= 0x030400a1
-  if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
+  if (unlikely(Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
   }
   #endif
+  PyObject_GC_UnTrack(o);
   {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_11libsequence_7windows_14simDataWindows_3__dealloc__(o);
+    __pyx_pw_11libsequence_7windows_7Windows_3__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
+  Py_CLEAR(p->windows);
   (*Py_TYPE(o)->tp_free)(o);
 }
-static PyObject *__pyx_sq_item_11libsequence_7windows_simDataWindows(PyObject *o, Py_ssize_t i) {
+
+static int __pyx_tp_traverse_11libsequence_7windows_Windows(PyObject *o, visitproc v, void *a) {
+  int e;
+  struct __pyx_obj_11libsequence_7windows_Windows *p = (struct __pyx_obj_11libsequence_7windows_Windows *)o;
+  if (p->windows) {
+    e = (*v)(p->windows, a); if (e) return e;
+  }
+  return 0;
+}
+
+static int __pyx_tp_clear_11libsequence_7windows_Windows(PyObject *o) {
+  PyObject* tmp;
+  struct __pyx_obj_11libsequence_7windows_Windows *p = (struct __pyx_obj_11libsequence_7windows_Windows *)o;
+  tmp = ((PyObject*)p->windows);
+  p->windows = Py_None; Py_INCREF(Py_None);
+  Py_XDECREF(tmp);
+  return 0;
+}
+static PyObject *__pyx_sq_item_11libsequence_7windows_Windows(PyObject *o, Py_ssize_t i) {
   PyObject *r;
   PyObject *x = PyInt_FromSsize_t(i); if(!x) return 0;
   r = Py_TYPE(o)->tp_as_mapping->mp_subscript(o, x);
@@ -1616,15 +2285,34 @@ static PyObject *__pyx_sq_item_11libsequence_7windows_simDataWindows(PyObject *o
   return r;
 }
 
-static PyMethodDef __pyx_methods_11libsequence_7windows_simDataWindows[] = {
+static PyObject *__pyx_getprop_11libsequence_7windows_7Windows_windows(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_11libsequence_7windows_7Windows_7windows_1__get__(o);
+}
+
+static int __pyx_setprop_11libsequence_7windows_7Windows_windows(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_11libsequence_7windows_7Windows_7windows_3__set__(o, v);
+  }
+  else {
+    return __pyx_pw_11libsequence_7windows_7Windows_7windows_5__del__(o);
+  }
+}
+
+static PyMethodDef __pyx_methods_11libsequence_7windows_Windows[] = {
+  {"__next__", (PyCFunction)__pyx_pw_11libsequence_7windows_7Windows_7__next__, METH_NOARGS|METH_COEXIST, 0},
   {0, 0, 0, 0}
 };
 
-static PySequenceMethods __pyx_tp_as_sequence_simDataWindows = {
-  __pyx_pw_11libsequence_7windows_14simDataWindows_7__len__, /*sq_length*/
+static struct PyGetSetDef __pyx_getsets_11libsequence_7windows_Windows[] = {
+  {(char *)"windows", __pyx_getprop_11libsequence_7windows_7Windows_windows, __pyx_setprop_11libsequence_7windows_7Windows_windows, 0, 0},
+  {0, 0, 0, 0, 0}
+};
+
+static PySequenceMethods __pyx_tp_as_sequence_Windows = {
+  __pyx_pw_11libsequence_7windows_7Windows_11__len__, /*sq_length*/
   0, /*sq_concat*/
   0, /*sq_repeat*/
-  __pyx_sq_item_11libsequence_7windows_simDataWindows, /*sq_item*/
+  __pyx_sq_item_11libsequence_7windows_Windows, /*sq_item*/
   0, /*sq_slice*/
   0, /*sq_ass_item*/
   0, /*sq_ass_slice*/
@@ -1633,18 +2321,18 @@ static PySequenceMethods __pyx_tp_as_sequence_simDataWindows = {
   0, /*sq_inplace_repeat*/
 };
 
-static PyMappingMethods __pyx_tp_as_mapping_simDataWindows = {
-  __pyx_pw_11libsequence_7windows_14simDataWindows_7__len__, /*mp_length*/
-  __pyx_pw_11libsequence_7windows_14simDataWindows_5__getitem__, /*mp_subscript*/
+static PyMappingMethods __pyx_tp_as_mapping_Windows = {
+  __pyx_pw_11libsequence_7windows_7Windows_11__len__, /*mp_length*/
+  __pyx_pw_11libsequence_7windows_7Windows_9__getitem__, /*mp_subscript*/
   0, /*mp_ass_subscript*/
 };
 
-static PyTypeObject __pyx_type_11libsequence_7windows_simDataWindows = {
+static PyTypeObject __pyx_type_11libsequence_7windows_Windows = {
   PyVarObject_HEAD_INIT(0, 0)
-  "libsequence.windows.simDataWindows", /*tp_name*/
-  sizeof(struct __pyx_obj_11libsequence_7windows_simDataWindows), /*tp_basicsize*/
+  "libsequence.windows.Windows", /*tp_name*/
+  sizeof(struct __pyx_obj_11libsequence_7windows_Windows), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_11libsequence_7windows_simDataWindows, /*tp_dealloc*/
+  __pyx_tp_dealloc_11libsequence_7windows_Windows, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -1656,25 +2344,25 @@ static PyTypeObject __pyx_type_11libsequence_7windows_simDataWindows = {
   #endif
   0, /*tp_repr*/
   0, /*tp_as_number*/
-  &__pyx_tp_as_sequence_simDataWindows, /*tp_as_sequence*/
-  &__pyx_tp_as_mapping_simDataWindows, /*tp_as_mapping*/
+  &__pyx_tp_as_sequence_Windows, /*tp_as_sequence*/
+  &__pyx_tp_as_mapping_Windows, /*tp_as_mapping*/
   0, /*tp_hash*/
   0, /*tp_call*/
   0, /*tp_str*/
   0, /*tp_getattro*/
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
-  "\n    Calculate sliding windows from a :class:`libsequence.polytable.simData`\n    ", /*tp_doc*/
-  0, /*tp_traverse*/
-  0, /*tp_clear*/
+  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
+  "\n    An iterable list of sliding windows created from a :class:`libsequence.polytable.polyTable`\n    ", /*tp_doc*/
+  __pyx_tp_traverse_11libsequence_7windows_Windows, /*tp_traverse*/
+  __pyx_tp_clear_11libsequence_7windows_Windows, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  __pyx_methods_11libsequence_7windows_simDataWindows, /*tp_methods*/
+  __pyx_pw_11libsequence_7windows_7Windows_5__iter__, /*tp_iter*/
+  __pyx_pw_11libsequence_7windows_7Windows_7__next__, /*tp_iternext*/
+  __pyx_methods_11libsequence_7windows_Windows, /*tp_methods*/
   0, /*tp_members*/
-  0, /*tp_getset*/
+  __pyx_getsets_11libsequence_7windows_Windows, /*tp_getset*/
   0, /*tp_base*/
   0, /*tp_dict*/
   0, /*tp_descr_get*/
@@ -1682,126 +2370,7 @@ static PyTypeObject __pyx_type_11libsequence_7windows_simDataWindows = {
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_11libsequence_7windows_simDataWindows, /*tp_new*/
-  0, /*tp_free*/
-  0, /*tp_is_gc*/
-  0, /*tp_bases*/
-  0, /*tp_mro*/
-  0, /*tp_cache*/
-  0, /*tp_subclasses*/
-  0, /*tp_weaklist*/
-  0, /*tp_del*/
-  0, /*tp_version_tag*/
-  #if PY_VERSION_HEX >= 0x030400a1
-  0, /*tp_finalize*/
-  #endif
-};
-
-static PyObject *__pyx_tp_new_11libsequence_7windows_polySitesWindows(PyTypeObject *t, PyObject *a, PyObject *k) {
-  PyObject *o;
-  if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
-    o = (*t->tp_alloc)(t, 0);
-  } else {
-    o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
-  }
-  if (unlikely(!o)) return 0;
-  if (unlikely(__pyx_pw_11libsequence_7windows_16polySitesWindows_1__cinit__(o, a, k) < 0)) {
-    Py_DECREF(o); o = 0;
-  }
-  return o;
-}
-
-static void __pyx_tp_dealloc_11libsequence_7windows_polySitesWindows(PyObject *o) {
-  #if PY_VERSION_HEX >= 0x030400a1
-  if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
-    if (PyObject_CallFinalizerFromDealloc(o)) return;
-  }
-  #endif
-  {
-    PyObject *etype, *eval, *etb;
-    PyErr_Fetch(&etype, &eval, &etb);
-    ++Py_REFCNT(o);
-    __pyx_pw_11libsequence_7windows_16polySitesWindows_3__dealloc__(o);
-    --Py_REFCNT(o);
-    PyErr_Restore(etype, eval, etb);
-  }
-  (*Py_TYPE(o)->tp_free)(o);
-}
-static PyObject *__pyx_sq_item_11libsequence_7windows_polySitesWindows(PyObject *o, Py_ssize_t i) {
-  PyObject *r;
-  PyObject *x = PyInt_FromSsize_t(i); if(!x) return 0;
-  r = Py_TYPE(o)->tp_as_mapping->mp_subscript(o, x);
-  Py_DECREF(x);
-  return r;
-}
-
-static PyMethodDef __pyx_methods_11libsequence_7windows_polySitesWindows[] = {
-  {0, 0, 0, 0}
-};
-
-static PySequenceMethods __pyx_tp_as_sequence_polySitesWindows = {
-  __pyx_pw_11libsequence_7windows_16polySitesWindows_7__len__, /*sq_length*/
-  0, /*sq_concat*/
-  0, /*sq_repeat*/
-  __pyx_sq_item_11libsequence_7windows_polySitesWindows, /*sq_item*/
-  0, /*sq_slice*/
-  0, /*sq_ass_item*/
-  0, /*sq_ass_slice*/
-  0, /*sq_contains*/
-  0, /*sq_inplace_concat*/
-  0, /*sq_inplace_repeat*/
-};
-
-static PyMappingMethods __pyx_tp_as_mapping_polySitesWindows = {
-  __pyx_pw_11libsequence_7windows_16polySitesWindows_7__len__, /*mp_length*/
-  __pyx_pw_11libsequence_7windows_16polySitesWindows_5__getitem__, /*mp_subscript*/
-  0, /*mp_ass_subscript*/
-};
-
-static PyTypeObject __pyx_type_11libsequence_7windows_polySitesWindows = {
-  PyVarObject_HEAD_INIT(0, 0)
-  "libsequence.windows.polySitesWindows", /*tp_name*/
-  sizeof(struct __pyx_obj_11libsequence_7windows_polySitesWindows), /*tp_basicsize*/
-  0, /*tp_itemsize*/
-  __pyx_tp_dealloc_11libsequence_7windows_polySitesWindows, /*tp_dealloc*/
-  0, /*tp_print*/
-  0, /*tp_getattr*/
-  0, /*tp_setattr*/
-  #if PY_MAJOR_VERSION < 3
-  0, /*tp_compare*/
-  #endif
-  #if PY_MAJOR_VERSION >= 3
-  0, /*tp_as_async*/
-  #endif
-  0, /*tp_repr*/
-  0, /*tp_as_number*/
-  &__pyx_tp_as_sequence_polySitesWindows, /*tp_as_sequence*/
-  &__pyx_tp_as_mapping_polySitesWindows, /*tp_as_mapping*/
-  0, /*tp_hash*/
-  0, /*tp_call*/
-  0, /*tp_str*/
-  0, /*tp_getattro*/
-  0, /*tp_setattro*/
-  0, /*tp_as_buffer*/
-  Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
-  "\n    Calculate sliding windows from a :class:`libsequence.polytable.polySites`\n    ", /*tp_doc*/
-  0, /*tp_traverse*/
-  0, /*tp_clear*/
-  0, /*tp_richcompare*/
-  0, /*tp_weaklistoffset*/
-  0, /*tp_iter*/
-  0, /*tp_iternext*/
-  __pyx_methods_11libsequence_7windows_polySitesWindows, /*tp_methods*/
-  0, /*tp_members*/
-  0, /*tp_getset*/
-  0, /*tp_base*/
-  0, /*tp_dict*/
-  0, /*tp_descr_get*/
-  0, /*tp_descr_set*/
-  0, /*tp_dictoffset*/
-  0, /*tp_init*/
-  0, /*tp_alloc*/
-  __pyx_tp_new_11libsequence_7windows_polySitesWindows, /*tp_new*/
+  __pyx_tp_new_11libsequence_7windows_Windows, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -1839,10 +2408,11 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_n_s_d, __pyx_k_d, sizeof(__pyx_k_d), 0, 0, 1, 1},
   {&__pyx_n_s_ending_pos, __pyx_k_ending_pos, sizeof(__pyx_k_ending_pos), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
+  {&__pyx_n_s_pt, __pyx_k_pt, sizeof(__pyx_k_pt), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
+  {&__pyx_n_s_range, __pyx_k_range, sizeof(__pyx_k_range), 0, 0, 1, 1},
   {&__pyx_n_s_starting_pos, __pyx_k_starting_pos, sizeof(__pyx_k_starting_pos), 0, 0, 1, 1},
   {&__pyx_n_s_step_len, __pyx_k_step_len, sizeof(__pyx_k_step_len), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
@@ -1850,7 +2420,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 13; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   return 0;
+  __pyx_L1_error:;
+  return -1;
 }
 
 static int __Pyx_InitCachedConstants(void) {
@@ -1953,21 +2526,17 @@ PyMODINIT_FUNC PyInit_windows(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_11libsequence_7windows_simDataWindows) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_11libsequence_7windows_simDataWindows.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "simDataWindows", (PyObject *)&__pyx_type_11libsequence_7windows_simDataWindows) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 7; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_11libsequence_7windows_simDataWindows = &__pyx_type_11libsequence_7windows_simDataWindows;
-  if (PyType_Ready(&__pyx_type_11libsequence_7windows_polySitesWindows) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_type_11libsequence_7windows_polySitesWindows.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "polySitesWindows", (PyObject *)&__pyx_type_11libsequence_7windows_polySitesWindows) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 27; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_11libsequence_7windows_polySitesWindows = &__pyx_type_11libsequence_7windows_polySitesWindows;
+  if (PyType_Ready(&__pyx_type_11libsequence_7windows_Windows) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_type_11libsequence_7windows_Windows.tp_print = 0;
+  if (PyObject_SetAttrString(__pyx_m, "Windows", (PyObject *)&__pyx_type_11libsequence_7windows_Windows) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_11libsequence_7windows_Windows = &__pyx_type_11libsequence_7windows_Windows;
   /*--- Type import code ---*/
-  __pyx_ptype_11libsequence_9polytable_polyTable = __Pyx_ImportType("libsequence.polytable", "polyTable", sizeof(struct __pyx_obj_11libsequence_9polytable_polyTable), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_polyTable)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_vtabptr_11libsequence_9polytable_polyTable = (struct __pyx_vtabstruct_11libsequence_9polytable_polyTable*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_polyTable->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_polyTable)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_11libsequence_9polytable_simData = __Pyx_ImportType("libsequence.polytable", "simData", sizeof(struct __pyx_obj_11libsequence_9polytable_simData), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_simData)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_vtabptr_11libsequence_9polytable_simData = (struct __pyx_vtabstruct_11libsequence_9polytable_simData*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_simData->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_simData)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_11libsequence_9polytable_polySites = __Pyx_ImportType("libsequence.polytable", "polySites", sizeof(struct __pyx_obj_11libsequence_9polytable_polySites), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_polySites)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_vtabptr_11libsequence_9polytable_polySites = (struct __pyx_vtabstruct_11libsequence_9polytable_polySites*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_polySites->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_polySites)) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_11libsequence_9polytable_polyTable = __Pyx_ImportType("libsequence.polytable", "polyTable", sizeof(struct __pyx_obj_11libsequence_9polytable_polyTable), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_polyTable)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_11libsequence_9polytable_polyTable = (struct __pyx_vtabstruct_11libsequence_9polytable_polyTable*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_polyTable->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_polyTable)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_11libsequence_9polytable_simData = __Pyx_ImportType("libsequence.polytable", "simData", sizeof(struct __pyx_obj_11libsequence_9polytable_simData), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_simData)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_11libsequence_9polytable_simData = (struct __pyx_vtabstruct_11libsequence_9polytable_simData*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_simData->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_simData)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_11libsequence_9polytable_polySites = __Pyx_ImportType("libsequence.polytable", "polySites", sizeof(struct __pyx_obj_11libsequence_9polytable_polySites), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_polySites)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_11libsequence_9polytable_polySites = (struct __pyx_vtabstruct_11libsequence_9polytable_polySites*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_polySites->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_polySites)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/
@@ -1976,7 +2545,7 @@ PyMODINIT_FUNC PyInit_windows(void)
   #endif
 
   /* "libsequence/windows.pyx":1
- * from libsequence.polytable cimport polySites,simData             # <<<<<<<<<<<<<<
+ * from libsequence.polytable cimport polyTable,polySites,simData             # <<<<<<<<<<<<<<
  * from libcpp.vector cimport vector
  * from libcpp.string cimport string
  */
@@ -1984,6 +2553,14 @@ PyMODINIT_FUNC PyInit_windows(void)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 1; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+
+  /* "vector.to_py":67
+ * 
+ * @cname("__pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___")
+ * cdef object __pyx_convert_vector_to_py_std_3a__3a_pair_3c_double_2c_std_3a__3a_string_3e___(vector[X]& v):             # <<<<<<<<<<<<<<
+ *     return [X_to_py(v[i]) for i in range(v.size())]
+ * 
+ */
 
   /*--- Wrapped vars code ---*/
 
@@ -2021,6 +2598,38 @@ end:
     Py_XDECREF(p);
     Py_XDECREF(m);
     return (__Pyx_RefNannyAPIStruct *)r;
+}
+#endif
+
+static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
+    PyObject* result = __Pyx_PyObject_GetAttrStr(__pyx_b, name);
+    if (unlikely(!result)) {
+        PyErr_Format(PyExc_NameError,
+#if PY_MAJOR_VERSION >= 3
+            "name '%U' is not defined", name);
+#else
+            "name '%.200s' is not defined", PyString_AS_STRING(name));
+#endif
+    }
+    return result;
+}
+
+#if CYTHON_COMPILING_IN_CPYTHON
+static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
+    PyObject *result;
+    ternaryfunc call = func->ob_type->tp_call;
+    if (unlikely(!call))
+        return PyObject_Call(func, arg, kw);
+    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
+        return NULL;
+    result = (*call)(func, arg, kw);
+    Py_LeaveRecursiveCall();
+    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
+        PyErr_SetString(
+            PyExc_SystemError,
+            "NULL result without error in PyObject_Call");
+    }
+    return result;
 }
 #endif
 
@@ -2189,24 +2798,109 @@ static CYTHON_INLINE int __Pyx_ArgTypeTest(PyObject *obj, PyTypeObject *type, in
     return 0;
 }
 
+static CYTHON_INLINE void __Pyx_ErrRestore(PyObject *type, PyObject *value, PyObject *tb) {
 #if CYTHON_COMPILING_IN_CPYTHON
-static CYTHON_INLINE PyObject* __Pyx_PyObject_Call(PyObject *func, PyObject *arg, PyObject *kw) {
-    PyObject *result;
-    ternaryfunc call = func->ob_type->tp_call;
-    if (unlikely(!call))
-        return PyObject_Call(func, arg, kw);
-    if (unlikely(Py_EnterRecursiveCall((char*)" while calling a Python object")))
-        return NULL;
-    result = (*call)(func, arg, kw);
-    Py_LeaveRecursiveCall();
-    if (unlikely(!result) && unlikely(!PyErr_Occurred())) {
-        PyErr_SetString(
-            PyExc_SystemError,
-            "NULL result without error in PyObject_Call");
-    }
-    return result;
-}
+    PyObject *tmp_type, *tmp_value, *tmp_tb;
+    PyThreadState *tstate = PyThreadState_GET();
+    tmp_type = tstate->curexc_type;
+    tmp_value = tstate->curexc_value;
+    tmp_tb = tstate->curexc_traceback;
+    tstate->curexc_type = type;
+    tstate->curexc_value = value;
+    tstate->curexc_traceback = tb;
+    Py_XDECREF(tmp_type);
+    Py_XDECREF(tmp_value);
+    Py_XDECREF(tmp_tb);
+#else
+    PyErr_Restore(type, value, tb);
 #endif
+}
+static CYTHON_INLINE void __Pyx_ErrFetch(PyObject **type, PyObject **value, PyObject **tb) {
+#if CYTHON_COMPILING_IN_CPYTHON
+    PyThreadState *tstate = PyThreadState_GET();
+    *type = tstate->curexc_type;
+    *value = tstate->curexc_value;
+    *tb = tstate->curexc_traceback;
+    tstate->curexc_type = 0;
+    tstate->curexc_value = 0;
+    tstate->curexc_traceback = 0;
+#else
+    PyErr_Fetch(type, value, tb);
+#endif
+}
+
+static void __Pyx_WriteUnraisable(const char *name, CYTHON_UNUSED int clineno,
+                                  CYTHON_UNUSED int lineno, CYTHON_UNUSED const char *filename,
+                                  int full_traceback, CYTHON_UNUSED int nogil) {
+    PyObject *old_exc, *old_val, *old_tb;
+    PyObject *ctx;
+#ifdef WITH_THREAD
+    PyGILState_STATE state;
+    if (nogil)
+        state = PyGILState_Ensure();
+#endif
+    __Pyx_ErrFetch(&old_exc, &old_val, &old_tb);
+    if (full_traceback) {
+        Py_XINCREF(old_exc);
+        Py_XINCREF(old_val);
+        Py_XINCREF(old_tb);
+        __Pyx_ErrRestore(old_exc, old_val, old_tb);
+        PyErr_PrintEx(1);
+    }
+    #if PY_MAJOR_VERSION < 3
+    ctx = PyString_FromString(name);
+    #else
+    ctx = PyUnicode_FromString(name);
+    #endif
+    __Pyx_ErrRestore(old_exc, old_val, old_tb);
+    if (!ctx) {
+        PyErr_WriteUnraisable(Py_None);
+    } else {
+        PyErr_WriteUnraisable(ctx);
+        Py_DECREF(ctx);
+    }
+#ifdef WITH_THREAD
+    if (nogil)
+        PyGILState_Release(state);
+#endif
+}
+
+static CYTHON_INLINE PyObject *__Pyx_PyIter_Next2(PyObject* iterator, PyObject* defval) {
+    PyObject* next;
+    iternextfunc iternext = Py_TYPE(iterator)->tp_iternext;
+#if CYTHON_COMPILING_IN_CPYTHON
+    if (unlikely(!iternext)) {
+#else
+    if (unlikely(!iternext) || unlikely(!PyIter_Check(iterator))) {
+#endif
+        PyErr_Format(PyExc_TypeError,
+            "%.200s object is not an iterator", Py_TYPE(iterator)->tp_name);
+        return NULL;
+    }
+    next = iternext(iterator);
+    if (likely(next))
+        return next;
+#if CYTHON_COMPILING_IN_CPYTHON
+#if PY_VERSION_HEX >= 0x02070000
+    if (unlikely(iternext == &_PyObject_NextNotImplemented))
+        return NULL;
+#endif
+#endif
+    if (defval) {
+        PyObject* exc_type = PyErr_Occurred();
+        if (exc_type) {
+            if (unlikely(exc_type != PyExc_StopIteration) &&
+                    !PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))
+                return NULL;
+            PyErr_Clear();
+        }
+        Py_INCREF(defval);
+        return defval;
+    }
+    if (!PyErr_Occurred())
+        PyErr_SetNone(PyExc_StopIteration);
+    return NULL;
+}
 
 static void* __Pyx_GetVtable(PyObject *dict) {
     void* ptr;
@@ -2384,6 +3078,32 @@ static void __Pyx_AddTraceback(const char *funcname, int c_line,
 bad:
     Py_XDECREF(py_code);
     Py_XDECREF(py_frame);
+}
+
+static CYTHON_INLINE PyObject* __Pyx_PyInt_From_unsigned_int(unsigned int value) {
+    const unsigned int neg_one = (unsigned int) -1, const_zero = (unsigned int) 0;
+    const int is_unsigned = neg_one > const_zero;
+    if (is_unsigned) {
+        if (sizeof(unsigned int) < sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(unsigned int) <= sizeof(unsigned long)) {
+            return PyLong_FromUnsignedLong((unsigned long) value);
+        } else if (sizeof(unsigned int) <= sizeof(unsigned PY_LONG_LONG)) {
+            return PyLong_FromUnsignedLongLong((unsigned PY_LONG_LONG) value);
+        }
+    } else {
+        if (sizeof(unsigned int) <= sizeof(long)) {
+            return PyInt_FromLong((long) value);
+        } else if (sizeof(unsigned int) <= sizeof(PY_LONG_LONG)) {
+            return PyLong_FromLongLong((PY_LONG_LONG) value);
+        }
+    }
+    {
+        int one = 1; int little = (int)*(unsigned char *)&one;
+        unsigned char *bytes = (unsigned char *)&value;
+        return _PyLong_FromByteArray(bytes, sizeof(unsigned int),
+                                     little, !is_unsigned);
+    }
 }
 
 #define __PYX_VERIFY_RETURN_INT(target_type, func_type, func_value)\
@@ -2593,6 +3313,190 @@ raise_neg_overflow:
     PyErr_SetString(PyExc_OverflowError,
         "can't convert negative value to unsigned int");
     return (unsigned int) -1;
+}
+
+static CYTHON_INLINE size_t __Pyx_PyInt_As_size_t(PyObject *x) {
+    const size_t neg_one = (size_t) -1, const_zero = (size_t) 0;
+    const int is_unsigned = neg_one > const_zero;
+#if PY_MAJOR_VERSION < 3
+    if (likely(PyInt_Check(x))) {
+        if (sizeof(size_t) < sizeof(long)) {
+            __PYX_VERIFY_RETURN_INT(size_t, long, PyInt_AS_LONG(x))
+        } else {
+            long val = PyInt_AS_LONG(x);
+            if (is_unsigned && unlikely(val < 0)) {
+                goto raise_neg_overflow;
+            }
+            return (size_t) val;
+        }
+    } else
+#endif
+    if (likely(PyLong_Check(x))) {
+        if (is_unsigned) {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (size_t) 0;
+                case  1: __PYX_VERIFY_RETURN_INT(size_t, digit, digits[0])
+                case 2:
+                    if (8 * sizeof(size_t) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) >= 2 * PyLong_SHIFT) {
+                            return (size_t) (((((size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0]));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(size_t) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) >= 3 * PyLong_SHIFT) {
+                            return (size_t) (((((((size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0]));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(size_t) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) >= 4 * PyLong_SHIFT) {
+                            return (size_t) (((((((((size_t)digits[3]) << PyLong_SHIFT) | (size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0]));
+                        }
+                    }
+                    break;
+            }
+#endif
+#if CYTHON_COMPILING_IN_CPYTHON
+            if (unlikely(Py_SIZE(x) < 0)) {
+                goto raise_neg_overflow;
+            }
+#else
+            {
+                int result = PyObject_RichCompareBool(x, Py_False, Py_LT);
+                if (unlikely(result < 0))
+                    return (size_t) -1;
+                if (unlikely(result == 1))
+                    goto raise_neg_overflow;
+            }
+#endif
+            if (sizeof(size_t) <= sizeof(unsigned long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, unsigned long, PyLong_AsUnsignedLong(x))
+            } else if (sizeof(size_t) <= sizeof(unsigned PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, unsigned PY_LONG_LONG, PyLong_AsUnsignedLongLong(x))
+            }
+        } else {
+#if CYTHON_USE_PYLONG_INTERNALS
+            const digit* digits = ((PyLongObject*)x)->ob_digit;
+            switch (Py_SIZE(x)) {
+                case  0: return (size_t) 0;
+                case -1: __PYX_VERIFY_RETURN_INT(size_t, sdigit, -(sdigit) digits[0])
+                case  1: __PYX_VERIFY_RETURN_INT(size_t,  digit, +digits[0])
+                case -2:
+                    if (8 * sizeof(size_t) - 1 > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
+                            return (size_t) (((size_t)-1)*(((((size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case 2:
+                    if (8 * sizeof(size_t) > 1 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 2 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
+                            return (size_t) ((((((size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case -3:
+                    if (8 * sizeof(size_t) - 1 > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
+                            return (size_t) (((size_t)-1)*(((((((size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case 3:
+                    if (8 * sizeof(size_t) > 2 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 3 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
+                            return (size_t) ((((((((size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case -4:
+                    if (8 * sizeof(size_t) - 1 > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, long, -(long) (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 4 * PyLong_SHIFT) {
+                            return (size_t) (((size_t)-1)*(((((((((size_t)digits[3]) << PyLong_SHIFT) | (size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+                case 4:
+                    if (8 * sizeof(size_t) > 3 * PyLong_SHIFT) {
+                        if (8 * sizeof(unsigned long) > 4 * PyLong_SHIFT) {
+                            __PYX_VERIFY_RETURN_INT(size_t, unsigned long, (((((((((unsigned long)digits[3]) << PyLong_SHIFT) | (unsigned long)digits[2]) << PyLong_SHIFT) | (unsigned long)digits[1]) << PyLong_SHIFT) | (unsigned long)digits[0])))
+                        } else if (8 * sizeof(size_t) - 1 > 4 * PyLong_SHIFT) {
+                            return (size_t) ((((((((((size_t)digits[3]) << PyLong_SHIFT) | (size_t)digits[2]) << PyLong_SHIFT) | (size_t)digits[1]) << PyLong_SHIFT) | (size_t)digits[0])));
+                        }
+                    }
+                    break;
+            }
+#endif
+            if (sizeof(size_t) <= sizeof(long)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, long, PyLong_AsLong(x))
+            } else if (sizeof(size_t) <= sizeof(PY_LONG_LONG)) {
+                __PYX_VERIFY_RETURN_INT_EXC(size_t, PY_LONG_LONG, PyLong_AsLongLong(x))
+            }
+        }
+        {
+#if CYTHON_COMPILING_IN_PYPY && !defined(_PyLong_AsByteArray)
+            PyErr_SetString(PyExc_RuntimeError,
+                            "_PyLong_AsByteArray() not available in PyPy, cannot convert large numbers");
+#else
+            size_t val;
+            PyObject *v = __Pyx_PyNumber_Int(x);
+ #if PY_MAJOR_VERSION < 3
+            if (likely(v) && !PyLong_Check(v)) {
+                PyObject *tmp = v;
+                v = PyNumber_Long(tmp);
+                Py_DECREF(tmp);
+            }
+ #endif
+            if (likely(v)) {
+                int one = 1; int is_little = (int)*(unsigned char *)&one;
+                unsigned char *bytes = (unsigned char *)&val;
+                int ret = _PyLong_AsByteArray((PyLongObject *)v,
+                                              bytes, sizeof(val),
+                                              is_little, !is_unsigned);
+                Py_DECREF(v);
+                if (likely(!ret))
+                    return val;
+            }
+#endif
+            return (size_t) -1;
+        }
+    } else {
+        size_t val;
+        PyObject *tmp = __Pyx_PyNumber_Int(x);
+        if (!tmp) return (size_t) -1;
+        val = __Pyx_PyInt_As_size_t(tmp);
+        Py_DECREF(tmp);
+        return val;
+    }
+raise_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "value too large to convert to size_t");
+    return (size_t) -1;
+raise_neg_overflow:
+    PyErr_SetString(PyExc_OverflowError,
+        "can't convert negative value to size_t");
+    return (size_t) -1;
 }
 
 static CYTHON_INLINE PyObject* __Pyx_PyInt_From_long(long value) {
