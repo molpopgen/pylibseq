@@ -88,11 +88,7 @@ cdef class polyTable:
         Return data as list of tuples.
         """
         cdef vector[pair[double,string]] rv
-        cdef vector[pair[double,string]].const_iterator b = self.thisptr.sbegin()
-        cdef vector[pair[double,string]].const_iterator e = self.thisptr.send()
-        while b < e:
-            rv.push_back(deref(b))
-            inc(b)
+        rv.assign(self.thisptr.sbegin(),self.thisptr.send())
         return rv
     
 cdef class simData(polyTable):
