@@ -9,10 +9,34 @@
 # notice and this notice are preserved.  This file is offered as-is,
 # without any warranty.
 
-
+from __future__ import print_function
 from distutils.core import setup,Extension
 from Cython.Build import cythonize
-import platform, glob, sys
+import platform, glob, sys, subprocess
+
+#Dependency checks
+
+##Check for libsequence version
+try:
+    proc = subprocess.Popen(['libsequenceConfig','--version'],stdout=subprocess.PIPE)
+    (out,err) = proc.communicate()
+    version = str(out).rstrip()
+    print ("libsequence version",version," found.")
+    if version <= '@MINLIBSEQ@':
+        raise RuntimeError("libsequence > ,'@MINLIBSEQ@' required, but ",version, "found.")
+except:
+    print("libsequenceConfig not found.  Please install fwdpp (http://github.com/molpopgen/libsequence)")
+
+
+##Can we compile a program based on libsequence?
+print("Attempting to compile and link a test program using libsequence...")
+try:
+    proc = subprocess.check_output(['make','-f','check_deps/Makefile','clean'])
+    proc = subprocess.check_output(['make','-f','check_deps/Makefile'])
+    proc = subprocess.check_output(['make','-f','check_deps/Makefile','clean'])
+except subprocess.CalledProcessError as e:
+    print (e.returncode)
+print("done")
 
 if platform.system() == 'Linux' or platform.system() == 'Darwin':
     doc_dir = '@prefix@/share/doc/@PACKAGE_TARNAME@'
