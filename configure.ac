@@ -45,7 +45,7 @@ dnl 2) package version (i.e. 1.2)
 dnl 3) bug/info/project email address (i.e. bug-foo@gnu.org)
 dnl----
 dnl
-AC_INIT([pyseq], [0.1.3], [krthornt@uci.edu])
+AC_INIT([pylibseq], [0.1.4], [krthornt@uci.edu])
 
 
 dnl----
@@ -401,14 +401,16 @@ dnl Define the files to be configured
 AC_CONFIG_FILES([Makefile setup.py conf.py])
 AC_CONFIG_HEADERS([config.h])
 
+MINLSEQVERSION="1.8.7"
+AC_SUBST(MINLIBSEQ,$MINLSEQVERSION)
 LIBSEQVERSION=`libsequenceConfig --version`
 
 dnl Check that libsequence version is sufficient
-if test "$LIBSEQVERSION" \> "1.8.6"
+if test "$LIBSEQVERSION" \> $MINLSEQVERSION
 then
 	echo "libsequence version $LIBSEQVERSION detected"
 else
-	AC_MSG_ERROR([libsequence >= 1.8.7 required, please install from http://github.com/molpopgen/libsequence])
+	AC_MSG_ERROR([libsequence > $MINLSEQVERSION required, please install from http://github.com/molpopgen/libsequence])
 fi
 
 AC_ARG_ENABLE([cython],AS_HELP_STRING([--enable-cython],[Use Cython for compilation]),[AC_SUBST(EXTENSION,".pyx") AC_SUBST(CYTHONIMPORT,"from Cython.Build import cythonize") AC_SUBST(CYTHONIZE,"cythonize(extensions,gdb_debug=False)")],[AC_SUBST(EXTENSION,".cpp") AC_SUBST(CYTHONIMPORT,"") AC_SUBST(CYTHONIZE,"extensions")])

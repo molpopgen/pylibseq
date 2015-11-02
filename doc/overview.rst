@@ -2,8 +2,8 @@
 Example workflow
 ================
 
-We'll work with pyseq's wrapper to libsequence's SimData, which is used
-to process bi-allele data encoded as 0/1 = ancestral/derived,
+We'll work with pylibseq's wrapper to libsequence's SimData, which is
+used to process bi-allele data encoded as 0/1 = ancestral/derived,
 respectively
 
 .. code:: python
