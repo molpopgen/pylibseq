@@ -1,9 +1,9 @@
-.. pyseq documentation master file, created by
+.. pylibseq documentation master file, created by
    sphinx-quickstart on Mon Oct 19 19:11:29 2015.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to pyseq's documentation!
+Welcome to pylibseq's documentation!
 =================================
 
 Contents:

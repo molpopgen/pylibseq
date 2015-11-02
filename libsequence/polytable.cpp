@@ -904,7 +904,7 @@ static char __pyx_k_Constructor_param_x_A_list_para[] = "\n        Constructor\n
 static char __pyx_k_Fill_data_from_a_list_of_tuples[] = "\n        Fill data from a list of tuples\n\n        Example:\n\n        >>> import libsequence.polytable as pypt\n        >>> x = pypt.simData()\n        >>> x.assign([ (0.1,\"01\"),(0.2,\"10\") ])\n        ";
 static char __pyx_k_Fill_object_from_two_lists_Exam[] = "\n        Fill object from two lists\n\n        Example: \n\n        >>> import libsequence.polytable as pypt\n        >>> x = pypt.simData()\n        >>> pos = [0.1,0.2,0.3,0.4]\n        >>> data = [\"0101\",\"1011\"]\n        >>> x.assign_sep(pos,data)\n        ";
 static char __pyx_k_Remove_all_sites_columns_with_g[] = "\n    Remove all sites (columns) with gaps.\n\n    :param p: An object derived from :class:`libsequence.polytable.polyTable`\n    :param gapchar: the character representing an alignment gap\n    \n    Example:\n\n    >>> import libsequence.polytable as pypt\n    >>> x = pypt.polySites()\n    >>> x.assign_sep([0.1,0.2,0.3],[\"ATC\",\"CGA\",\"AT-\"])\n    >>> pypt.removeGaps(x)\n    >>> x.pos()\n    [0.1, 0.2]\n    ";
-static char __pyx_k_home_kevin_src_pyseq_libsequenc[] = "/home/kevin/src/pyseq/libsequence/polytable.pyx";
+static char __pyx_k_home_kevin_src_pylibseq_libsequ[] = "/home/kevin/src/pylibseq/libsequence/polytable.pyx";
 static char __pyx_k_polyTable_cannot_be_used_directl[] = "polyTable cannot be used directly.  Use derived types instead";
 static char __pyx_k_Constructor_param_x_A_list_para_2[] = "\n        Constructor\n\n        :param x: A list\n        :param y: A list\n\n        If x is None and y is None, and empty object is created.\n        \n        If y is None, x must be a list of tuples (position, \"string\")\n\n        if neither x nor y are None, x is a list of positions, and y a list of haplotypes.\n\n        Example:\n\n        >>> import libsequence.polytable as polyt\n        >>> x = polyt.polySites()\n        >>> x = polyt.polySites( [ (0.1,\"ATTA\"),(0.2,\"GGGC\") ] )\n        >>> x = polyt.polySites( [0.2,0.2],[\"AG\",\"TG\",\"TG\",\"AC\"] )\n\n        ";
 static PyObject *__pyx_kp_u_Constructor_param_x_A_list_para;
@@ -926,7 +926,7 @@ static PyObject *__pyx_n_s_freqFilter;
 static PyObject *__pyx_n_s_gapchar;
 static PyObject *__pyx_n_s_gc;
 static PyObject *__pyx_n_s_haveOutgroup;
-static PyObject *__pyx_kp_s_home_kevin_src_pyseq_libsequenc;
+static PyObject *__pyx_kp_s_home_kevin_src_pylibseq_libsequ;
 static PyObject *__pyx_n_s_isValid;
 static PyObject *__pyx_kp_u_isValid_line_196;
 static PyObject *__pyx_n_s_libsequence_polytable;
@@ -5383,7 +5383,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_gapchar, __pyx_k_gapchar, sizeof(__pyx_k_gapchar), 0, 0, 1, 1},
   {&__pyx_n_s_gc, __pyx_k_gc, sizeof(__pyx_k_gc), 0, 0, 1, 1},
   {&__pyx_n_s_haveOutgroup, __pyx_k_haveOutgroup, sizeof(__pyx_k_haveOutgroup), 0, 0, 1, 1},
-  {&__pyx_kp_s_home_kevin_src_pyseq_libsequenc, __pyx_k_home_kevin_src_pyseq_libsequenc, sizeof(__pyx_k_home_kevin_src_pyseq_libsequenc), 0, 0, 1, 0},
+  {&__pyx_kp_s_home_kevin_src_pylibseq_libsequ, __pyx_k_home_kevin_src_pylibseq_libsequ, sizeof(__pyx_k_home_kevin_src_pylibseq_libsequ), 0, 0, 1, 0},
   {&__pyx_n_s_isValid, __pyx_k_isValid, sizeof(__pyx_k_isValid), 0, 0, 1, 1},
   {&__pyx_kp_u_isValid_line_196, __pyx_k_isValid_line_196, sizeof(__pyx_k_isValid_line_196), 0, 1, 0, 0},
   {&__pyx_n_s_libsequence_polytable, __pyx_k_libsequence_polytable, sizeof(__pyx_k_libsequence_polytable), 0, 0, 1, 1},
@@ -5491,7 +5491,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__7 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_gapchar, __pyx_n_s_gc); if (unlikely(!__pyx_tuple__7)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pyseq_libsequenc, __pyx_n_s_removeGaps, 177, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pylibseq_libsequ, __pyx_n_s_removeGaps, 177, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 177; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "libsequence/polytable.pyx":196
  *     RemoveGaps(p.thisptr,gc[0])
@@ -5503,7 +5503,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__9 = PyTuple_Pack(1, __pyx_n_s_p); if (unlikely(!__pyx_tuple__9)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pyseq_libsequenc, __pyx_n_s_isValid, 196, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pylibseq_libsequ, __pyx_n_s_isValid, 196, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 196; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "libsequence/polytable.pyx":220
  *     return PolyTableValid(p.thisptr)
@@ -5515,7 +5515,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__11 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_skipOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__11)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 220; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pyseq_libsequenc, __pyx_n_s_removeMono, 220, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 220; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pylibseq_libsequ, __pyx_n_s_removeMono, 220, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 220; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "libsequence/polytable.pyx":230
  *     RemoveInvariantColumns(p.thisptr,skipOutgroup,outgroup)
@@ -5527,7 +5527,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__13 = PyTuple_Pack(4, __pyx_n_s_p, __pyx_n_s_mincount, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 230; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pyseq_libsequenc, __pyx_n_s_freqFilter, 230, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 230; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(4, 0, 4, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pylibseq_libsequ, __pyx_n_s_freqFilter, 230, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 230; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "libsequence/polytable.pyx":243
  *     p.thisptr.ApplyFreqFilter(mincount,haveOutgroup,outgroup)
@@ -5539,7 +5539,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__15 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__15)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 243; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pyseq_libsequenc, __pyx_n_s_removeMissing, 243, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 243; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pylibseq_libsequ, __pyx_n_s_removeMissing, 243, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 243; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "libsequence/polytable.pyx":254
  *     p.thisptr.RemoveMissing(haveOutgroup,outgroup)
@@ -5551,7 +5551,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__17 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__17)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pyseq_libsequenc, __pyx_n_s_removeMultiHits, 254, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pylibseq_libsequ, __pyx_n_s_removeMultiHits, 254, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 254; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "libsequence/polytable.pyx":264
  *     p.thisptr.RemoveMultiHits(haveOutgroup,outgroup)
@@ -5563,7 +5563,7 @@ static int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__19 = PyTuple_Pack(3, __pyx_n_s_p, __pyx_n_s_haveOutgroup, __pyx_n_s_outgroup); if (unlikely(!__pyx_tuple__19)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 264; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__19);
   __Pyx_GIVEREF(__pyx_tuple__19);
-  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pyseq_libsequenc, __pyx_n_s_removeAmbiguous, 264, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 264; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__20 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__19, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_kevin_src_pylibseq_libsequ, __pyx_n_s_removeAmbiguous, 264, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__20)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 264; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
