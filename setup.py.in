@@ -11,7 +11,7 @@
 
 from __future__ import print_function
 from distutils.core import setup,Extension
-from Cython.Build import cythonize
+@CYTHONIMPORT@
 import platform, glob, sys, subprocess
 
 #Dependency checks
