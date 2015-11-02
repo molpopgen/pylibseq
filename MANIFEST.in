@@ -5,3 +5,4 @@ include setup.py.in
 include config.h.in
 include Makefile.in
 include conf.py.in
+recursive-include check_deps *
