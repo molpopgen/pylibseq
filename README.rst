@@ -1,4 +1,4 @@
-pyseq: Python bindings for libsequence
+pylibseq: Python bindings for libsequence
 ***************************************************************
 
 This package provides Python_ bindings for the C++11 library libsequence_.
