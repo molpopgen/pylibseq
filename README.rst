@@ -30,6 +30,19 @@ The supported platforms are Linux and OS X.
 Installation:
 =======================
 
+The latest release of the package is available via PyPi_, and can be installed with your favorite Python package manager:
+
+.. code-block:: bash
+
+   $ pip install --upgrade pylibseq
+
+Or, you may install from GitHub:
+
+.. code_block:: bash
+
+   $ git clone http://github.com/molpopgen/pylibseq
+   $ cd pylibseq
+
 .. code-block:: bash
 
    $ ./configure
@@ -78,3 +91,4 @@ Documentation:
 .. _Python: http://www.cython.org/
 .. _Manual: http://molpopgen.github.io/pylibseq/_build/html/index.html
 .. _homepage: http://molpopgen.github.io/pylibseq/
+.. _PyPi: https://pypi.python.org
