@@ -69,9 +69,12 @@ You wll need to enable re-generation of the C++ source files:
 Documentation:
 ======================
 
-Eventually, documentation will be online.  Check the unit_test directory for working examples (well, working if the tests are passing!).
+* Project homepage_
+* Manual_
 
 .. _libsequence: http://molpopgen.github.io/libsequence/
 .. _boost: http://www.boost.org/
 .. _Cython: http://www.cython.org/
 .. _Python: http://www.cython.org/
+.. _Manual: http://molpopgen.github.io/pylibseq/_build/html/index.html
+.. _homepage: http://molpopgen.github.io/pylibseq/
