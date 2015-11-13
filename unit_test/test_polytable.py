@@ -43,6 +43,14 @@ class test_simdata(unittest.TestCase):
             x = simData()
             x.assign_sep(pos,data)
 
+class test_functions_polySites(unittest.TestCase):
+    def testRemoveMono1(self):
+        d = [(0.1,"AGAG"),(0.2,"AAAA")]
+        x = polySites()
+        x.assign(d)
+        removeMono(x)
+        self.assertEqual(x.numsites(),1)
+        
 class test_functions_simData(unittest.TestCase):
     def testRemoveMono1(self):
         d = [(0.1,"01010101"),(0.2,"11111111")]
