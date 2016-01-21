@@ -65,7 +65,7 @@ Unit testing:
 
 .. code-block:: bash
 
-   $ ./configure 
+   $ ./configure
    $ python setup.py build_ext -i
    $ python -m unittest discover unit_test
 
