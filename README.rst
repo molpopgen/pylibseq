@@ -27,6 +27,11 @@ If you want to modify the package, you will need Cython_ installed via your favo
 
 The supported platforms are Linux and OS X.
 
+Changelog (rough)
+==============================
+
+* 0.1.6: update to libsequence 1.8.9.  Add --use-cython option to setup.py
+
 Installation:
 =======================
 
@@ -72,11 +77,9 @@ Unit testing:
 Modifying the package
 =======================
 
-You wll need to enable re-generation of the C++ source files:
-
 .. code-block:: bash
 
-   $ ./configure --enable-cython
+   $ python setup.py build_ext -i --use-cython
 
 
 Documentation:
