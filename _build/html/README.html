@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pylibseq: Python bindings for libsequence &mdash; pylibseq 0.1.4 documentation</title>
+    <title>pylibseq: Python bindings for libsequence &mdash; pylibseq 0.1.6 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.4',
+        VERSION:     '0.1.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pylibseq 0.1.4 documentation" href="index.html" />
+    <link rel="top" title="pylibseq 0.1.6 documentation" href="index.html" />
     <link rel="next" title="Example workflow" href="doc/overview.html" />
     <link rel="prev" title="Welcome to pylibseq’s documentation!" href="index.html" /> 
   </head>
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to pylibseq’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pylibseq 0.1.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pylibseq 0.1.6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -77,8 +77,19 @@
 <p>If you want to modify the package, you will need <a class="reference external" href="http://www.cython.org/">Cython</a> installed via your favorite Python package manager.</p>
 <p>The supported platforms are Linux and OS X.</p>
 </div>
+<div class="section" id="changelog-rough">
+<h2>Changelog (rough)<a class="headerlink" href="#changelog-rough" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>0.1.6: update to libsequence 1.8.9.  Add &#8211;use-cython option to setup.py</li>
+</ul>
+</div>
 <div class="section" id="installation">
 <h2>Installation:<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>The latest release of the package is available via <a class="reference external" href="https://pypi.python.org">PyPi</a>, and can be installed with your favorite Python package manager:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install --upgrade pylibseq
+</pre></div>
+</div>
+<p>Or, you may install from GitHub:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./configure
 <span class="nv">$ </span>sudo python setup.py install
 </pre></div>
@@ -102,14 +113,16 @@
 </div>
 <div class="section" id="modifying-the-package">
 <h2>Modifying the package<a class="headerlink" href="#modifying-the-package" title="Permalink to this headline">¶</a></h2>
-<p>You wll need to enable re-generation of the C++ source files:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./configure --enable-cython
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python setup.py build_ext -i --use-cython
 </pre></div>
 </div>
 </div>
 <div class="section" id="documentation">
 <h2>Documentation:<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
-<p>Eventually, documentation will be online.  Check the unit_test directory for working examples (well, working if the tests are passing!).</p>
+<ul class="simple">
+<li>Project <a class="reference external" href="http://molpopgen.github.io/pylibseq/">homepage</a></li>
+<li><a class="reference external" href="http://molpopgen.github.io/pylibseq/_build/html/index.html">Manual</a></li>
+</ul>
 </div>
 </div>
 
@@ -123,6 +136,7 @@
   <ul>
 <li><a class="reference internal" href="#">pylibseq: Python bindings for libsequence</a><ul>
 <li><a class="reference internal" href="#requirements">Requirements:</a></li>
+<li><a class="reference internal" href="#changelog-rough">Changelog (rough)</a></li>
 <li><a class="reference internal" href="#installation">Installation:</a></li>
 <li><a class="reference internal" href="#unit-testing">Unit testing:</a></li>
 <li><a class="reference internal" href="#modifying-the-package">Modifying the package</a></li>
@@ -176,7 +190,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to pylibseq’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pylibseq 0.1.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pylibseq 0.1.6 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to pylibseq’s documentation! &mdash; pylibseq 0.1.4 documentation</title>
+    <title>Welcome to pylibseq’s documentation! &mdash; pylibseq 0.1.6 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.4',
+        VERSION:     '0.1.6',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pylibseq 0.1.4 documentation" href="#" />
+    <link rel="top" title="pylibseq 0.1.6 documentation" href="#" />
     <link rel="next" title="pylibseq: Python bindings for libsequence" href="README.html" /> 
   </head>
   <body role="document">
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="README.html" title="pylibseq: Python bindings for libsequence"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.1.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.1.6 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -56,6 +56,7 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">pylibseq: Python bindings for libsequence</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="README.html#requirements">Requirements:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#changelog-rough">Changelog (rough)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#unit-testing">Unit testing:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#modifying-the-package">Modifying the package</a></li>
@@ -258,7 +259,7 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>p</strong> &#8211; An object derived from <a class="reference internal" href="#libsequence.polytable.polyTable" title="libsequence.polytable.polyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polyTable</span></code></a></li>
-<li><strong>haveOutgroup</strong> &#8211; if True, the sequence at position &#8216;outgroup&#8217; will not be included in determining if a site is monomorphic</li>
+<li><strong>skipOutgroup</strong> &#8211; if True, the sequence at position &#8216;outgroup&#8217; will not be included in determining if a site is monomorphic</li>
 <li><strong>outgroup</strong> &#8211; The index of the outgroup sequence in p</li>
 </ul>
 </td>
@@ -305,7 +306,7 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>p</strong> &#8211; An object derived from <a class="reference internal" href="#libsequence.polytable.polyTable" title="libsequence.polytable.polyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polyTable</span></code></a></li>
 <li><strong>mincount</strong> &#8211; Sites with mutation counts &lt;= this value will be removed.  For example, use a value of 2 to remove singletons</li>
-<li><strong>haveOutgroup</strong> &#8211; if True, the sequence at position &#8216;outgroup&#8217; will not be included in determining if a site is monomorphic</li>
+<li><strong>skipOutgroup</strong> &#8211; if True, the sequence at position &#8216;outgroup&#8217; will not be included in determining if a site is monomorphic</li>
 <li><strong>outgroup</strong> &#8211; The index of the outgroup sequence in p</li>
 </ul>
 </td>
@@ -343,7 +344,7 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>p</strong> &#8211; An object derived from <a class="reference internal" href="#libsequence.polytable.polyTable" title="libsequence.polytable.polyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polyTable</span></code></a></li>
-<li><strong>haveOutgroup</strong> &#8211; if True, the sequence at position &#8216;outgroup&#8217; will not be included in determining if a site is monomorphic</li>
+<li><strong>skipOutgroup</strong> &#8211; if True, the sequence at position &#8216;outgroup&#8217; will not be included in determining if a site is monomorphic</li>
 <li><strong>outgroup</strong> &#8211; The index of the outgroup sequence in p</li>
 </ul>
 </td>
@@ -833,7 +834,7 @@ where <span class="math">\(S\)</span> is the number of polymorphisms and <span c
         <li class="right" >
           <a href="README.html" title="pylibseq: Python bindings for libsequence"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.1.4 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.1.6 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
