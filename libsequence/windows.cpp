@@ -532,8 +532,8 @@ typedef Sequence::PolyTableSlice<Sequence::SimData>  __pyx_t_11libsequence_7wind
  */
 typedef Sequence::PolyTableSlice<Sequence::PolySites>  __pyx_t_11libsequence_7windows_PolySitesWindows;
 
-/* "libsequence/polytable.pxd":58
- *   bint PolyTableValid(const PolyTable * t)
+/* "libsequence/polytable.pxd":47
+ *     T polyTableFreqFilter[T](const T & t, const unsigned mincount,const bint skipAnc, const unsigned anc, const char gapchar)
  * 
  * cdef class polyTable:             # <<<<<<<<<<<<<<
  *     cdef PolyTable * thisptr
@@ -546,7 +546,7 @@ struct __pyx_obj_11libsequence_9polytable_polyTable {
 };
 
 
-/* "libsequence/polytable.pxd":68
+/* "libsequence/polytable.pxd":57
  *     cpdef assign_sep(self,const vector[double] & pos,const vector[string] & data)
  * 
  * cdef class simData(polyTable):             # <<<<<<<<<<<<<<
@@ -558,7 +558,7 @@ struct __pyx_obj_11libsequence_9polytable_simData {
 };
 
 
-/* "libsequence/polytable.pxd":71
+/* "libsequence/polytable.pxd":60
  *     pass
  * 
  * cdef class polySites(polyTable):             # <<<<<<<<<<<<<<
@@ -583,8 +583,8 @@ struct __pyx_obj_11libsequence_7windows_Windows {
 
 
 
-/* "libsequence/polytable.pxd":58
- *   bint PolyTableValid(const PolyTable * t)
+/* "libsequence/polytable.pxd":47
+ *     T polyTableFreqFilter[T](const T & t, const unsigned mincount,const bint skipAnc, const unsigned anc, const char gapchar)
  * 
  * cdef class polyTable:             # <<<<<<<<<<<<<<
  *     cdef PolyTable * thisptr
@@ -603,7 +603,7 @@ struct __pyx_vtabstruct_11libsequence_9polytable_polyTable {
 static struct __pyx_vtabstruct_11libsequence_9polytable_polyTable *__pyx_vtabptr_11libsequence_9polytable_polyTable;
 
 
-/* "libsequence/polytable.pxd":68
+/* "libsequence/polytable.pxd":57
  *     cpdef assign_sep(self,const vector[double] & pos,const vector[string] & data)
  * 
  * cdef class simData(polyTable):             # <<<<<<<<<<<<<<
@@ -617,7 +617,7 @@ struct __pyx_vtabstruct_11libsequence_9polytable_simData {
 static struct __pyx_vtabstruct_11libsequence_9polytable_simData *__pyx_vtabptr_11libsequence_9polytable_simData;
 
 
-/* "libsequence/polytable.pxd":71
+/* "libsequence/polytable.pxd":60
  *     pass
  * 
  * cdef class polySites(polyTable):             # <<<<<<<<<<<<<<
@@ -2531,12 +2531,12 @@ PyMODINIT_FUNC PyInit_windows(void)
   if (PyObject_SetAttrString(__pyx_m, "Windows", (PyObject *)&__pyx_type_11libsequence_7windows_Windows) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 32; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_ptype_11libsequence_7windows_Windows = &__pyx_type_11libsequence_7windows_Windows;
   /*--- Type import code ---*/
-  __pyx_ptype_11libsequence_9polytable_polyTable = __Pyx_ImportType("libsequence.polytable", "polyTable", sizeof(struct __pyx_obj_11libsequence_9polytable_polyTable), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_polyTable)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_vtabptr_11libsequence_9polytable_polyTable = (struct __pyx_vtabstruct_11libsequence_9polytable_polyTable*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_polyTable->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_polyTable)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 58; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_11libsequence_9polytable_simData = __Pyx_ImportType("libsequence.polytable", "simData", sizeof(struct __pyx_obj_11libsequence_9polytable_simData), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_simData)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_vtabptr_11libsequence_9polytable_simData = (struct __pyx_vtabstruct_11libsequence_9polytable_simData*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_simData->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_simData)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 68; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_ptype_11libsequence_9polytable_polySites = __Pyx_ImportType("libsequence.polytable", "polySites", sizeof(struct __pyx_obj_11libsequence_9polytable_polySites), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_polySites)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
-  __pyx_vtabptr_11libsequence_9polytable_polySites = (struct __pyx_vtabstruct_11libsequence_9polytable_polySites*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_polySites->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_polySites)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 71; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_11libsequence_9polytable_polyTable = __Pyx_ImportType("libsequence.polytable", "polyTable", sizeof(struct __pyx_obj_11libsequence_9polytable_polyTable), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_polyTable)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_11libsequence_9polytable_polyTable = (struct __pyx_vtabstruct_11libsequence_9polytable_polyTable*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_polyTable->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_polyTable)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 47; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_11libsequence_9polytable_simData = __Pyx_ImportType("libsequence.polytable", "simData", sizeof(struct __pyx_obj_11libsequence_9polytable_simData), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_simData)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_11libsequence_9polytable_simData = (struct __pyx_vtabstruct_11libsequence_9polytable_simData*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_simData->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_simData)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 57; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_ptype_11libsequence_9polytable_polySites = __Pyx_ImportType("libsequence.polytable", "polySites", sizeof(struct __pyx_obj_11libsequence_9polytable_polySites), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_polySites)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_vtabptr_11libsequence_9polytable_polySites = (struct __pyx_vtabstruct_11libsequence_9polytable_polySites*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_polySites->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_polySites)) {__pyx_filename = __pyx_f[2]; __pyx_lineno = 60; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   /*--- Variable import code ---*/
   /*--- Function import code ---*/
   /*--- Execution code ---*/

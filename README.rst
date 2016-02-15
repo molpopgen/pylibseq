@@ -27,8 +27,26 @@ If you want to modify the package, you will need Cython_ installed via your favo
 
 The supported platforms are Linux and OS X.
 
+Changelog (rough)
+==============================
+
+* 0.1.6: update to libsequence 1.8.9.  Add --use-cython option to setup.py
+
 Installation:
 =======================
+
+The latest release of the package is available via PyPi_, and can be installed with your favorite Python package manager:
+
+.. code-block:: bash
+
+   $ pip install --upgrade pylibseq
+
+Or, you may install from GitHub:
+
+.. code_block:: bash
+
+   $ git clone http://github.com/molpopgen/pylibseq
+   $ cd pylibseq
 
 .. code-block:: bash
 
@@ -52,26 +70,28 @@ Unit testing:
 
 .. code-block:: bash
 
-   $ ./configure 
+   $ ./configure
    $ python setup.py build_ext -i
    $ python -m unittest discover unit_test
 
 Modifying the package
 =======================
 
-You wll need to enable re-generation of the C++ source files:
-
 .. code-block:: bash
 
-   $ ./configure --enable-cython
+   $ python setup.py build_ext -i --use-cython
 
 
 Documentation:
 ======================
 
-Eventually, documentation will be online.  Check the unit_test directory for working examples (well, working if the tests are passing!).
+* Project homepage_
+* Manual_
 
 .. _libsequence: http://molpopgen.github.io/libsequence/
 .. _boost: http://www.boost.org/
 .. _Cython: http://www.cython.org/
 .. _Python: http://www.cython.org/
+.. _Manual: http://molpopgen.github.io/pylibseq/_build/html/index.html
+.. _homepage: http://molpopgen.github.io/pylibseq/
+.. _PyPi: https://pypi.python.org

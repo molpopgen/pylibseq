@@ -2,9 +2,12 @@
 from libcpp.vector cimport vector
 from libcpp.string cimport string
 from libcpp.memory cimport shared_ptr
+from libcpp.cast cimport dynamic_cast
 from cython.operator import dereference as deref,postincrement as inc
 
-from polytable cimport PolyTable,SimData
+from polytable cimport PolyTable,SimData, removeGaps as cpp_removeGaps
+from polytable cimport removeMissing as cpp_removeMissing, removeAmbiguous as cpp_removeAmbiguous
+from polytable cimport removeMultiHits as cpp_removeMultiHits,polyTableFreqFilter as ptFF
 
 cdef class polyTable:
     """
@@ -25,10 +28,10 @@ cdef class polyTable:
         Get the sample size of the polymorphism table
         """
         assert (self.thisptr != NULL)
-        return self.thisptr.second.size()
+        return self.thisptr.size()
     def __getitem__(self, size_t i):
         assert (self.thisptr != NULL)
-        return self.thisptr.second[i]
+        return deref(self.thisptr)[i]
     cpdef numsites(self):
         return self.thisptr.numsites()
     cpdef data(self):
@@ -80,7 +83,8 @@ cdef class polyTable:
         >>> x.assign_sep(pos,data)
         """
         assert (self.thisptr != NULL)
-        cdef bint rv =self.thisptr.assign[double,string](pos.data(),pos.size(),data.data(),data.size())
+        #cdef bint rv =self.thisptr.assign[double,string](pos.data(),pos.size(),data.data(),data.size())
+        cdef bint rv =self.thisptr.assign(pos,data)
         if rv == False:
             raise RuntimeError("assign_sep failed")
     def tolist(self):
@@ -191,7 +195,14 @@ def removeGaps(polyTable p, gapchar = '-'):
     [0.1, 0.2]
     """
     cdef char * gc = gapchar
-    RemoveGaps(p.thisptr,gc[0])
+    cdef PolySites temp
+    cdef SimData temp2
+    if isinstance(p,polySites):
+        temp = cpp_removeGaps[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr)),False,0,gc[0])
+        p.assign_sep(temp.GetPositions(),temp.GetData())
+    else:
+        temp2 = cpp_removeGaps[SimData](deref(dynamic_cast['SimData*'](p.thisptr)),False,0,gc[0])
+        p.assign_sep(temp2.GetPositions(),temp2.GetData())
 
 def isValid(polyTable p):
     """
@@ -215,9 +226,9 @@ def isValid(polyTable p):
     >>> pypt.isValid(x)
     False
     """
-    return PolyTableValid(p.thisptr)
+    return polyTableValid(p.thisptr)
 
-def removeMono(polyTable p, bint skipOutgroup = False, unsigned outgroup = 0):
+def removeMono(polyTable p, bint skipOutgroup = False, unsigned outgroup = 0, gapchar = '-'):
     """
     Remove invariant sites from p
 
@@ -225,9 +236,17 @@ def removeMono(polyTable p, bint skipOutgroup = False, unsigned outgroup = 0):
     :param skipOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     """
-    RemoveInvariantColumns(p.thisptr,skipOutgroup,outgroup)
-
-def freqFilter(polyTable p,unsigned mincount,bint haveOutgroup = False, unsigned outgroup = 0):
+    cdef char * gc = gapchar
+    cdef PolySites temp
+    cdef SimData temp2
+    if isinstance(p,polySites):
+        temp = removeInvariantPos[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        p.assign_sep(temp.GetPositions(),temp.GetData())
+    else:
+        temp2 = removeInvariantPos[SimData](deref(dynamic_cast['SimData*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        p.assign_sep(temp2.GetPositions(),temp2.GetData())
+        
+def freqFilter(polyTable p,unsigned mincount,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
     """
     Remove all sites with mutation count <= mincount
 
@@ -238,37 +257,69 @@ def freqFilter(polyTable p,unsigned mincount,bint haveOutgroup = False, unsigned
     
     .. note:: If haveOutgroup == True, this is a filter on derived mutation counts, otherwise it is a filter on minor allele counts.  If p is of type :class:`libsequence.polyTable.simData`, this is a filter on derived mutation counts.
     """
-    p.thisptr.ApplyFreqFilter(mincount,haveOutgroup,outgroup)
+    cdef char * gc = gapchar
+    cdef PolySites temp
+    cdef SimData temp2
+    if isinstance(p,polySites):
+        temp = ptFF[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr)),mincount,skipOutgroup,outgroup,gc[0])
+        p.assign_sep(temp.GetPositions(),temp.GetData())
+    else:
+        temp2 = ptFF[SimData](deref(dynamic_cast['SimData*'](p.thisptr)),mincount,skipOutgroup,outgroup,gc[0])
+        p.assign_sep(temp2.GetPositions(),temp2.GetData())
 
-def removeMissing(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):
+def removeMissing(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
     """
     Remove all sites missing data (the 'N' or 'n' character)
 
     :param p: An object derived from :class:`libsequence.polytable.polyTable`
     :param mincount: Sites with mutation counts <= this value will be removed.  For example, use a value of 2 to remove singletons
-    :param haveOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
+    :param skipOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     """
-    p.thisptr.RemoveMissing(haveOutgroup,outgroup)
-
-def removeMultiHits(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):
+    cdef char * gc = gapchar
+    cdef PolySites temp
+    cdef SimData temp2
+    if isinstance(p,polySites):
+        temp = cpp_removeMissing[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        p.assign_sep(temp.GetPositions(),temp.GetData())
+    else:
+        temp2 = cpp_removeMissing[SimData](deref(dynamic_cast['SimData*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        p.assign_sep(temp2.GetPositions(),temp2.GetData())
+        
+def removeMultiHits(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
     """
     Remove all sites with more than two character states.
 
     :param p: An object derived from :class:`libsequence.polytable.polyTable`
-    :param haveOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
+    :param skipOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     """
-    p.thisptr.RemoveMultiHits(haveOutgroup,outgroup)
-
-def removeAmbiguous(polyTable p,bint haveOutgroup = False, unsigned outgroup = 0):
+    cdef char * gc = gapchar
+    cdef PolySites temp
+    cdef SimData temp2
+    if isinstance(p,polySites):
+        temp = cpp_removeMultiHits[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        p.assign_sep(temp.GetPositions(),temp.GetData())
+    else:
+        temp2 = cpp_removeMultiHits[SimData](deref(dynamic_cast['SimData*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        p.assign_sep(temp2.GetPositions(),temp2.GetData())
+    
+def removeAmbiguous(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
     """
     Remove all sites with characters not in the set A,G,C,T,N,0,1,-.
 
     :param p: An object derived from :class:`libsequence.polytable.polyTable`
-    :param haveOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
+    :param skipOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     """
-    p.thisptr.RemoveAmbiguous(haveOutgroup,outgroup)
+    cdef char * gc = gapchar
+    cdef PolySites temp
+    cdef SimData temp2
+    if isinstance(p,polySites):
+        temp = cpp_removeAmbiguous[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        p.assign_sep(temp.GetPositions(),temp.GetData())
+    else:
+        temp2 = cpp_removeAmbiguous[SimData](deref(dynamic_cast['SimData*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        p.assign_sep(temp2.GetPositions(),temp2.GetData())
 
 

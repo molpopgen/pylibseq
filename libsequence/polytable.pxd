@@ -18,25 +18,11 @@ cdef extern from "Sequence/PolyTable.hpp" namespace "Sequence":
 
         bint assign(const psite_vec_const_itr &,
                     const psite_vec_const_itr & )
-        bint assign[NUMERIC,STRING]( const NUMERIC *,
-                                     const size_t &,
-                                     const STRING *,
-                                     const size_t & )
+        bint assign(vector[double], vector[string])
         bint empty() const
         double position(unsigned &) const
         unsigned numsites() const
         unsigned size() const
-
-        #non-const operations
-        void ApplyFreqFilter(const unsigned & mincount,
-                             const bint & haveOutgroup,
-                             const unsigned & outgroup)
-        void RemoveMultiHits(const bint & skipOutgroup,
-                             const unsigned & outgroup)
-        void RemoveMissing(const bint & skipOutgroup,
-                           const unsigned & outgroup)
-        void RemoveAmbiguous(const bint & skipOutgroup,
-                             const unsigned & outgroup)
         
                 
 cdef extern from "Sequence/SimData.hpp" namespace "Sequence":
@@ -49,12 +35,15 @@ cdef extern from "Sequence/PolySites.hpp" namespace "Sequence":
         PolySites()
 
 cdef extern from "Sequence/PolyTableFunctions.hpp" namespace "Sequence":
-  void RemoveGaps(PolyTable *t, const char & gapchar)
-  void RemoveInvariantColumns(PolyTable *t,
-			      const bint & skipOutgroup,
-			      const unsigned & outgroup)
-  bint PolyTableValid(const PolyTable * t)
-
+    bint polyTableValid(const PolyTable * t)
+    T removeGaps[T](const T &, const bint skipAnc, const unsigned anc, const char gapchar)
+    T removeInvariantPos[T](const T & t, const bint skipAnc, const unsigned anc,  const char gapchar)
+    T removeAmbiguous[T](const T & t, const bint skipAnc, const unsigned anc, const char gapchar)
+    T removeMissing[T](const T & t, const bint skipAnc, const unsigned anc, const char gapchar)
+    T removeMultiHits[T](const T & t, const bint skipAnc, const unsigned anc, const char gapchar)
+    T polyTableToBinary[T](const T & t, const unsigned ref , const char gapchar)
+    T polyTableFreqFilter[T](const T & t, const unsigned mincount,const bint skipAnc, const unsigned anc, const char gapchar)
+    
 cdef class polyTable:
     cdef PolyTable * thisptr
     cpdef size(self)
