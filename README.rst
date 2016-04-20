@@ -53,6 +53,12 @@ Or, you may install from GitHub:
    $ ./configure
    $ sudo python setup.py install
 
+You may also install from GitHub using pip:
+
+.. code_block:: bash
+
+   $ pip install git+git://github.com/molpopgen/pylibseq
+
 If you have libsequence in a "funny location" (*e.g.*, something other that /usr/local):
 
 .. code-block:: bash

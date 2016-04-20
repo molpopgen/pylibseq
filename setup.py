@@ -22,8 +22,8 @@ try:
     (out,err) = proc.communicate()
     version = str(out).decode('utf-8').rstrip()
     print ("libsequence version",version," found.")
-    if version < '@MINLIBSEQ@':
-        print("libsequence >= ,'@MINLIBSEQ@' required, but ",version, "found.")
+    if version < '1.8.8':
+        print("libsequence >= ,'1.8.8' required, but ",version, "found.")
         sys.exit(2)
 except:
     print("libsequenceConfig not found.  Please install fwdpp (http://github.com/molpopgen/libsequence)")
@@ -40,12 +40,12 @@ except subprocess.CalledProcessError as e:
 print("done")
 
 if platform.system() == 'Linux' or platform.system() == 'Darwin':
-    doc_dir = '@prefix@/share/doc/@PACKAGE_TARNAME@'
+    doc_dir = '/usr/local/share/doc/pylibseq'
 else:
     try:
         from win32com.shell import shellcon, shell
         homedir = shell.SHGetFolderPath(0, shellcon.CSIDL_APPDATA, 0, 0)
-        appdir = '@PACKAGE_TARNAME@'
+        appdir = 'pylibseq'
         doc_dir = os.path.join(homedir, appdir)
     except:
         pass
@@ -85,10 +85,10 @@ if USE_CYTHON:
     extensions = cythonize(extensions)
 
 
-setup(name='@PACKAGE_NAME@',
-      version='@PACKAGE_VERSION@',
+setup(name='pylibseq',
+      version='0.1.6',
       author='Kevin R. Thornton',
-      author_email='@PACKAGE_BUGREPORT@',
+      author_email='krthornt@uci.edu',
       maintainer='Kevin R. Thornton',
       maintainer_email='krthornt@uci.edu',
       url='http://github.com/molpopgen/pylibseq',
