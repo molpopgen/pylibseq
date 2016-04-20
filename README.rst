@@ -30,6 +30,7 @@ The supported platforms are Linux and OS X.
 Changelog (rough)
 ==============================
 
+* 0.1.7: improvements to build system.  Add option to build from GitHub.
 * 0.1.6: update to libsequence 1.8.9.  Add --use-cython option to setup.py
 
 Installation:
