@@ -22,8 +22,8 @@ try:
     (out,err) = proc.communicate()
     version = str(out).decode('utf-8').rstrip()
     print ("libsequence version",version," found.")
-    if version < '1.8.8':
-        print("libsequence >= ,'1.8.8' required, but ",version, "found.")
+    if version < '1.8.9':
+        print("libsequence >= ,'1.8.9' required, but ",version, "found.")
         sys.exit(2)
 except:
     print("libsequenceConfig not found.  Please install fwdpp (http://github.com/molpopgen/libsequence)")
@@ -86,7 +86,7 @@ if USE_CYTHON:
 
 
 setup(name='pylibseq',
-      version='0.1.6',
+      version='0.1.7',
       author='Kevin R. Thornton',
       author_email='krthornt@uci.edu',
       maintainer='Kevin R. Thornton',

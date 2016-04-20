@@ -406,11 +406,11 @@ AC_SUBST(MINLIBSEQ,$MINLSEQVERSION)
 LIBSEQVERSION=`libsequenceConfig --version`
 
 dnl Check that libsequence version is sufficient
-if test "$LIBSEQVERSION" \> $MINLSEQVERSION
+if test "$LIBSEQVERSION" \< $MINLSEQVERSION
 then
-	echo "libsequence version $LIBSEQVERSION detected"
+	AC_MSG_ERROR([libsequence >= $MINLSEQVERSION required, please install from http://github.com/molpopgen/libsequence])
 else
-	AC_MSG_ERROR([libsequence > $MINLSEQVERSION required, please install from http://github.com/molpopgen/libsequence])
+	echo "libsequence version $LIBSEQVERSION detected"
 fi
 
 #AC_ARG_ENABLE([cython],AS_HELP_STRING([--enable-cython],[Use Cython for compilation]),[AC_SUBST(EXTENSION,".pyx") AC_SUBST(CYTHONIMPORT,"from Cython.Build import cythonize") AC_SUBST(CYTHONIZE,"cythonize(extensions,gdb_debug=False)")],[AC_SUBST(EXTENSION,".cpp") AC_SUBST(CYTHONIMPORT,"") AC_SUBST(CYTHONIZE,"extensions")])
