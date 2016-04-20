@@ -20,10 +20,11 @@ import platform, glob, sys, subprocess
 try:
     proc = subprocess.Popen(['libsequenceConfig','--version'],stdout=subprocess.PIPE)
     (out,err) = proc.communicate()
-    version = str(out).rstrip()
+    version = str(out).decode('utf-8').rstrip()
     print ("libsequence version",version," found.")
-    if version <= '@MINLIBSEQ@':
-        raise RuntimeError("libsequence > ,'@MINLIBSEQ@' required, but ",version, "found.")
+    if version < '@MINLIBSEQ@':
+        print("libsequence >= ,'@MINLIBSEQ@' required, but ",version, "found.")
+        sys.exit(2)
 except:
     print("libsequenceConfig not found.  Please install fwdpp (http://github.com/molpopgen/libsequence)")
 
