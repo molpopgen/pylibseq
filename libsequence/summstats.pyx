@@ -246,7 +246,7 @@ def lhaf( polyTable pt, double l ):
 
 def nSLiHS(polyTable pt, double[:] gmap = None):
     """
-    "Raw"/unstandardizes :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
+    "Raw"/unstandardized :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
 
     :param pt: A :class:`libsequence.polytable.polyTable`
 
