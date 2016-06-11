@@ -275,7 +275,7 @@ def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, double[
     :param pt: A :class:`libsequence.polytable.polyTable`
     :param minfreq: Ignore markers with frequency < this value
     :param binsize: Standardize statistic in frequency bings of this width
-    :parma gmap: A genetic map.  The length of this array should be equal to the number of sites in pt, and represent the positions of those sites on the genetic map.
+    :param gmap: A genetic map.  The length of this array should be equal to the number of sites in pt, and represent the positions of those sites on the genetic map.
 
     :return: A tuple. The first value is max standardized nSL over all bins.  The second is max iHS over all bins, where iHS is calculated according to Ferrer-Admetlla et al.
     The maxmimums are calculated based on absolute value.
