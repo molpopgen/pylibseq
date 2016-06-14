@@ -44,7 +44,7 @@ The latest release of the package is available via PyPi_, and can be installed w
 
 Or, you may install from GitHub:
 
-.. code_block:: bash
+.. code-block:: bash
 
    $ git clone http://github.com/molpopgen/pylibseq
    $ cd pylibseq
@@ -56,7 +56,7 @@ Or, you may install from GitHub:
 
 You may also install from GitHub using pip:
 
-.. code_block:: bash
+.. code-block:: bash
 
    $ pip install git+git://github.com/molpopgen/pylibseq
 
