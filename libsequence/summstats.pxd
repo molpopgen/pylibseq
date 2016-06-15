@@ -3,7 +3,7 @@ from libcpp cimport bool
 from libcpp.vector cimport vector
 from libcpp.utility cimport pair
 
-cdef extern from "Sequence/PolySNP.hpp" namespace "Sequence":
+cdef extern from "Sequence/PolySNP.hpp" namespace "Sequence" nogil:
     cdef cppclass PolySNP:
         PolySNP(const PolyTable * pt, const bool & haveOutgroup, const unsigned & outgroup, const bool & totMuts)
 
@@ -41,7 +41,7 @@ cdef extern from "Sequence/PolySNP.hpp" namespace "Sequence":
         double HudsonsC() const                                  #Dick Hudson's (1987) Chat = 4Nr
         unsigned Minrec() const    
 
-cdef extern from "Sequence/PolySIM.hpp" namespace "Sequence":
+cdef extern from "Sequence/PolySIM.hpp" namespace "Sequence" nogil:
     cdef cppclass PolySIM:
         PolySIM(const SimData * pt)
 
