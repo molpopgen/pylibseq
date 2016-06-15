@@ -4,8 +4,8 @@ from libcpp.vector cimport vector
 
 from polysitevector cimport polymorphicSite,polySiteVector,psite_vec_const_itr
 
-cdef extern from "Sequence/PolyTable.hpp" namespace "Sequence":
-    cdef cppclass PolyTable(pair[vector[double],vector[string]]):
+cdef extern from "Sequence/PolyTable.hpp" namespace "Sequence" nogil:
+    cdef cppclass PolyTable:
         const string & operator[](const size_t &) const
         vector[string].iterator begin()
         vector[string].iterator end()
@@ -16,8 +16,7 @@ cdef extern from "Sequence/PolyTable.hpp" namespace "Sequence":
         vector[string] GetData() const
         vector[double] GetPositions() const
 
-        bint assign(const psite_vec_const_itr &,
-                    const psite_vec_const_itr & )
+        bint assign(const psite_vec_const_itr &,const psite_vec_const_itr & )
         bint assign(vector[double], vector[string])
         bint empty() const
         double position(unsigned &) const
@@ -25,16 +24,16 @@ cdef extern from "Sequence/PolyTable.hpp" namespace "Sequence":
         unsigned size() const
         
                 
-cdef extern from "Sequence/SimData.hpp" namespace "Sequence":
+cdef extern from "Sequence/SimData.hpp" namespace "Sequence" nogil:
     cdef cppclass SimData(PolyTable):
         SimData()
         SimData(const SimData &)
 
-cdef extern from "Sequence/PolySites.hpp" namespace "Sequence":
+cdef extern from "Sequence/PolySites.hpp" namespace "Sequence" nogil:
     cdef cppclass PolySites(PolyTable):
         PolySites()
 
-cdef extern from "Sequence/PolyTableFunctions.hpp" namespace "Sequence":
+cdef extern from "Sequence/PolyTableFunctions.hpp" namespace "Sequence" nogil:
     bint polyTableValid(const PolyTable * t)
     T removeGaps[T](const T &, const bint skipAnc, const unsigned anc, const char gapchar)
     T removeInvariantPos[T](const T & t, const bint skipAnc, const unsigned anc,  const char gapchar)
