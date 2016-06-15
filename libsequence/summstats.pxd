@@ -2,6 +2,7 @@ from libsequence.polytable cimport PolyTable,SimData,polyTable,simData
 from libcpp cimport bool
 from libcpp.vector cimport vector
 from libcpp.utility cimport pair
+from libcpp.memory cimport unique_ptr
 
 cdef extern from "Sequence/PolySNP.hpp" namespace "Sequence" nogil:
     cdef cppclass PolySNP:
@@ -73,10 +74,10 @@ cdef extern from "Sequence/PolySIM.hpp" namespace "Sequence" nogil:
         unsigned Minrec () const
 
 cdef class polySNP:
-    cdef PolySNP * thisptr
+    cdef unique_ptr[PolySNP] thisptr
 
 cdef class polySIM:
-    cdef PolySIM * thisptr
+    cdef unique_ptr[PolySIM] thisptr
 
 ##Functions from libseq
 cdef extern from "Sequence/SummStats/Garud.hpp" namespace "Sequence" nogil:

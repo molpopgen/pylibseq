@@ -9,50 +9,50 @@ cdef class fst:
         cdef unsigned[:] cv = c
         cdef double[:] wv
         if weights is None:
-            self.thisptr = new FST(p.thisptr,len(config),&cv[0],NULL,haveOutgroup,outgroup)
+            self.thisptr = unique_ptr[FST](new FST(p.thisptr.get(),len(config),&cv[0],NULL,haveOutgroup,outgroup))
         else:
             w = array.array('d',weights)
             wv = w
             if len(config) != len(weights):
                 raise RuntimeError("len(config) must equal len(weights)")
-            self.thisptr = new FST(p.thisptr,len(config),&cv[0],&wv[0],haveOutgroup,outgroup)
+            self.thisptr = unique_ptr[FST](new FST(p.thisptr.get(),len(config),&cv[0],&wv[0],haveOutgroup,outgroup))
     def __dealloc__(self):
-        del self.thisptr
+        pass
     def hsm(self):
         """
         Hudson, Slatkin, Maddison
         """
-        return self.thisptr.HSM()
+        return self.thisptr.get().HSM()
     def slatkin(self):
         """
         Slatkin
         """
-        return self.thisptr.Slatkin()
+        return self.thisptr.get().Slatkin()
     def hbk(self):
         """
         Hudson, Boos, and Kaplan
         """
-        return self.thisptr.HBK()
+        return self.thisptr.get().HBK()
     def piB(self):
         """
         :math:`\\pi` between populations
         """
-        return self.thisptr.piB()
+        return self.thisptr.get().piB()
     def piT(self):
         """
         Total :math:`\\pi`
         """
-        return self.thisptr.piT()
+        return self.thisptr.get().piT()
     def piS(self):
         """
         :math:`\\pi_S`
         """
-        return self.thisptr.piS()
+        return self.thisptr.get().piS()
     def piD(self):
         """
         :math:`\\pi_D`
         """
-        return self.thisptr.piD()
+        return self.thisptr.get().piD()
     def shared(self,unsigned i,unsigned j):
         """
         Returns positions of mutations shared between demes i and j
@@ -60,7 +60,7 @@ cdef class fst:
         :rtype: list
         
         """
-        return sorted(list(self.thisptr.shared(i,j)))
+        return sorted(list(self.thisptr.get().shared(i,j)))
     def priv(self,unsigned i,unsigned j):
         """
         Returns set of mutations private to i and private to j, when
@@ -70,7 +70,7 @@ cdef class fst:
         
         :rtype: dict
         """
-        p = self.thisptr.Private(i,j)
+        p = self.thisptr.get().Private(i,j)
         return {i:sorted(list(p.first)),j:sorted(list(p.second))}
     def fixed(self,unsigned i,unsigned j):
         """
@@ -78,5 +78,5 @@ cdef class fst:
 
         :rtype: list
         """
-        f = self.thisptr.fixed(i,j)
+        f = self.thisptr.get().fixed(i,j)
         return sorted(list(f))

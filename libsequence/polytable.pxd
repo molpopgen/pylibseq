@@ -1,8 +1,10 @@
 from libcpp.utility cimport pair
 from libcpp.string cimport string
 from libcpp.vector cimport vector
-
-from polysitevector cimport polymorphicSite,polySiteVector,psite_vec_const_itr
+from libcpp.utility cimport pair
+from libcpp.string cimport string as cppstring
+from libcpp.memory cimport unique_ptr
+from polysitevector cimport polymorphicSite,polySiteVector,psite_vec_const_itr,psite_vec_itr
 
 cdef extern from "Sequence/PolyTable.hpp" namespace "Sequence" nogil:
     cdef cppclass PolyTable:
@@ -16,7 +18,7 @@ cdef extern from "Sequence/PolyTable.hpp" namespace "Sequence" nogil:
         vector[string] GetData() const
         vector[double] GetPositions() const
 
-        bint assign(const psite_vec_const_itr &,const psite_vec_const_itr & )
+        bint assign(const vector[pair[double,cppstring]].iterator &,const vector[pair[double,cppstring]].iterator & )
         bint assign(vector[double], vector[string])
         bint empty() const
         double position(unsigned &) const
@@ -28,10 +30,12 @@ cdef extern from "Sequence/SimData.hpp" namespace "Sequence" nogil:
     cdef cppclass SimData(PolyTable):
         SimData()
         SimData(const SimData &)
+        SimData(const psite_vec_itr,const psite_vec_itr)
 
 cdef extern from "Sequence/PolySites.hpp" namespace "Sequence" nogil:
     cdef cppclass PolySites(PolyTable):
         PolySites()
+        PolySites(const psite_vec_itr,const psite_vec_itr)
 
 cdef extern from "Sequence/PolyTableFunctions.hpp" namespace "Sequence" nogil:
     bint polyTableValid(const PolyTable * t)
@@ -44,7 +48,7 @@ cdef extern from "Sequence/PolyTableFunctions.hpp" namespace "Sequence" nogil:
     T polyTableFreqFilter[T](const T & t, const unsigned mincount,const bint skipAnc, const unsigned anc, const char gapchar)
     
 cdef class polyTable:
-    cdef PolyTable * thisptr
+    cdef unique_ptr[PolyTable] thisptr
     cpdef size(self)
     cpdef numsites(self)
     cpdef data(self)

@@ -1,7 +1,7 @@
 from libcpp.vector cimport vector
 from libcpp.utility cimport pair
 from libcpp.set cimport set
-
+from libcpp.memory cimport unique_ptr
 from libsequence.polytable cimport polyTable,PolyTable
 
 cdef extern from "Sequence/FST.hpp" namespace "Sequence":
@@ -21,4 +21,4 @@ cdef extern from "Sequence/FST.hpp" namespace "Sequence":
         pair[set[double],set[double]] Private(unsigned pop1, unsigned pop2) except+
 
 cdef class fst:
-    cdef FST * thisptr
+    cdef unique_ptr[FST] thisptr

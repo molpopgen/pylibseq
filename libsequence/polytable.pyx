@@ -20,42 +20,40 @@ cdef class polyTable:
             raise RuntimeError("polyTable cannot be used directly.  Use derived types instead")
         thisptr = NULL
     def __dealloc__(self):
-        if self.thisptr != NULL:
-            del self.thisptr
-            self.thisptr = NULL
+        pass
     cpdef size(self):
         """
         Get the sample size of the polymorphism table
         """
         assert (self.thisptr != NULL)
-        return self.thisptr.size()
+        return self.thisptr.get().size()
     def __getitem__(self, size_t i):
-        assert (self.thisptr != NULL)
+        #assert (self.thisptr != NULL)
         return deref(self.thisptr)[i]
     cpdef numsites(self):
-        return self.thisptr.numsites()
+        return self.thisptr.get().numsites()
     cpdef data(self):
         """
         Get the genotype data
 
         :rtype: list
         """
-        assert (self.thisptr != NULL)
-        return self.thisptr.GetData()
+        #assert (self.thisptr != NULL)
+        return self.thisptr.get().GetData()
     cpdef pos(self):
         """
         Get the mutation positions
 
         :rtype: list
         """
-        assert (self.thisptr != NULL)
-        return self.thisptr.GetPositions()
+        #assert (self.thisptr != NULL)
+        return self.thisptr.get().GetPositions()
     cpdef empty(self):
         """
         Return True if sample size is 0
         """
-        assert (self.thisptr != NULL)
-        return self.thisptr.empty()
+        #assert (self.thisptr != NULL)
+        return self.thisptr.get().empty()
     cpdef assign(self,const vector[polymorphicSite] & d):
         """
         Fill data from a list of tuples
@@ -66,8 +64,8 @@ cdef class polyTable:
         >>> x = pypt.simData()
         >>> x.assign([ (0.1,"01"),(0.2,"10") ])
         """
-        assert (self.thisptr != NULL)
-        cdef bint rv = self.thisptr.assign(d.const_begin(),d.const_end())
+        #assert (self.thisptr != NULL)
+        cdef bint rv = self.thisptr.get().assign(d.const_begin(),d.const_end())
         if rv == False:
             raise RuntimeError("assign failed")
     cpdef assign_sep(self,const vector[double] & pos,const vector[string] & data):
@@ -84,7 +82,7 @@ cdef class polyTable:
         """
         assert (self.thisptr != NULL)
         #cdef bint rv =self.thisptr.assign[double,string](pos.data(),pos.size(),data.data(),data.size())
-        cdef bint rv =self.thisptr.assign(pos,data)
+        cdef bint rv =self.thisptr.get().assign(pos,data)
         if rv == False:
             raise RuntimeError("assign_sep failed")
     def tolist(self):
@@ -92,7 +90,7 @@ cdef class polyTable:
         Return data as list of tuples.
         """
         cdef vector[pair[double,string]] rv
-        rv.assign(self.thisptr.sbegin(),self.thisptr.send())
+        rv.assign(self.thisptr.get().sbegin(),self.thisptr.get().send())
         return rv
     
 cdef class simData(polyTable):
@@ -102,7 +100,7 @@ cdef class simData(polyTable):
     .. note:: See :class:`libsequence.polytable.polyTable`
     """
     def __cinit__(self):
-        self.thisptr = new SimData()
+        self.thisptr = <unique_ptr[PolyTable]>unique_ptr[SimData](new SimData())
     def __dealloc__(self):
         pass
     def __init__(self,object x = None, object y = None):
@@ -143,7 +141,7 @@ cdef class polySites(polyTable):
     .. note:: See :class:`libsequence.polytable.polyTable`
     """
     def __cinit__(self):
-        self.thisptr = new PolySites()
+        self.thisptr = <unique_ptr[PolyTable]>unique_ptr[PolySites](new PolySites())
     def __dealloc__(self):
         pass
     def __init__(self,list x = None, list y = None):
@@ -198,10 +196,10 @@ def removeGaps(polyTable p, gapchar = '-'):
     cdef PolySites temp
     cdef SimData temp2
     if isinstance(p,polySites):
-        temp = cpp_removeGaps[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr)),False,0,gc[0])
+        temp = cpp_removeGaps[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr.get())),False,0,gc[0])
         p.assign_sep(temp.GetPositions(),temp.GetData())
     else:
-        temp2 = cpp_removeGaps[SimData](deref(dynamic_cast['SimData*'](p.thisptr)),False,0,gc[0])
+        temp2 = cpp_removeGaps[SimData](deref(dynamic_cast['SimData*'](p.thisptr.get())),False,0,gc[0])
         p.assign_sep(temp2.GetPositions(),temp2.GetData())
 
 def isValid(polyTable p):
@@ -226,7 +224,7 @@ def isValid(polyTable p):
     >>> pypt.isValid(x)
     False
     """
-    return polyTableValid(p.thisptr)
+    return polyTableValid(p.thisptr.get())
 
 def removeMono(polyTable p, bint skipOutgroup = False, unsigned outgroup = 0, gapchar = '-'):
     """
@@ -240,10 +238,10 @@ def removeMono(polyTable p, bint skipOutgroup = False, unsigned outgroup = 0, ga
     cdef PolySites temp
     cdef SimData temp2
     if isinstance(p,polySites):
-        temp = removeInvariantPos[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        temp = removeInvariantPos[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp.GetPositions(),temp.GetData())
     else:
-        temp2 = removeInvariantPos[SimData](deref(dynamic_cast['SimData*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        temp2 = removeInvariantPos[SimData](deref(dynamic_cast['SimData*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp2.GetPositions(),temp2.GetData())
         
 def freqFilter(polyTable p,unsigned mincount,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
@@ -261,10 +259,10 @@ def freqFilter(polyTable p,unsigned mincount,bint skipOutgroup = False, unsigned
     cdef PolySites temp
     cdef SimData temp2
     if isinstance(p,polySites):
-        temp = ptFF[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr)),mincount,skipOutgroup,outgroup,gc[0])
+        temp = ptFF[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr.get())),mincount,skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp.GetPositions(),temp.GetData())
     else:
-        temp2 = ptFF[SimData](deref(dynamic_cast['SimData*'](p.thisptr)),mincount,skipOutgroup,outgroup,gc[0])
+        temp2 = ptFF[SimData](deref(dynamic_cast['SimData*'](p.thisptr.get())),mincount,skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp2.GetPositions(),temp2.GetData())
 
 def removeMissing(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
@@ -280,10 +278,10 @@ def removeMissing(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0,g
     cdef PolySites temp
     cdef SimData temp2
     if isinstance(p,polySites):
-        temp = cpp_removeMissing[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        temp = cpp_removeMissing[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp.GetPositions(),temp.GetData())
     else:
-        temp2 = cpp_removeMissing[SimData](deref(dynamic_cast['SimData*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        temp2 = cpp_removeMissing[SimData](deref(dynamic_cast['SimData*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp2.GetPositions(),temp2.GetData())
         
 def removeMultiHits(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
@@ -298,10 +296,10 @@ def removeMultiHits(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0
     cdef PolySites temp
     cdef SimData temp2
     if isinstance(p,polySites):
-        temp = cpp_removeMultiHits[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        temp = cpp_removeMultiHits[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp.GetPositions(),temp.GetData())
     else:
-        temp2 = cpp_removeMultiHits[SimData](deref(dynamic_cast['SimData*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        temp2 = cpp_removeMultiHits[SimData](deref(dynamic_cast['SimData*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp2.GetPositions(),temp2.GetData())
     
 def removeAmbiguous(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
@@ -316,10 +314,10 @@ def removeAmbiguous(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0
     cdef PolySites temp
     cdef SimData temp2
     if isinstance(p,polySites):
-        temp = cpp_removeAmbiguous[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        temp = cpp_removeAmbiguous[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp.GetPositions(),temp.GetData())
     else:
-        temp2 = cpp_removeAmbiguous[SimData](deref(dynamic_cast['SimData*'](p.thisptr)),skipOutgroup,outgroup,gc[0])
+        temp2 = cpp_removeAmbiguous[SimData](deref(dynamic_cast['SimData*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp2.GetPositions(),temp2.GetData())
 
 
