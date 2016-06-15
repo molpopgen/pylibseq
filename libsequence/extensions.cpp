@@ -525,7 +525,7 @@ static const char *__pyx_f[] = {
 struct __pyx_obj_11libsequence_9polytable_polyTable;
 struct __pyx_obj_11libsequence_9polytable_simData;
 struct __pyx_obj_11libsequence_9polytable_polySites;
-struct __pyx_obj_11libsequence_10extensions_simDataVec;
+struct __pyx_obj_11libsequence_10extensions_SimDataVec;
 
 /* "libsequence/polysitevector.pxd":9
  *     ctypedef vector[polymorphicSite] polySiteVector
@@ -585,10 +585,10 @@ struct __pyx_obj_11libsequence_9polytable_polySites {
 /* "libsequence/extensions.pxd":5
  * from libsequence.polytable cimport SimData,PolyTable
  * 
- * cdef class simDataVec:             # <<<<<<<<<<<<<<
+ * cdef class SimDataVec:             # <<<<<<<<<<<<<<
  *     cdef vector[SimData] vec
  */
-struct __pyx_obj_11libsequence_10extensions_simDataVec {
+struct __pyx_obj_11libsequence_10extensions_SimDataVec {
   PyObject_HEAD
   std::vector<Sequence::SimData>  vec;
 };
@@ -848,7 +848,7 @@ static PyTypeObject *__pyx_ptype_11libsequence_9polytable_simData = 0;
 static PyTypeObject *__pyx_ptype_11libsequence_9polytable_polySites = 0;
 
 /* Module declarations from 'libsequence.extensions' */
-static PyTypeObject *__pyx_ptype_11libsequence_10extensions_simDataVec = 0;
+static PyTypeObject *__pyx_ptype_11libsequence_10extensions_SimDataVec = 0;
 static std::string __pyx_convert_string_from_py_std__in_string(PyObject *); /*proto*/
 static std::pair<double,std::string>  __pyx_convert_pair_from_py_double__and_std_3a__3a_string(PyObject *); /*proto*/
 static std::vector<Sequence::polymorphicSite>  __pyx_convert_vector_from_py_Sequence_3a__3a_polymorphicSite(PyObject *); /*proto*/
@@ -861,20 +861,20 @@ static const char __pyx_k_p[] = "p";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_pyx_vtable[] = "__pyx_vtable__";
-static const char __pyx_k_simDataVec___init___line_14[] = "simDataVec.__init__ (line 14)";
-static const char __pyx_k_Constructor_param_p_A_list_of_a[] = "\n        Constructor.\n\n        :param p: A list of a list of tuples representing the variation data.\n\n        Example:\n\n        >>> import libsequence.extensions as le\n        >>> #Create a vector of 5 identical data sets\n        >>> #with 2 variable sites per data set.\n        >>> x = [[(0.1,\"00100\"),(0.2,\"11000\")]]*5\n        >>> y = le.simDataVec(x)\n        ";
+static const char __pyx_k_SimDataVec___init___line_15[] = "SimDataVec.__init__ (line 15)";
+static const char __pyx_k_Constructor_param_p_A_list_of_a[] = "\n        Constructor.\n\n        :param p: A list of a list of tuples representing the variation data.\n\n        Example:\n\n        >>> import libsequence.extensions as le\n        >>> #Create a vector of 5 identical data sets\n        >>> #with 2 variable sites per data set.\n        >>> x = [[(0.1,\"00100\"),(0.2,\"11000\")]]*5\n        >>> y = le.SimDataVec(x)\n        ";
 static PyObject *__pyx_kp_u_Constructor_param_p_A_list_of_a;
+static PyObject *__pyx_kp_u_SimDataVec___init___line_15;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_p;
 static PyObject *__pyx_n_s_pyx_vtable;
-static PyObject *__pyx_kp_u_simDataVec___init___line_14;
 static PyObject *__pyx_n_s_test;
-static int __pyx_pf_11libsequence_10extensions_10simDataVec___cinit__(struct __pyx_obj_11libsequence_10extensions_simDataVec *__pyx_v_self); /* proto */
-static void __pyx_pf_11libsequence_10extensions_10simDataVec_2__dealloc__(struct __pyx_obj_11libsequence_10extensions_simDataVec *__pyx_v_self); /* proto */
-static int __pyx_pf_11libsequence_10extensions_10simDataVec_4__init__(struct __pyx_obj_11libsequence_10extensions_simDataVec *__pyx_v_self, std::vector<Sequence::polySiteVector>  __pyx_v_p); /* proto */
-static PyObject *__pyx_tp_new_11libsequence_10extensions_simDataVec(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static int __pyx_pf_11libsequence_10extensions_10SimDataVec___cinit__(struct __pyx_obj_11libsequence_10extensions_SimDataVec *__pyx_v_self); /* proto */
+static void __pyx_pf_11libsequence_10extensions_10SimDataVec_2__dealloc__(struct __pyx_obj_11libsequence_10extensions_SimDataVec *__pyx_v_self); /* proto */
+static int __pyx_pf_11libsequence_10extensions_10SimDataVec_4__init__(struct __pyx_obj_11libsequence_10extensions_SimDataVec *__pyx_v_self, std::vector<Sequence::polySiteVector>  __pyx_v_p); /* proto */
+static PyObject *__pyx_tp_new_11libsequence_10extensions_SimDataVec(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 
-/* "libsequence/extensions.pyx":10
+/* "libsequence/extensions.pyx":11
  *     .. note:: The use case for this type is a Cython-based package extending pylibseq.
  *     """
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -883,28 +883,28 @@ static PyObject *__pyx_tp_new_11libsequence_10extensions_simDataVec(PyTypeObject
  */
 
 /* Python wrapper */
-static int __pyx_pw_11libsequence_10extensions_10simDataVec_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_11libsequence_10extensions_10simDataVec_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_11libsequence_10extensions_10SimDataVec_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_11libsequence_10extensions_10SimDataVec_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
-  __pyx_r = __pyx_pf_11libsequence_10extensions_10simDataVec___cinit__(((struct __pyx_obj_11libsequence_10extensions_simDataVec *)__pyx_v_self));
+  __pyx_r = __pyx_pf_11libsequence_10extensions_10SimDataVec___cinit__(((struct __pyx_obj_11libsequence_10extensions_SimDataVec *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11libsequence_10extensions_10simDataVec___cinit__(struct __pyx_obj_11libsequence_10extensions_simDataVec *__pyx_v_self) {
+static int __pyx_pf_11libsequence_10extensions_10SimDataVec___cinit__(struct __pyx_obj_11libsequence_10extensions_SimDataVec *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   std::vector<Sequence::SimData>  __pyx_t_1;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "libsequence/extensions.pyx":11
+  /* "libsequence/extensions.pyx":12
  *     """
  *     def __cinit__(self):
  *         self.vec = vector[SimData]()             # <<<<<<<<<<<<<<
@@ -915,11 +915,11 @@ static int __pyx_pf_11libsequence_10extensions_10simDataVec___cinit__(struct __p
     __pyx_t_1 = std::vector<Sequence::SimData> ();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 11, __pyx_L1_error)
+    __PYX_ERR(0, 12, __pyx_L1_error)
   }
   __pyx_v_self->vec = __pyx_t_1;
 
-  /* "libsequence/extensions.pyx":10
+  /* "libsequence/extensions.pyx":11
  *     .. note:: The use case for this type is a Cython-based package extending pylibseq.
  *     """
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -931,14 +931,14 @@ static int __pyx_pf_11libsequence_10extensions_10simDataVec___cinit__(struct __p
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("libsequence.extensions.simDataVec.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("libsequence.extensions.SimDataVec.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "libsequence/extensions.pyx":12
+/* "libsequence/extensions.pyx":13
  *     def __cinit__(self):
  *         self.vec = vector[SimData]()
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -947,21 +947,21 @@ static int __pyx_pf_11libsequence_10extensions_10simDataVec___cinit__(struct __p
  */
 
 /* Python wrapper */
-static void __pyx_pw_11libsequence_10extensions_10simDataVec_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_11libsequence_10extensions_10simDataVec_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_11libsequence_10extensions_10SimDataVec_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_11libsequence_10extensions_10SimDataVec_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_11libsequence_10extensions_10simDataVec_2__dealloc__(((struct __pyx_obj_11libsequence_10extensions_simDataVec *)__pyx_v_self));
+  __pyx_pf_11libsequence_10extensions_10SimDataVec_2__dealloc__(((struct __pyx_obj_11libsequence_10extensions_SimDataVec *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_11libsequence_10extensions_10simDataVec_2__dealloc__(struct __pyx_obj_11libsequence_10extensions_simDataVec *__pyx_v_self) {
+static void __pyx_pf_11libsequence_10extensions_10SimDataVec_2__dealloc__(struct __pyx_obj_11libsequence_10extensions_SimDataVec *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "libsequence/extensions.pyx":13
+  /* "libsequence/extensions.pyx":14
  *         self.vec = vector[SimData]()
  *     def __dealloc__(self):
  *         self.vec.clear()             # <<<<<<<<<<<<<<
@@ -970,7 +970,7 @@ static void __pyx_pf_11libsequence_10extensions_10simDataVec_2__dealloc__(struct
  */
   __pyx_v_self->vec.clear();
 
-  /* "libsequence/extensions.pyx":12
+  /* "libsequence/extensions.pyx":13
  *     def __cinit__(self):
  *         self.vec = vector[SimData]()
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -982,7 +982,7 @@ static void __pyx_pf_11libsequence_10extensions_10simDataVec_2__dealloc__(struct
   __Pyx_RefNannyFinishContext();
 }
 
-/* "libsequence/extensions.pyx":14
+/* "libsequence/extensions.pyx":15
  *     def __dealloc__(self):
  *         self.vec.clear()
  *     def __init__(self,const vector[polySiteVector] & p):             # <<<<<<<<<<<<<<
@@ -991,12 +991,12 @@ static void __pyx_pf_11libsequence_10extensions_10simDataVec_2__dealloc__(struct
  */
 
 /* Python wrapper */
-static int __pyx_pw_11libsequence_10extensions_10simDataVec_5__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_11libsequence_10extensions_10simDataVec_4__init__[] = "\n        Constructor.\n\n        :param p: A list of a list of tuples representing the variation data.\n\n        Example:\n\n        >>> import libsequence.extensions as le\n        >>> #Create a vector of 5 identical data sets\n        >>> #with 2 variable sites per data set.\n        >>> x = [[(0.1,\"00100\"),(0.2,\"11000\")]]*5\n        >>> y = le.simDataVec(x)\n        ";
+static int __pyx_pw_11libsequence_10extensions_10SimDataVec_5__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static char __pyx_doc_11libsequence_10extensions_10SimDataVec_4__init__[] = "\n        Constructor.\n\n        :param p: A list of a list of tuples representing the variation data.\n\n        Example:\n\n        >>> import libsequence.extensions as le\n        >>> #Create a vector of 5 identical data sets\n        >>> #with 2 variable sites per data set.\n        >>> x = [[(0.1,\"00100\"),(0.2,\"11000\")]]*5\n        >>> y = le.SimDataVec(x)\n        ";
 #if CYTHON_COMPILING_IN_CPYTHON
-struct wrapperbase __pyx_wrapperbase_11libsequence_10extensions_10simDataVec_4__init__;
+struct wrapperbase __pyx_wrapperbase_11libsequence_10extensions_10SimDataVec_4__init__;
 #endif
-static int __pyx_pw_11libsequence_10extensions_10simDataVec_5__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_11libsequence_10extensions_10SimDataVec_5__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   std::vector<Sequence::polySiteVector>  __pyx_v_p;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
@@ -1019,31 +1019,31 @@ static int __pyx_pw_11libsequence_10extensions_10simDataVec_5__init__(PyObject *
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 14, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 15, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
     }
-    __pyx_v_p = __pyx_convert_vector_from_py_Sequence_3a__3a_polySiteVector(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 14, __pyx_L3_error)
+    __pyx_v_p = __pyx_convert_vector_from_py_Sequence_3a__3a_polySiteVector(values[0]); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 14, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 15, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("libsequence.extensions.simDataVec.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("libsequence.extensions.SimDataVec.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_11libsequence_10extensions_10simDataVec_4__init__(((struct __pyx_obj_11libsequence_10extensions_simDataVec *)__pyx_v_self), __pyx_v_p);
+  __pyx_r = __pyx_pf_11libsequence_10extensions_10SimDataVec_4__init__(((struct __pyx_obj_11libsequence_10extensions_SimDataVec *)__pyx_v_self), __pyx_v_p);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_11libsequence_10extensions_10simDataVec_4__init__(struct __pyx_obj_11libsequence_10extensions_simDataVec *__pyx_v_self, std::vector<Sequence::polySiteVector>  __pyx_v_p) {
+static int __pyx_pf_11libsequence_10extensions_10SimDataVec_4__init__(struct __pyx_obj_11libsequence_10extensions_SimDataVec *__pyx_v_self, std::vector<Sequence::polySiteVector>  __pyx_v_p) {
   int __pyx_v_i;
   int __pyx_v_n;
   __pyx_t_11libsequence_14polysitevector_psite_vec_itr __pyx_v_a;
@@ -1053,8 +1053,8 @@ static int __pyx_pf_11libsequence_10extensions_10simDataVec_4__init__(struct __p
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "libsequence/extensions.pyx":28
- *         >>> y = le.simDataVec(x)
+  /* "libsequence/extensions.pyx":29
+ *         >>> y = le.SimDataVec(x)
  *         """
  *         cdef int i=0             # <<<<<<<<<<<<<<
  *         cdef int n = p.size()
@@ -1062,7 +1062,7 @@ static int __pyx_pf_11libsequence_10extensions_10simDataVec_4__init__(struct __p
  */
   __pyx_v_i = 0;
 
-  /* "libsequence/extensions.pyx":29
+  /* "libsequence/extensions.pyx":30
  *         """
  *         cdef int i=0
  *         cdef int n = p.size()             # <<<<<<<<<<<<<<
@@ -1071,7 +1071,7 @@ static int __pyx_pf_11libsequence_10extensions_10simDataVec_4__init__(struct __p
  */
   __pyx_v_n = __pyx_v_p.size();
 
-  /* "libsequence/extensions.pyx":31
+  /* "libsequence/extensions.pyx":32
  *         cdef int n = p.size()
  *         cdef psite_vec_itr a,b
  *         while i<n:             # <<<<<<<<<<<<<<
@@ -1082,7 +1082,7 @@ static int __pyx_pf_11libsequence_10extensions_10simDataVec_4__init__(struct __p
     __pyx_t_1 = ((__pyx_v_i < __pyx_v_n) != 0);
     if (!__pyx_t_1) break;
 
-    /* "libsequence/extensions.pyx":32
+    /* "libsequence/extensions.pyx":33
  *         cdef psite_vec_itr a,b
  *         while i<n:
  *             a=p[i].begin()             # <<<<<<<<<<<<<<
@@ -1091,7 +1091,7 @@ static int __pyx_pf_11libsequence_10extensions_10simDataVec_4__init__(struct __p
  */
     __pyx_v_a = (__pyx_v_p[__pyx_v_i]).begin();
 
-    /* "libsequence/extensions.pyx":33
+    /* "libsequence/extensions.pyx":34
  *         while i<n:
  *             a=p[i].begin()
  *             b=p[i].end()             # <<<<<<<<<<<<<<
@@ -1100,7 +1100,7 @@ static int __pyx_pf_11libsequence_10extensions_10simDataVec_4__init__(struct __p
  */
     __pyx_v_b = (__pyx_v_p[__pyx_v_i]).end();
 
-    /* "libsequence/extensions.pyx":34
+    /* "libsequence/extensions.pyx":35
  *             a=p[i].begin()
  *             b=p[i].end()
  *             self.vec.push_back(SimData(a,b))             # <<<<<<<<<<<<<<
@@ -1110,10 +1110,10 @@ static int __pyx_pf_11libsequence_10extensions_10simDataVec_4__init__(struct __p
       __pyx_v_self->vec.push_back(Sequence::SimData(__pyx_v_a, __pyx_v_b));
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 34, __pyx_L1_error)
+      __PYX_ERR(0, 35, __pyx_L1_error)
     }
 
-    /* "libsequence/extensions.pyx":35
+    /* "libsequence/extensions.pyx":36
  *             b=p[i].end()
  *             self.vec.push_back(SimData(a,b))
  *             i+=1             # <<<<<<<<<<<<<<
@@ -1121,7 +1121,7 @@ static int __pyx_pf_11libsequence_10extensions_10simDataVec_4__init__(struct __p
     __pyx_v_i = (__pyx_v_i + 1);
   }
 
-  /* "libsequence/extensions.pyx":14
+  /* "libsequence/extensions.pyx":15
  *     def __dealloc__(self):
  *         self.vec.clear()
  *     def __init__(self,const vector[polySiteVector] & p):             # <<<<<<<<<<<<<<
@@ -1133,7 +1133,7 @@ static int __pyx_pf_11libsequence_10extensions_10simDataVec_4__init__(struct __p
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("libsequence.extensions.simDataVec.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("libsequence.extensions.SimDataVec.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -1534,8 +1534,8 @@ static std::vector<Sequence::polySiteVector>  __pyx_convert_vector_from_py_Seque
   return __pyx_r;
 }
 
-static PyObject *__pyx_tp_new_11libsequence_10extensions_simDataVec(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_11libsequence_10extensions_simDataVec *p;
+static PyObject *__pyx_tp_new_11libsequence_10extensions_SimDataVec(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_11libsequence_10extensions_SimDataVec *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -1543,16 +1543,16 @@ static PyObject *__pyx_tp_new_11libsequence_10extensions_simDataVec(PyTypeObject
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_11libsequence_10extensions_simDataVec *)o);
+  p = ((struct __pyx_obj_11libsequence_10extensions_SimDataVec *)o);
   new((void*)&(p->vec)) std::vector<Sequence::SimData> ();
-  if (unlikely(__pyx_pw_11libsequence_10extensions_10simDataVec_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
+  if (unlikely(__pyx_pw_11libsequence_10extensions_10SimDataVec_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) {
     Py_DECREF(o); o = 0;
   }
   return o;
 }
 
-static void __pyx_tp_dealloc_11libsequence_10extensions_simDataVec(PyObject *o) {
-  struct __pyx_obj_11libsequence_10extensions_simDataVec *p = (struct __pyx_obj_11libsequence_10extensions_simDataVec *)o;
+static void __pyx_tp_dealloc_11libsequence_10extensions_SimDataVec(PyObject *o) {
+  struct __pyx_obj_11libsequence_10extensions_SimDataVec *p = (struct __pyx_obj_11libsequence_10extensions_SimDataVec *)o;
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -1562,7 +1562,7 @@ static void __pyx_tp_dealloc_11libsequence_10extensions_simDataVec(PyObject *o) 
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_11libsequence_10extensions_10simDataVec_3__dealloc__(o);
+    __pyx_pw_11libsequence_10extensions_10SimDataVec_3__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
@@ -1570,16 +1570,16 @@ static void __pyx_tp_dealloc_11libsequence_10extensions_simDataVec(PyObject *o) 
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyMethodDef __pyx_methods_11libsequence_10extensions_simDataVec[] = {
+static PyMethodDef __pyx_methods_11libsequence_10extensions_SimDataVec[] = {
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_11libsequence_10extensions_simDataVec = {
+static PyTypeObject __pyx_type_11libsequence_10extensions_SimDataVec = {
   PyVarObject_HEAD_INIT(0, 0)
-  "libsequence.extensions.simDataVec", /*tp_name*/
-  sizeof(struct __pyx_obj_11libsequence_10extensions_simDataVec), /*tp_basicsize*/
+  "libsequence.extensions.SimDataVec", /*tp_name*/
+  sizeof(struct __pyx_obj_11libsequence_10extensions_SimDataVec), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_11libsequence_10extensions_simDataVec, /*tp_dealloc*/
+  __pyx_tp_dealloc_11libsequence_10extensions_SimDataVec, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -1600,14 +1600,14 @@ static PyTypeObject __pyx_type_11libsequence_10extensions_simDataVec = {
   0, /*tp_setattro*/
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE, /*tp_flags*/
-  "\n    Wrapper for std::vector<Sequence::SimData>.\n\n    This type is useful in the event that you want to process data\n    sets in parallel using OpenMP.    \n\n    .. note:: The use case for this type is a Cython-based package extending pylibseq.\n    ", /*tp_doc*/
+  "\n    Wrapper for std::vector<Sequence::SimData> (not the Cython extension \n    class libsequence.polytable.simData!!)\n\n    This type is useful in the event that you want to process data\n    sets in parallel using OpenMP.    \n\n    .. note:: The use case for this type is a Cython-based package extending pylibseq.\n    ", /*tp_doc*/
   0, /*tp_traverse*/
   0, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_11libsequence_10extensions_simDataVec, /*tp_methods*/
+  __pyx_methods_11libsequence_10extensions_SimDataVec, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -1615,9 +1615,9 @@ static PyTypeObject __pyx_type_11libsequence_10extensions_simDataVec = {
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_11libsequence_10extensions_10simDataVec_5__init__, /*tp_init*/
+  __pyx_pw_11libsequence_10extensions_10SimDataVec_5__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_11libsequence_10extensions_simDataVec, /*tp_new*/
+  __pyx_tp_new_11libsequence_10extensions_SimDataVec, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -1656,10 +1656,10 @@ static struct PyModuleDef __pyx_moduledef = {
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Constructor_param_p_A_list_of_a, __pyx_k_Constructor_param_p_A_list_of_a, sizeof(__pyx_k_Constructor_param_p_A_list_of_a), 0, 1, 0, 0},
+  {&__pyx_kp_u_SimDataVec___init___line_15, __pyx_k_SimDataVec___init___line_15, sizeof(__pyx_k_SimDataVec___init___line_15), 0, 1, 0, 0},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_p, __pyx_k_p, sizeof(__pyx_k_p), 0, 0, 1, 1},
   {&__pyx_n_s_pyx_vtable, __pyx_k_pyx_vtable, sizeof(__pyx_k_pyx_vtable), 0, 0, 1, 1},
-  {&__pyx_kp_u_simDataVec___init___line_14, __pyx_k_simDataVec___init___line_14, sizeof(__pyx_k_simDataVec___init___line_14), 0, 1, 0, 0},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
@@ -1765,20 +1765,20 @@ PyMODINIT_FUNC PyInit_extensions(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_11libsequence_10extensions_simDataVec) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_type_11libsequence_10extensions_simDataVec.tp_print = 0;
+  if (PyType_Ready(&__pyx_type_11libsequence_10extensions_SimDataVec) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_type_11libsequence_10extensions_SimDataVec.tp_print = 0;
   #if CYTHON_COMPILING_IN_CPYTHON
   {
-    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_11libsequence_10extensions_simDataVec, "__init__"); if (unlikely(!wrapper)) __PYX_ERR(0, 1, __pyx_L1_error)
+    PyObject *wrapper = PyObject_GetAttrString((PyObject *)&__pyx_type_11libsequence_10extensions_SimDataVec, "__init__"); if (unlikely(!wrapper)) __PYX_ERR(0, 1, __pyx_L1_error)
     if (Py_TYPE(wrapper) == &PyWrapperDescr_Type) {
-      __pyx_wrapperbase_11libsequence_10extensions_10simDataVec_4__init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
-      __pyx_wrapperbase_11libsequence_10extensions_10simDataVec_4__init__.doc = __pyx_doc_11libsequence_10extensions_10simDataVec_4__init__;
-      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_11libsequence_10extensions_10simDataVec_4__init__;
+      __pyx_wrapperbase_11libsequence_10extensions_10SimDataVec_4__init__ = *((PyWrapperDescrObject *)wrapper)->d_base;
+      __pyx_wrapperbase_11libsequence_10extensions_10SimDataVec_4__init__.doc = __pyx_doc_11libsequence_10extensions_10SimDataVec_4__init__;
+      ((PyWrapperDescrObject *)wrapper)->d_base = &__pyx_wrapperbase_11libsequence_10extensions_10SimDataVec_4__init__;
     }
   }
   #endif
-  if (PyObject_SetAttrString(__pyx_m, "simDataVec", (PyObject *)&__pyx_type_11libsequence_10extensions_simDataVec) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_ptype_11libsequence_10extensions_simDataVec = &__pyx_type_11libsequence_10extensions_simDataVec;
+  if (PyObject_SetAttrString(__pyx_m, "SimDataVec", (PyObject *)&__pyx_type_11libsequence_10extensions_SimDataVec) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_ptype_11libsequence_10extensions_SimDataVec = &__pyx_type_11libsequence_10extensions_SimDataVec;
   /*--- Type import code ---*/
   __pyx_ptype_11libsequence_9polytable_polyTable = __Pyx_ImportType("libsequence.polytable", "polyTable", sizeof(struct __pyx_obj_11libsequence_9polytable_polyTable), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_polyTable)) __PYX_ERR(2, 50, __pyx_L1_error)
   __pyx_vtabptr_11libsequence_9polytable_polyTable = (struct __pyx_vtabstruct_11libsequence_9polytable_polyTable*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_polyTable->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_polyTable)) __PYX_ERR(2, 50, __pyx_L1_error)
@@ -1794,13 +1794,13 @@ PyMODINIT_FUNC PyInit_extensions(void)
   #endif
 
   /* "libsequence/extensions.pyx":1
- * cdef class simDataVec:             # <<<<<<<<<<<<<<
+ * cdef class SimDataVec:             # <<<<<<<<<<<<<<
  *     """
- *     Wrapper for std::vector<Sequence::SimData>.
+ *     Wrapper for std::vector<Sequence::SimData> (not the Cython extension
  */
   __pyx_t_1 = PyDict_New(); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_simDataVec___init___line_14, __pyx_kp_u_Constructor_param_p_A_list_of_a) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_kp_u_SimDataVec___init___line_15, __pyx_kp_u_Constructor_param_p_A_list_of_a) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
