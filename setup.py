@@ -28,7 +28,6 @@ try:
 except:
     print("libsequenceConfig not found.  Please install fwdpp (http://github.com/molpopgen/libsequence)")
 
-
 ##Can we compile a program based on libsequence?
 print("Attempting to compile and link a test program using libsequence...")
 try:
@@ -37,6 +36,7 @@ try:
     proc = subprocess.check_output(['make','-f','check_deps/Makefile','clean'])
 except subprocess.CalledProcessError as e:
     print (e.returncode)
+    sys.exit(2)
 print("done")
 
 if platform.system() == 'Linux' or platform.system() == 'Darwin':
