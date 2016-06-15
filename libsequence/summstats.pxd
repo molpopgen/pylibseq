@@ -79,7 +79,7 @@ cdef class polySIM:
     cdef PolySIM * thisptr
 
 ##Functions from libseq
-cdef extern from "Sequence/SummStats/Garud.hpp" namespace "Sequence":
+cdef extern from "Sequence/SummStats/Garud.hpp" namespace "Sequence" nogil:
     cdef cppclass GarudStats:
         double H1
         double H12
@@ -87,12 +87,12 @@ cdef extern from "Sequence/SummStats/Garud.hpp" namespace "Sequence":
 
     GarudStats H1H12(const SimData &)
 
-cdef extern from "Sequence/SummStats/lHaf.hpp" namespace "Sequence":
+cdef extern from "Sequence/SummStats/lHaf.hpp" namespace "Sequence" nogil:
     vector[double] lHaf( const SimData & data, const double l )
 
-cdef extern from "Sequence/SummStats/nSL.hpp" namespace "Sequence":
+cdef extern from "Sequence/SummStats/nSL.hpp" namespace "Sequence" nogil:
     pair[double,double] nSL(const unsigned & core, const SimData & d, const double * gmap)
     pair[double,double] snSL(const SimData & d,const double minfreq, const double binsize, const double * gmap)
 
-cdef extern from "Sequence/Recombination.hpp" namespace "Sequence::Recombination":
+cdef extern from "Sequence/Recombination.hpp" namespace "Sequence::Recombination" nogil:
     bint Disequilibrium(const PolyTable *, vector[double] &, unsigned *, unsigned *,const bint & , const unsigned &, const unsigned &, const double)
