@@ -53,7 +53,7 @@ Or, you may install from GitHub:
 .. code-block:: bash
 
    $ ./configure
-   $ sudo python setup.py install
+   $ sudo pip install .
 
 You may also install from GitHub using pip:
 
