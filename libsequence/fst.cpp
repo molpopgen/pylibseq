@@ -294,6 +294,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #include "typeinfo"
 #include <utility>
 #include <set>
+#include <memory>
 #include "string.h"
 #include <string>
 #include "Sequence/polySiteVector.hpp"
@@ -657,21 +658,21 @@ typedef std::vector<Sequence::polymorphicSite> ::const_iterator __pyx_t_11libseq
  */
 typedef std::vector<Sequence::polymorphicSite> ::iterator __pyx_t_11libsequence_14polysitevector_psite_vec_itr;
 
-/* "libsequence/polytable.pxd":47
+/* "libsequence/polytable.pxd":50
  *     T polyTableFreqFilter[T](const T & t, const unsigned mincount,const bint skipAnc, const unsigned anc, const char gapchar)
  * 
  * cdef class polyTable:             # <<<<<<<<<<<<<<
- *     cdef PolyTable * thisptr
+ *     cdef unique_ptr[PolyTable] thisptr
  *     cpdef size(self)
  */
 struct __pyx_obj_11libsequence_9polytable_polyTable {
   PyObject_HEAD
   struct __pyx_vtabstruct_11libsequence_9polytable_polyTable *__pyx_vtab;
-  Sequence::PolyTable *thisptr;
+  std::unique_ptr<Sequence::PolyTable>  thisptr;
 };
 
 
-/* "libsequence/polytable.pxd":57
+/* "libsequence/polytable.pxd":60
  *     cpdef assign_sep(self,const vector[double] & pos,const vector[string] & data)
  * 
  * cdef class simData(polyTable):             # <<<<<<<<<<<<<<
@@ -683,7 +684,7 @@ struct __pyx_obj_11libsequence_9polytable_simData {
 };
 
 
-/* "libsequence/polytable.pxd":60
+/* "libsequence/polytable.pxd":63
  *     pass
  * 
  * cdef class polySites(polyTable):             # <<<<<<<<<<<<<<
@@ -698,11 +699,11 @@ struct __pyx_obj_11libsequence_9polytable_polySites {
  *         pair[set[double],set[double]] Private(unsigned pop1, unsigned pop2) except+
  * 
  * cdef class fst:             # <<<<<<<<<<<<<<
- *     cdef FST * thisptr
+ *     cdef unique_ptr[FST] thisptr
  */
 struct __pyx_obj_11libsequence_3fst_fst {
   PyObject_HEAD
-  Sequence::FST *thisptr;
+  std::unique_ptr<Sequence::FST>  thisptr;
 };
 
 
@@ -784,11 +785,11 @@ struct __pyx_memoryviewslice_obj {
 
 
 
-/* "libsequence/polytable.pxd":47
+/* "libsequence/polytable.pxd":50
  *     T polyTableFreqFilter[T](const T & t, const unsigned mincount,const bint skipAnc, const unsigned anc, const char gapchar)
  * 
  * cdef class polyTable:             # <<<<<<<<<<<<<<
- *     cdef PolyTable * thisptr
+ *     cdef unique_ptr[PolyTable] thisptr
  *     cpdef size(self)
  */
 
@@ -804,7 +805,7 @@ struct __pyx_vtabstruct_11libsequence_9polytable_polyTable {
 static struct __pyx_vtabstruct_11libsequence_9polytable_polyTable *__pyx_vtabptr_11libsequence_9polytable_polyTable;
 
 
-/* "libsequence/polytable.pxd":57
+/* "libsequence/polytable.pxd":60
  *     cpdef assign_sep(self,const vector[double] & pos,const vector[string] & data)
  * 
  * cdef class simData(polyTable):             # <<<<<<<<<<<<<<
@@ -818,7 +819,7 @@ struct __pyx_vtabstruct_11libsequence_9polytable_simData {
 static struct __pyx_vtabstruct_11libsequence_9polytable_simData *__pyx_vtabptr_11libsequence_9polytable_simData;
 
 
-/* "libsequence/polytable.pxd":60
+/* "libsequence/polytable.pxd":63
  *     pass
  * 
  * cdef class polySites(polyTable):             # <<<<<<<<<<<<<<
@@ -1260,6 +1261,9 @@ static void __pyx_insert_code_object(int code_line, PyCodeObject* code_object);
 static void __Pyx_AddTraceback(const char *funcname, int c_line,
                                int py_line, const char *filename);
 
+/* None.proto */
+#include <new>
+
 /* ArrayAPI.proto */
 #ifndef _ARRAYARRAY_H
 #define _ARRAYARRAY_H
@@ -1535,6 +1539,10 @@ static PyObject *__pyx_memoryviewslice_assign_item_from_object(struct __pyx_memo
 /* Module declarations from 'libcpp.utility' */
 
 /* Module declarations from 'libcpp.set' */
+
+/* Module declarations from 'libcpp' */
+
+/* Module declarations from 'libcpp.memory' */
 
 /* Module declarations from 'libc.string' */
 
@@ -1842,7 +1850,7 @@ static PyObject *__pyx_kp_s_unable_to_allocate_shape_and_str;
 static PyObject *__pyx_n_s_unpack;
 static PyObject *__pyx_n_s_weights;
 static int __pyx_pf_11libsequence_3fst_3fst___cinit__(struct __pyx_obj_11libsequence_3fst_fst *__pyx_v_self, struct __pyx_obj_11libsequence_9polytable_polyTable *__pyx_v_p, PyObject *__pyx_v_config, PyObject *__pyx_v_weights, int __pyx_v_haveOutgroup, unsigned int __pyx_v_outgroup); /* proto */
-static void __pyx_pf_11libsequence_3fst_3fst_2__dealloc__(struct __pyx_obj_11libsequence_3fst_fst *__pyx_v_self); /* proto */
+static void __pyx_pf_11libsequence_3fst_3fst_2__dealloc__(CYTHON_UNUSED struct __pyx_obj_11libsequence_3fst_fst *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11libsequence_3fst_3fst_4hsm(struct __pyx_obj_11libsequence_3fst_fst *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11libsequence_3fst_3fst_6slatkin(struct __pyx_obj_11libsequence_3fst_fst *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_11libsequence_3fst_3fst_8hbk(struct __pyx_obj_11libsequence_3fst_fst *__pyx_v_self); /* proto */
@@ -2086,7 +2094,7 @@ static int __pyx_pf_11libsequence_3fst_3fst___cinit__(struct __pyx_obj_11libsequ
  *         cdef unsigned[:] cv = c
  *         cdef double[:] wv
  *         if weights is None:             # <<<<<<<<<<<<<<
- *             self.thisptr = new FST(p.thisptr,len(config),&cv[0],NULL,haveOutgroup,outgroup)
+ *             self.thisptr = unique_ptr[FST](new FST(p.thisptr.get(),len(config),&cv[0],NULL,haveOutgroup,outgroup))
  *         else:
  */
   __pyx_t_4 = (__pyx_v_weights == ((PyObject*)Py_None));
@@ -2096,7 +2104,7 @@ static int __pyx_pf_11libsequence_3fst_3fst___cinit__(struct __pyx_obj_11libsequ
     /* "libsequence/fst.pyx":12
  *         cdef double[:] wv
  *         if weights is None:
- *             self.thisptr = new FST(p.thisptr,len(config),&cv[0],NULL,haveOutgroup,outgroup)             # <<<<<<<<<<<<<<
+ *             self.thisptr = unique_ptr[FST](new FST(p.thisptr.get(),len(config),&cv[0],NULL,haveOutgroup,outgroup))             # <<<<<<<<<<<<<<
  *         else:
  *             w = array.array('d',weights)
  */
@@ -2116,25 +2124,25 @@ static int __pyx_pf_11libsequence_3fst_3fst___cinit__(struct __pyx_obj_11libsequ
       __PYX_ERR(0, 12, __pyx_L1_error)
     }
     try {
-      __pyx_t_9 = new Sequence::FST(__pyx_v_p->thisptr, __pyx_t_6, (&(*((unsigned int *) ( /* dim=0 */ (__pyx_v_cv.data + __pyx_t_7 * __pyx_v_cv.strides[0]) )))), NULL, __pyx_v_haveOutgroup, __pyx_v_outgroup);
+      __pyx_t_9 = new Sequence::FST(__pyx_v_p->thisptr.get(), __pyx_t_6, (&(*((unsigned int *) ( /* dim=0 */ (__pyx_v_cv.data + __pyx_t_7 * __pyx_v_cv.strides[0]) )))), NULL, __pyx_v_haveOutgroup, __pyx_v_outgroup);
     } catch(...) {
       __Pyx_CppExn2PyErr();
       __PYX_ERR(0, 12, __pyx_L1_error)
     }
-    __pyx_v_self->thisptr = __pyx_t_9;
+    __pyx_v_self->thisptr = std::unique_ptr<Sequence::FST> (__pyx_t_9);
 
     /* "libsequence/fst.pyx":11
  *         cdef unsigned[:] cv = c
  *         cdef double[:] wv
  *         if weights is None:             # <<<<<<<<<<<<<<
- *             self.thisptr = new FST(p.thisptr,len(config),&cv[0],NULL,haveOutgroup,outgroup)
+ *             self.thisptr = unique_ptr[FST](new FST(p.thisptr.get(),len(config),&cv[0],NULL,haveOutgroup,outgroup))
  *         else:
  */
     goto __pyx_L3;
   }
 
   /* "libsequence/fst.pyx":14
- *             self.thisptr = new FST(p.thisptr,len(config),&cv[0],NULL,haveOutgroup,outgroup)
+ *             self.thisptr = unique_ptr[FST](new FST(p.thisptr.get(),len(config),&cv[0],NULL,haveOutgroup,outgroup))
  *         else:
  *             w = array.array('d',weights)             # <<<<<<<<<<<<<<
  *             wv = w
@@ -2173,7 +2181,7 @@ static int __pyx_pf_11libsequence_3fst_3fst___cinit__(struct __pyx_obj_11libsequ
  *             wv = w
  *             if len(config) != len(weights):             # <<<<<<<<<<<<<<
  *                 raise RuntimeError("len(config) must equal len(weights)")
- *             self.thisptr = new FST(p.thisptr,len(config),&cv[0],&wv[0],haveOutgroup,outgroup)
+ *             self.thisptr = unique_ptr[FST](new FST(p.thisptr.get(),len(config),&cv[0],&wv[0],haveOutgroup,outgroup))
  */
     if (unlikely(__pyx_v_config == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
@@ -2192,7 +2200,7 @@ static int __pyx_pf_11libsequence_3fst_3fst___cinit__(struct __pyx_obj_11libsequ
  *             wv = w
  *             if len(config) != len(weights):
  *                 raise RuntimeError("len(config) must equal len(weights)")             # <<<<<<<<<<<<<<
- *             self.thisptr = new FST(p.thisptr,len(config),&cv[0],&wv[0],haveOutgroup,outgroup)
+ *             self.thisptr = unique_ptr[FST](new FST(p.thisptr.get(),len(config),&cv[0],&wv[0],haveOutgroup,outgroup))
  *     def __dealloc__(self):
  */
       __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 17, __pyx_L1_error)
@@ -2206,16 +2214,16 @@ static int __pyx_pf_11libsequence_3fst_3fst___cinit__(struct __pyx_obj_11libsequ
  *             wv = w
  *             if len(config) != len(weights):             # <<<<<<<<<<<<<<
  *                 raise RuntimeError("len(config) must equal len(weights)")
- *             self.thisptr = new FST(p.thisptr,len(config),&cv[0],&wv[0],haveOutgroup,outgroup)
+ *             self.thisptr = unique_ptr[FST](new FST(p.thisptr.get(),len(config),&cv[0],&wv[0],haveOutgroup,outgroup))
  */
     }
 
     /* "libsequence/fst.pyx":18
  *             if len(config) != len(weights):
  *                 raise RuntimeError("len(config) must equal len(weights)")
- *             self.thisptr = new FST(p.thisptr,len(config),&cv[0],&wv[0],haveOutgroup,outgroup)             # <<<<<<<<<<<<<<
+ *             self.thisptr = unique_ptr[FST](new FST(p.thisptr.get(),len(config),&cv[0],&wv[0],haveOutgroup,outgroup))             # <<<<<<<<<<<<<<
  *     def __dealloc__(self):
- *         del self.thisptr
+ *         pass
  */
     if (unlikely(__pyx_v_config == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
@@ -2243,12 +2251,12 @@ static int __pyx_pf_11libsequence_3fst_3fst___cinit__(struct __pyx_obj_11libsequ
       __PYX_ERR(0, 18, __pyx_L1_error)
     }
     try {
-      __pyx_t_9 = new Sequence::FST(__pyx_v_p->thisptr, __pyx_t_11, (&(*((unsigned int *) ( /* dim=0 */ (__pyx_v_cv.data + __pyx_t_12 * __pyx_v_cv.strides[0]) )))), (&(*((double *) ( /* dim=0 */ (__pyx_v_wv.data + __pyx_t_13 * __pyx_v_wv.strides[0]) )))), __pyx_v_haveOutgroup, __pyx_v_outgroup);
+      __pyx_t_9 = new Sequence::FST(__pyx_v_p->thisptr.get(), __pyx_t_11, (&(*((unsigned int *) ( /* dim=0 */ (__pyx_v_cv.data + __pyx_t_12 * __pyx_v_cv.strides[0]) )))), (&(*((double *) ( /* dim=0 */ (__pyx_v_wv.data + __pyx_t_13 * __pyx_v_wv.strides[0]) )))), __pyx_v_haveOutgroup, __pyx_v_outgroup);
     } catch(...) {
       __Pyx_CppExn2PyErr();
       __PYX_ERR(0, 18, __pyx_L1_error)
     }
-    __pyx_v_self->thisptr = __pyx_t_9;
+    __pyx_v_self->thisptr = std::unique_ptr<Sequence::FST> (__pyx_t_9);
   }
   __pyx_L3:;
 
@@ -2281,9 +2289,9 @@ static int __pyx_pf_11libsequence_3fst_3fst___cinit__(struct __pyx_obj_11libsequ
 
 /* "libsequence/fst.pyx":19
  *                 raise RuntimeError("len(config) must equal len(weights)")
- *             self.thisptr = new FST(p.thisptr,len(config),&cv[0],&wv[0],haveOutgroup,outgroup)
+ *             self.thisptr = unique_ptr[FST](new FST(p.thisptr.get(),len(config),&cv[0],&wv[0],haveOutgroup,outgroup))
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         del self.thisptr
+ *         pass
  *     def hsm(self):
  */
 
@@ -2298,26 +2306,9 @@ static void __pyx_pw_11libsequence_3fst_3fst_3__dealloc__(PyObject *__pyx_v_self
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_11libsequence_3fst_3fst_2__dealloc__(struct __pyx_obj_11libsequence_3fst_fst *__pyx_v_self) {
+static void __pyx_pf_11libsequence_3fst_3fst_2__dealloc__(CYTHON_UNUSED struct __pyx_obj_11libsequence_3fst_fst *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__", 0);
-
-  /* "libsequence/fst.pyx":20
- *             self.thisptr = new FST(p.thisptr,len(config),&cv[0],&wv[0],haveOutgroup,outgroup)
- *     def __dealloc__(self):
- *         del self.thisptr             # <<<<<<<<<<<<<<
- *     def hsm(self):
- *         """
- */
-  delete __pyx_v_self->thisptr;
-
-  /* "libsequence/fst.pyx":19
- *                 raise RuntimeError("len(config) must equal len(weights)")
- *             self.thisptr = new FST(p.thisptr,len(config),&cv[0],&wv[0],haveOutgroup,outgroup)
- *     def __dealloc__(self):             # <<<<<<<<<<<<<<
- *         del self.thisptr
- *     def hsm(self):
- */
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
@@ -2325,7 +2316,7 @@ static void __pyx_pf_11libsequence_3fst_3fst_2__dealloc__(struct __pyx_obj_11lib
 
 /* "libsequence/fst.pyx":21
  *     def __dealloc__(self):
- *         del self.thisptr
+ *         pass
  *     def hsm(self):             # <<<<<<<<<<<<<<
  *         """
  *         Hudson, Slatkin, Maddison
@@ -2354,12 +2345,12 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_4hsm(struct __pyx_obj_11libseq
   /* "libsequence/fst.pyx":25
  *         Hudson, Slatkin, Maddison
  *         """
- *         return self.thisptr.HSM()             # <<<<<<<<<<<<<<
+ *         return self.thisptr.get().HSM()             # <<<<<<<<<<<<<<
  *     def slatkin(self):
  *         """
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->HSM()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr.get()->HSM()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 25, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2367,7 +2358,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_4hsm(struct __pyx_obj_11libseq
 
   /* "libsequence/fst.pyx":21
  *     def __dealloc__(self):
- *         del self.thisptr
+ *         pass
  *     def hsm(self):             # <<<<<<<<<<<<<<
  *         """
  *         Hudson, Slatkin, Maddison
@@ -2386,7 +2377,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_4hsm(struct __pyx_obj_11libseq
 
 /* "libsequence/fst.pyx":26
  *         """
- *         return self.thisptr.HSM()
+ *         return self.thisptr.get().HSM()
  *     def slatkin(self):             # <<<<<<<<<<<<<<
  *         """
  *         Slatkin
@@ -2415,12 +2406,12 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_6slatkin(struct __pyx_obj_11li
   /* "libsequence/fst.pyx":30
  *         Slatkin
  *         """
- *         return self.thisptr.Slatkin()             # <<<<<<<<<<<<<<
+ *         return self.thisptr.get().Slatkin()             # <<<<<<<<<<<<<<
  *     def hbk(self):
  *         """
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->Slatkin()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr.get()->Slatkin()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2428,7 +2419,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_6slatkin(struct __pyx_obj_11li
 
   /* "libsequence/fst.pyx":26
  *         """
- *         return self.thisptr.HSM()
+ *         return self.thisptr.get().HSM()
  *     def slatkin(self):             # <<<<<<<<<<<<<<
  *         """
  *         Slatkin
@@ -2447,7 +2438,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_6slatkin(struct __pyx_obj_11li
 
 /* "libsequence/fst.pyx":31
  *         """
- *         return self.thisptr.Slatkin()
+ *         return self.thisptr.get().Slatkin()
  *     def hbk(self):             # <<<<<<<<<<<<<<
  *         """
  *         Hudson, Boos, and Kaplan
@@ -2476,12 +2467,12 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_8hbk(struct __pyx_obj_11libseq
   /* "libsequence/fst.pyx":35
  *         Hudson, Boos, and Kaplan
  *         """
- *         return self.thisptr.HBK()             # <<<<<<<<<<<<<<
+ *         return self.thisptr.get().HBK()             # <<<<<<<<<<<<<<
  *     def piB(self):
  *         """
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->HBK()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr.get()->HBK()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 35, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2489,7 +2480,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_8hbk(struct __pyx_obj_11libseq
 
   /* "libsequence/fst.pyx":31
  *         """
- *         return self.thisptr.Slatkin()
+ *         return self.thisptr.get().Slatkin()
  *     def hbk(self):             # <<<<<<<<<<<<<<
  *         """
  *         Hudson, Boos, and Kaplan
@@ -2508,7 +2499,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_8hbk(struct __pyx_obj_11libseq
 
 /* "libsequence/fst.pyx":36
  *         """
- *         return self.thisptr.HBK()
+ *         return self.thisptr.get().HBK()
  *     def piB(self):             # <<<<<<<<<<<<<<
  *         """
  *         :math:`\\pi` between populations
@@ -2537,12 +2528,12 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_10piB(struct __pyx_obj_11libse
   /* "libsequence/fst.pyx":40
  *         :math:`\\pi` between populations
  *         """
- *         return self.thisptr.piB()             # <<<<<<<<<<<<<<
+ *         return self.thisptr.get().piB()             # <<<<<<<<<<<<<<
  *     def piT(self):
  *         """
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->piB()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr.get()->piB()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 40, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2550,7 +2541,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_10piB(struct __pyx_obj_11libse
 
   /* "libsequence/fst.pyx":36
  *         """
- *         return self.thisptr.HBK()
+ *         return self.thisptr.get().HBK()
  *     def piB(self):             # <<<<<<<<<<<<<<
  *         """
  *         :math:`\\pi` between populations
@@ -2569,7 +2560,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_10piB(struct __pyx_obj_11libse
 
 /* "libsequence/fst.pyx":41
  *         """
- *         return self.thisptr.piB()
+ *         return self.thisptr.get().piB()
  *     def piT(self):             # <<<<<<<<<<<<<<
  *         """
  *         Total :math:`\\pi`
@@ -2598,12 +2589,12 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_12piT(struct __pyx_obj_11libse
   /* "libsequence/fst.pyx":45
  *         Total :math:`\\pi`
  *         """
- *         return self.thisptr.piT()             # <<<<<<<<<<<<<<
+ *         return self.thisptr.get().piT()             # <<<<<<<<<<<<<<
  *     def piS(self):
  *         """
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->piT()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr.get()->piT()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 45, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2611,7 +2602,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_12piT(struct __pyx_obj_11libse
 
   /* "libsequence/fst.pyx":41
  *         """
- *         return self.thisptr.piB()
+ *         return self.thisptr.get().piB()
  *     def piT(self):             # <<<<<<<<<<<<<<
  *         """
  *         Total :math:`\\pi`
@@ -2630,7 +2621,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_12piT(struct __pyx_obj_11libse
 
 /* "libsequence/fst.pyx":46
  *         """
- *         return self.thisptr.piT()
+ *         return self.thisptr.get().piT()
  *     def piS(self):             # <<<<<<<<<<<<<<
  *         """
  *         :math:`\\pi_S`
@@ -2659,12 +2650,12 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_14piS(struct __pyx_obj_11libse
   /* "libsequence/fst.pyx":50
  *         :math:`\\pi_S`
  *         """
- *         return self.thisptr.piS()             # <<<<<<<<<<<<<<
+ *         return self.thisptr.get().piS()             # <<<<<<<<<<<<<<
  *     def piD(self):
  *         """
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->piS()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr.get()->piS()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2672,7 +2663,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_14piS(struct __pyx_obj_11libse
 
   /* "libsequence/fst.pyx":46
  *         """
- *         return self.thisptr.piT()
+ *         return self.thisptr.get().piT()
  *     def piS(self):             # <<<<<<<<<<<<<<
  *         """
  *         :math:`\\pi_S`
@@ -2691,7 +2682,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_14piS(struct __pyx_obj_11libse
 
 /* "libsequence/fst.pyx":51
  *         """
- *         return self.thisptr.piS()
+ *         return self.thisptr.get().piS()
  *     def piD(self):             # <<<<<<<<<<<<<<
  *         """
  *         :math:`\\pi_D`
@@ -2720,12 +2711,12 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_16piD(struct __pyx_obj_11libse
   /* "libsequence/fst.pyx":55
  *         :math:`\\pi_D`
  *         """
- *         return self.thisptr.piD()             # <<<<<<<<<<<<<<
+ *         return self.thisptr.get().piD()             # <<<<<<<<<<<<<<
  *     def shared(self,unsigned i,unsigned j):
  *         """
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr->piD()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->thisptr.get()->piD()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -2733,7 +2724,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_16piD(struct __pyx_obj_11libse
 
   /* "libsequence/fst.pyx":51
  *         """
- *         return self.thisptr.piS()
+ *         return self.thisptr.get().piS()
  *     def piD(self):             # <<<<<<<<<<<<<<
  *         """
  *         :math:`\\pi_D`
@@ -2752,7 +2743,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_16piD(struct __pyx_obj_11libse
 
 /* "libsequence/fst.pyx":56
  *         """
- *         return self.thisptr.piD()
+ *         return self.thisptr.get().piD()
  *     def shared(self,unsigned i,unsigned j):             # <<<<<<<<<<<<<<
  *         """
  *         Returns positions of mutations shared between demes i and j
@@ -2830,13 +2821,13 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_18shared(struct __pyx_obj_11li
   /* "libsequence/fst.pyx":63
  * 
  *         """
- *         return sorted(list(self.thisptr.shared(i,j)))             # <<<<<<<<<<<<<<
+ *         return sorted(list(self.thisptr.get().shared(i,j)))             # <<<<<<<<<<<<<<
  *     def priv(self,unsigned i,unsigned j):
  *         """
  */
   __Pyx_XDECREF(__pyx_r);
   try {
-    __pyx_t_2 = __pyx_v_self->thisptr->shared(__pyx_v_i, __pyx_v_j);
+    __pyx_t_2 = __pyx_v_self->thisptr.get()->shared(__pyx_v_i, __pyx_v_j);
   } catch(...) {
     __Pyx_CppExn2PyErr();
     __PYX_ERR(0, 63, __pyx_L1_error)
@@ -2858,7 +2849,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_18shared(struct __pyx_obj_11li
 
   /* "libsequence/fst.pyx":56
  *         """
- *         return self.thisptr.piD()
+ *         return self.thisptr.get().piD()
  *     def shared(self,unsigned i,unsigned j):             # <<<<<<<<<<<<<<
  *         """
  *         Returns positions of mutations shared between demes i and j
@@ -2879,7 +2870,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_18shared(struct __pyx_obj_11li
 
 /* "libsequence/fst.pyx":64
  *         """
- *         return sorted(list(self.thisptr.shared(i,j)))
+ *         return sorted(list(self.thisptr.get().shared(i,j)))
  *     def priv(self,unsigned i,unsigned j):             # <<<<<<<<<<<<<<
  *         """
  *         Returns set of mutations private to i and private to j, when
@@ -2960,12 +2951,12 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_20priv(struct __pyx_obj_11libs
   /* "libsequence/fst.pyx":73
  *         :rtype: dict
  *         """
- *         p = self.thisptr.Private(i,j)             # <<<<<<<<<<<<<<
+ *         p = self.thisptr.get().Private(i,j)             # <<<<<<<<<<<<<<
  *         return {i:sorted(list(p.first)),j:sorted(list(p.second))}
  *     def fixed(self,unsigned i,unsigned j):
  */
   try {
-    __pyx_t_1 = __pyx_v_self->thisptr->Private(__pyx_v_i, __pyx_v_j);
+    __pyx_t_1 = __pyx_v_self->thisptr.get()->Private(__pyx_v_i, __pyx_v_j);
   } catch(...) {
     __Pyx_CppExn2PyErr();
     __PYX_ERR(0, 73, __pyx_L1_error)
@@ -2974,7 +2965,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_20priv(struct __pyx_obj_11libs
 
   /* "libsequence/fst.pyx":74
  *         """
- *         p = self.thisptr.Private(i,j)
+ *         p = self.thisptr.get().Private(i,j)
  *         return {i:sorted(list(p.first)),j:sorted(list(p.second))}             # <<<<<<<<<<<<<<
  *     def fixed(self,unsigned i,unsigned j):
  *         """
@@ -3020,7 +3011,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_20priv(struct __pyx_obj_11libs
 
   /* "libsequence/fst.pyx":64
  *         """
- *         return sorted(list(self.thisptr.shared(i,j)))
+ *         return sorted(list(self.thisptr.get().shared(i,j)))
  *     def priv(self,unsigned i,unsigned j):             # <<<<<<<<<<<<<<
  *         """
  *         Returns set of mutations private to i and private to j, when
@@ -3042,7 +3033,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_20priv(struct __pyx_obj_11libs
 }
 
 /* "libsequence/fst.pyx":75
- *         p = self.thisptr.Private(i,j)
+ *         p = self.thisptr.get().Private(i,j)
  *         return {i:sorted(list(p.first)),j:sorted(list(p.second))}
  *     def fixed(self,unsigned i,unsigned j):             # <<<<<<<<<<<<<<
  *         """
@@ -3122,11 +3113,11 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_22fixed(struct __pyx_obj_11lib
   /* "libsequence/fst.pyx":81
  *         :rtype: list
  *         """
- *         f = self.thisptr.fixed(i,j)             # <<<<<<<<<<<<<<
+ *         f = self.thisptr.get().fixed(i,j)             # <<<<<<<<<<<<<<
  *         return sorted(list(f))
  */
   try {
-    __pyx_t_1 = __pyx_v_self->thisptr->fixed(__pyx_v_i, __pyx_v_j);
+    __pyx_t_1 = __pyx_v_self->thisptr.get()->fixed(__pyx_v_i, __pyx_v_j);
   } catch(...) {
     __Pyx_CppExn2PyErr();
     __PYX_ERR(0, 81, __pyx_L1_error)
@@ -3135,7 +3126,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_22fixed(struct __pyx_obj_11lib
 
   /* "libsequence/fst.pyx":82
  *         """
- *         f = self.thisptr.fixed(i,j)
+ *         f = self.thisptr.get().fixed(i,j)
  *         return sorted(list(f))             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
@@ -3155,7 +3146,7 @@ static PyObject *__pyx_pf_11libsequence_3fst_3fst_22fixed(struct __pyx_obj_11lib
   goto __pyx_L0;
 
   /* "libsequence/fst.pyx":75
- *         p = self.thisptr.Private(i,j)
+ *         p = self.thisptr.get().Private(i,j)
  *         return {i:sorted(list(p.first)),j:sorted(list(p.second))}
  *     def fixed(self,unsigned i,unsigned j):             # <<<<<<<<<<<<<<
  *         """
@@ -15489,6 +15480,7 @@ static void __pyx_memoryview__slice_assign_scalar(char *__pyx_v_data, Py_ssize_t
 }
 
 static PyObject *__pyx_tp_new_11libsequence_3fst_fst(PyTypeObject *t, PyObject *a, PyObject *k) {
+  struct __pyx_obj_11libsequence_3fst_fst *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -15496,6 +15488,8 @@ static PyObject *__pyx_tp_new_11libsequence_3fst_fst(PyTypeObject *t, PyObject *
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
+  p = ((struct __pyx_obj_11libsequence_3fst_fst *)o);
+  new((void*)&(p->thisptr)) std::unique_ptr<Sequence::FST> ();
   if (unlikely(__pyx_pw_11libsequence_3fst_3fst_1__cinit__(o, a, k) < 0)) {
     Py_DECREF(o); o = 0;
   }
@@ -15503,6 +15497,7 @@ static PyObject *__pyx_tp_new_11libsequence_3fst_fst(PyTypeObject *t, PyObject *
 }
 
 static void __pyx_tp_dealloc_11libsequence_3fst_fst(PyObject *o) {
+  struct __pyx_obj_11libsequence_3fst_fst *p = (struct __pyx_obj_11libsequence_3fst_fst *)o;
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -15516,6 +15511,7 @@ static void __pyx_tp_dealloc_11libsequence_3fst_fst(PyObject *o) {
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
+  __Pyx_call_destructor(p->thisptr);
   (*Py_TYPE(o)->tp_free)(o);
 }
 
@@ -16373,7 +16369,7 @@ static int __Pyx_InitCachedConstants(void) {
  *             wv = w
  *             if len(config) != len(weights):
  *                 raise RuntimeError("len(config) must equal len(weights)")             # <<<<<<<<<<<<<<
- *             self.thisptr = new FST(p.thisptr,len(config),&cv[0],&wv[0],haveOutgroup,outgroup)
+ *             self.thisptr = unique_ptr[FST](new FST(p.thisptr.get(),len(config),&cv[0],&wv[0],haveOutgroup,outgroup))
  *     def __dealloc__(self):
  */
   __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_s_len_config_must_equal_len_weight); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 17, __pyx_L1_error)
@@ -16722,12 +16718,12 @@ PyMODINIT_FUNC PyInit_fst(void)
   if (__Pyx_SetVtable(__pyx_type___pyx_memoryviewslice.tp_dict, __pyx_vtabptr__memoryviewslice) < 0) __PYX_ERR(2, 951, __pyx_L1_error)
   __pyx_memoryviewslice_type = &__pyx_type___pyx_memoryviewslice;
   /*--- Type import code ---*/
-  __pyx_ptype_11libsequence_9polytable_polyTable = __Pyx_ImportType("libsequence.polytable", "polyTable", sizeof(struct __pyx_obj_11libsequence_9polytable_polyTable), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_polyTable)) __PYX_ERR(3, 47, __pyx_L1_error)
-  __pyx_vtabptr_11libsequence_9polytable_polyTable = (struct __pyx_vtabstruct_11libsequence_9polytable_polyTable*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_polyTable->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_polyTable)) __PYX_ERR(3, 47, __pyx_L1_error)
-  __pyx_ptype_11libsequence_9polytable_simData = __Pyx_ImportType("libsequence.polytable", "simData", sizeof(struct __pyx_obj_11libsequence_9polytable_simData), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_simData)) __PYX_ERR(3, 57, __pyx_L1_error)
-  __pyx_vtabptr_11libsequence_9polytable_simData = (struct __pyx_vtabstruct_11libsequence_9polytable_simData*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_simData->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_simData)) __PYX_ERR(3, 57, __pyx_L1_error)
-  __pyx_ptype_11libsequence_9polytable_polySites = __Pyx_ImportType("libsequence.polytable", "polySites", sizeof(struct __pyx_obj_11libsequence_9polytable_polySites), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_polySites)) __PYX_ERR(3, 60, __pyx_L1_error)
-  __pyx_vtabptr_11libsequence_9polytable_polySites = (struct __pyx_vtabstruct_11libsequence_9polytable_polySites*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_polySites->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_polySites)) __PYX_ERR(3, 60, __pyx_L1_error)
+  __pyx_ptype_11libsequence_9polytable_polyTable = __Pyx_ImportType("libsequence.polytable", "polyTable", sizeof(struct __pyx_obj_11libsequence_9polytable_polyTable), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_polyTable)) __PYX_ERR(3, 50, __pyx_L1_error)
+  __pyx_vtabptr_11libsequence_9polytable_polyTable = (struct __pyx_vtabstruct_11libsequence_9polytable_polyTable*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_polyTable->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_polyTable)) __PYX_ERR(3, 50, __pyx_L1_error)
+  __pyx_ptype_11libsequence_9polytable_simData = __Pyx_ImportType("libsequence.polytable", "simData", sizeof(struct __pyx_obj_11libsequence_9polytable_simData), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_simData)) __PYX_ERR(3, 60, __pyx_L1_error)
+  __pyx_vtabptr_11libsequence_9polytable_simData = (struct __pyx_vtabstruct_11libsequence_9polytable_simData*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_simData->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_simData)) __PYX_ERR(3, 60, __pyx_L1_error)
+  __pyx_ptype_11libsequence_9polytable_polySites = __Pyx_ImportType("libsequence.polytable", "polySites", sizeof(struct __pyx_obj_11libsequence_9polytable_polySites), 1); if (unlikely(!__pyx_ptype_11libsequence_9polytable_polySites)) __PYX_ERR(3, 63, __pyx_L1_error)
+  __pyx_vtabptr_11libsequence_9polytable_polySites = (struct __pyx_vtabstruct_11libsequence_9polytable_polySites*)__Pyx_GetVtable(__pyx_ptype_11libsequence_9polytable_polySites->tp_dict); if (unlikely(!__pyx_vtabptr_11libsequence_9polytable_polySites)) __PYX_ERR(3, 63, __pyx_L1_error)
   __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__Pyx_BUILTIN_MODULE_NAME, "type", 
   #if CYTHON_COMPILING_IN_PYPY
   sizeof(PyTypeObject),
