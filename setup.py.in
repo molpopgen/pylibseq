@@ -67,7 +67,7 @@ EXTENSION = '.pyx' if USE_CYTHON else '.cpp'
 extensions = []
 pdata = {'libsequence':['*.pxd']}
 provided = []
-modules = ['polytable','summstats','windows','fst']
+modules = ['polytable','summstats','windows','fst','extensions']
 for i in modules:
     extensions.append(Extension("libsequence."+i,
                                 sources=["libsequence/"+i+EXTENSION],

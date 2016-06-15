@@ -31,6 +31,10 @@ Functions and classes
    :members:
    :show-inheritance:
 
+.. automodule:: libsequence.extensions
+   :members:
+   :show-inheritance:
+
 Indices and tables
 ==================
 
