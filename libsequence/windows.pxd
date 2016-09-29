@@ -12,9 +12,6 @@ cdef extern from "Sequence/PolyTableSlice.hpp" namespace "Sequence" nogil:
         T operator[](const unsigned &) const
         unsigned size() const
 
-ctypedef PolyTableSlice[SimData] SimDataWindows
-ctypedef PolyTableSlice[PolySites] PolySitesWindows
-
 cdef class Windows:
     cdef public object windows
         
