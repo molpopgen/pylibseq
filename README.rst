@@ -21,6 +21,8 @@ Requirements:
 * Python 2 or Python 3
 * An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughty, this means GCC >= 4.8 and clang >= 3.5.
 
+..note:: If you installing from GitHub, then Cython_ is a dependency.
+
 You should install libsequence_ from source.
 
 If you want to modify the package, you will need Cython_ installed via your favorite Python package manager.
