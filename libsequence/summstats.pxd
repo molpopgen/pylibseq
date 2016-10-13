@@ -3,6 +3,7 @@ from libcpp cimport bool
 from libcpp.vector cimport vector
 from libcpp.utility cimport pair
 from libcpp.memory cimport unique_ptr
+from libcpp.unordered_map cimport unordered_map
 
 cdef extern from "Sequence/PolySNP.hpp" namespace "Sequence" nogil:
     cdef cppclass PolySNP:
@@ -92,8 +93,10 @@ cdef extern from "Sequence/SummStats/lHaf.hpp" namespace "Sequence" nogil:
     vector[double] lHaf( const SimData & data, const double l )
 
 cdef extern from "Sequence/SummStats/nSL.hpp" namespace "Sequence" nogil:
-    pair[double,double] nSL(const unsigned & core, const SimData & d, const double * gmap)
-    pair[double,double] snSL(const SimData & d,const double minfreq, const double binsize, const double * gmap)
+    #These functions can throw exceptions when maps are used that do not
+    #contain positions in d.
+    pair[double,double] nSL(const unsigned & core, const SimData & d, const unordered_map[double,double] & gmap) except +
+    pair[double,double] snSL(const SimData & d,const double minfreq, const double binsize, const unordered_map[double,double] & gmap) except +
 
 cdef extern from "Sequence/Recombination.hpp" namespace "Sequence::Recombination" nogil:
     bint Disequilibrium(const PolyTable *, vector[double] &, unsigned *, unsigned *,const bint & , const unsigned &, const unsigned &, const double)

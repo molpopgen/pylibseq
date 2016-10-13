@@ -244,7 +244,7 @@ def lhaf( polyTable pt, double l ):
     else:
         raise RuntimeError("lhaf: only simData objects are allowed")
 
-def nSLiHS(polyTable pt, double[:] gmap = None):
+def nSLiHS(polyTable pt, dict gmap = None):
     """
     "Raw"/unstandardized :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
 
@@ -256,19 +256,21 @@ def nSLiHS(polyTable pt, double[:] gmap = None):
     
     .. note:: Only :class:`libsequence.polytable.simData` types currently supported
     """
+    cdef unordered_map[double,double] gm
     if isinstance(pt,simData):
         rv = []
         if gmap is None:
             for core in range(pt.numsites()):
-                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr.get())),NULL))
+                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr.get())),gm))
         else:
+            gm=gmap
             for core in range(pt.numsites()):
-                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr.get())),&gmap[0]))
+                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr.get())),gm))
         return rv
     else:
         raise RuntimeError("nSL: only simData objects are allowed")
     
-def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):
+def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, dict gmap = None):
     """
     Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077
 
@@ -284,11 +286,13 @@ def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, double[
 
     .. note:: Only :class:`libsequence.polytable.simData` types currently supported
     """
+    cdef unordered_map[double,double] gm
     if isinstance(pt,simData):
         if gmap is None:
-            return snSL(deref(dynamic_cast['SimData*'](pt.thisptr.get())),minfreq,binsize,NULL)
+            return snSL(deref(dynamic_cast['SimData*'](pt.thisptr.get())),minfreq,binsize,gm)
         else:
-            return snSL(deref(dynamic_cast['SimData*'](pt.thisptr.get())),minfreq,binsize,&gmap[0])
+            gm=gmap
+            return snSL(deref(dynamic_cast['SimData*'](pt.thisptr.get())),minfreq,binsize,gm)
     else:
         raise RuntimeError("std_nSL: only simData objects are allowed")
 
