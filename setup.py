@@ -67,15 +67,18 @@ EXTENSION = '.pyx' if USE_CYTHON else '.cpp'
 extensions = []
 pdata = {'libsequence':['*.pxd']}
 provided = []
-modules = ['polytable','summstats','windows','fst','extensions']
+modules = ['polytable','summstats','windows','fst','extensions','parallel']
 for i in modules:
+    LIBS=["sequence"]
+    if i == 'parallel':
+        LIBS.append('tbb')
     extensions.append(Extension("libsequence."+i,
                                 sources=["libsequence/"+i+EXTENSION],
                                 language="c++",                  
                                 extra_compile_args=["-std=c++11"],  
                                 extra_link_args=["-std=c++11"],
-                                libraries=["sequence"])
-                                )
+                                libraries=LIBS,
+                                ))
     provided.append('libsequence.'+i)
     pdata['libsequence.'+i]=['*.pxd']
 
