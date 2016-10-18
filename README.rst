@@ -18,6 +18,7 @@ Requirements:
 ===================================
 
 * libsequence_ must be installed on your system.  **Currently, this package requires the dev branch of libsequence**
+* TBB_ must be installed on your system.
 * Python 2 or Python 3
 * An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughty, this means GCC >= 4.8 and clang >= 3.5.
 
@@ -107,3 +108,4 @@ Documentation:
 .. _Manual: http://molpopgen.github.io/pylibseq/_build/html/index.html
 .. _homepage: http://molpopgen.github.io/pylibseq/
 .. _PyPi: https://pypi.python.org
+.. _TBB: http://www.threadbuildingblocks.org
