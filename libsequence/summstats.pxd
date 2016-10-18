@@ -95,7 +95,7 @@ cdef extern from "Sequence/SummStats/lHaf.hpp" namespace "Sequence" nogil:
 cdef extern from "Sequence/SummStats/nSL.hpp" namespace "Sequence" nogil:
     #These functions can throw exceptions when maps are used that do not
     #contain positions in d.
-    pair[double,double] nSL(const unsigned & core, const SimData & d, const unordered_map[double,double] & gmap) except +
+    vector[pair[double,double]] nSL_t(const SimData & d, const unordered_map[double,double] & gmap) except +
     pair[double,double] snSL(const SimData & d,const double minfreq, const double binsize, const unordered_map[double,double] & gmap) except +
 
 cdef extern from "Sequence/Recombination.hpp" namespace "Sequence::Recombination" nogil:

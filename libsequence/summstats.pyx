@@ -259,15 +259,11 @@ def nSLiHS(polyTable pt, dict gmap = None):
     """
     cdef unordered_map[double,double] gm
     if isinstance(pt,simData):
-        rv = []
         if gmap is None:
-            for core in range(pt.numsites()):
-                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr.get())),gm))
+            return nSL_t(deref(dynamic_cast['SimData*'](pt.thisptr.get())),gm)
         else:
             gm=gmap
-            for core in range(pt.numsites()):
-                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr.get())),gm))
-        return rv
+            return nSL_t(deref(dynamic_cast['SimData*'](pt.thisptr.get())),gm)
     else:
         raise RuntimeError("nSL: only simData objects are allowed")
     
