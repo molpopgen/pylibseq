@@ -305,28 +305,12 @@ def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned m
 
     .. note:: This function skips sites with missing data, gaps, etc.
     """
-    rv = {'i':[],
-          'j':[],
-          'rsq':[],
-          'D':[],
-          'Dprime':[]}
     if p.empty():
-        return rv
-    cdef unsigned i = 0
-    cdef unsigned j = i + 1
-    cdef vector[double] ldvals
-    ldvals.resize(6)
+        return [] 
     cdef double md = numeric_limits[double].max()
     if maxDist is not None:
         md = maxDist
-    while Disequilibrium(p.thisptr.get(),ldvals,&i,&j,haveOutgroup,outgroup,mincount,md):
-        if ldvals[5] == 0:  ##site pair NOT skipped
-            rv['i'].append(ldvals[0])
-            rv['j'].append(ldvals[1])
-            rv['rsq'].append(ldvals[2])
-            rv['D'].append(ldvals[3])
-            rv['Dprime'].append(ldvals[4])
-    return rv
+    return Disequilibrium(p.thisptr.get(),haveOutgroup,outgroup,mincount,maxDist)
 
 def garudStats(polyTable pt):
    """

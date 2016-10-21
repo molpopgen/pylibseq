@@ -98,5 +98,15 @@ cdef extern from "Sequence/SummStats/nSL.hpp" namespace "Sequence" nogil:
     vector[pair[double,double]] nSL_t(const SimData & d, const unordered_map[double,double] & gmap) except +
     pair[double,double] snSL(const SimData & d,const double minfreq, const double binsize, const unordered_map[double,double] & gmap) except +
 
+cdef extern from "Sequence/Recombination.hpp" namespace "Sequence" nogil:
+    cdef struct PairwiseLDstats:
+        double i
+        double j
+        double rsq
+        double D
+        double Dprime
+        bint skipped
+
 cdef extern from "Sequence/Recombination.hpp" namespace "Sequence::Recombination" nogil:
-    bint Disequilibrium(const PolyTable *, vector[double] &, unsigned *, unsigned *,const bint & , const unsigned &, const unsigned &, const double)
+    vector[PairwiseLDstats] Disequilibrium(const PolyTable *,const bint & haveOutgroup,const unsigned & outgroup,const unsigned & mincount,
+            const double max_distance)
