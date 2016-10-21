@@ -13,6 +13,7 @@ Contents:
 
    README
    doc/overview
+   doc/parallel
    doc/lifetimes
    doc/extending
 
