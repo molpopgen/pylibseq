@@ -22,8 +22,8 @@ try:
     (out,err) = proc.communicate()
     version = str(out).decode('utf-8').rstrip()
     print ("libsequence version",version," found.")
-    if version < '1.8.9':
-        print("libsequence >= ,'1.8.9' required, but ",version, "found.")
+    if version < '1.9.0':
+        print("libsequence >= ,'1.9.0' required, but ",version, "found.")
         sys.exit(2)
 except:
     print("libsequenceConfig not found.  Please install fwdpp (http://github.com/molpopgen/libsequence)")

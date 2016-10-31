@@ -30,7 +30,7 @@ Requirements:
 
 ..note:: If you installing from GitHub, then Cython_ is a dependency.
 
-You should install libsequence_ from source.
+The recommended method for installing libsequence_ is bioconda_.  If you do not use that system, then you should install libsequence_ from source.
 
 If you want to modify the package, you will need Cython_ installed via your favorite Python package manager.
 
@@ -90,7 +90,7 @@ Unit testing:
 .. code-block:: bash
 
    $ ./configure
-   $ python setup.py build_ext -i
+   $ python setup.py build_ext -i --use-cython
    $ python -m unittest discover unit_test
 
 Modifying the package
@@ -115,3 +115,4 @@ Documentation:
 .. _homepage: http://molpopgen.github.io/pylibseq/
 .. _PyPi: https://pypi.python.org
 .. _TBB: http://www.threadbuildingblocks.org
+.. _bioconda: https://bioconda.github.io
