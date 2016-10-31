@@ -37,6 +37,8 @@ Functions and classes
    :show-inheritance:
 
 .. automodule:: libsequence.msprime
+   :members:
+   :show-inheritance:
 
 Indices and tables
 ==================
