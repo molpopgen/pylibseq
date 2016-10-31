@@ -273,11 +273,10 @@ def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, dict gm
 
     :param pt: A :class:`libsequence.polytable.polyTable`
     :param minfreq: Ignore markers with frequency < this value
-    :param binsize: Standardize statistic in frequency bings of this width
+    :param binsize: Standardize statistic in frequency bins of this width
     :param gmap: A dictionary relating eacy position in pt to its location on a genetic map.
 
-    :return: A tuple. The first value is max standardized nSL over all bins.  The second is max iHS over all bins, where iHS is calculated according to Ferrer-Admetlla et al.
-    The maxmimums are calculated based on absolute value.
+    :return: A tuple. The first value is max standardized nSL over all bins.  The second is max iHS over all bins, where iHS is calculated according to Ferrer-Admetlla et al. The maximums are calculated based on absolute value.
 
     :rtype: float
 
