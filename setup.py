@@ -39,17 +39,6 @@ except subprocess.CalledProcessError as e:
     sys.exit(2)
 print("done")
 
-if platform.system() == 'Linux' or platform.system() == 'Darwin':
-    doc_dir = '/usr/local/share/doc/pylibseq'
-else:
-    try:
-        from win32com.shell import shellcon, shell
-        homedir = shell.SHGetFolderPath(0, shellcon.CSIDL_APPDATA, 0, 0)
-        appdir = 'pylibseq'
-        doc_dir = os.path.join(homedir, appdir)
-    except:
-        pass
-
 #Are we gonna build using Cython or not?  Default is not to,
 #which allows us to ship this in a standard way.
 if '--use-cython' in sys.argv:
@@ -97,7 +86,7 @@ setup(name='pylibseq',
       url='http://github.com/molpopgen/pylibseq',
       description="""""",
       long_description=long_desc,
-      data_files=[(doc_dir, ['COPYING', 'README.rst'])],
+      data_files=[('pylibseq', ['COPYING', 'README.rst'])],
       download_url='',
       classifiers=[],
       platforms=['Linux','OS X'],

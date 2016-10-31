@@ -15,4 +15,4 @@ def make_simData(g):
     >>> g = msp.simulate(sample_size = 10,Ne=1e6, recombination_rate=1e-8,mutation_rate=1e-8,length=1e4)
     >>> s = make_simData(g)
     """
-    return pd.simData([(v.position, v.genotypes) for v in g.variants(as_bytes=True)])
+    return simData([(v.position, v.genotypes) for v in g.variants(as_bytes=True)])

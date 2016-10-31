@@ -192,7 +192,7 @@ def removeGaps(polyTable p, gapchar = '-'):
     >>> x.pos()
     [0.1, 0.2]
     """
-    cdef char * gc = gapchar
+    cdef bytes gc = <bytes>gapchar
     cdef PolySites temp
     cdef SimData temp2
     if isinstance(p,polySites):
@@ -234,7 +234,7 @@ def removeMono(polyTable p, bint skipOutgroup = False, unsigned outgroup = 0, ga
     :param skipOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     """
-    cdef char * gc = gapchar
+    cdef bytes gc = <bytes>gapchar
     cdef PolySites temp
     cdef SimData temp2
     if isinstance(p,polySites):
@@ -255,7 +255,7 @@ def freqFilter(polyTable p,unsigned mincount,bint skipOutgroup = False, unsigned
     
     .. note:: If haveOutgroup == True, this is a filter on derived mutation counts, otherwise it is a filter on minor allele counts.  If p is of type :class:`libsequence.polyTable.simData`, this is a filter on derived mutation counts.
     """
-    cdef char * gc = gapchar
+    cdef bytes gc = <bytes>gapchar
     cdef PolySites temp
     cdef SimData temp2
     if isinstance(p,polySites):
@@ -274,7 +274,7 @@ def removeMissing(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0,g
     :param skipOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     """
-    cdef char * gc = gapchar
+    cdef bytes gc = <bytes>gapchar
     cdef PolySites temp
     cdef SimData temp2
     if isinstance(p,polySites):
@@ -292,7 +292,7 @@ def removeMultiHits(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0
     :param skipOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     """
-    cdef char * gc = gapchar
+    cdef bytes gc = <bytes>gapchar
     cdef PolySites temp
     cdef SimData temp2
     if isinstance(p,polySites):
@@ -310,7 +310,7 @@ def removeAmbiguous(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0
     :param skipOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     """
-    cdef char * gc = gapchar
+    cdef bytes gc = <bytes>gapchar
     cdef PolySites temp
     cdef SimData temp2
     if isinstance(p,polySites):
