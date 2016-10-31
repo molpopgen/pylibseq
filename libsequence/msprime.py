@@ -6,7 +6,7 @@ def make_simData(g):
 
     :param g: The output from msprime
 
-    ..note:: Thanks to Jerome Kelleher for pointing out the quick implementation using msprime >= 0.4.0.
+    .. note:: Thanks to Jerome Kelleher for pointing out the quick implementation using msprime >= 0.4.0.
 
     Example:
 
