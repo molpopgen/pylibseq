@@ -18,11 +18,13 @@ Build status
 ==========================================
 
 Master branch:
+
 .. image:: https://travis-ci.org/molpopgen/pylibseq.svg?branch=master
    :target: https://travis-ci.org/molpopgen/pylibseq
    :alt: Travis CI Build Status (master branch)
 
 Development branch:
+
 .. image:: https://travis-ci.org/molpopgen/pylibseq.svg?branch=dev
    :target: https://travis-ci.org/molpopgen/pylibseq
    :alt: Travis CI Build Status (dev branch)
