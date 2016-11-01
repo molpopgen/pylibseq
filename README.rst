@@ -17,7 +17,11 @@ What this package does **not** (currently) do:
 Build status
 ==========================================
 
-* master branch: [![Build Status](https://travis-ci.org/molpopgen/pylibseq.svg?branch=master)](https://travis-ci.org/molpopgen/pylibseq) 
+.. image:: https://travis-ci.org/molpopgen/pylibseq.svg?branch=master
+   :target: https://travis-ci.org/molpopgen/pylibseq
+   :alt: Travis CI Build Status (master branch)
+
+* master branch: [![Build Status]()]() 
 * dev branch: [![Build Status](https://travis-ci.org/molpopgen/pylibseq.svg?branch=dev)](https://travis-ci.org/molpopgen/pylibseq)
 
 Requirements:
