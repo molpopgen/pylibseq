@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Using the package in your own projects &#8212; pylibseq 0.1.8 documentation</title>
+    <title>Parallel computation &#8212; pylibseq 0.1.8 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -25,7 +25,8 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="pylibseq 0.1.8 documentation" href="../index.html" />
-    <link rel="prev" title="Object lifetimes" href="lifetimes.html" /> 
+    <link rel="next" title="Object lifetimes" href="lifetimes.html" />
+    <link rel="prev" title="Example workflow" href="overview.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -39,6 +40,9 @@
              >modules</a> |</li>
         <li class="right" >
           <a href="lifetimes.html" title="Object lifetimes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Example workflow"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.1.8 documentation</a> &#187;</li> 
       </ul>
@@ -49,13 +53,14 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="using-the-package-in-your-own-projects">
-<h1>Using the package in your own projects<a class="headerlink" href="#using-the-package-in-your-own-projects" title="Permalink to this headline">¶</a></h1>
-<p>This package&#8217;s function can be used either directly in Python code.  Alternately, you can use it directly in Cython code, too.  The basic types are defined in Cython &#8221;.pxd&#8221; files, and are this accessible.  See the Cython documentation for details.</p>
-<p>The general form of their use is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">libsequence.polytable</span> <span class="nn">cimport</span> <span class="nn">simData</span>
+  <div class="section" id="parallel-computation">
+<h1>Parallel computation<a class="headerlink" href="#parallel-computation" title="Permalink to this headline">¶</a></h1>
+<p>Under the hood, libsequence using Intel&#8217;s <a class="reference external" href="http://www.threadbuildingblocks.org">TBB</a> library for parallelism.  By default, <a class="reference external" href="http://www.threadbuildingblocks.org">TBB</a> will automatically deterimine the optimal number of cores to use.  However, that behavior may not be desirable in certain contexts.  For example, on managed HPC systems you may be expected to keep your use of cores under control.  You make limit the maximum number of threads used as follows:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">libsequence.parallel</span> <span class="k">import</span> <span class="n">scheduler_init</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">init</span> <span class="o">=</span> <span class="n">scheduler_init</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>Any value less than one will result in the <a class="reference external" href="http://www.threadbuildingblocks.org">TBB</a> default number of threads being used.</p>
 </div>
 
 
@@ -65,12 +70,15 @@
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
+  <p class="topless"><a href="overview.html"
+                        title="previous chapter">Example workflow</a></p>
+  <h4>Next topic</h4>
   <p class="topless"><a href="lifetimes.html"
-                        title="previous chapter">Object lifetimes</a></p>
+                        title="next chapter">Object lifetimes</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/doc/extending.txt"
+      <li><a href="../_sources/doc/parallel.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -99,6 +107,9 @@
              >modules</a> |</li>
         <li class="right" >
           <a href="lifetimes.html" title="Object lifetimes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="overview.html" title="Example workflow"
              >previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.1.8 documentation</a> &#187;</li> 
       </ul>

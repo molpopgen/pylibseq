@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to pylibseq’s documentation! &mdash; pylibseq 0.1.6 documentation</title>
+    <title>Welcome to pylibseq’s documentation! &#8212; pylibseq 0.1.8 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.6',
+        VERSION:     '0.1.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pylibseq 0.1.6 documentation" href="#" />
+    <link rel="top" title="pylibseq 0.1.8 documentation" href="#" />
     <link rel="next" title="pylibseq: Python bindings for libsequence" href="README.html" /> 
   </head>
   <body role="document">
@@ -40,7 +40,7 @@
         <li class="right" >
           <a href="README.html" title="pylibseq: Python bindings for libsequence"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.1.6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.1.8 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -55,6 +55,7 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">pylibseq: Python bindings for libsequence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="README.html#build-status">Build status</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#requirements">Requirements:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#changelog-rough">Changelog (rough)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation:</a></li>
@@ -70,6 +71,7 @@
 <li class="toctree-l2"><a class="reference internal" href="doc/overview.html#id1"><span class="math">\(F_{ST}\)</span></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="doc/parallel.html">Parallel computation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="doc/lifetimes.html">Object lifetimes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="doc/extending.html">Using the package in your own projects</a></li>
 </ul>
@@ -117,15 +119,15 @@
 <p class="last">This is not case-sensitive</p>
 </div>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="kn">as</span> <span class="nn">pypt</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="k">as</span> <span class="nn">pypt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pypt</span><span class="o">.</span><span class="n">polySites</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign_sep</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],[</span><span class="s">&quot;ATC&quot;</span><span class="p">,</span><span class="s">&quot;CGA&quot;</span><span class="p">,</span><span class="s">&quot;AT-&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign_sep</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],[</span><span class="s2">&quot;ATC&quot;</span><span class="p">,</span><span class="s2">&quot;CGA&quot;</span><span class="p">,</span><span class="s2">&quot;AT-&quot;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pypt</span><span class="o">.</span><span class="n">isValid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="go">True</span>
 </pre></div>
 </div>
 <p>Now, Z is not a valid character:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign_sep</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],[</span><span class="s">&quot;ATC&quot;</span><span class="p">,</span><span class="s">&quot;CGA&quot;</span><span class="p">,</span><span class="s">&quot;ATZ&quot;</span><span class="p">])</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign_sep</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],[</span><span class="s2">&quot;ATC&quot;</span><span class="p">,</span><span class="s2">&quot;CGA&quot;</span><span class="p">,</span><span class="s2">&quot;ATZ&quot;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pypt</span><span class="o">.</span><span class="n">isValid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="go">False</span>
 </pre></div>
@@ -158,10 +160,10 @@
 <p>If y is None, x must be a list of tuples (position, &#8220;string&#8221;)</p>
 <p>if neither x nor y are None, x is a list of positions, and y a list of haplotypes.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="kn">as</span> <span class="nn">polyt</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="k">as</span> <span class="nn">polyt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">polySites</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">polySites</span><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="s">&quot;ATTA&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s">&quot;GGGC&quot;</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">polySites</span><span class="p">(</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],[</span><span class="s">&quot;AG&quot;</span><span class="p">,</span><span class="s">&quot;TG&quot;</span><span class="p">,</span><span class="s">&quot;TG&quot;</span><span class="p">,</span><span class="s">&quot;AC&quot;</span><span class="p">]</span> <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">polySites</span><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="s2">&quot;ATTA&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s2">&quot;GGGC&quot;</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">polySites</span><span class="p">(</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],[</span><span class="s2">&quot;AG&quot;</span><span class="p">,</span><span class="s2">&quot;TG&quot;</span><span class="p">,</span><span class="s2">&quot;TG&quot;</span><span class="p">,</span><span class="s2">&quot;AC&quot;</span><span class="p">]</span> <span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -180,9 +182,9 @@
 <code class="descname">assign</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.polyTable.assign" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fill data from a list of tuples</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="kn">as</span> <span class="nn">pypt</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="k">as</span> <span class="nn">pypt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pypt</span><span class="o">.</span><span class="n">simData</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign</span><span class="p">([</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="s">&quot;01&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">)</span> <span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign</span><span class="p">([</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="s2">&quot;01&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s2">&quot;10&quot;</span><span class="p">)</span> <span class="p">])</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -192,10 +194,10 @@
 <code class="descname">assign_sep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.polyTable.assign_sep" title="Permalink to this definition">¶</a></dt>
 <dd><p>Fill object from two lists</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="kn">as</span> <span class="nn">pypt</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="k">as</span> <span class="nn">pypt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pypt</span><span class="o">.</span><span class="n">simData</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pos</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.4</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;0101&quot;</span><span class="p">,</span><span class="s">&quot;1011&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;0101&quot;</span><span class="p">,</span><span class="s2">&quot;1011&quot;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign_sep</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -285,9 +287,9 @@
 </tbody>
 </table>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="kn">as</span> <span class="nn">pypt</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="k">as</span> <span class="nn">pypt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pypt</span><span class="o">.</span><span class="n">polySites</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign_sep</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],[</span><span class="s">&quot;ATC&quot;</span><span class="p">,</span><span class="s">&quot;CGA&quot;</span><span class="p">,</span><span class="s">&quot;AT-&quot;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign_sep</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],[</span><span class="s2">&quot;ATC&quot;</span><span class="p">,</span><span class="s2">&quot;CGA&quot;</span><span class="p">,</span><span class="s2">&quot;AT-&quot;</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">pypt</span><span class="o">.</span><span class="n">removeGaps</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span>
 <span class="go">[0.1, 0.2]</span>
@@ -379,10 +381,10 @@
 <p>If y is None, x must be a list of tuples (position, &#8220;string&#8221;)</p>
 <p>if neither x nor y are None, x is a list of positions, and y a list of haplotypes.</p>
 <p>Example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="kn">as</span> <span class="nn">polyt</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="k">as</span> <span class="nn">polyt</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">simData</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">simData</span><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="s">&quot;0101&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s">&quot;1010&quot;</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">simData</span><span class="p">(</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],[</span><span class="s">&quot;01&quot;</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">,</span><span class="s">&quot;01&quot;</span><span class="p">,</span><span class="s">&quot;10&quot;</span><span class="p">]</span> <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">simData</span><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="s2">&quot;0101&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s2">&quot;1010&quot;</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">simData</span><span class="p">(</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],[</span><span class="s2">&quot;01&quot;</span><span class="p">,</span><span class="s2">&quot;10&quot;</span><span class="p">,</span><span class="s2">&quot;01&quot;</span><span class="p">,</span><span class="s2">&quot;10&quot;</span><span class="p">]</span> <span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -459,16 +461,22 @@
 <dl class="function">
 <dt id="libsequence.summstats.nSLiHS">
 <code class="descclassname">libsequence.summstats.</code><code class="descname">nSLiHS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.nSLiHS" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#8220;Raw&#8221;/unstandardizes <span class="math">\(nS_L\)</span> and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.</p>
+<dd><p>&#8220;Raw&#8221;/unstandardized <span class="math">\(nS_L\)</span> and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pt</strong> &#8211; A <a class="reference internal" href="#libsequence.polytable.polyTable" title="libsequence.polytable.polyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polyTable</span></code></a></td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>pt</strong> &#8211; A <a class="reference internal" href="#libsequence.polytable.polyTable" title="libsequence.polytable.polyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polyTable</span></code></a></li>
+<li><strong>gmap</strong> &#8211; A dictionary relating eacy position in pt to its location on a genetic map.</li>
+</ul>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A list of (nSL,iHS) tuples</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list of (nSL,iHS) tuples</p>
+</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -730,24 +738,16 @@ where <span class="math">\(S\)</span> is the number of polymorphisms and <span c
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>pt</strong> &#8211; A <a class="reference internal" href="#libsequence.polytable.polyTable" title="libsequence.polytable.polyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polyTable</span></code></a></li>
 <li><strong>minfreq</strong> &#8211; Ignore markers with frequency &lt; this value</li>
-<li><strong>binsize</strong> &#8211; Standardize statistic in frequency bings of this width</li>
+<li><strong>binsize</strong> &#8211; Standardize statistic in frequency bins of this width</li>
+<li><strong>gmap</strong> &#8211; A dictionary relating eacy position in pt to its location on a genetic map.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Parma gmap:</th><td class="field-body"><p class="first">A genetic map.  The length of this array should be equal to the number of sites in pt, and represent the positions of those sites on the genetic map.</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A tuple. The first value is max standardized nSL over all bins.  The second is max iHS over all bins, where iHS is calculated according to Ferrer-Admetlla et al. The maximums are calculated based on absolute value.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A tuple. The first value is max standardized nSL over all bins.  The second is max iHS over all bins, where iHS is calculated according to Ferrer-Admetlla et al.</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
 </td>
-</tr>
-</tbody>
-</table>
-<p>The maxmimums are calculated based on absolute value.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">float</td>
 </tr>
 </tbody>
 </table>
@@ -769,14 +769,71 @@ where <span class="math">\(S\)</span> is the number of polymorphisms and <span c
 
 </dd></dl>
 
+<span class="target" id="module-libsequence.extensions"></span><dl class="class">
+<dt id="libsequence.extensions.SimDataVec">
+<em class="property">class </em><code class="descclassname">libsequence.extensions.</code><code class="descname">SimDataVec</code><a class="headerlink" href="#libsequence.extensions.SimDataVec" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Wrapper for std::vector&lt;Sequence::SimData&gt; (not the Cython extension 
+class libsequence.polytable.simData!!)</p>
+<p>This type is useful in the event that you want to process data
+sets in parallel using OpenMP.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The use case for this type is a Cython-based package extending pylibseq.</p>
+</div>
+<p>Constructor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> &#8211; A list of a list of tuples representing the variation data.</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.extensions</span> <span class="k">as</span> <span class="nn">le</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#Create a vector of 5 identical data sets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#with 2 variable sites per data set.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[[(</span><span class="mf">0.1</span><span class="p">,</span><span class="s2">&quot;00100&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s2">&quot;11000&quot;</span><span class="p">)]]</span><span class="o">*</span><span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">SimDataVec</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<span class="target" id="module-libsequence.msprime"></span><dl class="function">
+<dt id="libsequence.msprime.make_simData">
+<code class="descclassname">libsequence.msprime.</code><code class="descname">make_simData</code><span class="sig-paren">(</span><em>g</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsequence/msprime.html#make_simData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libsequence.msprime.make_simData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct a <a class="reference internal" href="#libsequence.polytable.simData" title="libsequence.polytable.simData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.simData</span></code></a> from 
+the output of msprime.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>g</strong> &#8211; The output from msprime</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Thanks to Jerome Kelleher for pointing out the quick implementation using msprime &gt;= 0.4.0.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">msprime</span> <span class="k">as</span> <span class="nn">msp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">libsequence.msprime</span> <span class="k">import</span> <span class="n">make_simData</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">msp</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">sample_size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span><span class="n">Ne</span><span class="o">=</span><span class="mi">1</span><span class="n">e6</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span><span class="n">mutation_rate</span><span class="o">=</span><span class="mi">1</span><span class="n">e</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mi">1</span><span class="n">e4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">make_simData</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 </div>
 <div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
 </div>
 
@@ -808,14 +865,11 @@ where <span class="math">\(S\)</span> is the number of polymorphisms and <span c
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -834,12 +888,12 @@ where <span class="math">\(S\)</span> is the number of polymorphisms and <span c
         <li class="right" >
           <a href="README.html" title="pylibseq: Python bindings for libsequence"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.1.6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.1.8 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Kevin Thornton.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2015, Kevin Thornton.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
     </div>
   </body>
 </html>

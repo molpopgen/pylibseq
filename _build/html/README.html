@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pylibseq: Python bindings for libsequence &mdash; pylibseq 0.1.6 documentation</title>
+    <title>pylibseq: Python bindings for libsequence &#8212; pylibseq 0.1.8 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.6',
+        VERSION:     '0.1.8',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="pylibseq 0.1.6 documentation" href="index.html" />
+    <link rel="top" title="pylibseq 0.1.8 documentation" href="index.html" />
     <link rel="next" title="Example workflow" href="doc/overview.html" />
     <link rel="prev" title="Welcome to pylibseq’s documentation!" href="index.html" /> 
   </head>
@@ -44,7 +44,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to pylibseq’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pylibseq 0.1.6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pylibseq 0.1.8 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -66,54 +66,77 @@
 <ul class="simple">
 <li>provide an interface for I/O operations.  Python I/O and C++ I/O are fundamentally very different.  Bridging the gap requires either adding features to Cython and/or adding modules to this package that depend on the <a class="reference external" href="http://www.boost.org/">boost</a> Python interface, which would add an additional C++ dependency to this package.</li>
 </ul>
+<div class="section" id="build-status">
+<h2>Build status<a class="headerlink" href="#build-status" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>master branch: [![Build Status](<a class="reference external" href="https://travis-ci.org/molpopgen/pylibseq.svg?branch=master)](https://travis-ci.org/molpopgen/pylibseq">https://travis-ci.org/molpopgen/pylibseq.svg?branch=master)](https://travis-ci.org/molpopgen/pylibseq</a>)</li>
+<li>dev branch: [![Build Status](<a class="reference external" href="https://travis-ci.org/molpopgen/pylibseq.svg?branch=dev)](https://travis-ci.org/molpopgen/pylibseq">https://travis-ci.org/molpopgen/pylibseq.svg?branch=dev)](https://travis-ci.org/molpopgen/pylibseq</a>)</li>
+</ul>
+</div>
 <div class="section" id="requirements">
 <h2>Requirements:<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="http://molpopgen.github.io/libsequence/">libsequence</a> must be installed on your system.  <strong>Currently, this package requires the dev branch of libsequence</strong></li>
+<li><a class="reference external" href="http://www.threadbuildingblocks.org">TBB</a> must be installed on your system.</li>
 <li>Python 2 or Python 3</li>
 <li>An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughty, this means GCC &gt;= 4.8 and clang &gt;= 3.5.</li>
 </ul>
-<p>You should install <a class="reference external" href="http://molpopgen.github.io/libsequence/">libsequence</a> from source.</p>
+<p>..note:: If you installing from GitHub, then <a class="reference external" href="http://www.cython.org/">Cython</a> is a dependency.</p>
+<p>The recommended method for installing <a class="reference external" href="http://molpopgen.github.io/libsequence/">libsequence</a> is <a class="reference external" href="https://bioconda.github.io">bioconda</a>.  If you do not use that system, then you should install <a class="reference external" href="http://molpopgen.github.io/libsequence/">libsequence</a> from source.</p>
 <p>If you want to modify the package, you will need <a class="reference external" href="http://www.cython.org/">Cython</a> installed via your favorite Python package manager.</p>
 <p>The supported platforms are Linux and OS X.</p>
 </div>
 <div class="section" id="changelog-rough">
 <h2>Changelog (rough)<a class="headerlink" href="#changelog-rough" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li>0.1.8: made sure C++ objects/fxns are declared &#8220;nogil&#8221;.  Raw pointers replaced with C++&#8217;s unique_ptr.</li>
+<li>0.1.7: improvements to build system.  Add option to build from GitHub.</li>
 <li>0.1.6: update to libsequence 1.8.9.  Add &#8211;use-cython option to setup.py</li>
 </ul>
 </div>
 <div class="section" id="installation">
 <h2>Installation:<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>The latest release of the package is available via <a class="reference external" href="https://pypi.python.org">PyPi</a>, and can be installed with your favorite Python package manager:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>pip install --upgrade pylibseq
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install --upgrade pylibseq
 </pre></div>
 </div>
 <p>Or, you may install from GitHub:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./configure
-<span class="nv">$ </span>sudo python setup.py install
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The GitHub version does not contain the .cpp files generated by Cython.  You need to generate those!</p>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ git clone http://github.com/molpopgen/pylibseq
+$ <span class="nb">cd</span> pylibseq
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./configure
+$ sudo pip install . --install-option<span class="o">=</span>--use-cython
+</pre></div>
+</div>
+<p>You may also install from GitHub using pip:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ pip install git+git://github.com/molpopgen/pylibseq --install-option<span class="o">=</span>--use-cython
 </pre></div>
 </div>
 <p>If you have libsequence in a &#8220;funny location&#8221; (<em>e.g.</em>, something other that /usr/local):</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ CPPFLAGS</span><span class="o">=</span>-I/path/to/libsequence/headers <span class="nv">LDFLAGS</span><span class="o">=</span>-L/path/to/libsequence/library sudo python setup.py install
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">CPPFLAGS</span><span class="o">=</span>-I/path/to/libsequence/headers <span class="nv">LDFLAGS</span><span class="o">=</span>-L/path/to/libsequence/library sudo python setup.py install --use-cython
 </pre></div>
 </div>
 <p>For example, if libsequence is installed into /opt:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ CPPFLAGS</span><span class="o">=</span>-I/opt/include <span class="nv">LDFLAGS</span><span class="o">=</span>-L/opt/lib sudo python setup.py install
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">CPPFLAGS</span><span class="o">=</span>-I/opt/include <span class="nv">LDFLAGS</span><span class="o">=</span>-L/opt/lib sudo python setup.py install
 </pre></div>
 </div>
 </div>
 <div class="section" id="unit-testing">
 <h2>Unit testing:<a class="headerlink" href="#unit-testing" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./configure
-<span class="nv">$ </span>python setup.py build_ext -i
-<span class="nv">$ </span>python -m unittest discover unit_test
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./configure
+$ python setup.py build_ext -i --use-cython
+$ python -m unittest discover unit_test
 </pre></div>
 </div>
 </div>
 <div class="section" id="modifying-the-package">
 <h2>Modifying the package<a class="headerlink" href="#modifying-the-package" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>python setup.py build_ext -i --use-cython
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ python setup.py build_ext -i --use-cython
 </pre></div>
 </div>
 </div>
@@ -135,6 +158,7 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">pylibseq: Python bindings for libsequence</a><ul>
+<li><a class="reference internal" href="#build-status">Build status</a></li>
 <li><a class="reference internal" href="#requirements">Requirements:</a></li>
 <li><a class="reference internal" href="#changelog-rough">Changelog (rough)</a></li>
 <li><a class="reference internal" href="#installation">Installation:</a></li>
@@ -161,14 +185,11 @@
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -190,12 +211,12 @@
         <li class="right" >
           <a href="index.html" title="Welcome to pylibseq’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pylibseq 0.1.6 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pylibseq 0.1.8 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &copy; Copyright 2015, Kevin Thornton.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+        &#169; Copyright 2015, Kevin Thornton.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
     </div>
   </body>
 </html>
