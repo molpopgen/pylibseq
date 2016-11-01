@@ -48,9 +48,8 @@ else:
     USE_CYTHON = False
 
 
-long_desc = \
-"""
-"""
+long_desc = open("README.rst").read()
+
 EXTENSION = '.pyx' if USE_CYTHON else '.cpp'
 
 extensions = []
@@ -84,7 +83,7 @@ setup(name='pylibseq',
       maintainer='Kevin R. Thornton',
       maintainer_email='krthornt@uci.edu',
       url='http://github.com/molpopgen/pylibseq',
-      description="""""",
+      description="Python interface to libsequence",
       long_description=long_desc,
       data_files=[('pylibseq', ['COPYING', 'README.rst'])],
       download_url='',
