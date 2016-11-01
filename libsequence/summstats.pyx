@@ -15,105 +15,105 @@ cdef class polySNP:
     This is a wrapper around libsequence's Sequence::PolySNP
     """
     def __cinit__(self,polyTable p,bint haveOutgroup = False, unsigned outgroup = 0, bint totMuts = True):
-       self.thisptr = new PolySNP(p.thisptr,haveOutgroup,outgroup,totMuts)
+       self.thisptr = unique_ptr[PolySNP](new PolySNP(p.thisptr.get(),haveOutgroup,outgroup,totMuts))
     def __dealloc__(self):
-        del self.thisptr
+        pass
     def thetapi(self):
         """
         "Sum of site heterozygosity."  :math:`\\hat\\theta_\\pi = \\sum_i^S\\frac{c}{n}\\frac{n-c-1}{n-1}`,
         where :math:`S` is the number of polymorphisms and :math:`n` is the sample size.
         """
-        return self.thisptr.ThetaPi()
+        return self.thisptr.get().ThetaPi()
     def thetaw (self):
         """
         Watterson's estimator of :math:`\\theta` from :math:`S`
         """
-        return self.thisptr.ThetaW()
+        return self.thisptr.get().ThetaW()
     def thetah (self):
         """
         Fay and Wu's estimator of :math:`\\theta`.
         """
-        return self.thisptr.ThetaH()
+        return self.thisptr.get().ThetaH()
     def thetal (self):
         """
         Normalized version of Fay and Wu's estimator of :math:`\\theta`.
         """
-        return self.thisptr.ThetaL()
+        return self.thisptr.get().ThetaL()
 
     #calculate various numbers related to polymorphism
     def numpoly(self):
         """
         Number of poylmorphic sites in sample
         """          
-        return self.thisptr.NumPoly() 
+        return self.thisptr.get().NumPoly() 
     def nummutations (self):
         """
         Number of mutations in sample.
 
         For this class, if there are k states at a site, there are k-1 mutations
         """          
-        return self.thisptr.NumMutations() 
+        return self.thisptr.get().NumMutations() 
     def numsingletons (self):
         """
         Number of singletons (ancsetral or derived)
         """
-        return self.thisptr.NumSingletons() 
+        return self.thisptr.get().NumSingletons() 
     def numexternalmutations (self):
         """
         Number of derived mutations
         """
-        return self.thisptr.NumExternalMutations() 
+        return self.thisptr.get().NumExternalMutations() 
     #summary statistics of the site frequency spectrum
     def tajimasd (self):
         """
         Tajima's (1989) D statistics
         """
-        return self.thisptr.TajimasD()
+        return self.thisptr.get().TajimasD()
     def hprime (self,bint likeThorntonAndolfatto = False):
         """
         Normalized version of Fay and Wu's H statistic
         """
-        return self.thisptr.Hprime(likeThorntonAndolfatto)
+        return self.thisptr.get().Hprime(likeThorntonAndolfatto)
     def fulid (self):
         """
         Fu and Li's D
         """
-        return self.thisptr.FuLiD()
+        return self.thisptr.get().FuLiD()
     def fulif (self):
         """
         Fu and Li's F
         """
-        return self.thisptr.FuLiF()
+        return self.thisptr.get().FuLiF()
     def fulidstar (self):
         """
         Fu and Li's D*
         """
-        return self.thisptr.FuLiDStar()
+        return self.thisptr.get().FuLiDStar()
     def fulifstar (self):
         """
         Fu and Li's F*
         """
-        return self.thisptr.FuLiFStar()
+        return self.thisptr.get().FuLiFStar()
     def wallsb(self):
         """
         Jeff Wall's B statistic
         """
-        return self.thisptr.WallsB()
+        return self.thisptr.get().WallsB()
     def wallsbprime(self):
         """
         Jeff Wall's B' statistic
         """
-        return self.thisptr.WallsBprime()
+        return self.thisptr.get().WallsBprime()
     def wallsq(self):
         """
         Jeff Wall's Q statistic
         """
-        return self.thisptr.WallsQ()
+        return self.thisptr.get().WallsQ()
     def rm(self):
         """
         Hudson and Kaplan's lower bound on no. crossover events
         """
-        return self.thisptr.Minrec()
+        return self.thisptr.get().Minrec()
 
 cdef class polySIM:
     """
@@ -126,105 +126,105 @@ cdef class polySIM:
     .. note:: 0/1 = ancestral/derived    
     """
     def __cinit__(self,simData d):
-        self.thisptr = new PolySIM(dynamic_cast['SimData*'](d.thisptr))
+        self.thisptr = unique_ptr[PolySIM](new PolySIM(dynamic_cast['SimData*'](d.thisptr.get())))
     def __dealloc__(self):
-        del self.thisptr
+        pass
     def thetapi(self):
         """
         "Sum of site heterozygosity."  :math:`\\hat\\theta_\\pi = \\sum_i^S\\frac{c}{n}\\frac{n-c-1}{n-1}`,
         where :math:`S` is the number of polymorphisms and :math:`n` is the sample size.
         """
-        return self.thisptr.ThetaPi()
+        return self.thisptr.get().ThetaPi()
     def thetaw (self):
         """
         Watterson's estimator of :math:`\\theta` from :math:`S`
         """
-        return self.thisptr.ThetaW()
+        return self.thisptr.get().ThetaW()
     def thetah (self):
         """
         Fay and Wu's estimator of :math:`\\theta`.
         """
-        return self.thisptr.ThetaH()
+        return self.thisptr.get().ThetaH()
     def thetal (self):
         """
         Normalized version of Fay and Wu's estimator of :math:`\\theta`.
         """
-        return self.thisptr.ThetaL()
+        return self.thisptr.get().ThetaL()
 
     #calculate various numbers related to polymorphism
     def numpoly(self):
         """
         Number of poylmorphic sites in sample
         """          
-        return self.thisptr.NumPoly() 
+        return self.thisptr.get().NumPoly() 
     def nummutations (self):
         """
         Number of mutations in sample.
 
         For this class, this is the same as the number of polymorphic sites
         """          
-        return self.thisptr.NumMutations() 
+        return self.thisptr.get().NumMutations() 
     def numsingletons (self):
         """
         Number of singletons (character states 0 or 1)
         """
-        return self.thisptr.NumSingletons() 
+        return self.thisptr.get().NumSingletons() 
     def numexternalmutations (self):
         """
         Number of derived mutations (character state 1)
         """
-        return self.thisptr.NumExternalMutations() 
+        return self.thisptr.get().NumExternalMutations() 
     #summary statistics of the site frequency spectrum
     def tajimasd (self):
         """
         Tajima's (1989) D statistics
         """
-        return self.thisptr.TajimasD()
+        return self.thisptr.get().TajimasD()
     def hprime (self,bint likeThorntonAndolfatto = False):
         """
         Normalized version of Fay and Wu's H statistic
         """
-        return self.thisptr.Hprime(likeThorntonAndolfatto)
+        return self.thisptr.get().Hprime(likeThorntonAndolfatto)
     def fulid (self):
         """
         Fu and Li's D
         """
-        return self.thisptr.FuLiD()
+        return self.thisptr.get().FuLiD()
     def fulif (self):
         """
         Fu and Li's F
         """
-        return self.thisptr.FuLiF()
+        return self.thisptr.get().FuLiF()
     def fulidstar (self):
         """
         Fu and Li's D*
         """
-        return self.thisptr.FuLiDStar()
+        return self.thisptr.get().FuLiDStar()
     def fulifstar (self):
         """
         Fu and Li's F*
         """
-        return self.thisptr.FuLiFStar()
+        return self.thisptr.get().FuLiFStar()
     def wallsb(self):
         """
         Jeff Wall's B statistic
         """
-        return self.thisptr.WallsB()
+        return self.thisptr.get().WallsB()
     def wallsbprime(self):
         """
         Jeff Wall's B' statistic
         """
-        return self.thisptr.WallsBprime()
+        return self.thisptr.get().WallsBprime()
     def wallsq(self):
         """
         Jeff Wall's Q statistic
         """
-        return self.thisptr.WallsQ()
+        return self.thisptr.get().WallsQ()
     def rm(self):
         """
         Hudson and Kaplan's lower bound on no. crossover events
         """
-        return self.thisptr.Minrec()
+        return self.thisptr.get().Minrec()
 
 ##functions
 def lhaf( polyTable pt, double l ):
@@ -240,15 +240,16 @@ def lhaf( polyTable pt, double l ):
     .. note:: Only :class:`libsequence.polytable.simData` types currently supported
     """
     if isinstance(pt,simData):
-        return lHaf(deref(dynamic_cast['SimData*'](pt.thisptr)),l)
+        return lHaf(deref(dynamic_cast['SimData*'](pt.thisptr.get())),l)
     else:
         raise RuntimeError("lhaf: only simData objects are allowed")
 
-def nSLiHS(polyTable pt, double[:] gmap = None):
+def nSLiHS(polyTable pt, dict gmap = None):
     """
-    "Raw"/unstandardizes :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
+    "Raw"/unstandardized :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
 
     :param pt: A :class:`libsequence.polytable.polyTable`
+    :param gmap: A dictionary relating eacy position in pt to its location on a genetic map.
 
     :return: A list of (nSL,iHS) tuples
 
@@ -256,39 +257,38 @@ def nSLiHS(polyTable pt, double[:] gmap = None):
     
     .. note:: Only :class:`libsequence.polytable.simData` types currently supported
     """
+    cdef unordered_map[double,double] gm
     if isinstance(pt,simData):
-        rv = []
         if gmap is None:
-            for core in range(pt.numsites()):
-                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),NULL))
+            return nSL_t(deref(dynamic_cast['SimData*'](pt.thisptr.get())),gm)
         else:
-            for core in range(pt.numsites()):
-                rv.append(nSL(core,deref(dynamic_cast['SimData*'](pt.thisptr)),&gmap[0]))
-        return rv
+            gm=gmap
+            return nSL_t(deref(dynamic_cast['SimData*'](pt.thisptr.get())),gm)
     else:
         raise RuntimeError("nSL: only simData objects are allowed")
     
-def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, double[:] gmap = None):
+def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, dict gmap = None):
     """
     Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077
 
     :param pt: A :class:`libsequence.polytable.polyTable`
     :param minfreq: Ignore markers with frequency < this value
-    :param binsize: Standardize statistic in frequency bings of this width
-    :parma gmap: A genetic map.  The length of this array should be equal to the number of sites in pt, and represent the positions of those sites on the genetic map.
+    :param binsize: Standardize statistic in frequency bins of this width
+    :param gmap: A dictionary relating eacy position in pt to its location on a genetic map.
 
-    :return: A tuple. The first value is max standardized nSL over all bins.  The second is max iHS over all bins, where iHS is calculated according to Ferrer-Admetlla et al.
-    The maxmimums are calculated based on absolute value.
+    :return: A tuple. The first value is max standardized nSL over all bins.  The second is max iHS over all bins, where iHS is calculated according to Ferrer-Admetlla et al. The maximums are calculated based on absolute value.
 
     :rtype: float
 
     .. note:: Only :class:`libsequence.polytable.simData` types currently supported
     """
+    cdef unordered_map[double,double] gm
     if isinstance(pt,simData):
         if gmap is None:
-            return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,NULL)
+            return snSL(deref(dynamic_cast['SimData*'](pt.thisptr.get())),minfreq,binsize,gm)
         else:
-            return snSL(deref(dynamic_cast['SimData*'](pt.thisptr)),minfreq,binsize,&gmap[0])
+            gm=gmap
+            return snSL(deref(dynamic_cast['SimData*'](pt.thisptr.get())),minfreq,binsize,gm)
     else:
         raise RuntimeError("std_nSL: only simData objects are allowed")
 
@@ -304,28 +304,12 @@ def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned m
 
     .. note:: This function skips sites with missing data, gaps, etc.
     """
-    rv = {'i':[],
-          'j':[],
-          'rsq':[],
-          'D':[],
-          'Dprime':[]}
     if p.empty():
-        return rv
-    cdef unsigned i = 0
-    cdef unsigned j = i + 1
-    cdef vector[double] ldvals
-    ldvals.resize(6)
+        return [] 
     cdef double md = numeric_limits[double].max()
     if maxDist is not None:
         md = maxDist
-    while Disequilibrium(p.thisptr,ldvals,&i,&j,haveOutgroup,outgroup,mincount,md):
-        if ldvals[5] == 0:  ##site pair NOT skipped
-            rv['i'].append(ldvals[0])
-            rv['j'].append(ldvals[1])
-            rv['rsq'].append(ldvals[2])
-            rv['D'].append(ldvals[3])
-            rv['Dprime'].append(ldvals[4])
-    return rv
+    return Disequilibrium(p.thisptr.get(),haveOutgroup,outgroup,mincount,maxDist)
 
 def garudStats(polyTable pt):
    """
@@ -341,7 +325,7 @@ def garudStats(polyTable pt):
    """
    cdef GarudStats stats
    if isinstance(pt,simData):
-       stats = H1H12(deref(dynamic_cast['SimData*'](pt.thisptr)))
+       stats = H1H12(deref(dynamic_cast['SimData*'](pt.thisptr.get())))
        return {"H1":stats.H1,"H12":stats.H12,"H2H1":stats.H2H1}
    else:
        raise RuntimeError("garudStats: only simData objects are allowed")       

@@ -6,9 +6,9 @@ from libsequence.fst import fst
 class test_fst(unittest.TestCase):
     def testException1(self):
         with self.assertRaises(RuntimeError):
-            x = [(0.1,"0011"),(0.2,"1100"),
-                (0.3,"0100"),(0.4,"1101"),
-                (0.5,"0101")]
+            x = [(0.1,b"0011"),(0.2,b"1100"),
+                (0.3,b"0100"),(0.4,b"1101"),
+                (0.5,b"0101")]
             d = simData()
             d.assign(x)
             ##the second argument's sum is > total sample size
@@ -16,17 +16,17 @@ class test_fst(unittest.TestCase):
             ##which gets tranlated to a RuntimeError
             f = fst(d,[2,3])
     def testShared(self):
-        x = [(0.1,"0011"),(0.2,"1100"),
-            (0.3,"0100"),(0.4,"1101"),
-            (0.5,"0101")]
+        x = [(0.1,b"0011"),(0.2,b"1100"),
+            (0.3,b"0100"),(0.4,b"1101"),
+            (0.5,b"0101")]
         d = simData()
         d.assign(x)
         f = fst(d,[2,2])
         self.assertEqual(f.shared(0,1),[0.5])
     def testPriv(self):
-        x = [(0.1,"0011"),(0.2,"1100"),
-            (0.3,"0100"),(0.4,"1101"),
-            (0.5,"0101")]
+        x = [(0.1,b"0011"),(0.2,b"1100"),
+            (0.3,b"0100"),(0.4,b"1101"),
+            (0.5,b"0101")]
         d = simData()
         d.assign(x)
         f = fst(d,[2,2])
@@ -34,9 +34,9 @@ class test_fst(unittest.TestCase):
         expected = {0:[0.3],1:[0.4]}
         self.assertEqual(p,expected)
     def testFixed(self):
-        x = [(0.1,"0011"),(0.2,"1100"),
-            (0.3,"0100"),(0.4,"1101"),
-            (0.5,"0101")]
+        x = [(0.1,b"0011"),(0.2,b"1100"),
+            (0.3,b"0100"),(0.4,b"1101"),
+            (0.5,b"0101")]
         d = simData()
         d.assign(x)
         f = fst(d,[2,2])
@@ -47,9 +47,9 @@ class test_fst(unittest.TestCase):
     #if i,j are out of range
     def testExceptionShared(self):
         with self.assertRaises(RuntimeError):
-            x = [(0.1,"0011"),(0.2,"1100"),
-            (0.3,"0100"),(0.4,"1101"),
-            (0.5,"0101")]
+            x = [(0.1,b"0011"),(0.2,b"1100"),
+            (0.3,b"0100"),(0.4,b"1101"),
+            (0.5,b"0101")]
             d = simData()
             d.assign(x)
             f = fst(d,[2,2])
@@ -57,9 +57,9 @@ class test_fst(unittest.TestCase):
             sh = f.shared(2,1)
     def testExceptionFixed(self):
         with self.assertRaises(RuntimeError):
-            x = [(0.1,"0011"),(0.2,"1100"),
-            (0.3,"0100"),(0.4,"1101"),
-            (0.5,"0101")]
+            x = [(0.1,b"0011"),(0.2,b"1100"),
+            (0.3,b"0100"),(0.4,b"1101"),
+            (0.5,b"0101")]
             d = simData()
             d.assign(x)
             f = fst(d,[2,2])
@@ -67,9 +67,9 @@ class test_fst(unittest.TestCase):
             sh = f.fixed(2,1)
     def testExceptionPriv(self):
         with self.assertRaises(RuntimeError):
-            x = [(0.1,"0011"),(0.2,"1100"),
-            (0.3,"0100"),(0.4,"1101"),
-            (0.5,"0101")]
+            x = [(0.1,b"0011"),(0.2,b"1100"),
+            (0.3,b"0100"),(0.4,b"1101"),
+            (0.5,b"0101")]
             d = simData()
             d.assign(x)
             f = fst(d,[2,2])

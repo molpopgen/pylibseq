@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to pylibseq's documentation!
-=================================
+=================================================
 
 Contents:
 
@@ -13,6 +13,7 @@ Contents:
 
    README
    doc/overview
+   doc/parallel
    doc/lifetimes
    doc/extending
 
@@ -28,6 +29,14 @@ Functions and classes
    :show-inheritance:
 
 .. automodule:: libsequence.windows 
+   :members:
+   :show-inheritance:
+
+.. automodule:: libsequence.extensions
+   :members:
+   :show-inheritance:
+
+.. automodule:: libsequence.msprime
    :members:
    :show-inheritance:
 

@@ -2,8 +2,10 @@ from libsequence.polytable cimport PolyTable,SimData,polyTable,simData
 from libcpp cimport bool
 from libcpp.vector cimport vector
 from libcpp.utility cimport pair
+from libcpp.memory cimport unique_ptr
+from libcpp.unordered_map cimport unordered_map
 
-cdef extern from "Sequence/PolySNP.hpp" namespace "Sequence":
+cdef extern from "Sequence/PolySNP.hpp" namespace "Sequence" nogil:
     cdef cppclass PolySNP:
         PolySNP(const PolyTable * pt, const bool & haveOutgroup, const unsigned & outgroup, const bool & totMuts)
 
@@ -41,7 +43,7 @@ cdef extern from "Sequence/PolySNP.hpp" namespace "Sequence":
         double HudsonsC() const                                  #Dick Hudson's (1987) Chat = 4Nr
         unsigned Minrec() const    
 
-cdef extern from "Sequence/PolySIM.hpp" namespace "Sequence":
+cdef extern from "Sequence/PolySIM.hpp" namespace "Sequence" nogil:
     cdef cppclass PolySIM:
         PolySIM(const SimData * pt)
 
@@ -73,13 +75,13 @@ cdef extern from "Sequence/PolySIM.hpp" namespace "Sequence":
         unsigned Minrec () const
 
 cdef class polySNP:
-    cdef PolySNP * thisptr
+    cdef unique_ptr[PolySNP] thisptr
 
 cdef class polySIM:
-    cdef PolySIM * thisptr
+    cdef unique_ptr[PolySIM] thisptr
 
 ##Functions from libseq
-cdef extern from "Sequence/SummStats/Garud.hpp" namespace "Sequence":
+cdef extern from "Sequence/SummStats/Garud.hpp" namespace "Sequence" nogil:
     cdef cppclass GarudStats:
         double H1
         double H12
@@ -87,12 +89,24 @@ cdef extern from "Sequence/SummStats/Garud.hpp" namespace "Sequence":
 
     GarudStats H1H12(const SimData &)
 
-cdef extern from "Sequence/SummStats/lHaf.hpp" namespace "Sequence":
+cdef extern from "Sequence/SummStats/lHaf.hpp" namespace "Sequence" nogil:
     vector[double] lHaf( const SimData & data, const double l )
 
-cdef extern from "Sequence/SummStats/nSL.hpp" namespace "Sequence":
-    pair[double,double] nSL(const unsigned & core, const SimData & d, const double * gmap)
-    pair[double,double] snSL(const SimData & d,const double minfreq, const double binsize, const double * gmap)
+cdef extern from "Sequence/SummStats/nSL.hpp" namespace "Sequence" nogil:
+    #These functions can throw exceptions when maps are used that do not
+    #contain positions in d.
+    vector[pair[double,double]] nSL_t(const SimData & d, const unordered_map[double,double] & gmap) except +
+    pair[double,double] snSL(const SimData & d,const double minfreq, const double binsize, const unordered_map[double,double] & gmap) except +
 
-cdef extern from "Sequence/Recombination.hpp" namespace "Sequence::Recombination":
-    bint Disequilibrium(const PolyTable *, vector[double] &, unsigned *, unsigned *,const bint & , const unsigned &, const unsigned &, const double)
+cdef extern from "Sequence/Recombination.hpp" namespace "Sequence" nogil:
+    cdef struct PairwiseLDstats:
+        double i
+        double j
+        double rsq
+        double D
+        double Dprime
+        bint skipped
+
+cdef extern from "Sequence/Recombination.hpp" namespace "Sequence::Recombination" nogil:
+    vector[PairwiseLDstats] Disequilibrium(const PolyTable *,const bint & haveOutgroup,const unsigned & outgroup,const unsigned & mincount,
+            const double max_distance)

@@ -8,44 +8,44 @@ class test_polytable(unittest.TestCase):
             
 class test_simdata(unittest.TestCase):
     def testSimpleInit1(self):
-        d = [(0.1,"01010101"),(0.2,"01111111")]
+        d = [(0.1,b"01010101"),(0.2,b"01111111")]
         x = simData()
         x.assign(d)
         self.assertEqual(x.numsites(),2)
     def testSimpleInit2(self):
-        d = [(0.1,"01010101"),(0.2,"01111111")]
+        d = [(0.1,b"01010101"),(0.2,b"01111111")]
         x = simData()
         x.assign(d)
         self.assertEqual(x.size(),8)
     def testSimpleInit3(self):
         pos = [0.1,0.2]
-        data = ["01","10"]
+        data = [b"01",b"10"]
         x = simData()
         x.assign_sep(pos,data)
         self.assertEqual(x.numsites(),2)
     def testSimpleInit2(self):
         pos = [0.1,0.2]
-        data = ["01","10"]
+        data = [b"01",b"10"]
         x = simData()
         x.assign_sep(pos,data)
         self.assertEqual(x.size(),2)
     def testAssignFail1(self):
         with self.assertRaises(RuntimeError):
             ##Sample size at each site unequal
-            d = [(0.1,"01010101"),(0.2,"0111")]
+            d = [(0.1,b"01010101"),(0.2,b"0111")]
             x = simData()
             x.assign(d)
     def testAssignFail2(self):
         with self.assertRaises(RuntimeError):
             pos = [0.1,0.2]
             #oops--3 sites in second haplotype
-            data = ["01","100"]
+            data = [b"01",b"100"]
             x = simData()
             x.assign_sep(pos,data)
 
 class test_functions_polySites(unittest.TestCase):
     def testRemoveMono1(self):
-        d = [(0.1,"AGAG"),(0.2,"AAAA")]
+        d = [(0.1,b"AGAG"),(0.2,b"AAAA")]
         x = polySites()
         x.assign(d)
         removeMono(x)
@@ -53,22 +53,22 @@ class test_functions_polySites(unittest.TestCase):
         
 class test_functions_simData(unittest.TestCase):
     def testRemoveMono1(self):
-        d = [(0.1,"01010101"),(0.2,"11111111")]
+        d = [(0.1,b"01010101"),(0.2,b"11111111")]
         x = simData()
         x.assign(d)
         removeMono(x)
         self.assertEqual(x.numsites(),1)
     def testRemoveMono2(self):
-        d = [(0.1,"00000000"),(0.2,"11111111")]
+        d = [(0.1,b"00000000"),(0.2,b"11111111")]
         x = simData()
         x.assign(d)
         removeMono(x)
         self.assertEqual(x.numsites(),0)
     def testFreqFilter1(self):
-        d = [(0.1,"01010101"),
-             (0.2,"11111111"),
-             (0.3,"00010000"),
-             (0.4,"00000001")
+        d = [(0.1,b"01010101"),
+             (0.2,b"11111111"),
+             (0.3,b"00010000"),
+             (0.4,b"00000001")
              ]
         x = simData()
         x.assign(d)
@@ -77,13 +77,13 @@ class test_functions_simData(unittest.TestCase):
         pos = x.pos()
         self.assertEqual(pos,[0.1,0.2])
     def testIsValid(self):
-        d = [(0.1,"01010101"),(0.2,"11011111")]
+        d = [(0.1,b"01010101"),(0.2,b"11011111")]
         x = simData()
         x.assign(d)
         self.assertEqual(isValid(x),True)
     def testRemoveAmbig(self):
         ##Remove sites other than a,g,c,t,n,0,1
-        d = [(0.1,"01010101"),(0.2,"1101Q111")]
+        d = [(0.1,b"01010101"),(0.2,b"1101Q111")]
         x = simData()
         x.assign(d)
         removeAmbiguous(x)
@@ -91,10 +91,10 @@ class test_functions_simData(unittest.TestCase):
         self.assertEqual(pos,[0.1])
     def testRemoveGaps(self):
         ##Remove sites other than a,g,c,t,n,0,1
-        d = [(0.1,"01010101"),(0.2,"1101-111")]
+        d = [(0.1,b"01010101"),(0.2,b"1101-111")]
         x = simData()
         x.assign(d)
-        removeGaps(x,'-')
+        removeGaps(x,b'-')
         pos = x.pos()
         self.assertEqual(pos,[0.1])
                 
