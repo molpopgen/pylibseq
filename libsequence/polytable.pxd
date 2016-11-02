@@ -1,3 +1,4 @@
+from libc.stdio cimport FILE
 from libcpp.utility cimport pair
 from libcpp.string cimport string
 from libcpp.vector cimport vector
@@ -31,6 +32,7 @@ cdef extern from "Sequence/SimData.hpp" namespace "Sequence" nogil:
         SimData()
         SimData(const SimData &)
         SimData(const psite_vec_itr,const psite_vec_itr)
+        int fromfile(FILE * f)
 
 cdef extern from "Sequence/PolySites.hpp" namespace "Sequence" nogil:
     cdef cppclass PolySites(PolyTable):
