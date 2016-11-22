@@ -3,30 +3,31 @@ from libcpp.vector cimport vector
 from libcpp.string cimport string
 from libcpp.pair cimport pair
 from libcpp.cast cimport dynamic_cast
+from libcpp.memory cimport unique_ptr 
 from cython.operator cimport dereference as deref
 
 cdef fill_from_SimData(const SimData *d ,double window_size, double step_len, double starting_pos, double ending_pos):
-    cdef PolyTableSlice[SimData] * windows=new PolyTableSlice[SimData](d.sbegin(),d.send(),window_size,step_len,starting_pos,ending_pos)
+    cdef unique_ptr[PolyTableSlice[SimData]] windows
+    windows.reset(new PolyTableSlice[SimData](d.sbegin(),d.send(),window_size,step_len,starting_pos,ending_pos))
     cdef SimData d2
     cdef vector[pair[double,string]] temp
     wins = []
-    for i in range(windows.size()):
+    for i in range(windows.get().size()):
         d2=deref(windows)[i]
         temp.assign(d2.sbegin(),d2.send())
         wins.append(simData(temp))
-    del windows
     return wins
 
 cdef fill_from_PolySites(const PolySites *d ,double window_size, double step_len, double starting_pos, double ending_pos):
-    cdef PolyTableSlice[PolySites] * windows=new PolyTableSlice[PolySites](d.sbegin(),d.send(),window_size,step_len,starting_pos,ending_pos)
+    cdef unique_ptr[PolyTableSlice[PolySites]] windows
+    windows.reset(new PolyTableSlice[PolySites](d.sbegin(),d.send(),window_size,step_len,starting_pos,ending_pos))
     cdef PolySites d2
     cdef vector[pair[double,string]] temp
     wins = []
-    for i in range(windows.size()):
+    for i in range(windows.get().size()):
         d2=deref(windows)[i]
         temp.assign(d2.sbegin(),d2.send())
         wins.append(simData(temp))
-    del windows
     return wins
     
 cdef class Windows:
