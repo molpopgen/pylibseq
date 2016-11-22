@@ -2,7 +2,6 @@
 from libcpp cimport nullptr
 from libcpp.vector cimport vector
 from libcpp.string cimport string
-from libcpp.memory cimport shared_ptr
 from libcpp.cast cimport dynamic_cast
 from cython.operator import dereference as deref,postincrement as inc
 
