@@ -39,8 +39,6 @@ cdef class Windows:
             self.windows = fill_from_SimData(dynamic_cast['SimData*'](pt.thisptr.get()),window_size,step_len,starting_pos,ending_pos)
         else:
             self.windows = fill_from_PolySites(dynamic_cast['PolySites*'](pt.thisptr.get()),window_size,step_len,starting_pos,ending_pos)
-    def __dealloc__(self):
-        self.windows=[]
     def __iter__(self):
         return iter(self.windows)
     def __next__(self):
