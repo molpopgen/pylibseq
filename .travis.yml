@@ -46,7 +46,7 @@ install:
     # Useful for debugging any issues with conda
     - conda info -a
     - conda install gcc
-    - conda install -c r gsl=1.16
+    - conda install -c r gsl
     - conda install -c bioconda libsequence msprime
 script:
     - export LD_LIBRARY_PATH=$HOME/miniconda/lib
