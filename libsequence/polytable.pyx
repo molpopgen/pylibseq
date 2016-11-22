@@ -1,4 +1,5 @@
 # distutils: language = c++
+from libcpp cimport nullptr
 from libcpp.vector cimport vector
 from libcpp.string cimport string
 from libcpp.memory cimport shared_ptr
@@ -18,9 +19,9 @@ cdef class polyTable:
     def __cinit__(self):
         if self.__class__ == polyTable:
             raise RuntimeError("polyTable cannot be used directly.  Use derived types instead")
-        thisptr = NULL
+        self.thisptr.reset(nullptr)
     def __dealloc__(self):
-        pass
+        self.thisptr.reset(nullptr)
     cpdef size(self):
         """
         Get the sample size of the polymorphism table
@@ -101,8 +102,6 @@ cdef class simData(polyTable):
     """
     def __cinit__(self):
         self.thisptr = <unique_ptr[PolyTable]>unique_ptr[SimData](new SimData())
-    def __dealloc__(self):
-        pass
     def __init__(self,object x = None, object y = None):
         """
         Constructor
@@ -142,8 +141,6 @@ cdef class polySites(polyTable):
     """
     def __cinit__(self):
         self.thisptr = <unique_ptr[PolyTable]>unique_ptr[PolySites](new PolySites())
-    def __dealloc__(self):
-        pass
     def __init__(self,list x = None, list y = None):
         """
         Constructor
