@@ -13,5 +13,5 @@ cdef extern from "Sequence/PolyTableSlice.hpp" namespace "Sequence" nogil:
         unsigned size() const
 
 cdef class Windows:
-    cdef public object windows
+    cdef public list windows
         
