@@ -166,5 +166,40 @@ class test_simData(unittest.TestCase):
             x = simData()
             x.assign(d)
             w = Windows(x,0.1,-1,0,1)
+
+class test_polyTable(unittest.TestCase):
+    def testNumWindows(self):
+        d = [(0.05,b"AGAGAGAG"),
+             (0.1,b"AGAGAGAG"),
+             (0.15,b"AGAGAGAG"),
+             (0.2,b"AGAGAGAG"),
+             (0.225,b"AGAGAGAG"),
+             (0.25,b"AGAGAGAG"),
+             (0.5,b"AGAGAGAG"),
+             (0.95,b"AGAGAGAG"),
+             (1.0,b"AGAGAGAG")]
+        x = polySites()
+        x.assign(d)
+        ##We want sliding windows over the interval [0,1), step size = 0.1, jump size = 0.05
+        ##There will be 20 such windows
+        w = Windows(x,0.1,0.05,0,1)
+        self.assertEqual(len(w),20)
+    def testsWindowType(self):
+        d = [(0.05,b"AGAGAGAG"),
+             (0.1,b"AGAGAGAG"),
+             (0.15,b"AGAGAGAG"),
+             (0.2,b"AGAGAGAG"),
+             (0.225,b"AGAGAGAG"),
+             (0.25,b"AGAGAGAG"),
+             (0.5,b"AGAGAGAG"),
+             (0.95,b"AGAGAGAG"),
+             (1.0,b"AGAGAGAG")]
+        x = polySites()
+        x.assign(d)
+        ##We want sliding windows over the interval [0,1), step size = 0.1, jump size = 0.05
+        ##There will be 20 such windows
+        w = Windows(x,0.1,0.05,0,1)
+        self.assertEqual(isinstance(w[0],polySites),True)
+        
 if __name__ == '__main__':
     unittest.main()
