@@ -27,7 +27,7 @@ cdef fill_from_PolySites(const PolySites *d ,double window_size, double step_len
     for i in range(windows.get().size()):
         d2=deref(windows)[i]
         temp.assign(d2.sbegin(),d2.send())
-        wins.append(simData(temp))
+        wins.append(polySites(temp))
     return wins
     
 cdef class Windows:
