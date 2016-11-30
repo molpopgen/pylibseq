@@ -398,7 +398,7 @@ dnl Finish #
 dnl#########
 
 dnl Define the files to be configured
-AC_CONFIG_FILES([Makefile setup.py conf.py])
+AC_CONFIG_FILES([Makefile setup.py conf.py libsequence/__init__.py])
 AC_CONFIG_HEADERS([config.h])
 
 MINLSEQVERSION="1.9.0"
