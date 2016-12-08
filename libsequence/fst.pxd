@@ -2,11 +2,11 @@ from libcpp.vector cimport vector
 from libcpp.utility cimport pair
 from libcpp.set cimport set
 from libcpp.memory cimport unique_ptr
-from libsequence.polytable cimport polyTable,PolyTable
+from libsequence.polytable cimport PolyTable,CppPolyTable
 
 cdef extern from "Sequence/FST.hpp" namespace "Sequence":
     cdef cppclass FST:
-        FST( const PolyTable *, unsigned npop, const unsigned * config,
+        FST( const CppPolyTable *, unsigned npop, const unsigned * config,
              const double * weights, bint haveOutgroup, unsigned outgroup ) except +
         double HSM() const
         double Slatkin() const

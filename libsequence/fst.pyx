@@ -4,7 +4,7 @@ cdef class fst:
     """
     "Factory" object for :math:`F_{st}` calculations.
     """  
-    def __cinit__(self, polyTable p,list config, list weights = None, bint haveOutgroup = False, unsigned outgroup = 0):
+    def __cinit__(self, PolyTable p,list config, list weights = None, bint haveOutgroup = False, unsigned outgroup = 0):
         c = array.array('I',config)
         cdef unsigned[:] cv = c
         cdef double[:] wv

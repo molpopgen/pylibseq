@@ -9,7 +9,7 @@ cdef class SimDataVec:
     .. note:: The use case for this type is a Cython-based package extending pylibseq.
     """
     def __cinit__(self):
-        self.vec = vector[SimData]()
+        self.vec = vector[CppSimData]()
     def __dealloc__(self):
         self.vec.clear()
     def __init__(self,const vector[polySiteVector] & p):
@@ -32,5 +32,5 @@ cdef class SimDataVec:
         while i<n:
             a=p[i].begin()
             b=p[i].end()
-            self.vec.push_back(SimData(a,b))
+            self.vec.push_back(CppSimData(a,b))
             i+=1
