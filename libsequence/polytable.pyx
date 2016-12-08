@@ -5,19 +5,19 @@ from libcpp.string cimport string
 from libcpp.cast cimport dynamic_cast
 from cython.operator import dereference as deref,postincrement as inc
 
-from polytable cimport PolyTable,SimData, removeGaps as cpp_removeGaps
+from polytable cimport CppPolyTable,CppSimData, removeGaps as cpp_removeGaps
 from polytable cimport removeMissing as cpp_removeMissing, removeAmbiguous as cpp_removeAmbiguous
 from polytable cimport removeMultiHits as cpp_removeMultiHits,polyTableFreqFilter as ptFF
 
-cdef class polyTable:
+cdef class PolyTable:
     """
     libsequence's Sequence::PolyTable
 
     .. note:: It is an error to directly use this class in Python.  An assertion will be triggered.  This is simply the base API for other types.
     """
     def __cinit__(self):
-        if self.__class__ == polyTable:
-            raise RuntimeError("polyTable cannot be used directly.  Use derived types instead")
+        if self.__class__ == PolyTable:
+            raise RuntimeError("PolyTable cannot be used directly.  Use derived types instead")
         self.thisptr.reset(nullptr)
     def __dealloc__(self):
         self.thisptr.reset(nullptr)
@@ -93,14 +93,14 @@ cdef class polyTable:
         rv.assign(self.thisptr.get().sbegin(),self.thisptr.get().send())
         return rv
     
-cdef class simData(polyTable):
+cdef class SimData(PolyTable):
     """
     A polymorphism table for binary data.  0/1 = ancestral/derived.
 
-    .. note:: See :class:`libsequence.polytable.polyTable`
+    .. note:: See :class:`libsequence.polytable.PolyTable`
     """
     def __cinit__(self):
-        self.thisptr = <unique_ptr[PolyTable]>unique_ptr[SimData](new SimData())
+        self.thisptr = <unique_ptr[CppPolyTable]>unique_ptr[CppSimData](new CppSimData())
     def __init__(self,object x = None, object y = None):
         """
         Constructor
@@ -117,9 +117,9 @@ cdef class simData(polyTable):
         Example:
 
         >>> import libsequence.polytable as polyt
-        >>> x = polyt.simData()
-        >>> x = polyt.simData( [ (0.1,"0101"),(0.2,"1010") ] )
-        >>> x = polyt.simData( [0.2,0.2],["01","10","01","10"] )
+        >>> x = polyt.SimData()
+        >>> x = polyt.SimData( [ (0.1,"0101"),(0.2,"1010") ] )
+        >>> x = polyt.SimData( [0.2,0.2],["01","10","01","10"] )
         """
         if x is None:
             if y is None:
@@ -132,14 +132,14 @@ cdef class simData(polyTable):
             else:
                 self.assign_sep(x,y)
 
-cdef class polySites(polyTable):
+cdef class PolySites(PolyTable):
     """
     A polymorphism table for Sequence data.  A/G/C/T/N/0/1 is the alphabet for analysis.
 
-    .. note:: See :class:`libsequence.polytable.polyTable`
+    .. note:: See :class:`libsequence.Polytable.PolyTable`
     """
     def __cinit__(self):
-        self.thisptr = <unique_ptr[PolyTable]>unique_ptr[PolySites](new PolySites())
+        self.thisptr = <unique_ptr[CppPolyTable]>unique_ptr[CppPolySites](new CppPolySites())
     def __init__(self,list x = None, list y = None):
         """
         Constructor
@@ -156,9 +156,9 @@ cdef class polySites(polyTable):
         Example:
 
         >>> import libsequence.polytable as polyt
-        >>> x = polyt.polySites()
-        >>> x = polyt.polySites( [ (0.1,"ATTA"),(0.2,"GGGC") ] )
-        >>> x = polyt.polySites( [0.2,0.2],["AG","TG","TG","AC"] )
+        >>> x = polyt.PolySites()
+        >>> x = polyt.PolySites( [ (0.1,"ATTA"),(0.2,"GGGC") ] )
+        >>> x = polyt.PolySites( [0.2,0.2],["AG","TG","TG","AC"] )
 
         """
         if x is None:
@@ -172,44 +172,44 @@ cdef class polySites(polyTable):
             else:
                 self.assign_sep(x,y)
                 
-def removeGaps(polyTable p, gapchar = '-'):
+def removeGaps(PolyTable p, gapchar = '-'):
     """
     Remove all sites (columns) with gaps.
 
-    :param p: An object derived from :class:`libsequence.polytable.polyTable`
+    :param p: An object derived from :class:`libsequence.polytable.PolyTable`
     :param gapchar: the character representing an alignment gap
     
     Example:
 
     >>> import libsequence.polytable as pypt
-    >>> x = pypt.polySites()
+    >>> x = pypt.PolySites()
     >>> x.assign_sep([0.1,0.2,0.3],["ATC","CGA","AT-"])
     >>> pypt.removeGaps(x)
     >>> x.pos()
     [0.1, 0.2]
     """
     cdef bytes gc = <bytes>gapchar
-    cdef PolySites temp
-    cdef SimData temp2
-    if isinstance(p,polySites):
-        temp = cpp_removeGaps[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr.get())),False,0,gc[0])
+    cdef CppPolySites temp
+    cdef CppSimData temp2
+    if isinstance(p,PolySites):
+        temp = cpp_removeGaps[CppPolySites](deref(dynamic_cast['CppPolySites*'](p.thisptr.get())),False,0,gc[0])
         p.assign_sep(temp.GetPositions(),temp.GetData())
     else:
-        temp2 = cpp_removeGaps[SimData](deref(dynamic_cast['SimData*'](p.thisptr.get())),False,0,gc[0])
+        temp2 = cpp_removeGaps[CppSimData](deref(dynamic_cast['CppSimData*'](p.thisptr.get())),False,0,gc[0])
         p.assign_sep(temp2.GetPositions(),temp2.GetData())
 
-def isValid(polyTable p):
+def isValid(PolyTable p):
     """
     Return True if p only contains the characters A,C,G,T,N,-,0,1.
 
-    :param p: An object derived from :class:`libsequence.polytable.polyTable`
+    :param p: An object derived from :class:`libsequence.polytable.PolyTable`
     
     .. note:: This is not case-sensitive
 
     Example:
 
     >>> import libsequence.polytable as pypt
-    >>> x = pypt.polySites()
+    >>> x = pypt.PolySites()
     >>> x.assign_sep([0.1,0.2,0.3],["ATC","CGA","AT-"])
     >>> pypt.isValid(x)
     True
@@ -222,98 +222,98 @@ def isValid(polyTable p):
     """
     return polyTableValid(p.thisptr.get())
 
-def removeMono(polyTable p, bint skipOutgroup = False, unsigned outgroup = 0, gapchar = '-'):
+def removeMono(PolyTable p, bint skipOutgroup = False, unsigned outgroup = 0, gapchar = '-'):
     """
     Remove invariant sites from p
 
-    :param p: An object derived from :class:`libsequence.polytable.polyTable`
+    :param p: An object derived from :class:`libsequence.polytable.PolyTable`
     :param skipOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     """
     cdef bytes gc = <bytes>gapchar
-    cdef PolySites temp
-    cdef SimData temp2
-    if isinstance(p,polySites):
-        temp = removeInvariantPos[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
+    cdef CppPolySites temp
+    cdef CppSimData temp2
+    if isinstance(p,PolySites):
+        temp = removeInvariantPos[CppPolySites](deref(dynamic_cast['CppPolySites*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp.GetPositions(),temp.GetData())
     else:
-        temp2 = removeInvariantPos[SimData](deref(dynamic_cast['SimData*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
+        temp2 = removeInvariantPos[CppSimData](deref(dynamic_cast['CppSimData*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp2.GetPositions(),temp2.GetData())
         
-def freqFilter(polyTable p,unsigned mincount,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
+def freqFilter(PolyTable p,unsigned mincount,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
     """
     Remove all sites with mutation count <= mincount
 
-    :param p: An object derived from :class:`libsequence.polytable.polyTable`
+    :param p: An object derived from :class:`libsequence.polytable.PolyTable`
     :param mincount: Sites with mutation counts <= this value will be removed.  For example, use a value of 2 to remove singletons
     :param haveOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     
-    .. note:: If haveOutgroup == True, this is a filter on derived mutation counts, otherwise it is a filter on minor allele counts.  If p is of type :class:`libsequence.polyTable.simData`, this is a filter on derived mutation counts.
+    .. note:: If haveOutgroup == True, this is a filter on derived mutation counts, otherwise it is a filter on minor allele counts.  If p is of type :class:`libsequence.PolyTable.simData`, this is a filter on derived mutation counts.
     """
     cdef bytes gc = <bytes>gapchar
-    cdef PolySites temp
-    cdef SimData temp2
-    if isinstance(p,polySites):
-        temp = ptFF[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr.get())),mincount,skipOutgroup,outgroup,gc[0])
+    cdef CppPolySites temp
+    cdef CppSimData temp2
+    if isinstance(p,PolySites):
+        temp = ptFF[CppPolySites](deref(dynamic_cast['CppPolySites*'](p.thisptr.get())),mincount,skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp.GetPositions(),temp.GetData())
     else:
-        temp2 = ptFF[SimData](deref(dynamic_cast['SimData*'](p.thisptr.get())),mincount,skipOutgroup,outgroup,gc[0])
+        temp2 = ptFF[CppSimData](deref(dynamic_cast['CppSimData*'](p.thisptr.get())),mincount,skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp2.GetPositions(),temp2.GetData())
 
-def removeMissing(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
+def removeMissing(PolyTable p,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
     """
     Remove all sites missing data (the 'N' or 'n' character)
 
-    :param p: An object derived from :class:`libsequence.polytable.polyTable`
+    :param p: An object derived from :class:`libsequence.polytable.PolyTable`
     :param mincount: Sites with mutation counts <= this value will be removed.  For example, use a value of 2 to remove singletons
     :param skipOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     """
     cdef bytes gc = <bytes>gapchar
-    cdef PolySites temp
-    cdef SimData temp2
-    if isinstance(p,polySites):
-        temp = cpp_removeMissing[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
+    cdef CppPolySites temp
+    cdef CppSimData temp2
+    if isinstance(p,PolySites):
+        temp = cpp_removeMissing[CppPolySites](deref(dynamic_cast['CppPolySites*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp.GetPositions(),temp.GetData())
     else:
-        temp2 = cpp_removeMissing[SimData](deref(dynamic_cast['SimData*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
+        temp2 = cpp_removeMissing[CppSimData](deref(dynamic_cast['CppSimData*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp2.GetPositions(),temp2.GetData())
         
-def removeMultiHits(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
+def removeMultiHits(PolyTable p,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
     """
     Remove all sites with more than two character states.
 
-    :param p: An object derived from :class:`libsequence.polytable.polyTable`
+    :param p: An object derived from :class:`libsequence.polytable.PolyTable`
     :param skipOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     """
     cdef bytes gc = <bytes>gapchar
-    cdef PolySites temp
-    cdef SimData temp2
-    if isinstance(p,polySites):
-        temp = cpp_removeMultiHits[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
+    cdef CppPolySites temp
+    cdef CppSimData temp2
+    if isinstance(p,PolySites):
+        temp = cpp_removeMultiHits[CppPolySites](deref(dynamic_cast['CppPolySites*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp.GetPositions(),temp.GetData())
     else:
-        temp2 = cpp_removeMultiHits[SimData](deref(dynamic_cast['SimData*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
+        temp2 = cpp_removeMultiHits[CppSimData](deref(dynamic_cast['CppSimData*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp2.GetPositions(),temp2.GetData())
     
-def removeAmbiguous(polyTable p,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
+def removeAmbiguous(PolyTable p,bint skipOutgroup = False, unsigned outgroup = 0,gapchar='-'):
     """
     Remove all sites with characters not in the set A,G,C,T,N,0,1,-.
 
-    :param p: An object derived from :class:`libsequence.polytable.polyTable`
+    :param p: An object derived from :class:`libsequence.polytable.PolyTable`
     :param skipOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     """
     cdef bytes gc = <bytes>gapchar
-    cdef PolySites temp
-    cdef SimData temp2
-    if isinstance(p,polySites):
-        temp = cpp_removeAmbiguous[PolySites](deref(dynamic_cast['PolySites*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
+    cdef CppPolySites temp
+    cdef CppSimData temp2
+    if isinstance(p,PolySites):
+        temp = cpp_removeAmbiguous[CppPolySites](deref(dynamic_cast['CppPolySites*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp.GetPositions(),temp.GetData())
     else:
-        temp2 = cpp_removeAmbiguous[SimData](deref(dynamic_cast['SimData*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
+        temp2 = cpp_removeAmbiguous[CppSimData](deref(dynamic_cast['CppSimData*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp2.GetPositions(),temp2.GetData())
 
 
