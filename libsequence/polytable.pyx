@@ -1,4 +1,5 @@
 # distutils: language = c++
+from libc.stdio cimport * 
 from libcpp cimport nullptr
 from libcpp.vector cimport vector
 from libcpp.string cimport string
@@ -315,4 +316,23 @@ def removeAmbiguous(PolyTable p,bint skipOutgroup = False, unsigned outgroup = 0
         temp2 = cpp_removeAmbiguous[CppSimData](deref(dynamic_cast['CppSimData*'](p.thisptr.get())),skipOutgroup,outgroup,gc[0])
         p.assign_sep(temp2.GetPositions(),temp2.GetData())
 
+def readSimData(SimData d):
+    """
+    Read a :class:`libsequence.polytable.SimData` from the standard
+    input stream.
 
+    Intended use would be writing a program to read data in from a pipe.
+
+    .. code-block:: python
+
+        import libsequence.polytable as pt
+        d=pt.SimData()
+        while pt.readSimData(d) is True:
+            print d.numsites()
+    
+    :return: True if object could be read, False if stream is empty
+    """
+    if feof(stdin):
+        return False
+    (dynamic_cast['CppSimData*'](d.thisptr.get())).fromfile(stdin)
+    return True
