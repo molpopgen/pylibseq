@@ -1,7 +1,7 @@
-from libsequence.polytable import simData
-def make_simData(g):
+from libsequence.polytable import SimData
+def make_SimData(g):
     """
-    Construct a :class:`libsequence.polytable.simData` from 
+    Construct a :class:`libsequence.polytable.SimData` from 
     the output of msprime.
 
     :param g: The output from msprime
@@ -11,8 +11,8 @@ def make_simData(g):
     Example:
 
     >>> import msprime as msp
-    >>> from libsequence.msprime import make_simData
-    >>> g = msp.simulate(sample_size = 10,Ne=1e6, recombination_rate=1e-8,mutation_rate=1e-8,length=1e4)
-    >>> s = make_simData(g)
+    >>> from libsequence.msprime import make_SimData
+    >>> g = msp.Simulate(sample_size = 10,Ne=1e6, recombination_rate=1e-8,mutation_rate=1e-8,length=1e4)
+    >>> s = make_SimData(g)
     """
-    return simData([(v.position, v.genotypes) for v in g.variants(as_bytes=True)])
+    return SimData([(v.position, v.genotypes) for v in g.variants(as_bytes=True)])
