@@ -5,9 +5,8 @@ from libcpp.string cimport string
 from libcpp.cast cimport dynamic_cast
 from cython.operator import dereference as deref,postincrement as inc
 
-from polytable cimport CppPolyTable,CppSimData, removeGaps as cpp_removeGaps
-from polytable cimport removeMissing as cpp_removeMissing, removeAmbiguous as cpp_removeAmbiguous
-from polytable cimport removeMultiHits as cpp_removeMultiHits,polyTableFreqFilter as ptFF
+from polytable cimport CppPolyTable,CppSimData
+from polytable cimport polyTableFreqFilter as ptFF
 
 cdef class PolyTable:
     """

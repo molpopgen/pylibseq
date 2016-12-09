@@ -41,11 +41,11 @@ cdef extern from "Sequence/PolySites.hpp" namespace "Sequence" nogil:
 
 cdef extern from "Sequence/PolyTableFunctions.hpp" namespace "Sequence" nogil:
     bint polyTableValid(const CppPolyTable * t)
-    T removeGaps[T](const T &, const bint skipAnc, const unsigned anc, const char gapchar)
+    T cpp_removeGaps"Sequence::removeGaps"[T](const T &, const bint skipAnc, const unsigned anc, const char gapchar)
     T removeInvariantPos[T](const T & t, const bint skipAnc, const unsigned anc,  const char gapchar)
-    T removeAmbiguous[T](const T & t, const bint skipAnc, const unsigned anc, const char gapchar)
-    T removeMissing[T](const T & t, const bint skipAnc, const unsigned anc, const char gapchar)
-    T removeMultiHits[T](const T & t, const bint skipAnc, const unsigned anc, const char gapchar)
+    T cpp_removeAmbiguous"Sequence::removeAmbiguous"[T](const T & t, const bint skipAnc, const unsigned anc, const char gapchar)
+    T cpp_removeMissing"Sequence::removeMissing"[T](const T & t, const bint skipAnc, const unsigned anc, const char gapchar)
+    T cpp_removeMultiHits"Sequence::removeMultiHits"[T](const T & t, const bint skipAnc, const unsigned anc, const char gapchar)
     T polyTableToBinary[T](const T & t, const unsigned ref , const char gapchar)
     T polyTableFreqFilter[T](const T & t, const unsigned mincount,const bint skipAnc, const unsigned anc, const char gapchar)
     
