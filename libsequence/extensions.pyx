@@ -1,7 +1,7 @@
 cdef class SimDataVec:
     """
     Wrapper for std::vector<Sequence::SimData> (not the Cython extension 
-    class libsequence.polytable.simData!!)
+    class libsequence.polytable.SimData!!)
 
     This type is useful in the event that you want to process data
     sets in parallel using OpenMP.    
