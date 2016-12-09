@@ -121,7 +121,7 @@ cdef class PolySIM:
 
     This is a wrapper around libsequence's Sequence::PolySIM
 
-    These objects are constructed from :class:`libsequence.polytable.simData`
+    These objects are constructed from :class:`libsequence.polytable.SimData`
 
     .. note:: 0/1 = ancestral/derived    
     """
@@ -231,31 +231,31 @@ def lhaf( PolyTable pt, double l ):
     """
     :math:`l-HAF` from Ronen et al. DOI:10.1371/journal.pgen.1005527
     
-    :param pt: A :class:`libsequence.polytable.polyTable`
+    :param pt: A :class:`libsequence.polytable.PolyTable`
     
     :return: The :math:`l-HAF` statistic for each haplotype in pt
     
     :rtype: list
     
-    .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+    .. note:: Only :class:`libsequence.polytable.SimData` types currently supported
     """
     if isinstance(pt,SimData):
         return lHaf(deref(dynamic_cast['CppSimData*'](pt.thisptr.get())),l)
     else:
-        raise RuntimeError("lhaf: only SimData objects are allowed")
+        raise NotImplementedError("lhaf: only SimData objects are allowed")
 
 def nSLiHS(PolyTable pt, dict gmap = None):
     """
     "Raw"/unstandardized :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
 
-    :param pt: A :class:`libsequence.polytable.polyTable`
+    :param pt: A :class:`libsequence.polytable.PolyTable`
     :param gmap: A dictionary relating eacy position in pt to its location on a genetic map.
 
     :return: A list of (nSL,iHS) tuples
 
     :rtype: list
     
-    .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+    .. note:: Only :class:`libsequence.polytable.SimData` types currently supported
     """
     cdef unordered_map[double,double] gm
     if isinstance(pt,SimData):
@@ -265,13 +265,13 @@ def nSLiHS(PolyTable pt, dict gmap = None):
             gm=gmap
             return nSL_t(deref(dynamic_cast['CppSimData*'](pt.thisptr.get())),gm)
     else:
-        raise RuntimeError("nSL: only SimData objects are allowed")
+        raise NotImplementedError("nSL: only SimData objects are allowed")
     
 def std_nSLiHS(PolyTable pt, double minfreq = 0., double binsize = 0.05, dict gmap = None):
     """
     Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077
 
-    :param pt: A :class:`libsequence.polytable.polyTable`
+    :param pt: A :class:`libsequence.polytable.PolyTable`
     :param minfreq: Ignore markers with frequency < this value
     :param binsize: Standardize statistic in frequency bins of this width
     :param gmap: A dictionary relating eacy position in pt to its location on a genetic map.
@@ -280,7 +280,7 @@ def std_nSLiHS(PolyTable pt, double minfreq = 0., double binsize = 0.05, dict gm
 
     :rtype: float
 
-    .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+    .. note:: Only :class:`libsequence.polytable.SimData` types currently supported
     """
     cdef unordered_map[double,double] gm
     if isinstance(pt,SimData):
@@ -290,13 +290,13 @@ def std_nSLiHS(PolyTable pt, double minfreq = 0., double binsize = 0.05, dict gm
             gm=gmap
             return snSL(deref(dynamic_cast['CppSimData*'](pt.thisptr.get())),minfreq,binsize,gm)
     else:
-        raise RuntimeError("std_nSL: only SimData objects are allowed")
+        raise NotImplementedError("std_nSL: only SimData objects are allowed")
 
 def ld(PolyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):
     """
     Pairwise "linkage disequilibrium" (LD) statistics
 
-    :param p: A :class:`libsequence.polytable.polyTable`
+    :param p: A :class:`libsequence.polytable.PolyTable`
     :param haveOutgroup: if True, then ougtroup is the index of the outroup sequence in p
     :param outgroup: The index of the outgroup sequence in p.  Not used if haveOutgroup is False
     :param mincount: Ignore site pairs where one or both sites have minor alleles occur < mincount times
@@ -315,18 +315,18 @@ def garudStats(PolyTable pt):
    """
    Statistics from Garud et al. doi:10.1371/journal.pgen.1005004.g011
 
-   :param pt: A :class:`libsequence.polytable.polyTable`
+   :param pt: A :class:`libsequence.polytable.PolyTable`
 
    :return: The H1, H12, and H2/H1 statistics
 
    :rtype: dict
 
-   .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+   .. note:: Only :class:`libsequence.polytable.SimData` types currently supported
    """
    cdef GarudStats stats
    if isinstance(pt,SimData):
        stats = H1H12(deref(dynamic_cast['CppSimData*'](pt.thisptr.get())))
        return {"H1":stats.H1,"H12":stats.H12,"H2H1":stats.H2H1}
    else:
-       raise RuntimeError("garudStats: only SimData objects are allowed")       
+       raise NotImplementedError("garudStats: only SimData objects are allowed")       
 

@@ -61,7 +61,7 @@ cdef class PolyTable:
         Example:
 
         >>> import libsequence.polytable as pypt
-        >>> x = pypt.simData()
+        >>> x = pypt.SimData()
         >>> x.assign([ (0.1,"01"),(0.2,"10") ])
         """
         #assert (self.thisptr != NULL)
@@ -75,7 +75,7 @@ cdef class PolyTable:
         Example: 
 
         >>> import libsequence.polytable as pypt
-        >>> x = pypt.simData()
+        >>> x = pypt.SimData()
         >>> pos = [0.1,0.2,0.3,0.4]
         >>> data = ["0101","1011"]
         >>> x.assign_sep(pos,data)
@@ -249,7 +249,7 @@ def freqFilter(PolyTable p,unsigned mincount,bint skipOutgroup = False, unsigned
     :param haveOutgroup: if True, the sequence at position 'outgroup' will not be included in determining if a site is monomorphic
     :param outgroup: The index of the outgroup sequence in p
     
-    .. note:: If haveOutgroup == True, this is a filter on derived mutation counts, otherwise it is a filter on minor allele counts.  If p is of type :class:`libsequence.PolyTable.simData`, this is a filter on derived mutation counts.
+    .. note:: If haveOutgroup == True, this is a filter on derived mutation counts, otherwise it is a filter on minor allele counts.  If p is of type :class:`libsequence.PolyTable.SimData`, this is a filter on derived mutation counts.
     """
     cdef bytes gc = <bytes>gapchar
     cdef CppPolySites temp

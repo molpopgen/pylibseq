@@ -32,7 +32,7 @@ cdef fill_from_PolySites(const CppPolySites *d ,double window_size, double step_
     
 cdef class Windows:
     """
-    An iterable list of sliding windows created from a :class:`libsequence.polytable.polyTable`
+    An iterable list of sliding windows created from a :class:`libsequence.polytable.PolyTable`
     """
     def __cinit__(self, PolyTable pt, double window_size, double step_len, double starting_pos = 0., double ending_pos = 1):
         if isinstance(pt,SimData):
