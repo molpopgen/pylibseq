@@ -92,10 +92,15 @@ setup(name='@PACKAGE_NAME@',
       license='GPL >= 2',
       provides=provided,
       obsoletes=['none'],
-      packages=['libsequence'],
+      packages=['libsequence','libsequence.console'],
       py_modules=[],
       scripts=[],
       package_data=pdata,
-      ext_modules=extensions
+      ext_modules=extensions,
+      entry_points={
+          'console_scripts':[
+              'pymsstats=libsequence.console.msstats_cli:msstats_main'
+              ]
+          },
 )
      
