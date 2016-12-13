@@ -44,9 +44,12 @@ class test_fst(unittest.TestCase):
         expected = [0.1,0.2]
         self.assertEqual(p,expected)
     #shared/fixed/private will get exceptions from libsequence
-    #if i,j are out of range
+    #if i,j are out of range.
+    #These tests are agnostic about type of assertion,
+    #as that changes b/w libsequence 1.9.0 (RuntimeError)
+    #and 1.9.1 (IndexError)
     def testExceptionShared(self):
-        with self.assertRaises(IndexError):
+        with self.assertRaises(Exception):
             x = [(0.1,b"0011"),(0.2,b"1100"),
             (0.3,b"0100"),(0.4,b"1101"),
             (0.5,b"0101")]
@@ -56,7 +59,7 @@ class test_fst(unittest.TestCase):
             #2 is out of range.
             sh = f.shared(2,1)
     def testExceptionFixed(self):
-        with self.assertRaises(IndexError):
+        with self.assertRaises(Exception):
             x = [(0.1,b"0011"),(0.2,b"1100"),
             (0.3,b"0100"),(0.4,b"1101"),
             (0.5,b"0101")]
@@ -66,7 +69,7 @@ class test_fst(unittest.TestCase):
             #2 is out of range.
             sh = f.fixed(2,1)
     def testExceptionPriv(self):
-        with self.assertRaises(IndexError):
+        with self.assertRaises(Exception):
             x = [(0.1,b"0011"),(0.2,b"1100"),
             (0.3,b"0100"),(0.4,b"1101"),
             (0.5,b"0101")]
