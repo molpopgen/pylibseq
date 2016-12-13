@@ -45,8 +45,11 @@ install:
     - conda update -q conda
     # Useful for debugging any issues with conda
     - conda info -a
+    - conda config --add channels conda-forge
+    - conda config --add channels defaults
+    - conda config --add channels r
+    - conda config --add channels bioconda
     - conda install gcc
-#    - conda install -c r gsl
     - conda install -c bioconda libsequence msprime
 script:
     - export LD_LIBRARY_PATH=$HOME/miniconda/lib
