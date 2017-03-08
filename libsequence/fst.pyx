@@ -1,6 +1,6 @@
 from cython.view cimport array as cvarray
 from cpython cimport array
-cdef class fst:
+cdef class Fst:
     """
     "Factory" object for :math:`F_{st}` calculations.
     """  

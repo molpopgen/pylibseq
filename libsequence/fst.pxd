@@ -20,5 +20,5 @@ cdef extern from "Sequence/FST.hpp" namespace "Sequence":
         set[double] fixed(unsigned pop1, unsigned pop2) except+
         pair[set[double],set[double]] Private(unsigned pop1, unsigned pop2) except+
 
-cdef class fst:
+cdef class Fst:
     cdef unique_ptr[FST] thisptr
