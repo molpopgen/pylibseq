@@ -213,11 +213,11 @@ Sliding windows
 
 .. code:: python
 
-    from libsequence.windows import simDataWindows
+    from libsequence.windows import Windows
 
 .. code:: python
 
-    w = simDataWindows(sd,window_size=0.1,step_len=0.05,starting_pos=0.,ending_pos=1.0)
+    w = Windows(sd,window_size=0.1,step_len=0.05,starting_pos=0.,ending_pos=1.0)
 
 .. code:: python
 
