@@ -48,7 +48,7 @@ The supported platforms are Linux and OS X.
 Changelog (rough)
 ==============================
 
-* 0.1.9: Made memory management more robust: more unique_ptr instead of raw pointers.  Cleanup __dealloc__ functions in extension types.  Package now sets __version__.  Class names are now "Pythonic" (and identical to the corresponding type names from libsequence) due to aliasing the C++ names from libsequence. Change from distutils to setuptools.  Documentation fixes.  Expose haplotype diversity and number of haplotype statistics.
+* 0.1.9: Made memory management more robust: more unique_ptr instead of raw pointers.  Cleanup __dealloc__ functions in extension types.  Package now sets __version__.  Class names are now "Pythonic" (and identical to the corresponding type names from libsequence) due to aliasing the C++ names from libsequence. Change from distutils to setuptools.  Documentation fixes.  Expose haplotype diversity and number of haplotype statistics.  First (very alpha) release of pymsstats.
 * 0.1.8: made sure C++ objects/fxns are declared "nogil".  Raw pointers replaced with C++'s unique_ptr.
 * 0.1.7: improvements to build system.  Add option to build from GitHub.
 * 0.1.6: update to libsequence 1.8.9.  Add --use-cython option to setup.py
