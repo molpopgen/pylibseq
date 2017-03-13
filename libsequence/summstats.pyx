@@ -274,7 +274,7 @@ def nSLiHS(PolyTable pt, dict gmap = None):
     "Raw"/unstandardized :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
 
     :param pt: A :class:`libsequence.polytable.PolyTable`
-    :param gmap: A dictionary relating eacy position in pt to its location on a genetic map.
+    :param gmap: A dictionary relating each position in pt to its location on a genetic map.
 
     :return: A list of (nSL,iHS) tuples
 
