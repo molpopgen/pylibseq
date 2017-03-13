@@ -232,7 +232,8 @@ def lhaf( PolyTable pt, double l ):
     :math:`l-HAF` from Ronen et al. DOI:10.1371/journal.pgen.1005527
     
     :param pt: A :class:`libsequence.polytable.PolyTable`
-    
+    :param l: The scaling factor for the statistic. See paper for details.
+
     :return: The :math:`l-HAF` statistic for each haplotype in pt
     
     :rtype: list
