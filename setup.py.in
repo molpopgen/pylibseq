@@ -1,16 +1,7 @@
 #!/usr/bin/env python
 
-# setup.py.in.distutils
-#
-# Copyright 2012, 2013 Brandon Invergo <brandon@invergo.net>
-#
-# Copying and distribution of this file, with or without modification,
-# are permitted in any medium without royalty provided the copyright
-# notice and this notice are preserved.  This file is offered as-is,
-# without any warranty.
-
 from __future__ import print_function
-from distutils.core import setup,Extension
+from setuptools import setup,Extension
 
 import platform, glob, sys, subprocess
 
