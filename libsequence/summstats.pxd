@@ -73,6 +73,8 @@ cdef extern from "Sequence/PolySIM.hpp" namespace "Sequence" nogil:
         int HudsonsHaplotypeTest (const int & subsize,const int & subss) const
         #recombination
         unsigned Minrec () const
+        double DandVH() const                                    #Depaulis & Veuille (1998) Haplotype diversity
+        unsigned DandVK() const                                  #Depaulis & Veuille (1998) number of haplotypes
 
 cdef class PolySNP:
     cdef unique_ptr[CppPolySNP] thisptr

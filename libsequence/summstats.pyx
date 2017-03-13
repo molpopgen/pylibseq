@@ -10,7 +10,7 @@ cdef extern from "<limits>" namespace "std" nogil:
         
 cdef class PolySNP:
     """
-    "Factory" class to calculate summary statistics from nucleotide data.
+    Class to calculate summary statistics from nucleotide data.
 
     This is a wrapper around libsequence's Sequence::PolySNP
     """
@@ -114,10 +114,22 @@ cdef class PolySNP:
         Hudson and Kaplan's lower bound on no. crossover events
         """
         return self.thisptr.get().Minrec()
+    def hapdiv(self):
+        """
+        Haplotype diversity of the sample.
+        Depaulis and Veuille's H statistic.
+        """
+        return self.thisptr.get().DandVH()
+    def nhaps(self):
+        """
+        Number of haplotypes in the sample.
+        Depaulis and Veuille's K statistic.
+        """
+        return self.thisptr.get().DandVK()
 
 cdef class PolySIM:
     """
-    "Factory" class to calculate summary statistics from binary data.
+    Class to calculate summary statistics from binary data.
 
     This is a wrapper around libsequence's Sequence::PolySIM
 
@@ -225,6 +237,18 @@ cdef class PolySIM:
         Hudson and Kaplan's lower bound on no. crossover events
         """
         return self.thisptr.get().Minrec()
+    def hapdiv(self):
+        """
+        Haplotype diversity of the sample.
+        Depaulis and Veuille's H statistic.
+        """
+        return self.thisptr.get().DandVH()
+    def nhaps(self):
+        """
+        Number of haplotypes in the sample.
+        Depaulis and Veuille's K statistic.
+        """
+        return self.thisptr.get().DandVK()
 
 ##functions
 def lhaf( PolyTable pt, double l ):
