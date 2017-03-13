@@ -97,10 +97,10 @@ setup(name='pylibseq',
       scripts=[],
       package_data=pdata,
       ext_modules=extensions,
-#      entry_points={
-#          'console_scripts':[
-#              'pymsstats=libsequence.console.msstats_cli:msstats_main'
-#              ]
-#          },
+      entry_points={
+          'console_scripts':[
+              'pymsstats=libsequence.console.msstats_cli:msstats_main'
+              ]
+          },
 )
      
