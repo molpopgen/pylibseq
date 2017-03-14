@@ -5,7 +5,7 @@ from libcpp.vector cimport vector
 from libcpp.utility cimport pair
 from libcpp.string cimport string as cppstring
 from libcpp.memory cimport unique_ptr
-from polysitevector cimport polymorphicSite,polySiteVector,psite_vec_const_itr,psite_vec_itr
+from libsequence.polysitevector cimport polymorphicSite,polySiteVector,psite_vec_const_itr,psite_vec_itr
 
 cdef extern from "Sequence/PolyTable.hpp" namespace "Sequence" nogil:
     cdef cppclass CppPolyTable "Sequence::PolyTable":
