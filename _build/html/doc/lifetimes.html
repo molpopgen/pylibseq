@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Object lifetimes &#8212; pylibseq 0.1.8 documentation</title>
+    <title>Object lifetimes &#8212; pylibseq 0.1.9post0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.8',
+        VERSION:     '0.1.9post0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="parallel.html" title="Parallel computation"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.1.8 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.1.9post0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -59,15 +59,15 @@
 <h1>Object lifetimes<a class="headerlink" href="#object-lifetimes" title="Permalink to this headline">¶</a></h1>
 <p>This package provides two types of classes:</p>
 <ul class="simple">
-<li>Classes containing data, such as <a class="reference internal" href="../index.html#libsequence.polytable.simData" title="libsequence.polytable.simData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.simData</span></code></a> and <a class="reference internal" href="../index.html#libsequence.polytable.polySites" title="libsequence.polytable.polySites"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.polySites</span></code></a></li>
-<li>Classes analyzing the data in the previous type of class, <em>e.g.</em> <a class="reference internal" href="../index.html#libsequence.summstats.polySIM" title="libsequence.summstats.polySIM"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.polySIM</span></code></a> and <a class="reference internal" href="../index.html#libsequence.summstats.polySNP" title="libsequence.summstats.polySNP"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.polySNP</span></code></a></li>
+<li>Classes containing data, such as <a class="reference internal" href="../index.html#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> and <a class="reference internal" href="../index.html#libsequence.polytable.PolySites" title="libsequence.polytable.PolySites"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolySites</span></code></a></li>
+<li>Classes analyzing the data in the previous type of class, <em>e.g.</em> <a class="reference internal" href="../index.html#libsequence.summstats.PolySIM" title="libsequence.summstats.PolySIM"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.PolySIM</span></code></a> and <a class="reference internal" href="../index.html#libsequence.summstats.PolySNP" title="libsequence.summstats.PolySNP"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.PolySNP</span></code></a></li>
 </ul>
 <p>In general, one uses these objects as follows:</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="c1">#This is a &#39;data&#39; class:</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">simData</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">SimData</span><span class="p">()</span>
 <span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span> <span class="p">[(</span><span class="mf">0.1</span><span class="p">,</span><span class="s2">&quot;010101&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s2">&quot;101010&quot;</span><span class="p">)]</span> <span class="p">)</span>
 <span class="c1">#This is an &quot;analyze data&quot; class:</span>
-<span class="n">analyze</span> <span class="o">=</span> <span class="n">polySim</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">analyze</span> <span class="o">=</span> <span class="n">PolySim</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">d</span> <span class="o">=</span> <span class="n">analyze</span><span class="o">.</span><span class="n">tajimasd</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -122,12 +122,12 @@
         <li class="right" >
           <a href="parallel.html" title="Parallel computation"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.1.8 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.1.9post0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Kevin Thornton.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
   </body>
 </html>

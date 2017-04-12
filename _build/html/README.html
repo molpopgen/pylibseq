@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>pylibseq: Python bindings for libsequence &#8212; pylibseq 0.1.8 documentation</title>
+    <title>pylibseq: Python bindings for libsequence &#8212; pylibseq 0.1.9post0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.8',
+        VERSION:     '0.1.9post0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to pylibseq’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pylibseq 0.1.8 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pylibseq 0.1.9post0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -81,7 +81,7 @@
 <li><a class="reference external" href="http://molpopgen.github.io/libsequence/">libsequence</a> must be installed on your system.  <strong>Currently, this package requires the dev branch of libsequence</strong></li>
 <li><a class="reference external" href="http://www.threadbuildingblocks.org">TBB</a> must be installed on your system.</li>
 <li>Python 2 or Python 3</li>
-<li>An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughty, this means GCC &gt;= 4.8 and clang &gt;= 3.5.</li>
+<li>An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughly, this means GCC &gt;= 4.8 and clang &gt;= 3.5.</li>
 </ul>
 <p>..note:: If you installing from GitHub, then <a class="reference external" href="http://www.cython.org/">Cython</a> is a dependency.</p>
 <p>The recommended method for installing <a class="reference external" href="http://molpopgen.github.io/libsequence/">libsequence</a> is <a class="reference external" href="https://bioconda.github.io">bioconda</a>.  If you do not use that system, then you should install <a class="reference external" href="http://molpopgen.github.io/libsequence/">libsequence</a> from source.</p>
@@ -91,6 +91,7 @@
 <div class="section" id="changelog-rough">
 <h2>Changelog (rough)<a class="headerlink" href="#changelog-rough" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
+<li>0.1.9: Made memory management more robust: more unique_ptr instead of raw pointers.  Cleanup __dealloc__ functions in extension types.  Package now sets __version__.  Class names are now &#8220;Pythonic&#8221; (and identical to the corresponding type names from libsequence) due to aliasing the C++ names from libsequence. Change from distutils to setuptools.  Documentation fixes.  Expose haplotype diversity and number of haplotype statistics.  First (very alpha) release of pymsstats.</li>
 <li>0.1.8: made sure C++ objects/fxns are declared &#8220;nogil&#8221;.  Raw pointers replaced with C++&#8217;s unique_ptr.</li>
 <li>0.1.7: improvements to build system.  Add option to build from GitHub.</li>
 <li>0.1.6: update to libsequence 1.8.9.  Add &#8211;use-cython option to setup.py</li>
@@ -213,12 +214,12 @@ $ python -m unittest discover unit_test
         <li class="right" >
           <a href="index.html" title="Welcome to pylibseq’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">pylibseq 0.1.8 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">pylibseq 0.1.9post0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Kevin Thornton.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
   </body>
 </html>

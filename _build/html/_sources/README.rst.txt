@@ -35,7 +35,7 @@ Requirements:
 * libsequence_ must be installed on your system.  **Currently, this package requires the dev branch of libsequence**
 * TBB_ must be installed on your system.
 * Python 2 or Python 3
-* An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughty, this means GCC >= 4.8 and clang >= 3.5.
+* An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughly, this means GCC >= 4.8 and clang >= 3.5.
 
 ..note:: If you installing from GitHub, then Cython_ is a dependency.
 
@@ -48,6 +48,7 @@ The supported platforms are Linux and OS X.
 Changelog (rough)
 ==============================
 
+* 0.1.9: Made memory management more robust: more unique_ptr instead of raw pointers.  Cleanup __dealloc__ functions in extension types.  Package now sets __version__.  Class names are now "Pythonic" (and identical to the corresponding type names from libsequence) due to aliasing the C++ names from libsequence. Change from distutils to setuptools.  Documentation fixes.  Expose haplotype diversity and number of haplotype statistics.  First (very alpha) release of pymsstats.
 * 0.1.8: made sure C++ objects/fxns are declared "nogil".  Raw pointers replaced with C++'s unique_ptr.
 * 0.1.7: improvements to build system.  Add option to build from GitHub.
 * 0.1.6: update to libsequence 1.8.9.  Add --use-cython option to setup.py

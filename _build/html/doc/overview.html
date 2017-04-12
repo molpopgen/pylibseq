@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Example workflow &#8212; pylibseq 0.1.8 documentation</title>
+    <title>Example workflow &#8212; pylibseq 0.1.9post0 documentation</title>
     
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.1.8',
+        VERSION:     '0.1.9post0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="../README.html" title="pylibseq: Python bindings for libsequence"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.1.8 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.1.9post0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -61,7 +61,7 @@
 used to process bi-allele data encoded as 0/1 = ancestral/derived,
 respectively</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
-<span class="kn">from</span> <span class="nn">libsequence.polytable</span> <span class="k">import</span> <span class="n">simData</span>
+<span class="kn">from</span> <span class="nn">libsequence.polytable</span> <span class="k">import</span> <span class="n">SimData</span>
 </pre></div>
 </div>
 <div class="section" id="assigning-to-an-object">
@@ -72,7 +72,7 @@ respectively</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">rawData1</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.1</span><span class="p">,</span><span class="s1">&#39;0101&#39;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s1">&#39;1010&#39;</span><span class="p">)]</span>
 </pre></div>
 </div>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">sd</span> <span class="o">=</span> <span class="n">simData</span><span class="p">()</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">sd</span> <span class="o">=</span> <span class="n">SimData</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">sd</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">rawData1</span><span class="p">)</span>
@@ -134,8 +134,8 @@ respectively</p>
 <div class="section" id="summary-statistics">
 <h2>Summary statistics<a class="headerlink" href="#summary-statistics" title="Permalink to this headline">¶</a></h2>
 <p>Let&#8217;s calculate some basic summary statistics</p>
-<p>See <a class="reference internal" href="../index.html#libsequence.summstats.polySIM" title="libsequence.summstats.polySIM"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.polySIM</span></code></a> for more documentation</p>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">libsequence.summstats</span> <span class="k">import</span> <span class="n">polySIM</span>
+<p>See <a class="reference internal" href="../index.html#libsequence.summstats.PolySIM" title="libsequence.summstats.PolySIM"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.PolySIM</span></code></a> for more documentation</p>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">libsequence.summstats</span> <span class="k">import</span> <span class="n">PolySIM</span>
 <span class="c1">#ms 10 1 -s 10 -I 2 5 5 0.05</span>
 <span class="n">rawDataPos</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0997</span><span class="p">,</span> <span class="mf">0.2551</span><span class="p">,</span> <span class="mf">0.3600</span><span class="p">,</span> <span class="mf">0.4831</span><span class="p">,</span> <span class="mf">0.5205</span><span class="p">,</span> <span class="mf">0.5668</span><span class="p">,</span> <span class="mf">0.5824</span><span class="p">,</span> <span class="mf">0.6213</span><span class="p">,</span> <span class="mf">0.7499</span><span class="p">,</span> <span class="mf">0.9669</span><span class="p">]</span>
 <span class="n">rawDataGenos</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;0000001010&#39;</span><span class="p">,</span>
@@ -151,7 +151,7 @@ respectively</p>
 <span class="n">sd</span><span class="o">.</span><span class="n">assign_sep</span><span class="p">(</span><span class="n">rawDataPos</span><span class="p">,</span><span class="n">rawDataGenos</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">ps</span> <span class="o">=</span> <span class="n">polySIM</span><span class="p">(</span><span class="n">sd</span><span class="p">)</span>
+<div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">ps</span> <span class="o">=</span> <span class="n">PolySIM</span><span class="p">(</span><span class="n">sd</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="n">ps</span><span class="o">.</span><span class="n">thetapi</span><span class="p">()</span>
@@ -190,7 +190,7 @@ respectively</p>
 <div class="code python highlight-default"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)):</span>
     <span class="c1">#Each window is a simData</span>
     <span class="n">wi</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-    <span class="n">pswi</span> <span class="o">=</span> <span class="n">polySIM</span><span class="p">(</span><span class="n">wi</span><span class="p">)</span>
+    <span class="n">pswi</span> <span class="o">=</span> <span class="n">PolySIM</span><span class="p">(</span><span class="n">wi</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">pswi</span><span class="o">.</span><span class="n">thetaw</span><span class="p">())</span>
 </pre></div>
 </div>
@@ -332,12 +332,12 @@ a great overview.</p>
         <li class="right" >
           <a href="../README.html" title="pylibseq: Python bindings for libsequence"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.1.8 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.1.9post0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Kevin Thornton.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
     </div>
   </body>
 </html>
