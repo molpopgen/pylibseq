@@ -1,4 +1,4 @@
-##The fwdpy home page
+##The pylibseq home page
 
 This is the homepage for __pylibseq__, which provides Python bindings to the C++ library [libsequence](http://github.com/molpopgen/libsequence)
 
