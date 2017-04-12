@@ -1,32 +1,22 @@
 #!/usr/bin/env python
 
-# setup.py.in.distutils
-#
-# Copyright 2012, 2013 Brandon Invergo <brandon@invergo.net>
-#
-# Copying and distribution of this file, with or without modification,
-# are permitted in any medium without royalty provided the copyright
-# notice and this notice are preserved.  This file is offered as-is,
-# without any warranty.
-
 from __future__ import print_function
-from distutils.core import setup,Extension
+from setuptools import setup,Extension
 
-import platform, glob, sys, subprocess
+import platform, glob, sys, subprocess,os
 
 #Dependency checks
 
 ##Check for libsequence version
 try:
-    proc = subprocess.Popen(['libsequenceConfig','--version'],stdout=subprocess.PIPE)
-    (out,err) = proc.communicate()
-    version = str(out).decode('utf-8').rstrip()
+    out = subprocess.check_output('libsequenceConfig --version',shell=True)
+    version = out.decode('utf-8').rstrip()
     print ("libsequence version",version," found.")
     if version < '1.9.0':
         print("libsequence >= ,'1.9.0' required, but ",version, "found.")
         sys.exit(2)
 except:
-    print("libsequenceConfig not found.  Please install fwdpp (http://github.com/molpopgen/libsequence)")
+    sys.exit("libsequenceConfig not found.  Please install libsequence (http://github.com/molpopgen/libsequence)")
 
 ##Can we compile a program based on libsequence?
 print("Attempting to compile and link a test program using libsequence...")
@@ -48,9 +38,8 @@ else:
     USE_CYTHON = False
 
 
-long_desc = \
-"""
-"""
+long_desc = open("README.rst").read()
+
 EXTENSION = '.pyx' if USE_CYTHON else '.cpp'
 
 extensions = []
@@ -78,13 +67,13 @@ if USE_CYTHON:
 
 
 setup(name='pylibseq',
-      version='0.1.8',
+      version='0.1.9post0',
       author='Kevin R. Thornton',
       author_email='krthornt@uci.edu',
       maintainer='Kevin R. Thornton',
       maintainer_email='krthornt@uci.edu',
       url='http://github.com/molpopgen/pylibseq',
-      description="""""",
+      description="Python interface to libsequence",
       long_description=long_desc,
       data_files=[('pylibseq', ['COPYING', 'README.rst'])],
       download_url='',
@@ -93,10 +82,15 @@ setup(name='pylibseq',
       license='GPL >= 2',
       provides=provided,
       obsoletes=['none'],
-      packages=['libsequence'],
+      packages=['libsequence','libsequence.console'],
       py_modules=[],
       scripts=[],
       package_data=pdata,
-      ext_modules=extensions
+      ext_modules=extensions,
+      entry_points={
+          'console_scripts':[
+              'pymsstats=libsequence.console.msstats_cli:msstats_main'
+              ]
+          },
 )
      

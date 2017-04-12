@@ -45,7 +45,7 @@ dnl 2) package version (i.e. 1.2)
 dnl 3) bug/info/project email address (i.e. bug-foo@gnu.org)
 dnl----
 dnl
-AC_INIT([pylibseq], [0.1.8], [krthornt@uci.edu])
+AC_INIT([pylibseq], [0.1.9post0], [krthornt@uci.edu])
 
 
 dnl----
@@ -88,7 +88,7 @@ dnl          series and the max is in the 3.0 series, non-existent
 dnl          releases (2.8 & 2.9) will be correctly skipped.
 dnl----
 dnl
-PC_INIT([2.7], [3.3.1])
+PC_INIT([2.7], [])
 
 
 dnl--PC_PROG_PYTHON---------------------------------------------------
@@ -398,7 +398,7 @@ dnl Finish #
 dnl#########
 
 dnl Define the files to be configured
-AC_CONFIG_FILES([Makefile setup.py conf.py])
+AC_CONFIG_FILES([Makefile setup.py conf.py libsequence/__init__.py])
 AC_CONFIG_HEADERS([config.h])
 
 MINLSEQVERSION="1.9.0"

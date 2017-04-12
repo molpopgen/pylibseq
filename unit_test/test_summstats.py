@@ -9,7 +9,7 @@ class test_nSL(unittest.TestCase):
              (0.3,b"00011101"),(0.4,b"11111000"),
              (0.5,b"01010101"),(0.6,b"00001111")
              ]
-        x = simData()
+        x = SimData()
         x.assign(d)
         stats = nSLiHS(x)
         self.assertEqual(len(stats),x.numsites())

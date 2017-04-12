@@ -8,14 +8,14 @@ cdef extern from "<limits>" namespace "std" nogil:
         @staticmethod
         T max()
         
-cdef class polySNP:
+cdef class PolySNP:
     """
-    "Factory" class to calculate summary statistics from nucleotide data.
+    Class to calculate summary statistics from nucleotide data.
 
     This is a wrapper around libsequence's Sequence::PolySNP
     """
-    def __cinit__(self,polyTable p,bint haveOutgroup = False, unsigned outgroup = 0, bint totMuts = True):
-       self.thisptr = unique_ptr[PolySNP](new PolySNP(p.thisptr.get(),haveOutgroup,outgroup,totMuts))
+    def __cinit__(self,PolyTable p,bint haveOutgroup = False, unsigned outgroup = 0, bint totMuts = True):
+        self.thisptr = unique_ptr[CppPolySNP](new CppPolySNP(p.thisptr.get(),haveOutgroup,outgroup,totMuts))
     def __dealloc__(self):
         pass
     def thetapi(self):
@@ -114,19 +114,31 @@ cdef class polySNP:
         Hudson and Kaplan's lower bound on no. crossover events
         """
         return self.thisptr.get().Minrec()
+    def hapdiv(self):
+        """
+        Haplotype diversity of the sample.
+        Depaulis and Veuille's H statistic.
+        """
+        return self.thisptr.get().DandVH()
+    def nhaps(self):
+        """
+        Number of haplotypes in the sample.
+        Depaulis and Veuille's K statistic.
+        """
+        return self.thisptr.get().DandVK()
 
-cdef class polySIM:
+cdef class PolySIM:
     """
-    "Factory" class to calculate summary statistics from binary data.
+    Class to calculate summary statistics from binary data.
 
     This is a wrapper around libsequence's Sequence::PolySIM
 
-    These objects are constructed from :class:`libsequence.polytable.simData`
+    These objects are constructed from :class:`libsequence.polytable.SimData`
 
     .. note:: 0/1 = ancestral/derived    
     """
-    def __cinit__(self,simData d):
-        self.thisptr = unique_ptr[PolySIM](new PolySIM(dynamic_cast['SimData*'](d.thisptr.get())))
+    def __cinit__(self,SimData d):
+        self.thisptr = unique_ptr[CppPolySIM](new CppPolySIM(dynamic_cast['CppSimData*'](d.thisptr.get())))
     def __dealloc__(self):
         pass
     def thetapi(self):
@@ -225,53 +237,66 @@ cdef class polySIM:
         Hudson and Kaplan's lower bound on no. crossover events
         """
         return self.thisptr.get().Minrec()
+    def hapdiv(self):
+        """
+        Haplotype diversity of the sample.
+        Depaulis and Veuille's H statistic.
+        """
+        return self.thisptr.get().DandVH()
+    def nhaps(self):
+        """
+        Number of haplotypes in the sample.
+        Depaulis and Veuille's K statistic.
+        """
+        return self.thisptr.get().DandVK()
 
 ##functions
-def lhaf( polyTable pt, double l ):
+def lhaf( PolyTable pt, double l ):
     """
     :math:`l-HAF` from Ronen et al. DOI:10.1371/journal.pgen.1005527
     
-    :param pt: A :class:`libsequence.polytable.polyTable`
-    
+    :param pt: A :class:`libsequence.polytable.PolyTable`
+    :param l: The scaling factor for the statistic. See paper for details.
+
     :return: The :math:`l-HAF` statistic for each haplotype in pt
     
     :rtype: list
     
-    .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+    .. note:: Only :class:`libsequence.polytable.SimData` types currently supported
     """
-    if isinstance(pt,simData):
-        return lHaf(deref(dynamic_cast['SimData*'](pt.thisptr.get())),l)
+    if isinstance(pt,SimData):
+        return lHaf(deref(dynamic_cast['CppSimData*'](pt.thisptr.get())),l)
     else:
-        raise RuntimeError("lhaf: only simData objects are allowed")
+        raise NotImplementedError("lhaf: only SimData objects are allowed")
 
-def nSLiHS(polyTable pt, dict gmap = None):
+def nSLiHS(PolyTable pt, dict gmap = None):
     """
     "Raw"/unstandardized :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
 
-    :param pt: A :class:`libsequence.polytable.polyTable`
-    :param gmap: A dictionary relating eacy position in pt to its location on a genetic map.
+    :param pt: A :class:`libsequence.polytable.PolyTable`
+    :param gmap: A dictionary relating each position in pt to its location on a genetic map.
 
     :return: A list of (nSL,iHS) tuples
 
     :rtype: list
     
-    .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+    .. note:: Only :class:`libsequence.polytable.SimData` types currently supported
     """
     cdef unordered_map[double,double] gm
-    if isinstance(pt,simData):
+    if isinstance(pt,SimData):
         if gmap is None:
-            return nSL_t(deref(dynamic_cast['SimData*'](pt.thisptr.get())),gm)
+            return nSL_t(deref(dynamic_cast['CppSimData*'](pt.thisptr.get())),gm)
         else:
             gm=gmap
-            return nSL_t(deref(dynamic_cast['SimData*'](pt.thisptr.get())),gm)
+            return nSL_t(deref(dynamic_cast['CppSimData*'](pt.thisptr.get())),gm)
     else:
-        raise RuntimeError("nSL: only simData objects are allowed")
+        raise NotImplementedError("nSL: only SimData objects are allowed")
     
-def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, dict gmap = None):
+def std_nSLiHS(PolyTable pt, double minfreq = 0., double binsize = 0.05, dict gmap = None):
     """
     Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077
 
-    :param pt: A :class:`libsequence.polytable.polyTable`
+    :param pt: A :class:`libsequence.polytable.PolyTable`
     :param minfreq: Ignore markers with frequency < this value
     :param binsize: Standardize statistic in frequency bins of this width
     :param gmap: A dictionary relating eacy position in pt to its location on a genetic map.
@@ -280,23 +305,23 @@ def std_nSLiHS(polyTable pt, double minfreq = 0., double binsize = 0.05, dict gm
 
     :rtype: float
 
-    .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+    .. note:: Only :class:`libsequence.polytable.SimData` types currently supported
     """
     cdef unordered_map[double,double] gm
-    if isinstance(pt,simData):
+    if isinstance(pt,SimData):
         if gmap is None:
-            return snSL(deref(dynamic_cast['SimData*'](pt.thisptr.get())),minfreq,binsize,gm)
+            return snSL(deref(dynamic_cast['CppSimData*'](pt.thisptr.get())),minfreq,binsize,gm)
         else:
             gm=gmap
-            return snSL(deref(dynamic_cast['SimData*'](pt.thisptr.get())),minfreq,binsize,gm)
+            return snSL(deref(dynamic_cast['CppSimData*'](pt.thisptr.get())),minfreq,binsize,gm)
     else:
-        raise RuntimeError("std_nSL: only simData objects are allowed")
+        raise NotImplementedError("std_nSL: only SimData objects are allowed")
 
-def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):
+def ld(PolyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned mincount = 1,maxDist = None):
     """
     Pairwise "linkage disequilibrium" (LD) statistics
 
-    :param p: A :class:`libsequence.polytable.polyTable`
+    :param p: A :class:`libsequence.polytable.PolyTable`
     :param haveOutgroup: if True, then ougtroup is the index of the outroup sequence in p
     :param outgroup: The index of the outgroup sequence in p.  Not used if haveOutgroup is False
     :param mincount: Ignore site pairs where one or both sites have minor alleles occur < mincount times
@@ -311,22 +336,22 @@ def ld(polyTable p, bint haveOutgroup = False, unsigned outgroup = 0, unsigned m
         md = maxDist
     return Disequilibrium(p.thisptr.get(),haveOutgroup,outgroup,mincount,maxDist)
 
-def garudStats(polyTable pt):
+def garudStats(PolyTable pt):
    """
    Statistics from Garud et al. doi:10.1371/journal.pgen.1005004.g011
 
-   :param pt: A :class:`libsequence.polytable.polyTable`
+   :param pt: A :class:`libsequence.polytable.PolyTable`
 
    :return: The H1, H12, and H2/H1 statistics
 
    :rtype: dict
 
-   .. note:: Only :class:`libsequence.polytable.simData` types currently supported
+   .. note:: Only :class:`libsequence.polytable.SimData` types currently supported
    """
    cdef GarudStats stats
-   if isinstance(pt,simData):
-       stats = H1H12(deref(dynamic_cast['SimData*'](pt.thisptr.get())))
+   if isinstance(pt,SimData):
+       stats = H1H12(deref(dynamic_cast['CppSimData*'](pt.thisptr.get())))
        return {"H1":stats.H1,"H12":stats.H12,"H2H1":stats.H2H1}
    else:
-       raise RuntimeError("garudStats: only simData objects are allowed")       
+       raise NotImplementedError("garudStats: only SimData objects are allowed")       
 

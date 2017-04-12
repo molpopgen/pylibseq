@@ -1,4 +1,4 @@
-from libsequence.polytable cimport PolyTable,SimData,polyTable,simData
+from libsequence.polytable cimport CppPolyTable,CppSimData,PolyTable,SimData
 from libcpp cimport bool
 from libcpp.vector cimport vector
 from libcpp.utility cimport pair
@@ -6,8 +6,8 @@ from libcpp.memory cimport unique_ptr
 from libcpp.unordered_map cimport unordered_map
 
 cdef extern from "Sequence/PolySNP.hpp" namespace "Sequence" nogil:
-    cdef cppclass PolySNP:
-        PolySNP(const PolyTable * pt, const bool & haveOutgroup, const unsigned & outgroup, const bool & totMuts)
+    cdef cppclass CppPolySNP "Sequence::PolySNP":
+        CppPolySNP(const CppPolyTable * pt, const bool & haveOutgroup, const unsigned & outgroup, const bool & totMuts)
 
         #Summary stat fxns
         double ThetaPi() const                                #Tajima (1983)
@@ -44,8 +44,8 @@ cdef extern from "Sequence/PolySNP.hpp" namespace "Sequence" nogil:
         unsigned Minrec() const    
 
 cdef extern from "Sequence/PolySIM.hpp" namespace "Sequence" nogil:
-    cdef cppclass PolySIM:
-        PolySIM(const SimData * pt)
+    cdef cppclass CppPolySIM "Sequence::PolySIM":
+        CppPolySIM(const CppSimData * pt)
 
         #Summary stat fxns
         double ThetaPi() const
@@ -73,12 +73,14 @@ cdef extern from "Sequence/PolySIM.hpp" namespace "Sequence" nogil:
         int HudsonsHaplotypeTest (const int & subsize,const int & subss) const
         #recombination
         unsigned Minrec () const
+        double DandVH() const                                    #Depaulis & Veuille (1998) Haplotype diversity
+        unsigned DandVK() const                                  #Depaulis & Veuille (1998) number of haplotypes
 
-cdef class polySNP:
-    cdef unique_ptr[PolySNP] thisptr
+cdef class PolySNP:
+    cdef unique_ptr[CppPolySNP] thisptr
 
-cdef class polySIM:
-    cdef unique_ptr[PolySIM] thisptr
+cdef class PolySIM:
+    cdef unique_ptr[CppPolySIM] thisptr
 
 ##Functions from libseq
 cdef extern from "Sequence/SummStats/Garud.hpp" namespace "Sequence" nogil:
@@ -87,16 +89,16 @@ cdef extern from "Sequence/SummStats/Garud.hpp" namespace "Sequence" nogil:
         double H12
         double H2H1
 
-    GarudStats H1H12(const SimData &)
+    GarudStats H1H12(const CppSimData &)
 
 cdef extern from "Sequence/SummStats/lHaf.hpp" namespace "Sequence" nogil:
-    vector[double] lHaf( const SimData & data, const double l )
+    vector[double] lHaf( const CppSimData & data, const double l )
 
 cdef extern from "Sequence/SummStats/nSL.hpp" namespace "Sequence" nogil:
     #These functions can throw exceptions when maps are used that do not
     #contain positions in d.
-    vector[pair[double,double]] nSL_t(const SimData & d, const unordered_map[double,double] & gmap) except +
-    pair[double,double] snSL(const SimData & d,const double minfreq, const double binsize, const unordered_map[double,double] & gmap) except +
+    vector[pair[double,double]] nSL_t(const CppSimData & d, const unordered_map[double,double] & gmap) except +
+    pair[double,double] snSL(const CppSimData & d,const double minfreq, const double binsize, const unordered_map[double,double] & gmap) except +
 
 cdef extern from "Sequence/Recombination.hpp" namespace "Sequence" nogil:
     cdef struct PairwiseLDstats:
@@ -108,5 +110,5 @@ cdef extern from "Sequence/Recombination.hpp" namespace "Sequence" nogil:
         bint skipped
 
 cdef extern from "Sequence/Recombination.hpp" namespace "Sequence::Recombination" nogil:
-    vector[PairwiseLDstats] Disequilibrium(const PolyTable *,const bint & haveOutgroup,const unsigned & outgroup,const unsigned & mincount,
+    vector[PairwiseLDstats] Disequilibrium(const CppPolyTable *,const bint & haveOutgroup,const unsigned & outgroup,const unsigned & mincount,
             const double max_distance)

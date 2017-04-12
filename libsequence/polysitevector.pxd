@@ -2,7 +2,7 @@ from libcpp.utility cimport pair
 from libcpp.string cimport string
 from libcpp.vector cimport vector
 
-cdef extern from "Sequence/polySiteVector.hpp" namespace "Sequence":
+cdef extern from "Sequence/polySiteVector.hpp" namespace "Sequence" nogil:
     ctypedef pair[double,string] polymorphicSite
     ctypedef vector[polymorphicSite] polySiteVector
     

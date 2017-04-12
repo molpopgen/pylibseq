@@ -1,1 +1,3 @@
+setuptools
+pandas
 msprime >= 0.4.0

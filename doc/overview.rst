@@ -9,7 +9,7 @@ respectively
 .. code:: python
 
     from __future__ import print_function
-    from libsequence.polytable import simData
+    from libsequence.polytable import SimData
 
 Assigning to an object
 ----------------------
@@ -26,7 +26,7 @@ Here, there are 2 sites and a sample size of :math:`n=4`
 
 .. code:: python
 
-    sd = simData()
+    sd = SimData()
 
 .. code:: python
 
@@ -146,11 +146,11 @@ Summary statistics
 
 Let's calculate some basic summary statistics
 
-See :class:`libsequence.summstats.polySIM` for more documentation
+See :class:`libsequence.summstats.PolySIM` for more documentation
 
 .. code:: python
 
-    from libsequence.summstats import polySIM
+    from libsequence.summstats import PolySIM
     #ms 10 1 -s 10 -I 2 5 5 0.05
     rawDataPos=[0.0997, 0.2551, 0.3600, 0.4831, 0.5205, 0.5668, 0.5824, 0.6213, 0.7499, 0.9669]
     rawDataGenos=['0000001010',
@@ -167,7 +167,7 @@ See :class:`libsequence.summstats.polySIM` for more documentation
 
 .. code:: python
 
-    ps = polySIM(sd)
+    ps = PolySIM(sd)
 
 .. code:: python
 
@@ -213,11 +213,11 @@ Sliding windows
 
 .. code:: python
 
-    from libsequence.windows import simDataWindows
+    from libsequence.windows import Windows
 
 .. code:: python
 
-    w = simDataWindows(sd,window_size=0.1,step_len=0.05,starting_pos=0.,ending_pos=1.0)
+    w = Windows(sd,window_size=0.1,step_len=0.05,starting_pos=0.,ending_pos=1.0)
 
 .. code:: python
 
@@ -237,7 +237,7 @@ Sliding windows
     for i in range(len(w)):
         #Each window is a simData
         wi = w[i]
-        pswi = polySIM(wi)
+        pswi = PolySIM(wi)
         print(pswi.thetaw())
 
 
