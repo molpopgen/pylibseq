@@ -67,7 +67,7 @@ if USE_CYTHON:
 
 
 setup(name='pylibseq',
-      version='0.1.9',
+      version='0.1.9post0',
       author='Kevin R. Thornton',
       author_email='krthornt@uci.edu',
       maintainer='Kevin R. Thornton',
