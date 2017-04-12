@@ -18,6 +18,7 @@ try:
         sys.exit(2)
 except:
     print("libsequenceConfig not found.  Please install libsequence (http://github.com/molpopgen/libsequence)")
+    sys.exit(2)
 
 ##Can we compile a program based on libsequence?
 print("Attempting to compile and link a test program using libsequence...")
