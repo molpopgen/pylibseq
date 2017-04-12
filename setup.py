@@ -17,7 +17,7 @@ try:
         print("libsequence >= ,'1.9.0' required, but ",version, "found.")
         sys.exit(2)
 except:
-    print("libsequenceConfig not found.  Please install fwdpp (http://github.com/molpopgen/libsequence)")
+    print("libsequenceConfig not found.  Please install libsequence (http://github.com/molpopgen/libsequence)")
 
 ##Can we compile a program based on libsequence?
 print("Attempting to compile and link a test program using libsequence...")
