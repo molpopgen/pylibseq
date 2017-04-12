@@ -9,16 +9,14 @@ import platform, glob, sys, subprocess
 
 ##Check for libsequence version
 try:
-    proc = subprocess.Popen(['libsequenceConfig','--version'],stdout=subprocess.PIPE)
-    (out,err) = proc.communicate()
-    version = str(out).decode('utf-8').rstrip()
+    out = subprocess.check_output('libsequenceConfig --version',shell=True)
+    version = out.decode('utf-8').rstrip()
     print ("libsequence version",version," found.")
     if version < '1.9.0':
         print("libsequence >= ,'1.9.0' required, but ",version, "found.")
         sys.exit(2)
 except:
-    print("libsequenceConfig not found.  Please install libsequence (http://github.com/molpopgen/libsequence)")
-    sys.exit(2)
+    sys.exit("libsequenceConfig not found.  Please install libsequence (http://github.com/molpopgen/libsequence)")
 
 ##Can we compile a program based on libsequence?
 print("Attempting to compile and link a test program using libsequence...")
