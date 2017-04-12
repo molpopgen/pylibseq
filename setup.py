@@ -9,9 +9,7 @@ import platform, glob, sys, subprocess,os
 
 ##Check for libsequence version
 try:
-    my_env=os.environ.copy()
-    my_env['LD_LIBRARY_PATH']=os.path.join(os.sys.prefix,'lib')
-    out = subprocess.check_output('libsequenceConfig --version',shell=True,env=my_env)
+    out = subprocess.check_output('libsequenceConfig --version',shell=True)
     version = out.decode('utf-8').rstrip()
     print ("libsequence version",version," found.")
     if version < '1.9.0':
