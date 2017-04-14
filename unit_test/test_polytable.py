@@ -22,13 +22,13 @@ class test_simdata(unittest.TestCase):
         pos = [0.1,0.2]
         data = [b"01",b"10"]
         x = SimData()
-        x.assign_sep(pos,data)
+        x.assign(pos,data)
         self.assertEqual(x.numsites(),2)
     def testSimpleInit2(self):
         pos = [0.1,0.2]
         data = [b"01",b"10"]
         x = SimData()
-        x.assign_sep(pos,data)
+        x.assign(pos,data)
         self.assertEqual(x.size(),2)
     def testAssignFail1(self):
         with self.assertRaises(RuntimeError):
@@ -42,7 +42,7 @@ class test_simdata(unittest.TestCase):
             #oops--3 sites in second haplotype
             data = [b"01",b"100"]
             x = SimData()
-            x.assign_sep(pos,data)
+            x.assign(pos,data)
 
 class test_functions_PolySites(unittest.TestCase):
     def testRemoveMono1(self):

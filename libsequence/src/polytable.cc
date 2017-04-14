@@ -30,10 +30,14 @@
 
 namespace py = pybind11;
 
+PYBIND11_MAKE_OPAQUE(Sequence::polySiteVector)
+
 PYBIND11_PLUGIN(polytable)
 {
     py::module m("polytable", "Access to libsequence's polymorphism table "
                               "classes and related functions");
+
+    py::bind_vector<Sequence::polySiteVector>(m,"OpaquePolySiteVector");
 
     py::class_<Sequence::PolyTable>(m, "PolyTable",
                                     "Base class for polymorphism tables")
@@ -56,6 +60,7 @@ PYBIND11_PLUGIN(polytable)
     py::class_<Sequence::PolySites, Sequence::PolyTable>(
         m, "PolySites", "A polymorphism table for Sequence data.  "
                         "A/G/C/T/N/0/1 is the alphabet for analysis.")
+        .def(py::init<>())
         .def("__init__",
              [](Sequence::PolySites& p, const Sequence::polySiteVector& v) {
                  new (&p) Sequence::PolySites(v.cbegin(), v.cend());
@@ -65,6 +70,7 @@ PYBIND11_PLUGIN(polytable)
         m, "SimData",
         "A polymorphism table for binary data.  0/1 = ancestral/derived.")
         .def(py::init<std::vector<double>, std::vector<std::string>>())
+        .def(py::init<>())
         .def("__init__",
              [](Sequence::SimData& d, const Sequence::polySiteVector& p) {
                  new (&d) Sequence::SimData(p.cbegin(), p.cend());
