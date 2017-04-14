@@ -12,10 +12,10 @@ Contents:
    :maxdepth: 2
 
    README
-   doc/overview
-   doc/parallel
-   doc/lifetimes
-   doc/extending
+   pages/overview
+   pages/parallel
+   pages/lifetimes
+   pages/extending
 
 Functions and classes
 ##########################################
