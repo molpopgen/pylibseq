@@ -30,28 +30,39 @@
 
 namespace py = pybind11;
 
-//PYBIND11_MAKE_OPAQUE(Sequence::polySiteVector)
+// PYBIND11_MAKE_OPAQUE(Sequence::polySiteVector)
+
+Sequence::polySiteVector
+polySiteVector_from_list(py::list l)
+{
+    Sequence::polySiteVector temp;
+    for (auto element : l)
+        {
+            py::tuple t = element.cast<py::tuple>();
+            temp.emplace_back(t[0].cast<double>(), t[1].cast<py::bytes>());
+        }
+    return temp;
+}
 
 PYBIND11_PLUGIN(polytable)
 {
     py::module m("polytable", "Access to libsequence's polymorphism table "
                               "classes and related functions");
 
-    //py::bind_vector<Sequence::polySiteVector>(m,"OpaquePolySiteVector");
+    // py::bind_vector<Sequence::polySiteVector>(m,"OpaquePolySiteVector");
 
     py::class_<Sequence::PolyTable>(m, "PolyTable",
                                     "Base class for polymorphism tables")
         .def("GetData", &Sequence::PolyTable::GetData)
         .def("GetPositions", &Sequence::PolyTable::GetPositions)
         .def("assign",
-             [](Sequence::PolyTable& p, const Sequence::polySiteVector& v) {
-                 p.assign(v.cbegin(), v.cend());
+             [](Sequence::PolyTable& p, py::list v) {
+                 auto temp = polySiteVector_from_list(v);
+                 p.assign(temp.cbegin(), temp.cend());
              })
         .def("assign",
-             [](Sequence::PolyTable& p, std::vector<double> pos,
-                std::vector<std::string> d) {
-                 p.assign(std::move(pos), std::move(d));
-             })
+             [](Sequence::PolyTable& p, const std::vector<double>& pos,
+                const std::vector<std::string>& d) { p.assign(pos, d); })
         .def("empty", &Sequence::PolyTable::empty)
         .def("numsites", &Sequence::PolyTable::numsites)
         .def("size", &Sequence::PolyTable::size)
