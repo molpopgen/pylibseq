@@ -69,6 +69,14 @@ ext_modules = [
         libraries=[],
         language='c++'
     ),
+    Extension(
+        'libsequence.windows_cpp',
+        ['libsequence/src/windows_cpp.cc'],
+        library_dirs=LIBRARY_DIRS,
+        include_dirs=INCLUDES,
+        libraries=[],
+        language='c++'
+    ),
 ]
     
 
