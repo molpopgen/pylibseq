@@ -18,12 +18,15 @@
 //
 
 #include <pybind11/pybind11.h>
+#include <pybind11/functional.h>
 #include <pybind11/stl.h>
 #include <pybind11/stl_bind.h>
 #include <Sequence/PolyTable.hpp>
 #include <Sequence/PolySites.hpp>
 #include <Sequence/SimData.hpp>
 #include <Sequence/polySiteVector.hpp>
+#include <Sequence/PolyTableFunctions.hpp>
+#include <Sequence/stateCounter.hpp>
 
 namespace py = pybind11;
 
@@ -67,5 +70,42 @@ PYBIND11_PLUGIN(polytable)
                  new (&d) Sequence::SimData(p.cbegin(), p.cend());
              });
 
+    py::class_<Sequence::stateCounter>(m, "StateCounter")
+        .def(py::init<char>(), py::arg("gapchar") = '-')
+        .def_readonly("zero", &Sequence::stateCounter::zero)
+        .def_readonly("one", &Sequence::stateCounter::one)
+        .def_readonly("a", &Sequence::stateCounter::a)
+        .def_readonly("g", &Sequence::stateCounter::g)
+        .def_readonly("c", &Sequence::stateCounter::c)
+        .def_readonly("t", &Sequence::stateCounter::t)
+        .def_readonly("ndna", &Sequence::stateCounter::ndna)
+        .def("nstates", &Sequence::stateCounter::nStates)
+        .def("__call__",
+             [](Sequence::stateCounter& c, const char ch) { c(ch); });
+
+// Expose functions. We use macros to avoid tedium
+#define MAKE_POLYTABLE_MANIP_FUNCTION(FXN, TYPE)                              \
+    m.def(" FXN ", &Sequence::FXN<TYPE>);
+
+    MAKE_POLYTABLE_MANIP_FUNCTION(removeInvariantPos, Sequence::SimData);
+    MAKE_POLYTABLE_MANIP_FUNCTION(removeInvariantPos, Sequence::PolySites);
+    MAKE_POLYTABLE_MANIP_FUNCTION(removeGaps, Sequence::PolySites);
+    MAKE_POLYTABLE_MANIP_FUNCTION(removeAmbiguous, Sequence::PolySites);
+    MAKE_POLYTABLE_MANIP_FUNCTION(removeMultiHits, Sequence::PolySites);
+    MAKE_POLYTABLE_MANIP_FUNCTION(removeMissing, Sequence::PolySites);
+
+    m.def("removeColumns",
+          [](const Sequence::SimData& d,
+             std::function<bool(const Sequence::stateCounter&)> f) {
+              return Sequence::removeColumns(d, f);
+          });
+
+    m.def("removeColumns",
+          [](const Sequence::PolySites& d,
+             std::function<bool(const Sequence::stateCounter&)> f,
+             const bool skip_ancestral, const unsigned anc,
+             const char gapchar) { return Sequence::removeColumns(d, f); },
+          py::arg("d"), py::arg("fxn"), py::arg("skip_ancestral") = false,
+          py::arg("anc") = 0, py::arg("gapchar") = '-');
     return m.ptr();
 }
