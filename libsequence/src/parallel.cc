@@ -1,4 +1,3 @@
-#include <pybind11/pybind11.h>
 //
 // Copyright (C) 2017 Kevin Thornton <krthornt@uci.edu>
 //
@@ -17,6 +16,7 @@
 // You should have received a copy of the GNU General Public License
 // along with fwdpy11.  If not, see <http://www.gnu.org/licenses/>.
 //
+#include <pybind11/pybind11.h>
 #include <tbb/task_scheduler_init.h>
 
 namespace py = pybind11;
