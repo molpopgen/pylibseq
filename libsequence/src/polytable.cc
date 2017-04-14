@@ -30,14 +30,14 @@
 
 namespace py = pybind11;
 
-PYBIND11_MAKE_OPAQUE(Sequence::polySiteVector)
+//PYBIND11_MAKE_OPAQUE(Sequence::polySiteVector)
 
 PYBIND11_PLUGIN(polytable)
 {
     py::module m("polytable", "Access to libsequence's polymorphism table "
                               "classes and related functions");
 
-    py::bind_vector<Sequence::polySiteVector>(m,"OpaquePolySiteVector");
+    //py::bind_vector<Sequence::polySiteVector>(m,"OpaquePolySiteVector");
 
     py::class_<Sequence::PolyTable>(m, "PolyTable",
                                     "Base class for polymorphism tables")
