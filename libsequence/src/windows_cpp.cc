@@ -12,31 +12,21 @@ PYBIND11_PLUGIN(windows_cpp)
     using SimDataWindows = Sequence::PolyTableSlice<Sequence::SimData>;
     using PolySitesWindows = Sequence::PolyTableSlice<Sequence::PolySites>;
 
-    py::class_<SimDataWindows>(m, "SimDataWindows")
-        .def("__init__",
-             [](SimDataWindows& sdw, const Sequence::polySiteVector& p,
-                const double window_size, const double step_len,
-                const double starting_pos, const double ending_pos) {
-                 new (&sdw) SimDataWindows(p.cbegin(), p.cend(), window_size,
-                                           step_len, starting_pos, ending_pos);
-             })
-        .def("__getitem__", [](const SimDataWindows& sdw,
-                               const unsigned i) { return sdw[i]; })
-        .def("__len__", [](const SimDataWindows& swd) { return swd.size(); });
+#define MAKE_WINDOWS_BACKEND(CPPNAME, PYNAME)                                 \
+    py::class_<CPPNAME>(m, PYNAME)                                            \
+        .def("__init__",                                                      \
+             [](CPPNAME& sdw, const Sequence::polySiteVector& p,              \
+                const double window_size, const double step_len,              \
+                const double starting_pos, const double ending_pos) {         \
+                 new (&sdw) CPPNAME(p.cbegin(), p.cend(), window_size,        \
+                                    step_len, starting_pos, ending_pos);      \
+             })                                                               \
+        .def("__getitem__",                                                   \
+             [](const CPPNAME& sdw, const unsigned i) { return sdw[i]; })     \
+        .def("__len__", [](const CPPNAME& swd) { return swd.size(); });
 
-    py::class_<PolySitesWindows>(m, "PolySitesWindows")
-        .def("__init__",
-             [](PolySitesWindows& sdw, const Sequence::polySiteVector& p,
-                const double window_size, const double step_len,
-                const double starting_pos, const double ending_pos) {
-                 new (&sdw)
-                     PolySitesWindows(p.cbegin(), p.cend(), window_size,
-                                      step_len, starting_pos, ending_pos);
-             })
-        .def("__getitem__", [](const PolySitesWindows& sdw,
-                               const unsigned i) { return sdw[i]; })
-        .def("__len__",
-             [](const PolySitesWindows& swd) { return swd.size(); });
+    MAKE_WINDOWS_BACKEND(SimDataWindows, "SimDataWindows")
+    MAKE_WINDOWS_BACKEND(PolySitesWindows, "PolySitesWindows")
 
     return m.ptr();
 }
