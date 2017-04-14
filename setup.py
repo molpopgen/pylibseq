@@ -53,6 +53,14 @@ ext_modules = [
         libraries=['tbb'],
         language='c++'
     ),
+    Extension(
+        'libsequence.polytable',
+        ['libsequence/src/polytable.cc'],
+        library_dirs=LIBRARY_DIRS,
+        include_dirs=INCLUDES,
+        libraries=[],
+        language='c++'
+    ),
 ]
     
 
