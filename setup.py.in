@@ -61,6 +61,14 @@ ext_modules = [
         libraries=[],
         language='c++'
     ),
+    Extension(
+        'libsequence.fst',
+        ['libsequence/src/fst.cc'],
+        library_dirs=LIBRARY_DIRS,
+        include_dirs=INCLUDES,
+        libraries=[],
+        language='c++'
+    ),
 ]
     
 
