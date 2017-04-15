@@ -39,7 +39,7 @@ polySiteVector_from_list(py::list l)
     for (auto element : l)
         {
             py::tuple t = element.cast<py::tuple>();
-            temp.emplace_back(t[0].cast<double>(), t[1].cast<py::bytes>());
+            temp.emplace_back(t[0].cast<double>(),py::str(t[1]));
         }
     return temp;
 }
