@@ -1,4 +1,5 @@
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
 #include <Sequence/FST.hpp>
 #include <Sequence/PolyTable.hpp>
 
@@ -15,15 +16,12 @@ PYBIND11_PLUGIN(fst)
     py::class_<Sequence::FST>(m, "Fst", "Fst")
         .def("__init__",
              [](Sequence::FST& fst, const Sequence::PolyTable& pt,
-                const std::vector<unsigned>& config,
-                const std::vector<double>& weights, const bool haveOutgroup,
-                const unsigned outgroup) {
-                 new Sequence::FST(&pt, config.size(), &config[0], &weights[0],
-                                   haveOutgroup, outgroup);
+                const std::vector<unsigned>& config, const bool haveOutgroup,
+				const unsigned outgroup)
+			 {
+				 new (&fst) Sequence::FST(&pt, config.size(), &config[0],nullptr,haveOutgroup,outgroup);
              },
-             py::arg("polytable"), py::arg("config"),
-             py::arg("weights") = nullptr, py::arg("haveOutgroup") = false,
-             py::arg("outgroup") = 0)
+             py::arg("polytable"), py::arg("config"),py::arg("haveOutgroup")=false,py::arg("outgroup")=0)
         .def("hsm", &Sequence::FST::HSM)
         .def("slatkin", &Sequence::FST::Slatkin)
         .def("hbk", &Sequence::FST::HBK)
@@ -33,7 +31,7 @@ PYBIND11_PLUGIN(fst)
         .def("piD", &Sequence::FST::piD)
         .def("shared", &Sequence::FST::shared)
         .def("fixed", &Sequence::FST::fixed)
-        .def("private", &Sequence::FST::Private);
+        .def("priv", &Sequence::FST::Private);
 
     return m.ptr();
 }
