@@ -49,23 +49,23 @@ class test_functions_PolySites(unittest.TestCase):
         d = [(0.1,"AGAG"),(0.2,"AAAA")]
         x = PolySites()
         x.assign(d)
-        removeMono(x)
-        self.assertEqual(x.numsites(),1)
+        y=removeMono(x)
+        self.assertEqual(y.numsites(),1)
         
 class test_functions_SimData(unittest.TestCase):
     def testRemoveMono1(self):
         d = [(0.1,"01010101"),(0.2,"11111111")]
         x = SimData()
         x.assign(d)
-        removeMono(x)
-        self.assertEqual(x.numsites(),1)
+        y=removeMono(x)
+        self.assertEqual(y.numsites(),1)
     def testRemoveMono2(self):
         d = [(0.1,"00000000"),(0.2,"11111111")]
         x = SimData()
         x.assign(d)
-        removeMono(x)
-        self.assertEqual(x.numsites(),0)
-    def testFreqFilter1(self):
+        y=removeMono(x)
+        self.assertEqual(y.numsites(),0)
+    def testRemoveColumns1(self):
         d = [(0.1,"01010101"),
              (0.2,"11111111"),
              (0.3,"00010000"),
@@ -73,9 +73,9 @@ class test_functions_SimData(unittest.TestCase):
              ]
         x = SimData()
         x.assign(d)
-        #Remove singletons:
-        freqFilter(x,2)
-        pos = x.pos()
+        #Remove singletons with a lambda:
+        y = removeColumns(x,lambda x:x.one > 1)
+        pos = y.pos()
         self.assertEqual(pos,[0.1,0.2])
     def testIsValid(self):
         d = [(0.1,"01010101"),(0.2,"11011111")]
@@ -87,16 +87,16 @@ class test_functions_SimData(unittest.TestCase):
         d = [(0.1,"01010101"),(0.2,"1101Q111")]
         x = SimData()
         x.assign(d)
-        removeAmbiguous(x)
-        pos = x.pos()
+        y=removeAmbiguous(x)
+        pos = y.pos()
         self.assertEqual(pos,[0.1])
     def testRemoveGaps(self):
         ##Remove sites other than a,g,c,t,n,0,1
         d = [(0.1,"01010101"),(0.2,"1101-111")]
         x = SimData()
         x.assign(d)
-        removeGaps(x,b'-')
-        pos = x.pos()
+        y=removeGaps(x,gapchar='-')
+        pos = y.pos()
         self.assertEqual(pos,[0.1])
                 
 if __name__ == '__main__':
