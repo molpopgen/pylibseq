@@ -17,11 +17,22 @@ PYBIND11_PLUGIN(fst)
         .def("__init__",
              [](Sequence::FST& fst, const Sequence::PolyTable& pt,
                 const std::vector<unsigned>& config, const bool haveOutgroup,
-				const unsigned outgroup)
-			 {
-				 new (&fst) Sequence::FST(&pt, config.size(), &config[0],nullptr,haveOutgroup,outgroup);
+                const unsigned outgroup) {
+                 new (&fst) Sequence::FST(&pt, config.size(), &config[0],
+                                          nullptr, haveOutgroup, outgroup);
              },
-             py::arg("polytable"), py::arg("config"),py::arg("haveOutgroup")=false,py::arg("outgroup")=0)
+             py::arg("polytable"), py::arg("config"),
+             py::arg("haveOutgroup") = false, py::arg("outgroup") = 0)
+        .def("__init__",
+             [](Sequence::FST& fst, const Sequence::PolyTable& pt,
+                const std::vector<unsigned>& config,
+                const std::vector<double>& weights, const bool haveOutgroup,
+                const unsigned outgroup) {
+                 new (&fst) Sequence::FST(&pt, config.size(), &config[0],
+                                          &weights[0], haveOutgroup, outgroup);
+             },
+             py::arg("polytable"), py::arg("config"),py::arg("weights"),
+             py::arg("haveOutgroup") = false, py::arg("outgroup") = 0)
         .def("hsm", &Sequence::FST::HSM)
         .def("slatkin", &Sequence::FST::Slatkin)
         .def("hbk", &Sequence::FST::HBK)
