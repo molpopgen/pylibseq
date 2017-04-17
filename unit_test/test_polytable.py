@@ -3,7 +3,7 @@ from libsequence.polytable import *
 
 class test_polytable(unittest.TestCase):
     def testNoPolyTable(self):
-        with self.assertRaises(RuntimeError):
+        with self.assertRaises(TypeError):
             x = PolyTable()
             
 class test_simdata(unittest.TestCase):
