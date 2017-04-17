@@ -1,7 +1,7 @@
 #include <pybind11/pybind11.h>
 #include <Sequence/FST.hpp>
 #include <Sequence/PolyTable.hpp>
-#include <Sequence/SimData.hpp>
+
 namespace py = pybind11;
 
 PYBIND11_PLUGIN(fst)
