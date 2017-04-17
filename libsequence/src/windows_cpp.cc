@@ -15,10 +15,10 @@ PYBIND11_PLUGIN(windows_cpp)
 #define MAKE_WINDOWS_BACKEND(CPPNAME, PYNAME)                                 \
     py::class_<CPPNAME>(m, PYNAME)                                            \
         .def("__init__",                                                      \
-             [](CPPNAME& sdw, const Sequence::polySiteVector& p,              \
+             [](CPPNAME& sdw, const Sequence::PolyTable& p,                   \
                 const double window_size, const double step_len,              \
                 const double starting_pos, const double ending_pos) {         \
-                 new (&sdw) CPPNAME(p.cbegin(), p.cend(), window_size,        \
+                 new (&sdw) CPPNAME(p.sbegin(), p.send(), window_size,        \
                                     step_len, starting_pos, ending_pos);      \
              })                                                               \
         .def("__getitem__",                                                   \
