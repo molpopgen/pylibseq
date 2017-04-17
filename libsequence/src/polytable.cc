@@ -39,7 +39,7 @@ polySiteVector_from_list(py::list l)
     for (auto element : l)
         {
             py::tuple t = element.cast<py::tuple>();
-            temp.emplace_back(t[0].cast<double>(),py::str(t[1]));
+            temp.emplace_back(t[0].cast<double>(), py::str(t[1]));
         }
     return temp;
 }
@@ -56,13 +56,18 @@ PYBIND11_PLUGIN(polytable)
         .def("GetData", &Sequence::PolyTable::GetData)
         .def("GetPositions", &Sequence::PolyTable::GetPositions)
         .def("assign",
-             [](Sequence::PolyTable& p, py::list v) {
-                 auto temp = polySiteVector_from_list(v);
-                 p.assign(temp.cbegin(), temp.cend());
+             [](Sequence::PolyTable& p, const Sequence::polySiteVector& v) {
+                 auto rv = p.assign(v.cbegin(), v.cend());
+                 if (!rv)
+                     throw std::runtime_error("assignment failure");
              })
         .def("assign",
              [](Sequence::PolyTable& p, const std::vector<double>& pos,
-                const std::vector<std::string>& d) { p.assign(pos, d); })
+                const std::vector<std::string>& d) {
+                 auto rv = p.assign(pos, d);
+                 if (!rv)
+                     throw std::runtime_error("assignment failure");
+             })
         .def("empty", &Sequence::PolyTable::empty)
         .def("numsites", &Sequence::PolyTable::numsites)
         .def("size", &Sequence::PolyTable::size)
@@ -102,9 +107,14 @@ PYBIND11_PLUGIN(polytable)
 
 // Expose functions. We use macros to avoid tedium
 #define MAKE_POLYTABLE_MANIP_FUNCTION(FXN, TYPE)                              \
-    m.def(" FXN ", &Sequence::FXN<TYPE>);
+    m.def("FXN", &Sequence::FXN<TYPE>);
 
     MAKE_POLYTABLE_MANIP_FUNCTION(removeInvariantPos, Sequence::SimData);
+    MAKE_POLYTABLE_MANIP_FUNCTION(removeGaps, Sequence::SimData);
+    MAKE_POLYTABLE_MANIP_FUNCTION(removeAmbiguous, Sequence::SimData);
+    MAKE_POLYTABLE_MANIP_FUNCTION(removeMultiHits, Sequence::SimData);
+    MAKE_POLYTABLE_MANIP_FUNCTION(removeMissing, Sequence::SimData);
+
     MAKE_POLYTABLE_MANIP_FUNCTION(removeInvariantPos, Sequence::PolySites);
     MAKE_POLYTABLE_MANIP_FUNCTION(removeGaps, Sequence::PolySites);
     MAKE_POLYTABLE_MANIP_FUNCTION(removeAmbiguous, Sequence::PolySites);
