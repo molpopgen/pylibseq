@@ -53,8 +53,8 @@ PYBIND11_PLUGIN(polytable)
 
     py::class_<Sequence::PolyTable>(m, "PolyTable",
                                     "Base class for polymorphism tables")
-        .def("GetData", &Sequence::PolyTable::GetData)
-        .def("GetPositions", &Sequence::PolyTable::GetPositions)
+        .def("data", &Sequence::PolyTable::GetData)
+        .def("pos", &Sequence::PolyTable::GetPositions)
         .def("assign",
              [](Sequence::PolyTable& p, const Sequence::polySiteVector& v) {
                  auto rv = p.assign(v.cbegin(), v.cend());
@@ -106,20 +106,35 @@ PYBIND11_PLUGIN(polytable)
              [](Sequence::stateCounter& c, const char ch) { c(ch); });
 
 // Expose functions. We use macros to avoid tedium
-#define MAKE_POLYTABLE_MANIP_FUNCTION(FXN, TYPE)                              \
-    m.def("FXN", &Sequence::FXN<TYPE>);
+#define MAKE_POLYTABLE_MANIP_FUNCTION(NAME, FXN, TYPE)                        \
+    m.def(NAME, &Sequence::FXN<TYPE>, py::arg("polytable"),                   \
+          py::arg("skip_ancestral") = false, py::arg("ancestral") = 0,        \
+          py::arg("gapchar") = "-");
 
-    MAKE_POLYTABLE_MANIP_FUNCTION(removeInvariantPos, Sequence::SimData);
-    MAKE_POLYTABLE_MANIP_FUNCTION(removeGaps, Sequence::SimData);
-    MAKE_POLYTABLE_MANIP_FUNCTION(removeAmbiguous, Sequence::SimData);
-    MAKE_POLYTABLE_MANIP_FUNCTION(removeMultiHits, Sequence::SimData);
-    MAKE_POLYTABLE_MANIP_FUNCTION(removeMissing, Sequence::SimData);
+    MAKE_POLYTABLE_MANIP_FUNCTION("removeMono", removeInvariantPos,
+                                  Sequence::SimData);
+    MAKE_POLYTABLE_MANIP_FUNCTION("removeGaps", removeGaps, Sequence::SimData);
+    MAKE_POLYTABLE_MANIP_FUNCTION("removeAmbiguous", removeAmbiguous,
+                                  Sequence::SimData);
+    MAKE_POLYTABLE_MANIP_FUNCTION("removeMultiHits", removeMultiHits,
+                                  Sequence::SimData);
+    MAKE_POLYTABLE_MANIP_FUNCTION("removeMissing", removeMissing,
+                                  Sequence::SimData);
 
-    MAKE_POLYTABLE_MANIP_FUNCTION(removeInvariantPos, Sequence::PolySites);
-    MAKE_POLYTABLE_MANIP_FUNCTION(removeGaps, Sequence::PolySites);
-    MAKE_POLYTABLE_MANIP_FUNCTION(removeAmbiguous, Sequence::PolySites);
-    MAKE_POLYTABLE_MANIP_FUNCTION(removeMultiHits, Sequence::PolySites);
-    MAKE_POLYTABLE_MANIP_FUNCTION(removeMissing, Sequence::PolySites);
+    MAKE_POLYTABLE_MANIP_FUNCTION("removeMono", removeInvariantPos,
+                                  Sequence::PolySites);
+    MAKE_POLYTABLE_MANIP_FUNCTION("removeGaps", removeGaps,
+                                  Sequence::PolySites);
+    MAKE_POLYTABLE_MANIP_FUNCTION("removeAmbiguous", removeAmbiguous,
+                                  Sequence::PolySites);
+    MAKE_POLYTABLE_MANIP_FUNCTION("removeMultiHits", removeMultiHits,
+                                  Sequence::PolySites);
+    MAKE_POLYTABLE_MANIP_FUNCTION("removeMissing", removeMissing,
+                                  Sequence::PolySites);
+
+    m.def("isValid", [](const Sequence::PolyTable& p) {
+        return Sequence::polyTableValid(&p);
+    });
 
     m.def("removeColumns",
           [](const Sequence::SimData& d,
