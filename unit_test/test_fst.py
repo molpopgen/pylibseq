@@ -20,7 +20,7 @@ class test_Fst(unittest.TestCase):
             (0.5,"0101")]
         d = SimData(x)
         f = Fst(d,[2,2])
-        self.assertEqual(f.shared(0,1),[0.5])
+        self.assertEqual(f.shared(0,1),{0.5})
     def testPriv(self):
         x = [(0.1,"0011"),(0.2,"1100"),
             (0.3,"0100"),(0.4,"1101"),
@@ -28,7 +28,7 @@ class test_Fst(unittest.TestCase):
         d = SimData(x)
         f = Fst(d,[2,2])
         p = f.priv(0,1)
-        expected = {0:[0.3],1:[0.4]}
+        expected = ({0.3},{0.4})
         self.assertEqual(p,expected)
     def testFixed(self):
         x = [(0.1,"0011"),(0.2,"1100"),
@@ -37,7 +37,7 @@ class test_Fst(unittest.TestCase):
         d = SimData(x)
         f = Fst(d,[2,2])
         p = f.fixed(0,1)
-        expected = [0.1,0.2]
+        expected = {0.1,0.2}
         self.assertEqual(p,expected)
     #shared/fixed/private will get exceptions from libsequence
     #if i,j are out of range.
