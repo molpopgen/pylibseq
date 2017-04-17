@@ -71,7 +71,10 @@ PYBIND11_PLUGIN(polytable)
         .def("empty", &Sequence::PolyTable::empty)
         .def("numsites", &Sequence::PolyTable::numsites)
         .def("size", &Sequence::PolyTable::size)
-        .def("__len__", [](const Sequence::PolyTable& p) { return p.size(); });
+        .def("__len__", [](const Sequence::PolyTable& p) { return p.size(); })
+        .def("__getstate__", [](const Sequence::PolyTable& p) {
+            return py::make_tuple(p.GetPositions(), p.GetData());
+        });
 
     py::class_<Sequence::PolySites, Sequence::PolyTable>(
         m, "PolySites", "A polymorphism table for Sequence data.  "
@@ -80,17 +83,35 @@ PYBIND11_PLUGIN(polytable)
         .def("__init__",
              [](Sequence::PolySites& p, const Sequence::polySiteVector& v) {
                  new (&p) Sequence::PolySites(v.cbegin(), v.cend());
-             });
+             })
+        .def("__setstate__", [](Sequence::PolySites& p, py::tuple t) {
+            if (t.size() != 2)
+                {
+                    throw std::runtime_error("incorrect tuple length");
+                }
+            new (&p)
+                Sequence::PolySites(t[0].cast<std::vector<double>>(),
+                                    t[1].cast<std::vector<std::string>>());
+        });
 
     py::class_<Sequence::SimData, Sequence::PolyTable>(
-        m, "SimData",
-        "A polymorphism table for binary data.  0/1 = ancestral/derived.")
+        m, "SimData", "A polymorphism table for "
+                      "binary data.  0/1 = "
+                      "ancestral/derived.")
         .def(py::init<std::vector<double>, std::vector<std::string>>())
         .def(py::init<>())
         .def("__init__",
              [](Sequence::SimData& d, const Sequence::polySiteVector& p) {
                  new (&d) Sequence::SimData(p.cbegin(), p.cend());
-             });
+             })
+        .def("__setstate__", [](Sequence::SimData& p, py::tuple t) {
+            if (t.size() != 2)
+                {
+                    throw std::runtime_error("incorrect tuple length");
+                }
+            new (&p) Sequence::SimData(t[0].cast<std::vector<double>>(),
+                                       t[1].cast<std::vector<std::string>>());
+        });
 
     py::class_<Sequence::stateCounter>(m, "StateCounter")
         .def(py::init<char>(), py::arg("gapchar") = '-')

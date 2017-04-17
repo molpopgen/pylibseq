@@ -1,4 +1,5 @@
 import unittest
+import pickle
 from libsequence.polytable import *
 
 class test_polytable(unittest.TestCase):
@@ -7,17 +8,15 @@ class test_polytable(unittest.TestCase):
             x = PolyTable()
             
 class test_simdata(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        d = [(0.1,"01010101"),(0.2,"01111111")]
+        self.x = SimData(d)
     def testSimpleInit1(self):
-        d = [(0.1,"01010101"),(0.2,"01111111")]
-        x = SimData()
-        x.assign(d)
-        self.assertEqual(x.numsites(),2)
+        self.assertEqual(self.x.numsites(),2)
     def testSimpleInit2(self):
-        d = [(0.1,"01010101"),(0.2,"01111111")]
-        x = SimData()
-        x.assign(d)
-        self.assertEqual(x[0],b'00')
-        self.assertEqual(x.size(),8)
+        self.assertEqual(self.x[0],b'00')
+        self.assertEqual(self.x.size(),8)
     def testSimpleInit3(self):
         pos = [0.1,0.2]
         data = ["01","10"]
@@ -43,6 +42,11 @@ class test_simdata(unittest.TestCase):
             data = ["01","100"]
             x = SimData()
             x.assign(pos,data)
+    def testPickle(self):
+        d = pickle.dumps(self.x,-1)
+        x = pickle.loads(d)
+        self.assertEqual(x.pos(),self.x.pos())
+        self.assertEqual(x.data(),self.x.data())
 
 class test_functions_PolySites(unittest.TestCase):
     def testRemoveMono1(self):
