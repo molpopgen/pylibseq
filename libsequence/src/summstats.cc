@@ -59,6 +59,9 @@ PYBIND11_PLUGIN(summstats)
                                                      R"delim(
             Class to calculate summary statistics for 0/1-encoded data
             in a :class:`libsequence.polytable.SimData` object.
+
+			.. note::
+				Public API shared with :class:`libsequence.polytable.PolySNP`.
             )delim")
         .def("__init__",
              [](Sequence::PolySIM& newobj, const Sequence::SimData& d) {
