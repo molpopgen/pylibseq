@@ -62,6 +62,14 @@ ext_modules = [
         language='c++'
     ),
     Extension(
+        'libsequence.summstats',
+        ['libsequence/src/summstats.cc'],
+        library_dirs=LIBRARY_DIRS,
+        include_dirs=INCLUDES,
+        libraries=['sequence','tbb'],
+        language='c++'
+    ),
+        Extension(
         'libsequence.fst',
         ['libsequence/src/fst.cc'],
         library_dirs=LIBRARY_DIRS,
