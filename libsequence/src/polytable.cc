@@ -159,22 +159,51 @@ PYBIND11_PLUGIN(polytable)
     MAKE_POLYTABLE_MANIP_FUNCTION("removeMissing", removeMissing,
                                   Sequence::PolySites);
 
-    m.def("isValid", [](const Sequence::PolyTable& p) {
-        return Sequence::polyTableValid(&p);
-    });
+    m.def("isValid",
+          [](const Sequence::PolyTable& p) {
+              return Sequence::polyTableValid(&p);
+          },
+          "Return True/False if a polymorphism table is/isn't valid for "
+          "further analysis.");
 
     m.def("removeColumns",
           [](const Sequence::SimData& d,
              std::function<bool(const Sequence::stateCounter&)> f) {
               return Sequence::removeColumns(d, f);
-          });
+          },
+          R"delim(
+		  Remove columns from a :class:`libsequence.polytable.SimData` 
+		  based on a function taking a :class:`libsequence.summstats.StateCounter`
+		  as an argument.
 
-    m.def("removeColumns",
-          [](const Sequence::PolySites& d,
-             std::function<bool(const Sequence::stateCounter&)> f,
-             const bool skip_ancestral, const unsigned anc,
-             const char gapchar) { return Sequence::removeColumns(d, f); },
+		  :param p: A :class:`libsequence.polytable.SimData`.
+		  :param f: A callable taking a :class:`libsequence.summstats.StateCounter` and returning True/False.
+
+		  :rtype: A :class:`libsequence.polytable.SimData`.
+		  )delim");
+
+    m.def(
+        "removeColumns",
+        [](const Sequence::PolySites& d,
+           std::function<bool(const Sequence::stateCounter&)> f,
+           const bool skip_ancestral, const unsigned anc, const char gapchar) {
+        return Sequence::removeColumns(d, f, skip_ancestral, anc, gapchar);
+        },
+        R"delim(
+		  Remove columns from a :class:`libsequence.polytable.PolySites` 
+		  based on a function taking a :class:`libsequence.summstats.StateCounter`
+		  as an argument.
+
+		  :param p: A :class:`libsequence.polytable.PolySites`.
+		  :param f: A callable taking a :class:`libsequence.summstats.StateCounter` and returning True/False.
+		  :param skip_ancestral: (False) Whether to skip ancestral sequence.
+		  :param anc: (0) Index of ancestral sequence.
+		  :param gapchar: ('-') The gap character.
+
+		  :rtype: A :class:`libsequence.polytable.PolySites`.
+		  )delim",
           py::arg("d"), py::arg("fxn"), py::arg("skip_ancestral") = false,
           py::arg("anc") = 0, py::arg("gapchar") = '-');
+
     return m.ptr();
 }
