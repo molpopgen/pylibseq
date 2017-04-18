@@ -252,6 +252,95 @@ Sliding windows
     0.3534857623790153
 
 
+Linkage disequilibrium
+----------------------
+
+The function ``libsequence.summstats.ld`` returns pairwise LD stats as a
+``list`` of ``dict``\ s. The return value is easily coerced into a
+``pandas.DataFrame``:
+
+.. code:: ipython3
+
+    from libsequence.summstats import ld
+    import pandas as pd
+    pairwise = ld(sd)
+    print(type(pairwise))
+    print(type(pairwise[0]))
+    print(pairwise[0])
+    pairwise_nicer = pd.DataFrame(pairwise)
+    pairwise_nicer.head()
+
+
+.. parsed-literal::
+
+    <class 'list'>
+    <class 'dict'>
+    {'D': 0.25, 'rsq': 1.0, 'i': 0.0997, 'j': 0.2551, 'Dprime': 1.0}
+
+
+
+
+.. raw:: html
+
+    <div>
+    <table border="1" class="dataframe">
+      <thead>
+        <tr style="text-align: right;">
+          <th></th>
+          <th>D</th>
+          <th>Dprime</th>
+          <th>i</th>
+          <th>j</th>
+          <th>rsq</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>0</th>
+          <td>0.25</td>
+          <td>1</td>
+          <td>0.0997</td>
+          <td>0.2551</td>
+          <td>1.000000</td>
+        </tr>
+        <tr>
+          <th>1</th>
+          <td>0.25</td>
+          <td>1</td>
+          <td>0.0997</td>
+          <td>0.3600</td>
+          <td>1.000000</td>
+        </tr>
+        <tr>
+          <th>2</th>
+          <td>0.25</td>
+          <td>1</td>
+          <td>0.0997</td>
+          <td>0.4831</td>
+          <td>1.000000</td>
+        </tr>
+        <tr>
+          <th>3</th>
+          <td>-0.05</td>
+          <td>-1</td>
+          <td>0.0997</td>
+          <td>0.5205</td>
+          <td>0.111111</td>
+        </tr>
+        <tr>
+          <th>4</th>
+          <td>0.25</td>
+          <td>1</td>
+          <td>0.0997</td>
+          <td>0.5668</td>
+          <td>1.000000</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+
+
 :math:`F_{ST}`
 --------------
 
