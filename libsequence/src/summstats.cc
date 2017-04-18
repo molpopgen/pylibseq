@@ -80,12 +80,6 @@ PYBIND11_PLUGIN(summstats)
             "skipped", &Sequence::PairwiseLDstats::Dprime,
             "True if the pair i,j were filtered out for some reason.");
 
-    py::class_<Sequence::GarudStats>(m, "GarudStats",
-                                     "Statistics from PMC4338236.")
-        .def_readonly("H1", &Sequence::GarudStats::H1, "The H1 statistic.")
-        .def_readonly("H12", &Sequence::GarudStats::H12, "The H12 statistic.")
-        .def_readonly("H2H1", &Sequence::GarudStats::H2H1, "The H2/H1 statistic.");
-
     m.def("nSLiHS",
           [](const Sequence::SimData& d) { return Sequence::nSL_t(d); });
     m.def("lhaf", &Sequence::lHaf);
@@ -96,7 +90,13 @@ PYBIND11_PLUGIN(summstats)
           },
           py::arg("d"), py::arg("minfreq") = 0.0, py::arg("binsize") = 0.05);
     m.def("ld", &Sequence::Recombination::Disequilibrium);
-    m.def("garudStats", &Sequence::H1H12);
+    m.def("garudStats", [](const Sequence::SimData& d) {
+        auto g = Sequence::H1H12(d);
+        py::dict rv;
+        rv[py::str("H1")] = py::float_(g.H1);
+        rv[py::str("H12")] = py::float_(g.H12);
+        rv[py::str("H2H1")] = py::float_(g.H2H1);
+    },"Returns the H1, H12, and H2/H1 statistics from PMC4338236 as a dict.");
 
     return m.ptr();
 }
