@@ -60,18 +60,37 @@ PYBIND11_PLUGIN(polytable)
                  auto rv = p.assign(v.cbegin(), v.cend());
                  if (!rv)
                      throw std::runtime_error("assignment failure");
-             })
+             },
+             "Assign data from a tuple of (position,data), where data are "
+             "encoded as an str.")
         .def("assign",
              [](Sequence::PolyTable& p, const std::vector<double>& pos,
                 const std::vector<std::string>& d) {
                  auto rv = p.assign(pos, d);
                  if (!rv)
                      throw std::runtime_error("assignment failure");
-             })
-        .def("empty", &Sequence::PolyTable::empty)
-        .def("numsites", &Sequence::PolyTable::numsites)
-        .def("size", &Sequence::PolyTable::size)
-        .def("__len__", [](const Sequence::PolyTable& p) { return p.size(); })
+             },
+             "Assign data from a list of positions and a  list of strings "
+             "representing variable positions.")
+        .def("empty", &Sequence::PolyTable::empty,
+             "Return whether or not container is empty.")
+        .def("numsites", &Sequence::PolyTable::numsites,
+             "Return number of variable sites (columns).")
+        .def("size", &Sequence::PolyTable::size,
+             "Return number of elements (rows).")
+        .def("position", &Sequence::PolyTable::position,
+             "Return value of the i-th position.", py::arg("i"))
+        .def("__getitem__",
+             [](const Sequence::PolyTable& pt, const std::size_t i) {
+                 if (i >= pt.size())
+                     {
+                         throw py::index_error("index out of range");
+                     }
+                 return pt[i];
+             },
+             "Return i-th row.")
+        .def("__len__", [](const Sequence::PolyTable& p) { return p.size(); },
+             "Return number of elements (rows).")
         .def("__getstate__", [](const Sequence::PolyTable& p) {
             return py::make_tuple(p.GetPositions(), p.GetData());
         });
@@ -112,19 +131,6 @@ PYBIND11_PLUGIN(polytable)
             new (&p) Sequence::SimData(t[0].cast<std::vector<double>>(),
                                        t[1].cast<std::vector<std::string>>());
         });
-
-    py::class_<Sequence::stateCounter>(m, "StateCounter")
-        .def(py::init<char>(), py::arg("gapchar") = '-')
-        .def_readonly("zero", &Sequence::stateCounter::zero)
-        .def_readonly("one", &Sequence::stateCounter::one)
-        .def_readonly("a", &Sequence::stateCounter::a)
-        .def_readonly("g", &Sequence::stateCounter::g)
-        .def_readonly("c", &Sequence::stateCounter::c)
-        .def_readonly("t", &Sequence::stateCounter::t)
-        .def_readonly("ndna", &Sequence::stateCounter::ndna)
-        .def("nstates", &Sequence::stateCounter::nStates)
-        .def("__call__",
-             [](Sequence::stateCounter& c, const char ch) { c(ch); });
 
 // Expose functions. We use macros to avoid tedium
 #define MAKE_POLYTABLE_MANIP_FUNCTION(NAME, FXN, TYPE)                        \

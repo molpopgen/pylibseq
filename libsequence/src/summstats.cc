@@ -8,6 +8,7 @@
 #include <Sequence/SummStats/Garud.hpp>
 #include <Sequence/SummStats/lHaf.hpp>
 #include <Sequence/Recombination.hpp>
+#include <Sequence/stateCounter.hpp>
 
 namespace py = pybind11;
 
@@ -67,6 +68,31 @@ PYBIND11_PLUGIN(summstats)
              [](Sequence::PolySIM& newobj, const Sequence::SimData& d) {
                  new (&newobj) Sequence::PolySIM(&d);
              });
+
+    py::class_<Sequence::stateCounter>(
+        m, "StateCounter", "Tally up the number of occurrences of value "
+                           "polymorphism characters at a site.")
+        .def(py::init<char>(), py::arg("gapchar") = '-')
+        .def_readonly("zero", &Sequence::stateCounter::zero,
+                      "Number of times '0' was seen at a site.")
+        .def_readonly("one", &Sequence::stateCounter::one,
+                      "Number of times '1' was seen at a site.")
+        .def_readonly("a", &Sequence::stateCounter::a,
+                      "Number of times 'A' or 'a' was seen at a site.")
+        .def_readonly("g", &Sequence::stateCounter::g,
+                      "Number of times 'G' or 'g' was seen at a site.")
+        .def_readonly("c", &Sequence::stateCounter::c,
+                      "Number of times 'C' or 'c' was seen at a site.")
+        .def_readonly("t", &Sequence::stateCounter::t,
+                      "Number of times 'T' or 't' was seen at a site.")
+        .def_readonly(
+            "ndna", &Sequence::stateCounter::ndna,
+            "Number of times a non-DNA character was seen at a site.")
+        .def("nstates", &Sequence::stateCounter::nStates,
+             "The total number of character states observed at a site.")
+        .def("__call__", [](Sequence::stateCounter& c, const std::string& s) {
+            std::for_each(s.begin(), s.end(), [&c](const char ch) { c(ch); });
+        });
 
     m.def("nSLiHS",
           [](const Sequence::SimData& d, py::object gmap) {
