@@ -65,18 +65,26 @@ PYBIND11_PLUGIN(summstats)
                  new (&newobj) Sequence::PolySIM(&d);
              });
 
-    py::class_<Sequence::PairwiseLDstats>(m, "PairwiseLDstats")
-        .def_readonly("i", &Sequence::PairwiseLDstats::i)
-        .def_readonly("j", &Sequence::PairwiseLDstats::j)
-        .def_readonly("rsq", &Sequence::PairwiseLDstats::rsq)
-        .def_readonly("D", &Sequence::PairwiseLDstats::D)
-        .def_readonly("Dprime", &Sequence::PairwiseLDstats::Dprime)
-        .def_readonly("skipped", &Sequence::PairwiseLDstats::Dprime);
+    py::class_<Sequence::PairwiseLDstats>(m, "PairwiseLDstats",
+                                          "Summaries of pairwise LD.")
+        .def_readonly("i", &Sequence::PairwiseLDstats::i,
+                      "The index of site 1.")
+        .def_readonly("j", &Sequence::PairwiseLDstats::j,
+                      "The index of site 2.")
+        .def_readonly("rsq", &Sequence::PairwiseLDstats::rsq,
+                      R"d(:math:`r^2_{1,2}`)d")
+        .def_readonly("D", &Sequence::PairwiseLDstats::D, "The D statistic.")
+        .def_readonly("Dprime", &Sequence::PairwiseLDstats::Dprime,
+                      "The D' statistic.")
+        .def_readonly(
+            "skipped", &Sequence::PairwiseLDstats::Dprime,
+            "True of the pair i,j were filtered out for some reason.");
 
-    py::class_<Sequence::GarudStats>(m, "GarudStats")
-        .def_readonly("H1", &Sequence::GarudStats::H1)
-        .def_readonly("H12", &Sequence::GarudStats::H12)
-        .def_readonly("H2H1", &Sequence::GarudStats::H2H1);
+    py::class_<Sequence::GarudStats>(m, "GarudStats",
+                                     "Statistics from PMC4338236.")
+        .def_readonly("H1", &Sequence::GarudStats::H1, "H1")
+        .def_readonly("H12", &Sequence::GarudStats::H12, "H12")
+        .def_readonly("H2H1", &Sequence::GarudStats::H2H1, "H2/H1");
 
     m.def("nSLiHS",
           [](const Sequence::SimData& d) { return Sequence::nSL_t(d); });
