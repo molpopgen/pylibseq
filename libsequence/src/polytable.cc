@@ -30,26 +30,10 @@
 
 namespace py = pybind11;
 
-// PYBIND11_MAKE_OPAQUE(Sequence::polySiteVector)
-
-Sequence::polySiteVector
-polySiteVector_from_list(py::list l)
-{
-    Sequence::polySiteVector temp;
-    for (auto element : l)
-        {
-            py::tuple t = element.cast<py::tuple>();
-            temp.emplace_back(t[0].cast<double>(), py::str(t[1]));
-        }
-    return temp;
-}
-
 PYBIND11_PLUGIN(polytable)
 {
     py::module m("polytable", "Access to libsequence's polymorphism table "
                               "classes and related functions");
-
-    // py::bind_vector<Sequence::polySiteVector>(m,"OpaquePolySiteVector");
 
     py::class_<Sequence::PolyTable>(m, "PolyTable",
                                     "Base class for polymorphism tables")
