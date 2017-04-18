@@ -43,5 +43,5 @@ script:
     - export LD_LIBRARY_PATH=$HOME/miniconda/lib
     - export CPPFLAGS="-I$HOME/miniconda/include $CPPFLAGS"
     - export LDFLAGS="-L$HOME/miniconda/lib $LDFLAGS"
-    - CC=gcc CXX=g++ python setup.py build_ext -i
+    - CC=gcc CXX=g++ python setup.py build_ext -i --gcc
     - python -m unittest discover unit_test
