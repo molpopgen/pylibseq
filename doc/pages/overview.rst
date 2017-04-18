@@ -6,7 +6,7 @@ We'll work with pylibseq's wrapper to libsequence's SimData, which is
 used to process bi-allele data encoded as 0/1 = ancestral/derived,
 respectively
 
-.. code:: python
+.. code:: ipython3
 
     from __future__ import print_function
     from libsequence.polytable import SimData
@@ -20,15 +20,15 @@ Each tuple is a site: (pos:genotypes)
 
 Here, there are 2 sites and a sample size of :math:`n=4`
 
-.. code:: python
+.. code:: ipython3
 
     rawData1 = [(0.1,'0101'),(0.2,'1010')]
 
-.. code:: python
+.. code:: ipython3
 
     sd = SimData()
 
-.. code:: python
+.. code:: ipython3
 
     sd.assign(rawData1)
     sd.numsites()
@@ -42,7 +42,7 @@ Here, there are 2 sites and a sample size of :math:`n=4`
 
 
 
-.. code:: python
+.. code:: ipython3
 
     sd.size()
 
@@ -55,7 +55,7 @@ Here, there are 2 sites and a sample size of :math:`n=4`
 
 
 
-.. code:: python
+.. code:: ipython3
 
     sd.pos()
 
@@ -68,7 +68,7 @@ Here, there are 2 sites and a sample size of :math:`n=4`
 
 
 
-.. code:: python
+.. code:: ipython3
 
     sd.data()
 
@@ -83,13 +83,13 @@ Here, there are 2 sites and a sample size of :math:`n=4`
 
 Or, you can assign from separate list of positions and haplotypes
 
-.. code:: python
+.. code:: ipython3
 
     rawDataPos = [0.1,0.2]
     rawDataGenos = ['01','10','01','10']
-    sd.assign_sep(rawDataPos,rawDataGenos)
+    sd.assign(rawDataPos,rawDataGenos)
 
-.. code:: python
+.. code:: ipython3
 
     sd.numsites()
 
@@ -102,7 +102,7 @@ Or, you can assign from separate list of positions and haplotypes
 
 
 
-.. code:: python
+.. code:: ipython3
 
     sd.size()
 
@@ -115,7 +115,7 @@ Or, you can assign from separate list of positions and haplotypes
 
 
 
-.. code:: python
+.. code:: ipython3
 
     sd.pos()
 
@@ -128,7 +128,7 @@ Or, you can assign from separate list of positions and haplotypes
 
 
 
-.. code:: python
+.. code:: ipython3
 
     sd.data()
 
@@ -148,7 +148,7 @@ Let's calculate some basic summary statistics
 
 See :class:`libsequence.summstats.PolySIM` for more documentation
 
-.. code:: python
+.. code:: ipython3
 
     from libsequence.summstats import PolySIM
     #ms 10 1 -s 10 -I 2 5 5 0.05
@@ -163,13 +163,13 @@ See :class:`libsequence.summstats.PolySIM` for more documentation
                   '1111110100',
                   '1111010100',
                   '1111010100']
-    sd.assign_sep(rawDataPos,rawDataGenos)
+    sd.assign(rawDataPos,rawDataGenos)
 
-.. code:: python
+.. code:: ipython3
 
     ps = PolySIM(sd)
 
-.. code:: python
+.. code:: ipython3
 
     ps.thetapi()
 
@@ -182,7 +182,7 @@ See :class:`libsequence.summstats.PolySIM` for more documentation
 
 
 
-.. code:: python
+.. code:: ipython3
 
     ps.thetaw()
 
@@ -195,7 +195,7 @@ See :class:`libsequence.summstats.PolySIM` for more documentation
 
 
 
-.. code:: python
+.. code:: ipython3
 
     ps.tajimasd()
 
@@ -211,15 +211,15 @@ See :class:`libsequence.summstats.PolySIM` for more documentation
 Sliding windows
 ---------------
 
-.. code:: python
+.. code:: ipython3
 
     from libsequence.windows import Windows
 
-.. code:: python
+.. code:: ipython3
 
     w = Windows(sd,window_size=0.1,step_len=0.05,starting_pos=0.,ending_pos=1.0)
 
-.. code:: python
+.. code:: ipython3
 
     len(w)
 
@@ -232,7 +232,7 @@ Sliding windows
 
 
 
-.. code:: python
+.. code:: ipython3
 
     for i in range(len(w)):
         #Each window is a simData
@@ -243,26 +243,26 @@ Sliding windows
 
 .. parsed-literal::
 
-    0.353485762379
-    0.353485762379
+    0.3534857623790153
+    0.3534857623790153
     0.0
     0.0
-    0.353485762379
-    0.353485762379
-    0.353485762379
-    0.353485762379
-    0.353485762379
-    0.706971524758
-    1.06045728714
-    1.06045728714
-    0.353485762379
-    0.353485762379
-    0.353485762379
+    0.3534857623790153
+    0.3534857623790153
+    0.3534857623790153
+    0.3534857623790153
+    0.3534857623790153
+    0.7069715247580306
+    1.060457287137046
+    1.060457287137046
+    0.3534857623790153
+    0.3534857623790153
+    0.3534857623790153
     0.0
     0.0
     0.0
-    0.353485762379
-    0.353485762379
+    0.3534857623790153
+    0.3534857623790153
 
 
 :math:`F_{ST}`
@@ -274,13 +274,13 @@ Note that most flavors of :math:`F_{ST}` are very similar to one
 another. See Charlesworth, B. (1998) Mol. Biol. Evol. 15(5): 538-543 for
 a great overview.
 
-.. code:: python
+.. code:: ipython3
 
-    from libsequence.fst import fst
+    from libsequence.fst import Fst
     sd.size()
-    f = fst(sd,[5,5])
+    f = Fst(sd,[5,5])
 
-.. code:: python
+.. code:: ipython3
 
     #Hudson, Slatkin, and Maddison's FST:
     f.hsm()
@@ -294,7 +294,7 @@ a great overview.
 
 
 
-.. code:: python
+.. code:: ipython3
 
     #Slatkin's
     f.slatkin()
@@ -308,7 +308,7 @@ a great overview.
 
 
 
-.. code:: python
+.. code:: ipython3
 
     #Hudson, Boos, and Kaplan, which is also Nei's Gst:
     f.hbk()
@@ -322,7 +322,7 @@ a great overview.
 
 
 
-.. code:: python
+.. code:: ipython3
 
     #Positions of snps shared b/w demes 0 and 1
     f.shared(0,1)
@@ -332,11 +332,11 @@ a great overview.
 
 .. parsed-literal::
 
-    []
+    set()
 
 
 
-.. code:: python
+.. code:: ipython3
 
     #Positions of private mutations in deme 0 and 1:
     f.priv(0,1)
@@ -346,11 +346,11 @@ a great overview.
 
 .. parsed-literal::
 
-    {0: [0.5824, 0.9669], 1: [0.5205]}
+    ({0.5824, 0.9669}, {0.5205})
 
 
 
-.. code:: python
+.. code:: ipython3
 
     #Positions of fixed differences between demes 0 and 1:
     f.fixed(0,1)
@@ -360,6 +360,6 @@ a great overview.
 
 .. parsed-literal::
 
-    [0.0997, 0.2551, 0.36, 0.4831, 0.5668, 0.6213, 0.7499]
+    {0.0997, 0.2551, 0.36, 0.4831, 0.5668, 0.6213, 0.7499}
 
 
