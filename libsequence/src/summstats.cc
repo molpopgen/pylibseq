@@ -82,9 +82,9 @@ PYBIND11_PLUGIN(summstats)
 
     py::class_<Sequence::GarudStats>(m, "GarudStats",
                                      "Statistics from PMC4338236.")
-        .def_readonly("H1", &Sequence::GarudStats::H1, "H1")
-        .def_readonly("H12", &Sequence::GarudStats::H12, "H12")
-        .def_readonly("H2H1", &Sequence::GarudStats::H2H1, "H2/H1");
+        .def_readonly("H1", &Sequence::GarudStats::H1, "The H1 statistic.")
+        .def_readonly("H12", &Sequence::GarudStats::H12, "The H12 statistic.")
+        .def_readonly("H2H1", &Sequence::GarudStats::H2H1, "The H2/H1 statistic.");
 
     m.def("nSLiHS",
           [](const Sequence::SimData& d) { return Sequence::nSL_t(d); });
