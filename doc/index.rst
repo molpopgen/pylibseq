@@ -15,7 +15,6 @@ Contents:
    pages/overview
    pages/parallel
    pages/lifetimes
-   pages/extending
 
 Functions and classes
 ##########################################
@@ -29,10 +28,6 @@ Functions and classes
    :show-inheritance:
 
 .. automodule:: libsequence.windows 
-   :members:
-   :show-inheritance:
-
-.. automodule:: libsequence.extensions
    :members:
    :show-inheritance:
 
