@@ -78,7 +78,7 @@ PYBIND11_PLUGIN(summstats)
                       "The D' statistic.")
         .def_readonly(
             "skipped", &Sequence::PairwiseLDstats::Dprime,
-            "True of the pair i,j were filtered out for some reason.");
+            "True if the pair i,j were filtered out for some reason.");
 
     py::class_<Sequence::GarudStats>(m, "GarudStats",
                                      "Statistics from PMC4338236.")
