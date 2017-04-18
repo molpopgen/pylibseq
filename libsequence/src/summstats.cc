@@ -90,13 +90,20 @@ PYBIND11_PLUGIN(summstats)
           },
           py::arg("d"), py::arg("minfreq") = 0.0, py::arg("binsize") = 0.05);
     m.def("ld", &Sequence::Recombination::Disequilibrium);
-    m.def("garudStats", [](const Sequence::SimData& d) {
-        auto g = Sequence::H1H12(d);
-        py::dict rv;
-        rv[py::str("H1")] = py::float_(g.H1);
-        rv[py::str("H12")] = py::float_(g.H12);
-        rv[py::str("H2H1")] = py::float_(g.H2H1);
-    },"Returns the H1, H12, and H2/H1 statistics from PMC4338236 as a dict.");
+    m.def("garudStats",
+          [](const Sequence::SimData& d) {
+              auto g = Sequence::H1H12(d);
+              py::dict rv;
+              rv[py::str("H1")] = py::float_(g.H1);
+              rv[py::str("H12")] = py::float_(g.H12);
+              rv[py::str("H2H1")] = py::float_(g.H2H1);
+          },
+          R"delim(
+    Returns the H1, H12, and H2/H1 statistics from PMC4338236 as a dict.
+
+    :param d: A :class:`libsequence.polytable.SimData`.
+    )delim",
+          py::arg("d"));
 
     return m.ptr();
 }
