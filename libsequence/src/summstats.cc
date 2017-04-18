@@ -105,12 +105,16 @@ PYBIND11_PLUGIN(summstats)
           },
           R"delim(
 		Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077
+
 		:param pt: A :class:`libsequence.polytable.PolyTable`
 		:param minfreq: Ignore markers with frequency < this value
 		:param binsize: Standardize statistic in frequency bins of this width
 		:param gmap: A dictionary relating eacy position in pt to its location on a genetic map.
+
 		:return: A tuple. The first value is max standardized nSL over all bins.  The second is max iHS over all bins, where iHS is calculated according to Ferrer-Admetlla et al. The maximums are calculated based on absolute value.
+
 		:rtype: float
+
 		.. note:: Only :class:`libsequence.polytable.SimData` types currently supported
 		)delim",
           py::arg("d"), py::arg("minfreq") = 0.0, py::arg("binsize") = 0.05,
@@ -141,16 +145,16 @@ PYBIND11_PLUGIN(summstats)
             return rv;
         },
         R"delim(
-	Return pairwise LD statistics.
-	
-	:param p: A :class:`libsequence.polytable.PolySites` or :class:`libsequence.polytable.SimData`.
-	:param have_outgroup: (False) Boolean--is outgroup sequence present in p?
-	:param outgroup: (0) The index of the outgroup sequence in p.
-	:param mincount: Do not include site pairs with MAF < mincount.
-	:param maxd: Do not include site pairs separated by >= maxd.
+		Return pairwise LD statistics.
+		
+		:param p: A :class:`libsequence.polytable.PolySites` or :class:`libsequence.polytable.SimData`.
+		:param have_outgroup: (False) Boolean--is outgroup sequence present in p?
+		:param outgroup: (0) The index of the outgroup sequence in p.
+		:param mincount: Do not include site pairs with MAF < mincount.
+		:param maxd: Do not include site pairs separated by >= maxd.
 
-	:rtype: list of dict
-	)delim",
+		:rtype: list of dict
+		)delim",
         py::arg("p"), py::arg("have_outgroup") = false,
         py::arg("outgroup") = 0, py::arg("mincount") = 1,
         py::arg("maxd") = std::numeric_limits<double>::max());
@@ -164,10 +168,10 @@ PYBIND11_PLUGIN(summstats)
               rv[py::str("H2H1")] = py::float_(g.H2H1);
           },
           R"delim(
-    Returns the H1, H12, and H2/H1 statistics from PMC4338236 as a dict.
+		Returns the H1, H12, and H2/H1 statistics from PMC4338236 as a dict.
 
-    :param d: A :class:`libsequence.polytable.SimData`.
-    )delim",
+		:param d: A :class:`libsequence.polytable.SimData`.
+		)delim",
           py::arg("d"));
 
     return m.ptr();
