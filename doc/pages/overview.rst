@@ -26,21 +26,8 @@ Here, there are 2 sites and a sample size of :math:`n=4`
 
 .. code:: ipython3
 
-    sd = SimData()
-
-.. code:: ipython3
-
-    sd.assign(rawData1)
-    sd.numsites()
-
-
-
-
-.. parsed-literal::
-
-    2
-
-
+    #We can construct objects straight from these tuples
+    sd = SimData(rawData1)
 
 .. code:: ipython3
 
