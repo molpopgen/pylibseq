@@ -12,8 +12,12 @@ class test_nSL(unittest.TestCase):
         self.x = SimData(d)
         
     #API check
-    def test_basic(self):
+    def test_nSLiHS(self):
         stats = nSLiHS(self.x)
+        self.assertEqual(len(stats),self.x.numsites())
+    def test_nSLiHS_gmap(self):
+        gmap= {0.1:0.1,0.3:0.3,0.5:0.5,0.2:0.2,0.4:0.4,0.6:0.6}
+        stats = nSLiHS(self.x,gmap)
         self.assertEqual(len(stats),self.x.numsites())
 
 if __name__ == '__main__':
