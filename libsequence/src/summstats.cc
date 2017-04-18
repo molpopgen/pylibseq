@@ -77,6 +77,17 @@ PYBIND11_PLUGIN(summstats)
               return Sequence::nSL_t(
                   d, gmap.cast<std::unordered_map<double, double>>());
           },
+          R"delim(
+		"Raw"/unstandardized :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
+
+		:param pt: A :class:`libsequence.polytable.PolyTable`
+		:param gmap: A dictionary relating each position in pt to its location on a genetic map.
+		:return: A list of (nSL,iHS) tuples
+		:rtype: list
+    
+		.. note:: Only :class:`libsequence.polytable.SimData` types currently supported
+
+		)delim",
           py::arg("d"), py::arg("gmap") = nullptr);
 
     m.def("lhaf", &Sequence::lHaf,
