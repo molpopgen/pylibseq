@@ -89,7 +89,15 @@ PYBIND11_PLUGIN(summstats)
               return Sequence::snSL(d, minfreq, binsize);
           },
           py::arg("d"), py::arg("minfreq") = 0.0, py::arg("binsize") = 0.05);
-    m.def("ld", &Sequence::Recombination::Disequilibrium);
+
+    m.def("ld", [](const Sequence::PolyTable& p, const bool have_outgroup,
+                   const unsigned outgroup, const unsigned mincount,
+                   const double maxd) {
+        auto rv = Sequence::Recombination::Disequilibrium(
+            &p, have_outgroup, outgroup, mincount, maxd);
+        return rv;
+    });
+
     m.def("garudStats",
           [](const Sequence::SimData& d) {
               auto g = Sequence::H1H12(d);
