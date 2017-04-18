@@ -65,38 +65,92 @@ PYBIND11_PLUGIN(summstats)
                  new (&newobj) Sequence::PolySIM(&d);
              });
 
-    py::class_<Sequence::PairwiseLDstats>(m, "PairwiseLDstats",
-                                          "Summaries of pairwise LD.")
-        .def_readonly("i", &Sequence::PairwiseLDstats::i,
-                      "The index of site 1.")
-        .def_readonly("j", &Sequence::PairwiseLDstats::j,
-                      "The index of site 2.")
-        .def_readonly("rsq", &Sequence::PairwiseLDstats::rsq,
-                      R"d(:math:`r^2_{1,2}`)d")
-        .def_readonly("D", &Sequence::PairwiseLDstats::D, "The D statistic.")
-        .def_readonly("Dprime", &Sequence::PairwiseLDstats::Dprime,
-                      "The D' statistic.")
-        .def_readonly(
-            "skipped", &Sequence::PairwiseLDstats::Dprime,
-            "True if the pair i,j were filtered out for some reason.");
-
     m.def("nSLiHS",
-          [](const Sequence::SimData& d) { return Sequence::nSL_t(d); });
-    m.def("lhaf", &Sequence::lHaf);
+          [](const Sequence::SimData& d, py::object gmap) {
+              if (gmap == py::none())
+                  {
+                      return Sequence::nSL_t(d);
+                  }
+              return Sequence::nSL_t(
+                  d, gmap.cast<std::unordered_map<double, double>>());
+          },
+          py::arg("d"), py::arg("gmap") = nullptr);
+
+    m.def("lhaf", &Sequence::lHaf,
+          R"delim(
+		:math:`l-HAF` from Ronen et al. DOI:10.1371/journal.pgen.1005527
+    
+		:param pt: A :class:`libsequence.polytable.PolyTable`
+		:param l: The scaling factor for the statistic. See paper for details.
+		:return: The :math:`l-HAF` statistic for each haplotype in pt
+    
+		:rtype: list
+
+		.. note:: Only :class:`libsequence.polytable.SimData` types currently supported.
+		)delim");
+
     m.def("std_nSLiHS",
           [](const Sequence::SimData& d, const double minfreq,
-             const double binsize) {
-              return Sequence::snSL(d, minfreq, binsize);
+             const double binsize, py::object gmap) {
+              if (gmap == py::none())
+                  {
+                      return Sequence::snSL(d, minfreq, binsize);
+                  }
+              return Sequence::snSL(
+                  d, minfreq, binsize,
+                  gmap.cast<std::unordered_map<double, double>>());
           },
-          py::arg("d"), py::arg("minfreq") = 0.0, py::arg("binsize") = 0.05);
+          R"delim(
+		Standardized :math:`nS_L` statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077
+		:param pt: A :class:`libsequence.polytable.PolyTable`
+		:param minfreq: Ignore markers with frequency < this value
+		:param binsize: Standardize statistic in frequency bins of this width
+		:param gmap: A dictionary relating eacy position in pt to its location on a genetic map.
+		:return: A tuple. The first value is max standardized nSL over all bins.  The second is max iHS over all bins, where iHS is calculated according to Ferrer-Admetlla et al. The maximums are calculated based on absolute value.
+		:rtype: float
+		.. note:: Only :class:`libsequence.polytable.SimData` types currently supported
+		)delim",
+          py::arg("d"), py::arg("minfreq") = 0.0, py::arg("binsize") = 0.05,
+          py::arg("gmap") = nullptr);
 
-    m.def("ld", [](const Sequence::PolyTable& p, const bool have_outgroup,
-                   const unsigned outgroup, const unsigned mincount,
-                   const double maxd) {
-        auto rv = Sequence::Recombination::Disequilibrium(
-            &p, have_outgroup, outgroup, mincount, maxd);
-        return rv;
-    });
+    m.def(
+        "ld",
+        [](const Sequence::PolyTable& p, const bool have_outgroup,
+           const unsigned outgroup, const unsigned mincount,
+           const double maxd) {
+            auto temp = Sequence::Recombination::Disequilibrium(
+                &p, have_outgroup, outgroup, mincount, maxd);
+            // Before filling a py::list, let's get rid of skipped objects
+            temp.erase(std::remove_if(
+                temp.begin(), temp.end(),
+                [](const Sequence::PairwiseLDstats& s) { return s.skipped; }));
+            py::list rv;
+            for (auto&& ld : temp)
+                {
+                    py::dict temp;
+                    temp[py::str("i")] = py::float_(ld.i);
+                    temp[py::str("j")] = py::float_(ld.j);
+                    temp[py::str("rsq")] = py::float_(ld.rsq);
+                    temp[py::str("D")] = py::float_(ld.D);
+                    temp[py::str("Dprime")] = py::float_(ld.Dprime);
+                    rv.append(std::move(temp));
+                }
+            return rv;
+        },
+        R"delim(
+	Return pairwise LD statistics.
+	
+	:param p: A :class:`libsequence.polytable.PolySites` or :class:`libsequence.polytable.SimData`.
+	:param have_outgroup: (False) Boolean--is outgroup sequence present in p?
+	:param outgroup: (0) The index of the outgroup sequence in p.
+	:param mincount: Do not include site pairs with MAF < mincount.
+	:param maxd: Do not include site pairs separated by >= maxd.
+
+	:rtype: list of dict
+	)delim",
+        py::arg("p"), py::arg("have_outgroup") = false,
+        py::arg("outgroup") = 0, py::arg("mincount") = 1,
+        py::arg("maxd") = std::numeric_limits<double>::max());
 
     m.def("garudStats",
           [](const Sequence::SimData& d) {
