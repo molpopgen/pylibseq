@@ -23,6 +23,6 @@ MD=
 all: $(RST) $(MD)
 
 clean: 
-	rm -f *.rst
+	rm -f $(RST)
 	rm -f trajectories.nbconvert_files/*
 
