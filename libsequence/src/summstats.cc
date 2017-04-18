@@ -61,7 +61,7 @@ PYBIND11_PLUGIN(summstats)
             in a :class:`libsequence.polytable.SimData` object.
 
 			.. note::
-				Public API shared with :class:`libsequence.polytable.PolySNP`.
+				Public API shared with :class:`libsequence.summstats.PolySNP`.
             )delim")
         .def("__init__",
              [](Sequence::PolySIM& newobj, const Sequence::SimData& d) {
