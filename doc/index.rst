@@ -11,7 +11,6 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   README
    pages/overview
    pages/parallel
    pages/lifetimes
