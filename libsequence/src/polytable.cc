@@ -64,6 +64,8 @@ PYBIND11_PLUGIN(polytable)
              "Return number of elements (rows).")
         .def("position", &Sequence::PolyTable::position,
              "Return value of the i-th position.", py::arg("i"))
+        .def("swap", &Sequence::PolyTable::swap,
+             "Swap data with another polymorphism table")
         .def("__getitem__",
              [](const Sequence::PolyTable& pt, const std::size_t i) {
                  if (i >= pt.size())
@@ -171,7 +173,7 @@ PYBIND11_PLUGIN(polytable)
         [](const Sequence::PolySites& d,
            std::function<bool(const Sequence::stateCounter&)> f,
            const bool skip_ancestral, const unsigned anc, const char gapchar) {
-        return Sequence::removeColumns(d, f, skip_ancestral, anc, gapchar);
+            return Sequence::removeColumns(d, f, skip_ancestral, anc, gapchar);
         },
         R"delim(
 		  Remove columns from a :class:`libsequence.polytable.PolySites` 
@@ -186,8 +188,8 @@ PYBIND11_PLUGIN(polytable)
 
 		  :rtype: A :class:`libsequence.polytable.PolySites`.
 		  )delim",
-          py::arg("d"), py::arg("fxn"), py::arg("skip_ancestral") = false,
-          py::arg("anc") = 0, py::arg("gapchar") = '-');
+        py::arg("d"), py::arg("fxn"), py::arg("skip_ancestral") = false,
+        py::arg("anc") = 0, py::arg("gapchar") = '-');
 
     return m.ptr();
 }
