@@ -66,6 +66,12 @@ PYBIND11_PLUGIN(polytable)
              "Return value of the i-th position.", py::arg("i"))
         .def("swap", &Sequence::PolyTable::swap,
              "Swap data with another polymorphism table")
+        .def("__str__",
+             [](const Sequence::PolyTable& pt) {
+                 std::ostringstream o;
+                 o << pt;
+                 return o.str();
+             })
         .def("__getitem__",
              [](const Sequence::PolyTable& pt, const std::size_t i) {
                  if (i >= pt.size())
