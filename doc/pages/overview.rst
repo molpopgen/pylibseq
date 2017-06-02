@@ -23,89 +23,22 @@ Here, there are 2 sites and a sample size of :math:`n=4`
 .. ipython:: python
 
     rawData1 = [(0.1,'0101'),(0.2,'1010')]
-
-.. ipython:: python
-
     #We can construct objects straight from these tuples
     sd = SimData(rawData1)
-
-.. ipython:: python
-
     sd.size()
-
-
-
-
-
-
-
-.. ipython:: python
-
     sd.pos()
-
-
-
-
-
-
-
-.. ipython:: python
-
     sd.data()
-
-
-
-
-
-
-
-Or, you can assign from separate list of positions and haplotypes
+, you can assign from separate list of positions and haplotypes
 
 .. ipython:: python
 
     rawDataPos = [0.1,0.2]
     rawDataGenos = ['01','10','01','10']
     sd.assign(rawDataPos,rawDataGenos)
-
-.. ipython:: python
-
     sd.numsites()
-
-
-
-
-
-
-
-.. ipython:: python
-
     sd.size()
-
-
-
-
-
-
-
-.. ipython:: python
-
     sd.pos()
-
-
-
-
-
-
-
-.. ipython:: python
-
     sd.data()
-
-
-
-
-
-
 
 Summary statistics
 ------------------
@@ -130,40 +63,10 @@ See :class:`libsequence.summstats.PolySIM` for more documentation
                   '1111010100',
                   '1111010100']
     sd.assign(rawDataPos,rawDataGenos)
-
-.. ipython:: python
-
     ps = PolySIM(sd)
-
-.. ipython:: python
-
     ps.thetapi()
-
-
-
-
-
-
-
-.. ipython:: python
-
     ps.thetaw()
-
-
-
-
-
-
-
-.. ipython:: python
-
     ps.tajimasd()
-
-
-
-
-
-
 
 Sliding windows
 ---------------
@@ -171,23 +74,8 @@ Sliding windows
 .. ipython:: python
 
     from libsequence.windows import Windows
-
-.. ipython:: python
-
     w = Windows(sd,window_size=0.1,step_len=0.05,starting_pos=0.,ending_pos=1.0)
-
-.. ipython:: python
-
     len(w)
-
-
-
-
-
-
-
-.. ipython:: python
-
     for i in range(len(w)):
         #Each window is a simData
         wi = w[i]
@@ -229,68 +117,20 @@ a great overview.
     sd.size()
     f = Fst(sd,[5,5])
 
-.. ipython:: python
-
     #Hudson, Slatkin, and Maddison's FST:
     f.hsm()
-
-
-
-
-
-
-
-.. ipython:: python
 
     #Slatkin's
     f.slatkin()
 
-
-
-
-
-
-
-.. ipython:: python
-
     #Hudson, Boos, and Kaplan, which is also Nei's Gst:
     f.hbk()
-
-
-
-
-
-
-
-.. ipython:: python
 
     #Positions of snps shared b/w demes 0 and 1
     f.shared(0,1)
 
-
-
-
-
-
-
-.. ipython:: python
-
     #Positions of private mutations in deme 0 and 1:
     f.priv(0,1)
 
-
-
-
-
-
-
-.. ipython:: python
-
     #Positions of fixed differences between demes 0 and 1:
     f.fixed(0,1)
-
-
-
-
-
-
