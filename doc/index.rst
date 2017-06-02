@@ -26,6 +26,10 @@ Functions and classes
    :members:
    :show-inheritance:
 
+.. automodule:: libsequence.fst
+   :members:
+   :show-inheritance:
+
 .. automodule:: libsequence.windows 
    :members:
    :show-inheritance:
