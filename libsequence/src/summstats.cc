@@ -16,6 +16,10 @@ PYBIND11_PLUGIN(summstats)
 {
     py::module m("summstats", "Summary statistics");
 
+    py::object polytable
+        = (py::object)py::module::import("libsequence.polytable")
+              .attr("PolyTable");
+	
     py::class_<Sequence::PolySNP>(m, "PolySNP",
                                   "Class to calculate summary statistics.")
         .def("__init__",
@@ -24,7 +28,7 @@ PYBIND11_PLUGIN(summstats)
                 const bool totMuts) {
                  new (&newobj)
                      Sequence::PolySNP(&pt, haveOutgroup, outgroup, totMuts);
-             })
+             },py::arg("pt"),py::arg("haveOutgroup")=false,py::arg("outgroup")=0,py::arg("totMuts")=true)
         .def("thetapi", &Sequence::PolySNP::ThetaPi,
              "Sum of site heterozygosity/mean pairwise differences.")
         .def("thetaw", &Sequence::PolySNP::ThetaW,
