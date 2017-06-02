@@ -172,6 +172,8 @@ PYBIND11_PLUGIN(polytable)
 		  :param f: A callable taking a :class:`libsequence.summstats.StateCounter` and returning True/False.
 
 		  :rtype: A :class:`libsequence.polytable.SimData`.
+
+		  .. note:: Sites are kept for which the callable returns False
 		  )delim");
 
     m.def(
@@ -193,6 +195,8 @@ PYBIND11_PLUGIN(polytable)
 		  :param gapchar: ('-') The gap character.
 
 		  :rtype: A :class:`libsequence.polytable.PolySites`.
+
+		  .. note:: Sites are kept for which the callable returns False
 		  )delim",
         py::arg("d"), py::arg("fxn"), py::arg("skip_ancestral") = false,
         py::arg("anc") = 0, py::arg("gapchar") = '-');

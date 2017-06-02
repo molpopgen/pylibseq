@@ -53,10 +53,10 @@ See :class:`libsequence.summstats.PolySIM` for more documentation
     #ms 10 1 -s 10 -I 2 5 5 0.05
     rawDataPos=[0.0997, 0.2551, 0.3600, 0.4831, 0.5205, 0.5668, 0.5824, 0.6213, 0.7499, 0.9669]
     rawDataGenos=['0000001010',
-                  '0000000011',
-                  '0000001010',
-                  '0000001010',
-                  '0000001010',
+                  '1000000011',
+                  '1000001010',
+                  '1000000010',
+                  '1000001010',
                   '1111010100',
                   '1111010100',
                   '1111110100',
@@ -68,6 +68,34 @@ See :class:`libsequence.summstats.PolySIM` for more documentation
     ps.thetaw()
     ps.tajimasd()
 
+Filtering sites
+------------------
+
+You may also filter sites from your variation tables using :func:`libsequence.polytable.removeColumns`, which operates on
+objects of type :class:`libsequence.summstats.StateCounter`.
+
+Our data look like this right now:
+
+.. ipython:: python
+
+    print(sd)
+
+Let's remove derived singletons:
+
+.. ipython:: python
+
+    from libsequence.polytable import removeColumns
+    sd2 = removeColumns(sd,lambda x : x.one != 1)
+    print(sd2)
+
+Let's remove all singletons:
+
+.. ipython:: python
+
+    sd3 = removeColumns(sd,lambda x: x.one !=1 and x.zero != 1)
+    print(sd3)
+
+    
 Sliding windows
 ---------------
 
