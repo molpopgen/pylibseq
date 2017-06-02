@@ -11,3 +11,7 @@ dependencies:
     - sphinx_rtd_theme==0.1.9
     - libsequence
     - ipython
+<<<<<<< HEAD
+=======
+    - matplotlib
+>>>>>>> dev_pybind11
