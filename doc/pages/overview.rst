@@ -95,6 +95,10 @@ Let's remove all singletons:
     sd3 = removeColumns(sd,lambda x: x.one !=1 and x.zero != 1)
     print(sd3)
 
+.. note::
+    Yes, it is odd that the column removal function removes sites for which the lambda
+    returns False.  I'll fix that in a future release, which requires an upstream change
+    to libsequence.
     
 Sliding windows
 ---------------
