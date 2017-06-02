@@ -101,7 +101,7 @@ Unit testing:
 
    $ ./configure
    $ python setup.py build_ext -i --use-cython
-   $ python -m unittest discover unit_test
+   $ python -m unittest discover test
 
 Modifying the package
 =======================
