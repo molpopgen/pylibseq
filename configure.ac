@@ -45,7 +45,7 @@ dnl 2) package version (i.e. 1.2)
 dnl 3) bug/info/project email address (i.e. bug-foo@gnu.org)
 dnl----
 dnl
-AC_INIT([pylibseq], [0.1.9post0], [krthornt@uci.edu])
+AC_INIT([pylibseq], [0.2.0a0], [krthornt@uci.edu])
 
 
 dnl----
@@ -398,7 +398,7 @@ dnl Finish #
 dnl#########
 
 dnl Define the files to be configured
-AC_CONFIG_FILES([Makefile setup.py conf.py libsequence/__init__.py])
+AC_CONFIG_FILES([Makefile setup.py doc/conf.py libsequence/__init__.py])
 AC_CONFIG_HEADERS([config.h])
 
 MINLSEQVERSION="1.9.0"
