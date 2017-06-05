@@ -17,6 +17,7 @@ import os
 import subprocess
 import shlex
 
+subprocess.Popen(['libsequenceConfig','--version'])
 os.environ['LD_LIBRARY_PATH']=sys.prefix+'/lib'
 
 # If extensions (or modules to document with autodoc) are in another directory,
