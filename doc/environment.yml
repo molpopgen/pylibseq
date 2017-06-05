@@ -12,3 +12,4 @@ dependencies:
     - libsequence
     - ipython
     - matplotlib
+    - pandas
