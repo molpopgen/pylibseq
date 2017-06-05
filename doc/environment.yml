@@ -13,3 +13,6 @@ dependencies:
     - ipython
     - matplotlib
     - pandas
+    - msprime
+    - gsl
+    - hdf
