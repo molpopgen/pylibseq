@@ -61,7 +61,7 @@ ext_modules = [
         ['libsequence/src/polytable.cc'],
         library_dirs=LIBRARY_DIRS,
         include_dirs=INCLUDES,
-        libraries=['sequence'],
+        libraries=['sequence','tbb'],
         language='c++'
     ),
     Extension(
@@ -77,7 +77,7 @@ ext_modules = [
         ['libsequence/src/fst.cc'],
         library_dirs=LIBRARY_DIRS,
         include_dirs=INCLUDES,
-        libraries=['sequence'],
+        libraries=['sequence','tbb'],
         language='c++'
     ),
     Extension(
@@ -85,7 +85,7 @@ ext_modules = [
         ['libsequence/src/windows_cpp.cc'],
         library_dirs=LIBRARY_DIRS,
         include_dirs=INCLUDES,
-        libraries=['sequence'],
+        libraries=['sequence','tbb'],
         language='c++'
     ),
 ]
