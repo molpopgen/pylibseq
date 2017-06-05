@@ -148,6 +148,8 @@ class BuildExt(build_ext):
             ext.extra_compile_args = opts
             if sys.platform == 'darwin' and USE_GCC is False:
                 ext.extra_link_args=['-stdlib=libc++', '-mmacosx-version-min=10.7']
+        ext.extra_link_args.append('-Wl,-rpath,'+os.path.join(sys.prefix,'lib'))
+        print(ext.extra_link_args)
         build_ext.build_extensions(self)
 
 
