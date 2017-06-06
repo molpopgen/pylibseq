@@ -17,7 +17,7 @@ import os
 import subprocess
 import shlex
 
-os.environ['LD_LIBRARY_PATH']=sys.prefix+'/lib'
+#os.environ['LD_LIBRARY_PATH']=sys.prefix+'/lib'
 subprocess.Popen(['libsequenceConfig','--version'],env=os.environ)
 subprocess.Popen(['which','libsequenceConfig'])
 subprocess.Popen(['ls','-lhrt'])
