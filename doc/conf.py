@@ -17,19 +17,19 @@ import os
 import subprocess
 import shlex
 
+os.environ['LD_LIBRARY_PATH']=sys.prefix+'/lib'
 subprocess.Popen(['libsequenceConfig','--version'])
 subprocess.Popen(['which','libsequenceConfig'])
 subprocess.Popen(['ls','-lhrt'])
-os.environ['LD_LIBRARY_PATH']=sys.prefix+'/lib'
-subprocess.Popen(['locate','liblzma.so'])
-#subprocess.Popen(['ls','-lhrt',os.environ['LD_LIBRARY_PATH']])
+#subprocess.Popen(['locate','liblzma.so'])
+subprocess.Popen(['ls','-lhrt',os.environ['LD_LIBRARY_PATH']])
 print(os.environ)
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-if (os.environ.get('READTHEDOCS')=="True") is False:
-    sys.path.insert(0, os.path.abspath('..'))
+#if (os.environ.get('READTHEDOCS')=="True") is False:
+sys.path.insert(0, os.path.abspath('..'))
 #else:
 #    import site
 #    p=site.getsitepackages()[0]
