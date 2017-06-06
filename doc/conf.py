@@ -21,7 +21,7 @@ subprocess.Popen(['libsequenceConfig','--version'])
 subprocess.Popen(['which','libsequenceConfig'])
 subprocess.Popen(['ls','-lhrt'])
 os.environ['LD_LIBRARY_PATH']=sys.prefix+'/lib'
-subprocess.Popen(['ls','-lhrt','$LD_LIBRARY_PATH'])
+subprocess.Popen(['ls','-lhrt',os.environ['LD_LIBRARY_PATH']])
 print(os.environ)
 
 # If extensions (or modules to document with autodoc) are in another directory,
