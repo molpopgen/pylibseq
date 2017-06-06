@@ -18,12 +18,6 @@ import subprocess
 import shlex
 
 #os.environ['LD_LIBRARY_PATH']=sys.prefix+'/lib'
-subprocess.Popen(['libsequenceConfig','--version'],env=os.environ)
-subprocess.Popen(['which','libsequenceConfig'])
-subprocess.Popen(['ls','-lhrt'])
-#subprocess.Popen(['locate','liblzma.so'])
-#subprocess.Popen(['ls','-lhrt',os.environ['LD_LIBRARY_PATH']])
-print(os.environ)
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
