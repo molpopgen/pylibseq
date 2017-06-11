@@ -207,6 +207,7 @@ PYBIND11_PLUGIN(summstats)
               rv[py::str("H1")] = py::float_(g.H1);
               rv[py::str("H12")] = py::float_(g.H12);
               rv[py::str("H2H1")] = py::float_(g.H2H1);
+              return rv;
           },
           R"delim(
 		Returns the H1, H12, and H2/H1 statistics from PMC4338236 as a dict.
