@@ -23,6 +23,9 @@ class test_nSL(unittest.TestCase):
         p = PolySIM(self.x)
     def test_odd_polymorphism_use_case(self):
         p = PolySNP(self.x)
+    def test_classic_stats(self):
+        p = PolySIM(self.x)
+        hp = p.hprime()
 if __name__ == '__main__':
     unittest.main()
         
