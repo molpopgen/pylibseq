@@ -45,7 +45,7 @@ PYBIND11_PLUGIN(summstats)
         .def("numexternalmutations", &Sequence::PolySNP::NumExternalMutations,
              "Number of derived singletons.")
         .def("tajimasd", &Sequence::PolySNP::TajimasD, "Tajima's D.")
-        .def("hprime", &Sequence::PolySNP::Hprime,
+        .def("hprime", &Sequence::PolySNP::Hprime,py::arg("likeThorntonAndolfatto")=false,
              R"d(Normalized version of Fay and Wu's :math:`\hat\theta_H`)d")
         .def("fulid", &Sequence::PolySNP::FuLiD, "Fu and Li's D")
         .def("fulif", &Sequence::PolySNP::FuLiF, "Fi and Li's F")
