@@ -171,7 +171,7 @@ PYBIND11_PLUGIN(summstats)
             // Before filling a py::list, let's get rid of skipped objects
             temp.erase(std::remove_if(
                 temp.begin(), temp.end(),
-                [](const Sequence::PairwiseLDstats& s) { return s.skipped; }));
+                [](const Sequence::PairwiseLDstats& s) { return s.skipped; }),temp.end());
             py::list rv;
             for (auto&& ld : temp)
                 {
