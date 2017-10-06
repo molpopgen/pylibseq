@@ -30,10 +30,10 @@
 
 namespace py = pybind11;
 
-PYBIND11_PLUGIN(polytable)
+PYBIND11_MODULE(polytable, m)
 {
-    py::module m("polytable", "Access to libsequence's polymorphism table "
-                              "classes and related functions");
+    m.doc() = "Access to libsequence's polymorphism table classes and related "
+              "functions";
 
     py::class_<Sequence::PolyTable>(m, "PolyTable",
                                     "Base class for polymorphism tables")
@@ -45,7 +45,8 @@ PYBIND11_PLUGIN(polytable)
                  if (!rv)
                      throw std::runtime_error("assignment failure");
              },
-             "Assign data from a tuple of (position,data), where data are "
+             "Assign data from a tuple of (position,data), where data "
+             "are "
              "encoded as an str.")
         .def("assign",
              [](Sequence::PolyTable& p, const std::vector<double>& pos,
@@ -54,7 +55,8 @@ PYBIND11_PLUGIN(polytable)
                  if (!rv)
                      throw std::runtime_error("assignment failure");
              },
-             "Assign data from a list of positions and a  list of strings "
+             "Assign data from a list of positions and a  list of "
+             "strings "
              "representing variable positions.")
         .def("empty", &Sequence::PolyTable::empty,
              "Return whether or not container is empty.")
@@ -200,6 +202,4 @@ PYBIND11_PLUGIN(polytable)
 		  )delim",
         py::arg("d"), py::arg("fxn"), py::arg("skip_ancestral") = false,
         py::arg("anc") = 0, py::arg("gapchar") = '-');
-
-    return m.ptr();
 }

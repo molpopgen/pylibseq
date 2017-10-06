@@ -5,9 +5,9 @@
 
 namespace py = pybind11;
 
-PYBIND11_PLUGIN(windows_cpp)
+PYBIND11_MODULE(windows_cpp, m)
 {
-    py::module m("windows_cpp", "Details of sliding window containers.");
+    m.doc() = "Details of sliding window containers.";
 
     using SimDataWindows = Sequence::PolyTableSlice<Sequence::SimData>;
     using PolySitesWindows = Sequence::PolyTableSlice<Sequence::PolySites>;
@@ -27,6 +27,4 @@ PYBIND11_PLUGIN(windows_cpp)
 
     MAKE_WINDOWS_BACKEND(SimDataWindows, "SimDataWindows")
     MAKE_WINDOWS_BACKEND(PolySitesWindows, "PolySitesWindows")
-
-    return m.ptr();
 }

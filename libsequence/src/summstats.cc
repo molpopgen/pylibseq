@@ -12,9 +12,9 @@
 
 namespace py = pybind11;
 
-PYBIND11_PLUGIN(summstats)
+PYBIND11_MODULE(summstats,m)
 {
-    py::module m("summstats", "Summary statistics");
+    m.doc() = "Summary statistics";
 
     py::object polytable
         = (py::object)py::module::import("libsequence.polytable")
@@ -100,7 +100,7 @@ PYBIND11_PLUGIN(summstats)
 
     m.def("nSLiHS",
           [](const Sequence::SimData& d, py::object gmap) {
-              if (gmap == py::none())
+              if (gmap.is_none())
                   {
                       return Sequence::nSL_t(d);
                   }
@@ -136,7 +136,7 @@ PYBIND11_PLUGIN(summstats)
     m.def("std_nSLiHS",
           [](const Sequence::SimData& d, const double minfreq,
              const double binsize, py::object gmap) {
-              if (gmap == py::none())
+              if (gmap.is_none())
                   {
                       return Sequence::snSL(d, minfreq, binsize);
                   }
@@ -215,6 +215,4 @@ PYBIND11_PLUGIN(summstats)
 		:param d: A :class:`libsequence.polytable.SimData`.
 		)delim",
           py::arg("d"));
-
-    return m.ptr();
 }

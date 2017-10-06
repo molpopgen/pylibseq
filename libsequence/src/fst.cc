@@ -6,9 +6,9 @@
 
 namespace py = pybind11;
 
-PYBIND11_PLUGIN(fst)
+PYBIND11_MODULE(fst,m)
 {
-    py::module m("fst", "Fst");
+    m.doc() ="Fst";
 
     py::object polytable
         = (py::object)py::module::import("libsequence.polytable")
@@ -70,6 +70,4 @@ PYBIND11_PLUGIN(fst)
         .def("shared", &Sequence::FST::shared)
         .def("fixed", &Sequence::FST::fixed)
         .def("priv", &Sequence::FST::Private);
-
-    return m.ptr();
 }
