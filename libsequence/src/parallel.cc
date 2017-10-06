@@ -21,14 +21,12 @@
 
 namespace py = pybind11;
 
-PYBIND11_PLUGIN(parallel)
+PYBIND11_MODULE(parallel, m)
 {
-    py::module m("parallel",
-                 "Controlling thread use for parallel computations.");
+    m.doc() = "Controlling thread use for parallel computations.";
 
     py::class_<tbb::task_scheduler_init>(m, "Scheduler")
-        .def(py::init<int>(), "Initialize with a max number of threads.  Default of 0 means let the system decide.",
+        .def(py::init<int>(), "Initialize with a max number of threads.  "
+                              "Default of 0 means let the system decide.",
              py::arg("nthreads") = 0);
-
-    return m.ptr();
 }
