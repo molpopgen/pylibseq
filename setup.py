@@ -4,8 +4,8 @@ import sys
 import setuptools
 import os,glob
 
-if sys.version_info < (3,3):
-    raise RuntimeError("Python >= 3.3 required")
+if sys.version_info < (3,4):
+    raise RuntimeError("Python >= 3.4 required")
 
 __version__ = '0.2.0a0'
 
