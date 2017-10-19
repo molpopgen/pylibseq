@@ -17,10 +17,12 @@ class test_StateCounter(unittest.TestCase):
         self.assertEqual(c.one,self.binaryString.count('1'))
         self.assertEqual(c.ndna,False)
     def testBinaryStringException(self):
-        with self.assertRaises(TypeError):
+        try:
             c = StateCounter() 
             b = self.binaryString.encode('UTF-8')
             c(b)
+        except:
+            self.fail("unexpected exception")
     def testDNAstring(self):
         c = StateCounter()
         c(self.DNAstring)

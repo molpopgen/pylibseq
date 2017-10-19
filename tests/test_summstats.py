@@ -17,7 +17,7 @@ class test_nSL(unittest.TestCase):
         self.assertEqual(len(stats),self.x.numsites())
     def test_nSLiHS_gmap(self):
         gmap= {0.1:0.1,0.3:0.3,0.5:0.5,0.2:0.2,0.4:0.4,0.6:0.6}
-        stats = nSLiHS(self.x,gmap)
+        stats = nSLiHS(self.x,gmap=gmap)
         self.assertEqual(len(stats),self.x.numsites())
     def test_expected_polymorphism_use_case(self):
         p = PolySIM(self.x)
