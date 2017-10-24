@@ -2,21 +2,33 @@ from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 import sys
 import setuptools
-import os,glob
+import subprocess
+import os
+import glob
 
-if sys.version_info < (3,4):
+if sys.version_info < (3, 4):
     raise RuntimeError("Python >= 3.4 required")
+
+try:
+    libseq_version = subprocess.run(
+        ['libsequenceConfig', '--version'], stdout=subprocess.PIPE)
+except subprocess.CalledProcessError as error:
+    print("Fatal error:", error)
+
+if libseq_version.stdout.decode('utf8').rstrip() < "1.9.2":
+    raise ValueError("libsequence >= " + '1.9.2' + "required")
 
 __version__ = '0.2.0a0'
 
-#clang/llvm is default for OS X builds.
-#can over-ride darwin-specific options
-#with setup.py --gcc install
+# clang/llvm is default for OS X builds.
+# can over-ride darwin-specific options
+# with setup.py --gcc install
 if '--gcc' in sys.argv:
     USE_GCC = True
     sys.argv.remove('--gcc')
 else:
     USE_GCC = False
+
 
 class get_pybind_include(object):
     """Helper class to determine the pybind11 include path
@@ -32,20 +44,21 @@ class get_pybind_include(object):
         import pybind11
         return pybind11.get_include(self.user)
 
-PKGS=['libsequence']
 
-INCLUDES=[
+PKGS = ['libsequence']
+
+INCLUDES = [
     # Path to pybind11 headers
     get_pybind_include(),
     get_pybind_include(user=True),
     os.path.join(sys.prefix, 'include')
 ]
 
-LIBRARY_DIRS=[
+LIBRARY_DIRS = [
     os.path.join(sys.prefix, 'lib')
-    ]
+]
 
-LIBS=['tbb']
+LIBS = ['tbb']
 
 ext_modules = [
     Extension(
@@ -69,10 +82,10 @@ ext_modules = [
         ['libsequence/src/summstats.cc'],
         library_dirs=LIBRARY_DIRS,
         include_dirs=INCLUDES,
-        libraries=['sequence','tbb'],
+        libraries=['sequence', 'tbb'],
         language='c++'
     ),
-        Extension(
+    Extension(
         'libsequence.fst',
         ['libsequence/src/fst.cc'],
         library_dirs=LIBRARY_DIRS,
@@ -89,7 +102,6 @@ ext_modules = [
         language='c++'
     ),
 ]
-    
 
 
 # As of Python 3.6, CCompiler has a `has_flag` method.
@@ -136,18 +148,21 @@ class BuildExt(build_ext):
         ct = self.compiler.compiler_type
         opts = self.c_opts.get(ct, [])
         if ct == 'unix':
-            opts.append('-DVERSION_INFO="%s"' % self.distribution.get_version())
+            opts.append('-DVERSION_INFO="%s"' %
+                        self.distribution.get_version())
             opts.append(cpp_flag(self.compiler))
             if has_flag(self.compiler, '-fvisibility=hidden') and (sys.platform != 'darwin' or USE_GCC is True):
                 opts.append('-fvisibility=hidden')
-            if has_flag(self.compiler,'-g0'):
+            if has_flag(self.compiler, '-g0'):
                 opts.append('-g0')
         elif ct == 'msvc':
-            opts.append('/DVERSION_INFO=\\"%s\\"' % self.distribution.get_version())
+            opts.append('/DVERSION_INFO=\\"%s\\"' %
+                        self.distribution.get_version())
         for ext in self.extensions:
             ext.extra_compile_args = opts
             if sys.platform == 'darwin' and USE_GCC is False:
-                ext.extra_link_args=['-stdlib=libc++', '-mmacosx-version-min=10.7']
+                ext.extra_link_args = [
+                    '-stdlib=libc++', '-mmacosx-version-min=10.7']
         build_ext.build_extensions(self)
 
 
@@ -160,14 +175,14 @@ setup(
     author_email='krthornt@uci.edu',
     url='http://molpopgen.github.io/pylibseq',
     classifiers=['Intended Audience :: Science/Research',
-               'Topic :: Scientific/Engineering :: Bio-Informatics',
-               'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)'],
+                 'Topic :: Scientific/Engineering :: Bio-Informatics',
+                 'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)'],
     description='Python interface to libsequence.',
     license='GPL >= 3',
-    requires=['pybind11','numpy'],
+    requires=['pybind11', 'numpy'],
     provides=['pylibseq'],
     obsoletes=['none'],
-    data_files=[('pylibseq',['COPYING', 'README.rst'])],
+    data_files=[('pylibseq', ['COPYING', 'README.rst'])],
     long_description=long_desc,
     ext_modules=ext_modules,
     install_requires=['pybind11>=1.7'],

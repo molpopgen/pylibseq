@@ -1,4 +1,4 @@
-language: python
+language: generic
 
 # We don't actually use the Travis Python, but this keeps it organized.
 # The test matrix really uses the latest Miniconda for Py2 or Py3,
@@ -34,7 +34,6 @@ install:
     - conda info -a
     - conda config --add channels conda-forge
     - conda config --add channels defaults
-    - conda config --add channels r
     - conda config --add channels bioconda
     - conda install gcc pybind11
     #- conda install htslib==1.3.2 #Attempt pinning
