@@ -19,9 +19,9 @@ def make_SimData(g):
 
     >>> import msprime as msp
     >>> from libsequence.msprime import make_SimData
-    >>> g = msp.simulate(sample_size = 10, Ne=1e6,
-    >>>                  recombination_rate=1e-8,
-    >>>                  mutation_rate=1e-8,length=1e4)
+    >>> g = msp.simulate(sample_size = 10, Ne=1e6,\
+                         recombination_rate=1e-8, \
+                         mutation_rate=1e-8,length=1e4)
     >>> s = make_SimData(g)
     """
     return SimData([i.position for i in g.mutations()],
