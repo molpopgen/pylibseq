@@ -1,96 +1,192 @@
-#!/usr/bin/env python
+from setuptools import setup, Extension
+from setuptools.command.build_ext import build_ext
+import sys
+import setuptools
+import subprocess
+import os
+import glob
 
-from __future__ import print_function
-from setuptools import setup,Extension
+if sys.version_info < (3, 4):
+    raise RuntimeError("Python >= 3.4 required")
 
-import platform, glob, sys, subprocess,os
-
-#Dependency checks
-
-##Check for libsequence version
 try:
-    out = subprocess.check_output('libsequenceConfig --version',shell=True)
-    version = out.decode('utf-8').rstrip()
-    print ("libsequence version",version," found.")
-    if version < '@MINLIBSEQ@':
-        print("libsequence >= ,'@MINLIBSEQ@' required, but ",version, "found.")
-        sys.exit(2)
-except:
-    sys.exit("libsequenceConfig not found.  Please install libsequence (http://github.com/molpopgen/libsequence)")
+    libseq_version = subprocess.run(
+        ['libsequenceConfig', '--version'], stdout=subprocess.PIPE)
+except subprocess.CalledProcessError as error:
+    print("Fatal error:", error)
 
-##Can we compile a program based on libsequence?
-print("Attempting to compile and link a test program using libsequence...")
-try:
-    proc = subprocess.check_output(['make','-f','check_deps/Makefile','clean'])
-    proc = subprocess.check_output(['make','-f','check_deps/Makefile'])
-    proc = subprocess.check_output(['make','-f','check_deps/Makefile','clean'])
-except subprocess.CalledProcessError as e:
-    print (e.returncode)
-    sys.exit(2)
-print("done")
+if libseq_version.stdout.decode('utf8').rstrip() < "@MINLIBSEQ@":
+    raise ValueError("libsequence >= " + '@MINLIBSEQ@' + "required")
 
-#Are we gonna build using Cython or not?  Default is not to,
-#which allows us to ship this in a standard way.
-if '--use-cython' in sys.argv:
-    USE_CYTHON = True
-    sys.argv.remove('--use-cython')
+__version__ = '@PACKAGE_VERSION@'
+
+# clang/llvm is default for OS X builds.
+# can over-ride darwin-specific options
+# with setup.py --gcc install
+if '--gcc' in sys.argv:
+    USE_GCC = True
+    sys.argv.remove('--gcc')
 else:
-    USE_CYTHON = False
+    USE_GCC = False
+
+
+class get_pybind_include(object):
+    """Helper class to determine the pybind11 include path
+
+    The purpose of this class is to postpone importing pybind11
+    until it is actually installed, so that the ``get_include()``
+    method can be invoked. """
+
+    def __init__(self, user=False):
+        self.user = user
+
+    def __str__(self):
+        import pybind11
+        return pybind11.get_include(self.user)
+
+
+PKGS = ['libsequence']
+
+INCLUDES = [
+    # Path to pybind11 headers
+    get_pybind_include(),
+    get_pybind_include(user=True),
+    os.path.join(sys.prefix, 'include')
+]
+
+LIBRARY_DIRS = [
+    os.path.join(sys.prefix, 'lib')
+]
+
+LIBS = ['tbb']
+
+ext_modules = [
+    Extension(
+        'libsequence.parallel',
+        ['libsequence/src/parallel.cc'],
+        library_dirs=LIBRARY_DIRS,
+        include_dirs=INCLUDES,
+        libraries=['tbb'],
+        language='c++'
+    ),
+    Extension(
+        'libsequence.polytable',
+        ['libsequence/src/polytable.cc'],
+        library_dirs=LIBRARY_DIRS,
+        include_dirs=INCLUDES,
+        libraries=['sequence'],
+        language='c++'
+    ),
+    Extension(
+        'libsequence.summstats',
+        ['libsequence/src/summstats.cc'],
+        library_dirs=LIBRARY_DIRS,
+        include_dirs=INCLUDES,
+        libraries=['sequence', 'tbb'],
+        language='c++'
+    ),
+    Extension(
+        'libsequence.fst',
+        ['libsequence/src/fst.cc'],
+        library_dirs=LIBRARY_DIRS,
+        include_dirs=INCLUDES,
+        libraries=['sequence'],
+        language='c++'
+    ),
+    Extension(
+        'libsequence.windows_cpp',
+        ['libsequence/src/windows_cpp.cc'],
+        library_dirs=LIBRARY_DIRS,
+        include_dirs=INCLUDES,
+        libraries=['sequence'],
+        language='c++'
+    ),
+]
+
+
+# As of Python 3.6, CCompiler has a `has_flag` method.
+# cf http://bugs.python.org/issue26689
+def has_flag(compiler, flagname):
+    """Return a boolean indicating whether a flag name is supported on
+    the specified compiler.
+    """
+    import tempfile
+    with tempfile.NamedTemporaryFile('w', suffix='.cpp') as f:
+        f.write('int main (int argc, char **argv) { return 0; }')
+        try:
+            compiler.compile([f.name], extra_postargs=[flagname])
+        except setuptools.distutils.errors.CompileError:
+            return False
+    return True
+
+
+def cpp_flag(compiler):
+    """Return the -std=c++[11/14] compiler flag.
+
+    The c++14 is prefered over c++11 (when it is available).
+    """
+    if has_flag(compiler, '-std=c++14'):
+        return '-std=c++14'
+    elif has_flag(compiler, '-std=c++11'):
+        return '-std=c++11'
+    else:
+        raise RuntimeError('Unsupported compiler -- at least C++11 support '
+                           'is needed!')
+
+
+class BuildExt(build_ext):
+    """A custom build extension for adding compiler-specific options."""
+    c_opts = {
+        'msvc': ['/EHsc'],
+        'unix': [],
+    }
+
+    if sys.platform == 'darwin' and USE_GCC is False:
+        c_opts['unix'] += ['-stdlib=libc++', '-mmacosx-version-min=10.7']
+
+    def build_extensions(self):
+        ct = self.compiler.compiler_type
+        opts = self.c_opts.get(ct, [])
+        if ct == 'unix':
+            opts.append('-DVERSION_INFO="%s"' %
+                        self.distribution.get_version())
+            opts.append(cpp_flag(self.compiler))
+            if has_flag(self.compiler, '-fvisibility=hidden') and (sys.platform != 'darwin' or USE_GCC is True):
+                opts.append('-fvisibility=hidden')
+            if has_flag(self.compiler, '-g0'):
+                opts.append('-g0')
+        elif ct == 'msvc':
+            opts.append('/DVERSION_INFO=\\"%s\\"' %
+                        self.distribution.get_version())
+        for ext in self.extensions:
+            ext.extra_compile_args = opts
+            if sys.platform == 'darwin' and USE_GCC is False:
+                ext.extra_link_args = [
+                    '-stdlib=libc++', '-mmacosx-version-min=10.7']
+        build_ext.build_extensions(self)
 
 
 long_desc = open("README.rst").read()
 
-EXTENSION = '.pyx' if USE_CYTHON else '.cpp'
-
-extensions = []
-pdata = {'libsequence':['*.pxd']}
-provided = []
-modules = ['polytable','summstats','windows','fst','extensions','parallel']
-for i in modules:
-    LIBS=["sequence"]
-    if i == 'parallel':
-        LIBS.append('tbb')
-    extensions.append(Extension("libsequence."+i,
-                                sources=["libsequence/"+i+EXTENSION],
-                                language="c++",                  
-                                extra_compile_args=["-std=c++11"],  
-                                extra_link_args=["-std=c++11"],
-                                libraries=LIBS,
-                                ))
-    provided.append('libsequence.'+i)
-    pdata['libsequence.'+i]=['*.pxd']
-
-#If using Cython, edit extensions here:
-if USE_CYTHON:
-    from Cython.Build import cythonize
-    extensions = cythonize(extensions)
-
-
-setup(name='@PACKAGE_NAME@',
-      version='@PACKAGE_VERSION@',
-      author='Kevin R. Thornton',
-      author_email='@PACKAGE_BUGREPORT@',
-      maintainer='Kevin R. Thornton',
-      maintainer_email='krthornt@uci.edu',
-      url='http://github.com/molpopgen/pylibseq',
-      description="Python interface to libsequence",
-      long_description=long_desc,
-      data_files=[('pylibseq', ['COPYING', 'README.rst'])],
-      download_url='',
-      classifiers=[],
-      platforms=['Linux','OS X'],
-      license='GPL >= 2',
-      provides=provided,
-      obsoletes=['none'],
-      packages=['libsequence','libsequence.console'],
-      py_modules=[],
-      scripts=[],
-      package_data=pdata,
-      ext_modules=extensions,
-      entry_points={
-          'console_scripts':[
-              'pymsstats=libsequence.console.msstats_cli:msstats_main'
-              ]
-          },
+setup(
+    name='pylibseq',
+    version=__version__,
+    author='Kevin Thornton',
+    author_email='krthornt@uci.edu',
+    url='http://molpopgen.github.io/pylibseq',
+    classifiers=['Intended Audience :: Science/Research',
+                 'Topic :: Scientific/Engineering :: Bio-Informatics',
+                 'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)'],
+    description='Python interface to libsequence.',
+    license='GPL >= 3',
+    requires=['pybind11', 'numpy'],
+    provides=['pylibseq'],
+    obsoletes=['none'],
+    data_files=[('pylibseq', ['COPYING', 'README.rst'])],
+    long_description=long_desc,
+    ext_modules=ext_modules,
+    install_requires=['pybind11>=2.1.1'],
+    cmdclass={'build_ext': BuildExt},
+    packages=PKGS,
+    zip_safe=False,
 )
-     
