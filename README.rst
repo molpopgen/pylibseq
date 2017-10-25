@@ -48,6 +48,8 @@ The supported platforms are Linux and OS X.
 Changelog (rough)
 ==============================
 
+* 0.2.0: The package has been completely refactored.  We now use pybind11_ to integrate C++ and Python.  Previous
+  versions of this project used Cython_.  The API now corrresponds to libsequence_ 1.9.2.  Python_ >= 3.4 is required.
 * 0.1.9: Made memory management more robust: more unique_ptr instead of raw pointers.  Cleanup __dealloc__ functions in extension types.  Package now sets __version__.  Class names are now "Pythonic" (and identical to the corresponding type names from libsequence) due to aliasing the C++ names from libsequence. Change from distutils to setuptools.  Documentation fixes.  Expose haplotype diversity and number of haplotype statistics.  First (very alpha) release of pymsstats.
 * 0.1.8: made sure C++ objects/fxns are declared "nogil".  Raw pointers replaced with C++'s unique_ptr.
 * 0.1.7: improvements to build system.  Add option to build from GitHub.
@@ -76,6 +78,10 @@ Or, you may install from GitHub:
    $ ./configure
    $ sudo pip install . 
 
+.. note::
+
+    If you are using GCC on OS X (instead of clang), add --install-option=--gcc when installing.
+
 You may also install from GitHub using pip:
 
 .. code-block:: bash
@@ -103,6 +109,9 @@ Unit testing:
    $ python setup.py build_ext -i 
    $ python -m unittest discover tests
 
+.. note::
+    If using GCC on OS X (instead of clang), add --gcc to the setup.py command
+
 Documentation:
 ======================
 
@@ -112,6 +121,7 @@ Documentation:
 .. _libsequence: http://molpopgen.github.io/libsequence/
 .. _boost: http://www.boost.org/
 .. _pybind11: http://pybind11.readthedocs.io/
+.. _Cython: http://www.cython.org
 .. _Python: http://www.python.org/
 .. _Manual: http://molpopgen.github.io/pylibseq/_build/html/index.html
 .. _homepage: http://molpopgen.github.io/pylibseq/
