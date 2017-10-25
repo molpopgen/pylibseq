@@ -418,14 +418,14 @@ fi
 AX_CXX_COMPILE_STDCXX_11([noext],[mandatory])
 AC_LANG(C++)
 
-AC_CHECK_HEADER(Sequence/SummStats/Garud.hpp, , [AC_MSG_ERROR([Sequence/SummStats/Garud.hpp not found. libsequence (www.molpopgen.org) >= 1.8.8 required.])])
-AC_CHECK_HEADER(Sequence/SummStats/lHaf.hpp, , [AC_MSG_ERROR([Sequence/SummStats/lHaf.hpp not found. libsequence (www.molpopgen.org) >= 1.8.8 required.])])
+AC_CHECK_HEADER(Sequence/SimData.hpp, , [AC_MSG_ERROR([Sequence/SimData.hpp not found. Please make sure that libsequence
+                                         is installed correctly and that your environment is configured correctly.])])
 
 dnl check for C++ libraries that are required
 AC_LANG_SAVE
           AC_LANG_CPLUSPLUS
           AC_REQUIRE_CPP
-          AC_CHECK_LIB(sequence, main,,[AC_MSG_ERROR([libsequence runtime library does not seem to be here])])
+          AC_CHECK_LIB(sequence, main,,[AC_MSG_ERROR([could not link to libsequence runtime library.])])
 AC_LANG_RESTORE
 
 
