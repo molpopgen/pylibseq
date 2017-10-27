@@ -1,12 +1,12 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to pylibseq’s documentation! &#8212; pylibseq 0.1.9post0 documentation</title>
+    <title>Welcome to pylibseq’s documentation! &#8212; pylibseq 0.2.0 documentation</title>
     
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.1.9post0',
+        VERSION:     '0.2.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,12 +24,12 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="pylibseq: Python bindings for libsequence" href="README.html" /> 
+    <link rel="next" title="Example workflow" href="pages/overview.html" /> 
   </head>
-  <body role="document">
+  <body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
@@ -40,9 +40,9 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="README.html" title="pylibseq: Python bindings for libsequence"
+          <a href="pages/overview.html" title="Example workflow"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.1.9post0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.2.0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -52,694 +52,480 @@
           <div class="body" role="main">
             
   <div class="section" id="welcome-to-pylibseq-s-documentation">
-<h1>Welcome to pylibseq&#8217;s documentation!<a class="headerlink" href="#welcome-to-pylibseq-s-documentation" title="Permalink to this headline">¶</a></h1>
+<h1>Welcome to pylibseq’s documentation!<a class="headerlink" href="#welcome-to-pylibseq-s-documentation" title="Permalink to this headline">¶</a></h1>
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">pylibseq: Python bindings for libsequence</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="README.html#build-status">Build status</a></li>
-<li class="toctree-l2"><a class="reference internal" href="README.html#requirements">Requirements:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="README.html#changelog-rough">Changelog (rough)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="README.html#unit-testing">Unit testing:</a></li>
-<li class="toctree-l2"><a class="reference internal" href="README.html#modifying-the-package">Modifying the package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="README.html#documentation">Documentation:</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/overview.html">Example workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/overview.html#assigning-to-an-object">Assigning to an object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/overview.html#summary-statistics">Summary statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/overview.html#filtering-sites">Filtering sites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/overview.html#sliding-windows">Sliding windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/overview.html#linkage-disequilibrium">Linkage disequilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/overview.html#id1"><span class="math">\(F_{ST}\)</span></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="doc/overview.html">Example workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="doc/overview.html#assigning-to-an-object">Assigning to an object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/overview.html#summary-statistics">Summary statistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/overview.html#sliding-windows">Sliding windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="doc/overview.html#id1"><span class="math">\(F_{ST}\)</span></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="doc/parallel.html">Parallel computation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doc/lifetimes.html">Object lifetimes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="doc/extending.html">Using the package in your own projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/parallel.html">Parallel computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/lifetimes.html">Object lifetimes</a></li>
 </ul>
 </div>
 <div class="section" id="module-libsequence.polytable">
 <span id="functions-and-classes"></span><h2>Functions and classes<a class="headerlink" href="#module-libsequence.polytable" title="Permalink to this headline">¶</a></h2>
+<p>Access to libsequence’s polymorphism table classes and related functions</p>
 <dl class="class">
 <dt id="libsequence.polytable.PolySites">
-<em class="property">class </em><code class="descclassname">libsequence.polytable.</code><code class="descname">PolySites</code><a class="headerlink" href="#libsequence.polytable.PolySites" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">libsequence.polytable.</code><code class="descname">PolySites</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.PolySites" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></p>
 <p>A polymorphism table for Sequence data.  A/G/C/T/N/0/1 is the alphabet for analysis.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">See <code class="xref py py-class docutils literal"><span class="pre">libsequence.Polytable.PolyTable</span></code></p>
-</div>
-<p>Constructor</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>x</strong> &#8211; A list</li>
-<li><strong>y</strong> &#8211; A list</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>If x is None and y is None, and empty object is created.</p>
-<p>If y is None, x must be a list of tuples (position, &#8220;string&#8221;)</p>
-<p>if neither x nor y are None, x is a list of positions, and y a list of haplotypes.</p>
-<p>Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="k">as</span> <span class="nn">polyt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">PolySites</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">PolySites</span><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="s2">&quot;ATTA&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s2">&quot;GGGC&quot;</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">PolySites</span><span class="p">(</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],[</span><span class="s2">&quot;AG&quot;</span><span class="p">,</span><span class="s2">&quot;TG&quot;</span><span class="p">,</span><span class="s2">&quot;TG&quot;</span><span class="p">,</span><span class="s2">&quot;AC&quot;</span><span class="p">]</span> <span class="p">)</span>
-</pre></div>
-</div>
+<p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: libsequence.polytable.PolySites) -&gt; None</li>
+<li>__init__(self: libsequence.polytable.PolySites, arg0: List[Tuple[float, str]]) -&gt; None</li>
+</ol>
 </dd></dl>
 
 <dl class="class">
 <dt id="libsequence.polytable.PolyTable">
 <em class="property">class </em><code class="descclassname">libsequence.polytable.</code><code class="descname">PolyTable</code><a class="headerlink" href="#libsequence.polytable.PolyTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>libsequence&#8217;s Sequence::PolyTable</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">It is an error to directly use this class in Python.  An assertion will be triggered.  This is simply the base API for other types.</p>
-</div>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<p>Base class for polymorphism tables</p>
 <dl class="method">
 <dt id="libsequence.polytable.PolyTable.assign">
-<code class="descname">assign</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.PolyTable.assign" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fill data from a list of tuples</p>
-<p>Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="k">as</span> <span class="nn">pypt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pypt</span><span class="o">.</span><span class="n">SimData</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign</span><span class="p">([</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="s2">&quot;01&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s2">&quot;10&quot;</span><span class="p">)</span> <span class="p">])</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.polytable.PolyTable.assign_sep">
-<code class="descname">assign_sep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.PolyTable.assign_sep" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fill object from two lists</p>
-<p>Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="k">as</span> <span class="nn">pypt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pypt</span><span class="o">.</span><span class="n">SimData</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pos</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="mf">0.4</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;0101&quot;</span><span class="p">,</span><span class="s2">&quot;1011&quot;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign_sep</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span><span class="n">data</span><span class="p">)</span>
-</pre></div>
-</div>
+<code class="descname">assign</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.PolyTable.assign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>assign(self: libsequence.polytable.PolyTable, arg0: List[Tuple[float, str]]) -&gt; None</li>
+</ol>
+<p>Assign data from a tuple of (position,data), where data are encoded as an str.</p>
+<ol class="arabic simple" start="2">
+<li>assign(self: libsequence.polytable.PolyTable, arg0: List[float], arg1: List[str]) -&gt; None</li>
+</ol>
+<p>Assign data from a list of positions and a  list of strings representing variable positions.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="libsequence.polytable.PolyTable.data">
-<code class="descname">data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.PolyTable.data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the genotype data</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<code class="descname">data</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#libsequence.polytable.PolyTable.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
 <dt id="libsequence.polytable.PolyTable.empty">
-<code class="descname">empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.PolyTable.empty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return True if sample size is 0</p>
+<code class="descname">empty</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#libsequence.polytable.PolyTable.empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether or not container is empty.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.polytable.PolyTable.numsites">
+<code class="descname">numsites</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.polytable.PolyTable.numsites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return number of variable sites (columns).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="libsequence.polytable.PolyTable.pos">
-<code class="descname">pos</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.PolyTable.pos" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the mutation positions</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
-</tr>
-</tbody>
-</table>
+<code class="descname">pos</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="headerlink" href="#libsequence.polytable.PolyTable.pos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libsequence.polytable.PolyTable.position">
+<code class="descname">position</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em>, <em>i: int</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.polytable.PolyTable.position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return value of the i-th position.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="libsequence.polytable.PolyTable.size">
-<code class="descname">size</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.PolyTable.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the sample size of the polymorphism table</p>
+<code class="descname">size</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.polytable.PolyTable.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return number of elements (rows).</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.polytable.PolyTable.tolist">
-<code class="descname">tolist</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.PolyTable.tolist" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return data as list of tuples.</p>
+<dt id="libsequence.polytable.PolyTable.swap">
+<code class="descname">swap</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em>, <em>arg0: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.polytable.PolyTable.swap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Swap data with another polymorphism table</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="libsequence.polytable.SimData">
-<em class="property">class </em><code class="descclassname">libsequence.polytable.</code><code class="descname">SimData</code><a class="headerlink" href="#libsequence.polytable.SimData" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">libsequence.polytable.</code><code class="descname">SimData</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.SimData" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></p>
 <p>A polymorphism table for binary data.  0/1 = ancestral/derived.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">See <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></p>
-</div>
-<p>Constructor</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>x</strong> &#8211; A list</li>
-<li><strong>y</strong> &#8211; A list</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>If x is None and y is None, and empty object is created.</p>
-<p>If y is None, x must be a list of tuples (position, &#8220;string&#8221;)</p>
-<p>if neither x nor y are None, x is a list of positions, and y a list of haplotypes.</p>
-<p>Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="k">as</span> <span class="nn">polyt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">SimData</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">SimData</span><span class="p">(</span> <span class="p">[</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span><span class="s2">&quot;0101&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s2">&quot;1010&quot;</span><span class="p">)</span> <span class="p">]</span> <span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">polyt</span><span class="o">.</span><span class="n">SimData</span><span class="p">(</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">],[</span><span class="s2">&quot;01&quot;</span><span class="p">,</span><span class="s2">&quot;10&quot;</span><span class="p">,</span><span class="s2">&quot;01&quot;</span><span class="p">,</span><span class="s2">&quot;10&quot;</span><span class="p">]</span> <span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="libsequence.polytable.freqFilter">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">freqFilter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.freqFilter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove all sites with mutation count &lt;= mincount</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>p</strong> &#8211; An object derived from <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></li>
-<li><strong>mincount</strong> &#8211; Sites with mutation counts &lt;= this value will be removed.  For example, use a value of 2 to remove singletons</li>
-<li><strong>haveOutgroup</strong> &#8211; if True, the sequence at position &#8216;outgroup&#8217; will not be included in determining if a site is monomorphic</li>
-<li><strong>outgroup</strong> &#8211; The index of the outgroup sequence in p</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">If haveOutgroup == True, this is a filter on derived mutation counts, otherwise it is a filter on minor allele counts.  If p is of type <code class="xref py py-class docutils literal"><span class="pre">libsequence.PolyTable.SimData</span></code>, this is a filter on derived mutation counts.</p>
-</div>
+<p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: libsequence.polytable.SimData, arg0: List[float], arg1: List[str]) -&gt; None</li>
+<li>__init__(self: libsequence.polytable.SimData) -&gt; None</li>
+<li>__init__(self: libsequence.polytable.SimData, arg0: List[Tuple[float, str]]) -&gt; None</li>
+</ol>
 </dd></dl>
 
 <dl class="function">
 <dt id="libsequence.polytable.isValid">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">isValid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.isValid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return True if p only contains the characters A,C,G,T,N,-,0,1.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> &#8211; An object derived from <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This is not case-sensitive</p>
-</div>
-<p>Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="k">as</span> <span class="nn">pypt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pypt</span><span class="o">.</span><span class="n">PolySites</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign_sep</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],[</span><span class="s2">&quot;ATC&quot;</span><span class="p">,</span><span class="s2">&quot;CGA&quot;</span><span class="p">,</span><span class="s2">&quot;AT-&quot;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pypt</span><span class="o">.</span><span class="n">isValid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="go">True</span>
-</pre></div>
-</div>
-<p>Now, Z is not a valid character:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign_sep</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],[</span><span class="s2">&quot;ATC&quot;</span><span class="p">,</span><span class="s2">&quot;CGA&quot;</span><span class="p">,</span><span class="s2">&quot;ATZ&quot;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pypt</span><span class="o">.</span><span class="n">isValid</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="go">False</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="libsequence.polytable.readSimData">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">readSimData</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.readSimData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Read a <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> from the standard
-input stream.</p>
-<p>Intended use would be writing a program to read data in from a pipe.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="kn">as</span> <span class="nn">pt</span>
-<span class="n">d</span><span class="o">=</span><span class="n">pt</span><span class="o">.</span><span class="n">SimData</span><span class="p">()</span>
-<span class="k">while</span> <span class="n">pt</span><span class="o">.</span><span class="n">readSimData</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
-    <span class="k">print</span> <span class="n">d</span><span class="o">.</span><span class="n">numsites</span><span class="p">()</span>
-</pre></div>
-</div>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if object could be read, False if stream is empty</td>
-</tr>
-</tbody>
-</table>
+<code class="descclassname">libsequence.polytable.</code><code class="descname">isValid</code><span class="sig-paren">(</span><em>arg0: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#libsequence.polytable.isValid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True/False if a polymorphism table is/isn’t valid for further analysis.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="libsequence.polytable.removeAmbiguous">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">removeAmbiguous</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeAmbiguous" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove all sites with characters not in the set A,G,C,T,N,0,1,-.</p>
+<code class="descclassname">libsequence.polytable.</code><code class="descname">removeAmbiguous</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeAmbiguous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>removeAmbiguous(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
+<li>removeAmbiguous(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
+</ol>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.polytable.removeColumns">
+<code class="descclassname">libsequence.polytable.</code><code class="descname">removeColumns</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeColumns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic">
+<li><p class="first">removeColumns(arg0: libsequence.polytable.SimData, arg1: Callable[[Sequence::stateCounter], bool]) -&gt; libsequence.polytable.SimData</p>
+<blockquote>
+<div><p>Remove columns from a <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> 
+based on a function taking a <a class="reference internal" href="#libsequence.summstats.StateCounter" title="libsequence.summstats.StateCounter"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.StateCounter</span></code></a>
+as an argument.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>p</strong> &#8211; An object derived from <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></li>
-<li><strong>skipOutgroup</strong> &#8211; if True, the sequence at position &#8216;outgroup&#8217; will not be included in determining if a site is monomorphic</li>
-<li><strong>outgroup</strong> &#8211; The index of the outgroup sequence in p</li>
-</ul>
+<tr class="field-odd field"><th class="field-name">param p:</th><td class="field-body">A <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param f:</th><td class="field-body">A callable taking a <a class="reference internal" href="#libsequence.summstats.StateCounter" title="libsequence.summstats.StateCounter"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.StateCounter</span></code></a> and returning True/False.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">A <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Sites are kept for which the callable returns False</p>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">removeColumns(d: libsequence.polytable.PolySites, fxn: Callable[[Sequence::stateCounter], bool], skip_ancestral: bool=False, anc: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</p>
+<blockquote>
+<div><p>Remove columns from a <a class="reference internal" href="#libsequence.polytable.PolySites" title="libsequence.polytable.PolySites"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolySites</span></code></a> 
+based on a function taking a <a class="reference internal" href="#libsequence.summstats.StateCounter" title="libsequence.summstats.StateCounter"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.StateCounter</span></code></a>
+as an argument.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param p:</th><td class="field-body"><p class="first">A <a class="reference internal" href="#libsequence.polytable.PolySites" title="libsequence.polytable.PolySites"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolySites</span></code></a>.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param f:</th><td class="field-body"><p class="first">A callable taking a <a class="reference internal" href="#libsequence.summstats.StateCounter" title="libsequence.summstats.StateCounter"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.StateCounter</span></code></a> and returning True/False.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param skip_ancestral:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">(False) Whether to skip ancestral sequence.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param anc:</th><td class="field-body"><ol class="first arabic simple" start="0">
+<li>Index of ancestral sequence.</li>
+</ol>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param gapchar:</th><td class="field-body"><p class="first">(‘-‘) The gap character.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body"><p class="first last">A <a class="reference internal" href="#libsequence.polytable.PolySites" title="libsequence.polytable.PolySites"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolySites</span></code></a>.</p>
 </td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Sites are kept for which the callable returns False</p>
+</div>
+</div></blockquote>
+</li>
+</ol>
 </dd></dl>
 
 <dl class="function">
 <dt id="libsequence.polytable.removeGaps">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">removeGaps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeGaps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove all sites (columns) with gaps.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>p</strong> &#8211; An object derived from <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></li>
-<li><strong>gapchar</strong> &#8211; the character representing an alignment gap</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.polytable</span> <span class="k">as</span> <span class="nn">pypt</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pypt</span><span class="o">.</span><span class="n">PolySites</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">assign_sep</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.3</span><span class="p">],[</span><span class="s2">&quot;ATC&quot;</span><span class="p">,</span><span class="s2">&quot;CGA&quot;</span><span class="p">,</span><span class="s2">&quot;AT-&quot;</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">pypt</span><span class="o">.</span><span class="n">removeGaps</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">pos</span><span class="p">()</span>
-<span class="go">[0.1, 0.2]</span>
-</pre></div>
-</div>
+<code class="descclassname">libsequence.polytable.</code><code class="descname">removeGaps</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeGaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>removeGaps(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
+<li>removeGaps(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
+</ol>
 </dd></dl>
 
 <dl class="function">
 <dt id="libsequence.polytable.removeMissing">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">removeMissing</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeMissing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove all sites missing data (the &#8216;N&#8217; or &#8216;n&#8217; character)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>p</strong> &#8211; An object derived from <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></li>
-<li><strong>mincount</strong> &#8211; Sites with mutation counts &lt;= this value will be removed.  For example, use a value of 2 to remove singletons</li>
-<li><strong>skipOutgroup</strong> &#8211; if True, the sequence at position &#8216;outgroup&#8217; will not be included in determining if a site is monomorphic</li>
-<li><strong>outgroup</strong> &#8211; The index of the outgroup sequence in p</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<code class="descclassname">libsequence.polytable.</code><code class="descname">removeMissing</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeMissing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>removeMissing(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
+<li>removeMissing(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
+</ol>
 </dd></dl>
 
 <dl class="function">
 <dt id="libsequence.polytable.removeMono">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">removeMono</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeMono" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove invariant sites from p</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>p</strong> &#8211; An object derived from <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></li>
-<li><strong>skipOutgroup</strong> &#8211; if True, the sequence at position &#8216;outgroup&#8217; will not be included in determining if a site is monomorphic</li>
-<li><strong>outgroup</strong> &#8211; The index of the outgroup sequence in p</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<code class="descclassname">libsequence.polytable.</code><code class="descname">removeMono</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeMono" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>removeMono(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
+<li>removeMono(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
+</ol>
 </dd></dl>
 
 <dl class="function">
 <dt id="libsequence.polytable.removeMultiHits">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">removeMultiHits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeMultiHits" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove all sites with more than two character states.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>p</strong> &#8211; An object derived from <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></li>
-<li><strong>skipOutgroup</strong> &#8211; if True, the sequence at position &#8216;outgroup&#8217; will not be included in determining if a site is monomorphic</li>
-<li><strong>outgroup</strong> &#8211; The index of the outgroup sequence in p</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<code class="descclassname">libsequence.polytable.</code><code class="descname">removeMultiHits</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeMultiHits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>removeMultiHits(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
+<li>removeMultiHits(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
+</ol>
 </dd></dl>
 
-<span class="target" id="module-libsequence.summstats"></span><dl class="class">
+<span class="target" id="module-libsequence.summstats"></span><p>Summary statistics</p>
+<dl class="class">
 <dt id="libsequence.summstats.PolySIM">
-<em class="property">class </em><code class="descclassname">libsequence.summstats.</code><code class="descname">PolySIM</code><a class="headerlink" href="#libsequence.summstats.PolySIM" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>&#8220;Factory&#8221; class to calculate summary statistics from binary data.</p>
-<p>This is a wrapper around libsequence&#8217;s Sequence::PolySIM</p>
-<p>These objects are constructed from <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a></p>
-<div class="admonition note">
+<em class="property">class </em><code class="descclassname">libsequence.summstats.</code><code class="descname">PolySIM</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySIM</em>, <em>arg0: libsequence.polytable.SimData</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.summstats.PolySIM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#libsequence.summstats.PolySNP" title="libsequence.summstats.PolySNP"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.PolySNP</span></code></a></p>
+<p>Class to calculate summary statistics for 0/1-encoded data
+in a <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> object.</p>
+<blockquote>
+<div><div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">0/1 = ancestral/derived</p>
+<p class="last">Public API shared with <a class="reference internal" href="#libsequence.summstats.PolySNP" title="libsequence.summstats.PolySNP"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.PolySNP</span></code></a>.</p>
 </div>
+</div></blockquote>
+</dd></dl>
+
+<dl class="class">
+<dt id="libsequence.summstats.PolySNP">
+<em class="property">class </em><code class="descclassname">libsequence.summstats.</code><code class="descname">PolySNP</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em>, <em>pt: libsequence.polytable.PolyTable</em>, <em>haveOutgroup: bool=False</em>, <em>outgroup: int=0</em>, <em>totMuts: bool=True</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.summstats.PolySNP" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<p>Class to calculate summary statistics.</p>
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.fulid">
-<code class="descname">fulid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.fulid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fu and Li&#8217;s D</p>
+<dt id="libsequence.summstats.PolySNP.fulid">
+<code class="descname">fulid</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.PolySNP.fulid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fu and Li’s D</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.fulidstar">
-<code class="descname">fulidstar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.fulidstar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fu and Li&#8217;s D*</p>
+<dt id="libsequence.summstats.PolySNP.fulidstar">
+<code class="descname">fulidstar</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.PolySNP.fulidstar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fu and Li’s D*</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.fulif">
-<code class="descname">fulif</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.fulif" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fu and Li&#8217;s F</p>
+<dt id="libsequence.summstats.PolySNP.fulif">
+<code class="descname">fulif</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.PolySNP.fulif" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fi and Li’s F</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.fulifstar">
-<code class="descname">fulifstar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.fulifstar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fu and Li&#8217;s F*</p>
+<dt id="libsequence.summstats.PolySNP.fulifstar">
+<code class="descname">fulifstar</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.PolySNP.fulifstar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fu and Li’s F*</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.hapdiv">
-<code class="descname">hapdiv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.hapdiv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Haplotype diversity of the sample.
-Depaulis and Veuille&#8217;s H statistic.</p>
+<dt id="libsequence.summstats.PolySNP.hapdiv">
+<code class="descname">hapdiv</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.PolySNP.hapdiv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Haplotype diversity</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.hprime">
-<code class="descname">hprime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.hprime" title="Permalink to this definition">¶</a></dt>
-<dd><p>Normalized version of Fay and Wu&#8217;s H statistic</p>
+<dt id="libsequence.summstats.PolySNP.hprime">
+<code class="descname">hprime</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em>, <em>likeThorntonAndolfatto: bool=False</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.PolySNP.hprime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalized version of Fay and Wu’s <span class="math">\(\hat\theta_H\)</span></p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.nhaps">
-<code class="descname">nhaps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.nhaps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of haplotypes in the sample.
-Depaulis and Veuille&#8217;s K statistic.</p>
+<dt id="libsequence.summstats.PolySNP.nhaps">
+<code class="descname">nhaps</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.summstats.PolySNP.nhaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of haplotypes</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.numexternalmutations">
-<code class="descname">numexternalmutations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.numexternalmutations" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of derived mutations (character state 1)</p>
+<dt id="libsequence.summstats.PolySNP.numexternalmutations">
+<code class="descname">numexternalmutations</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.summstats.PolySNP.numexternalmutations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of derived singletons.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.nummutations">
-<code class="descname">nummutations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.nummutations" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of mutations in sample.</p>
-<p>For this class, this is the same as the number of polymorphic sites</p>
+<dt id="libsequence.summstats.PolySNP.numpoly">
+<code class="descname">numpoly</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.summstats.PolySNP.numpoly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of variable positions.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.numpoly">
-<code class="descname">numpoly</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.numpoly" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of poylmorphic sites in sample</p>
+<dt id="libsequence.summstats.PolySNP.numsingletons">
+<code class="descname">numsingletons</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.summstats.PolySNP.numsingletons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of singletons.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.numsingletons">
-<code class="descname">numsingletons</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.numsingletons" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of singletons (character states 0 or 1)</p>
+<dt id="libsequence.summstats.PolySNP.rm">
+<code class="descname">rm</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.summstats.PolySNP.rm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hudson and Kaplan’s lower bound on the number of recombination events.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.rm">
-<code class="descname">rm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.rm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hudson and Kaplan&#8217;s lower bound on no. crossover events</p>
+<dt id="libsequence.summstats.PolySNP.tajimasd">
+<code class="descname">tajimasd</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.PolySNP.tajimasd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tajima’s D.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.tajimasd">
-<code class="descname">tajimasd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.tajimasd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tajima&#8217;s (1989) D statistics</p>
+<dt id="libsequence.summstats.PolySNP.thetah">
+<code class="descname">thetah</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.PolySNP.thetah" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fay and Wu’s <span class="math">\(\hat\theta_H\)</span></p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.thetah">
-<code class="descname">thetah</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.thetah" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fay and Wu&#8217;s estimator of <span class="math">\(\theta\)</span>.</p>
+<dt id="libsequence.summstats.PolySNP.thetal">
+<code class="descname">thetal</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.PolySNP.thetal" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math">\(\hat\theta\)</span> from site homozygosity. See eqn. 1 of PMC1456302.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.thetal">
-<code class="descname">thetal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.thetal" title="Permalink to this definition">¶</a></dt>
-<dd><p>Normalized version of Fay and Wu&#8217;s estimator of <span class="math">\(\theta\)</span>.</p>
+<dt id="libsequence.summstats.PolySNP.thetapi">
+<code class="descname">thetapi</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.PolySNP.thetapi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sum of site heterozygosity/mean pairwise differences.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.thetapi">
-<code class="descname">thetapi</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.thetapi" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#8220;Sum of site heterozygosity.&#8221;  <span class="math">\(\hat\theta_\pi = \sum_i^S\frac{c}{n}\frac{n-c-1}{n-1}\)</span>,
-where <span class="math">\(S\)</span> is the number of polymorphisms and <span class="math">\(n\)</span> is the sample size.</p>
+<dt id="libsequence.summstats.PolySNP.thetaw">
+<code class="descname">thetaw</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.PolySNP.thetaw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Watterson’s <span class="math">\(\hat\theta\)</span></p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.thetaw">
-<code class="descname">thetaw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.thetaw" title="Permalink to this definition">¶</a></dt>
-<dd><p>Watterson&#8217;s estimator of <span class="math">\(\theta\)</span> from <span class="math">\(S\)</span></p>
+<dt id="libsequence.summstats.PolySNP.wallsb">
+<code class="descname">wallsb</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.PolySNP.wallsb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wall’s B</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.wallsb">
-<code class="descname">wallsb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.wallsb" title="Permalink to this definition">¶</a></dt>
-<dd><p>Jeff Wall&#8217;s B statistic</p>
+<dt id="libsequence.summstats.PolySNP.wallsbprime">
+<code class="descname">wallsbprime</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.summstats.PolySNP.wallsbprime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wall’s B’</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySIM.wallsbprime">
-<code class="descname">wallsbprime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.wallsbprime" title="Permalink to this definition">¶</a></dt>
-<dd><p>Jeff Wall&#8217;s B&#8217; statistic</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySIM.wallsq">
-<code class="descname">wallsq</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySIM.wallsq" title="Permalink to this definition">¶</a></dt>
-<dd><p>Jeff Wall&#8217;s Q statistic</p>
+<dt id="libsequence.summstats.PolySNP.wallsq">
+<code class="descname">wallsq</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.PolySNP.wallsq" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wall’s Q</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="libsequence.summstats.PolySNP">
-<em class="property">class </em><code class="descclassname">libsequence.summstats.</code><code class="descname">PolySNP</code><a class="headerlink" href="#libsequence.summstats.PolySNP" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>&#8220;Factory&#8221; class to calculate summary statistics from nucleotide data.</p>
-<p>This is a wrapper around libsequence&#8217;s Sequence::PolySNP</p>
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.fulid">
-<code class="descname">fulid</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.fulid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fu and Li&#8217;s D</p>
+<dt id="libsequence.summstats.StateCounter">
+<em class="property">class </em><code class="descclassname">libsequence.summstats.</code><code class="descname">StateCounter</code><span class="sig-paren">(</span><em>self: libsequence.summstats.StateCounter</em>, <em>gapchar: str=’-‘</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.summstats.StateCounter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<p>Tally up the number of occurrences of value polymorphism characters at a site.</p>
+<dl class="attribute">
+<dt id="libsequence.summstats.StateCounter.a">
+<code class="descname">a</code><a class="headerlink" href="#libsequence.summstats.StateCounter.a" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of times ‘A’ or ‘a’ was seen at a site.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libsequence.summstats.StateCounter.c">
+<code class="descname">c</code><a class="headerlink" href="#libsequence.summstats.StateCounter.c" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of times ‘C’ or ‘c’ was seen at a site.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libsequence.summstats.StateCounter.g">
+<code class="descname">g</code><a class="headerlink" href="#libsequence.summstats.StateCounter.g" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of times ‘G’ or ‘g’ was seen at a site.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libsequence.summstats.StateCounter.ndna">
+<code class="descname">ndna</code><a class="headerlink" href="#libsequence.summstats.StateCounter.ndna" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of times a non-DNA character was seen at a site.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.summstats.PolySNP.fulidstar">
-<code class="descname">fulidstar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.fulidstar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fu and Li&#8217;s D*</p>
+<dt id="libsequence.summstats.StateCounter.nstates">
+<code class="descname">nstates</code><span class="sig-paren">(</span><em>self: libsequence.summstats.StateCounter</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.summstats.StateCounter.nstates" title="Permalink to this definition">¶</a></dt>
+<dd><p>The total number of character states observed at a site.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.fulif">
-<code class="descname">fulif</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.fulif" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fu and Li&#8217;s F</p>
+<dl class="attribute">
+<dt id="libsequence.summstats.StateCounter.one">
+<code class="descname">one</code><a class="headerlink" href="#libsequence.summstats.StateCounter.one" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of times ‘1’ was seen at a site.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.fulifstar">
-<code class="descname">fulifstar</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.fulifstar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fu and Li&#8217;s F*</p>
+<dl class="attribute">
+<dt id="libsequence.summstats.StateCounter.t">
+<code class="descname">t</code><a class="headerlink" href="#libsequence.summstats.StateCounter.t" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of times ‘T’ or ‘t’ was seen at a site.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.hapdiv">
-<code class="descname">hapdiv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.hapdiv" title="Permalink to this definition">¶</a></dt>
-<dd><p>Haplotype diversity of the sample.
-Depaulis and Veuille&#8217;s H statistic.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.hprime">
-<code class="descname">hprime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.hprime" title="Permalink to this definition">¶</a></dt>
-<dd><p>Normalized version of Fay and Wu&#8217;s H statistic</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.nhaps">
-<code class="descname">nhaps</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.nhaps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of haplotypes in the sample.
-Depaulis and Veuille&#8217;s K statistic.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.numexternalmutations">
-<code class="descname">numexternalmutations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.numexternalmutations" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of derived mutations</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.nummutations">
-<code class="descname">nummutations</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.nummutations" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of mutations in sample.</p>
-<p>For this class, if there are k states at a site, there are k-1 mutations</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.numpoly">
-<code class="descname">numpoly</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.numpoly" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of poylmorphic sites in sample</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.numsingletons">
-<code class="descname">numsingletons</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.numsingletons" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of singletons (ancsetral or derived)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.rm">
-<code class="descname">rm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.rm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hudson and Kaplan&#8217;s lower bound on no. crossover events</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.tajimasd">
-<code class="descname">tajimasd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.tajimasd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tajima&#8217;s (1989) D statistics</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.thetah">
-<code class="descname">thetah</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.thetah" title="Permalink to this definition">¶</a></dt>
-<dd><p>Fay and Wu&#8217;s estimator of <span class="math">\(\theta\)</span>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.thetal">
-<code class="descname">thetal</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.thetal" title="Permalink to this definition">¶</a></dt>
-<dd><p>Normalized version of Fay and Wu&#8217;s estimator of <span class="math">\(\theta\)</span>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.thetapi">
-<code class="descname">thetapi</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.thetapi" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#8220;Sum of site heterozygosity.&#8221;  <span class="math">\(\hat\theta_\pi = \sum_i^S\frac{c}{n}\frac{n-c-1}{n-1}\)</span>,
-where <span class="math">\(S\)</span> is the number of polymorphisms and <span class="math">\(n\)</span> is the sample size.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.thetaw">
-<code class="descname">thetaw</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.thetaw" title="Permalink to this definition">¶</a></dt>
-<dd><p>Watterson&#8217;s estimator of <span class="math">\(\theta\)</span> from <span class="math">\(S\)</span></p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.wallsb">
-<code class="descname">wallsb</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.wallsb" title="Permalink to this definition">¶</a></dt>
-<dd><p>Jeff Wall&#8217;s B statistic</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.wallsbprime">
-<code class="descname">wallsbprime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.wallsbprime" title="Permalink to this definition">¶</a></dt>
-<dd><p>Jeff Wall&#8217;s B&#8217; statistic</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.summstats.PolySNP.wallsq">
-<code class="descname">wallsq</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.PolySNP.wallsq" title="Permalink to this definition">¶</a></dt>
-<dd><p>Jeff Wall&#8217;s Q statistic</p>
+<dl class="attribute">
+<dt id="libsequence.summstats.StateCounter.zero">
+<code class="descname">zero</code><a class="headerlink" href="#libsequence.summstats.StateCounter.zero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of times ‘0’ was seen at a site.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="libsequence.summstats.garudStats">
-<code class="descclassname">libsequence.summstats.</code><code class="descname">garudStats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.garudStats" title="Permalink to this definition">¶</a></dt>
-<dd><p>Statistics from Garud et al. doi:10.1371/journal.pgen.1005004.g011</p>
+<code class="descclassname">libsequence.summstats.</code><code class="descname">garudStats</code><span class="sig-paren">(</span><em>d: libsequence.polytable.SimData</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#libsequence.summstats.garudStats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the H1, H12, and H2/H1 statistics from PMC4338236 as a dict.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>pt</strong> &#8211; A <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The H1, H12, and H2/H1 statistics</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dict</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>d</strong> – A <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a>.</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Only <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> types currently supported</p>
-</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="libsequence.summstats.ld">
-<code class="descclassname">libsequence.summstats.</code><code class="descname">ld</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.ld" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pairwise &#8220;linkage disequilibrium&#8221; (LD) statistics</p>
+<code class="descclassname">libsequence.summstats.</code><code class="descname">ld</code><span class="sig-paren">(</span><em>p: libsequence.polytable.PolyTable</em>, <em>have_outgroup: bool=False</em>, <em>outgroup: int=0</em>, <em>mincount: int=1</em>, <em>maxd: float=1.7976931348623157e+308</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libsequence.summstats.ld" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return pairwise LD statistics.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>p</strong> &#8211; A <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></li>
-<li><strong>haveOutgroup</strong> &#8211; if True, then ougtroup is the index of the outroup sequence in p</li>
-<li><strong>outgroup</strong> &#8211; The index of the outgroup sequence in p.  Not used if haveOutgroup is False</li>
-<li><strong>mincount</strong> &#8211; Ignore site pairs where one or both sites have minor alleles occur &lt; mincount times</li>
-<li><strong>maxDist</strong> &#8211; Do not consider pairs of sites &gt; maxDist units apart.  Default will be the maximum value of a C/C++ double.</li>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>p</strong> – A <a class="reference internal" href="#libsequence.polytable.PolySites" title="libsequence.polytable.PolySites"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolySites</span></code></a> or <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a>.</li>
+<li><strong>have_outgroup</strong> – (False) Boolean–is outgroup sequence present in p?</li>
+<li><strong>outgroup</strong> – <ol class="arabic" start="0">
+<li>The index of the outgroup sequence in p.</li>
+</ol>
+</li>
+<li><strong>mincount</strong> – Do not include site pairs with MAF &lt; mincount.</li>
+<li><strong>maxd</strong> – Do not include site pairs separated by &gt;= maxd.</li>
 </ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list of dict</p>
 </td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">This function skips sites with missing data, gaps, etc.</p>
-</div>
 </dd></dl>
 
 <dl class="function">
 <dt id="libsequence.summstats.lhaf">
-<code class="descclassname">libsequence.summstats.</code><code class="descname">lhaf</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.lhaf" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">libsequence.summstats.</code><code class="descname">lhaf</code><span class="sig-paren">(</span><em>arg0: libsequence.polytable.SimData</em>, <em>arg1: float</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="headerlink" href="#libsequence.summstats.lhaf" title="Permalink to this definition">¶</a></dt>
 <dd><p><span class="math">\(l-HAF\)</span> from Ronen et al. DOI:10.1371/journal.pgen.1005527</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>pt</strong> &#8211; A <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></li>
-<li><strong>l</strong> &#8211; The scaling factor for the statistic. See paper for details.</li>
+<li><strong>pt</strong> – A <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></li>
+<li><strong>l</strong> – The scaling factor for the statistic. See paper for details.</li>
 </ul>
 </td>
 </tr>
@@ -753,127 +539,144 @@ where <span class="math">\(S\)</span> is the number of polymorphisms and <span c
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Only <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> types currently supported</p>
+<p class="last">Only <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> types currently supported.</p>
 </div>
 </dd></dl>
 
 <dl class="function">
 <dt id="libsequence.summstats.nSLiHS">
-<code class="descclassname">libsequence.summstats.</code><code class="descname">nSLiHS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.nSLiHS" title="Permalink to this definition">¶</a></dt>
-<dd><p>&#8220;Raw&#8221;/unstandardized <span class="math">\(nS_L\)</span> and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.</p>
+<code class="descclassname">libsequence.summstats.</code><code class="descname">nSLiHS</code><span class="sig-paren">(</span><em>d: libsequence.polytable.SimData</em>, <em>core_snps: object=None</em>, <em>gmap: object=None</em><span class="sig-paren">)</span> &#x2192; List[Tuple[float, float, int]]<a class="headerlink" href="#libsequence.summstats.nSLiHS" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>“Raw”/unstandardized <span class="math">\(nS_L\)</span> and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>pt</strong> &#8211; A <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></li>
-<li><strong>gmap</strong> &#8211; A dictionary relating eacy position in pt to its location on a genetic map.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A list of (nSL,iHS) tuples</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
-</td>
+<tr class="field-odd field"><th class="field-name">param pt:</th><td class="field-body">A <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></td>
 </tr>
 </tbody>
 </table>
+</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>core_snps</strong> – <p>(None) Indexes of SNPs to analyze as “core” SNPs.
+:param gmap: (None) A dictionary relating each position in pt to its location on a genetic map.
+:return: A list of (nSL,iHS) tuples
+:rtype: list</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">Only <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> types currently supported</p>
 </div>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
-<dl class="function">
-<dt id="libsequence.summstats.std_nSLiHS">
-<code class="descclassname">libsequence.summstats.</code><code class="descname">std_nSLiHS</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.std_nSLiHS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Standardized <span class="math">\(nS_L\)</span> statistic from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>pt</strong> &#8211; A <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></li>
-<li><strong>minfreq</strong> &#8211; Ignore markers with frequency &lt; this value</li>
-<li><strong>binsize</strong> &#8211; Standardize statistic in frequency bins of this width</li>
-<li><strong>gmap</strong> &#8211; A dictionary relating eacy position in pt to its location on a genetic map.</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">A tuple. The first value is max standardized nSL over all bins.  The second is max iHS over all bins, where iHS is calculated according to Ferrer-Admetlla et al. The maximums are calculated based on absolute value.</p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Only <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> types currently supported</p>
-</div>
+<span class="target" id="module-libsequence.fst"></span><p>Fst</p>
+<dl class="class">
+<dt id="libsequence.fst.Fst">
+<em class="property">class </em><code class="descclassname">libsequence.fst.</code><code class="descname">Fst</code><a class="headerlink" href="#libsequence.fst.Fst" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<p>__init__(<a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs)
+Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: libsequence.fst.Fst, polytable: libsequence.polytable.PolyTable, config: List[int], haveOutgroup: bool=False, outgroup: int=0) -&gt; None</li>
+<li>__init__(self: libsequence.fst.Fst, polytable: libsequence.polytable.PolyTable, config: List[int], weights: List[float], haveOutgroup: bool=False, outgroup: int=0) -&gt; None</li>
+</ol>
+<dl class="method">
+<dt id="libsequence.fst.Fst.fixed">
+<code class="descname">fixed</code><span class="sig-paren">(</span><em>self: libsequence.fst.Fst</em>, <em>arg0: int</em>, <em>arg1: int</em><span class="sig-paren">)</span> &#x2192; Set[float]<a class="headerlink" href="#libsequence.fst.Fst.fixed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libsequence.fst.Fst.hbk">
+<code class="descname">hbk</code><span class="sig-paren">(</span><em>self: libsequence.fst.Fst</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.fst.Fst.hbk" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hudson, Boos, Kaplan (1992) MBE</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.fst.Fst.hsm">
+<code class="descname">hsm</code><span class="sig-paren">(</span><em>self: libsequence.fst.Fst</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.fst.Fst.hsm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hudson, Slatkin, Maddison (1992) Genetics</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.fst.Fst.piB">
+<code class="descname">piB</code><span class="sig-paren">(</span><em>self: libsequence.fst.Fst</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.fst.Fst.piB" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math">\(\pi_B= \frac{\sum_{i&lt;j}w_i w_j \pi_{ij}}{\sum_{i&lt;j}w_i w_j}\)</span></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.fst.Fst.piD">
+<code class="descname">piD</code><span class="sig-paren">(</span><em>self: libsequence.fst.Fst</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.fst.Fst.piD" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math">\(\pi_D = \frac{\pi_T - \pi_S}{2 \sum_{i&lt;j}w_i w_j}\)</span></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.fst.Fst.piS">
+<code class="descname">piS</code><span class="sig-paren">(</span><em>self: libsequence.fst.Fst</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.fst.Fst.piS" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math">\(\pi_S = \frac{\sum_i w_i^2 \pi_{ii}}{\sum_i w_i^2}\)</span></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.fst.Fst.piT">
+<code class="descname">piT</code><span class="sig-paren">(</span><em>self: libsequence.fst.Fst</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.fst.Fst.piT" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math">\(\pi_T = \sum_i w_i^2 \pi_{ii} + 2\sum_{i&lt;j}w_i w_j \pi_{ij}\)</span></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.fst.Fst.priv">
+<code class="descname">priv</code><span class="sig-paren">(</span><em>self: libsequence.fst.Fst</em>, <em>arg0: int</em>, <em>arg1: int</em><span class="sig-paren">)</span> &#x2192; Tuple[Set[float], Set[float]]<a class="headerlink" href="#libsequence.fst.Fst.priv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libsequence.fst.Fst.shared">
+<code class="descname">shared</code><span class="sig-paren">(</span><em>self: libsequence.fst.Fst</em>, <em>arg0: int</em>, <em>arg1: int</em><span class="sig-paren">)</span> &#x2192; Set[float]<a class="headerlink" href="#libsequence.fst.Fst.shared" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libsequence.fst.Fst.slatkin">
+<code class="descname">slatkin</code><span class="sig-paren">(</span><em>self: libsequence.fst.Fst</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.fst.Fst.slatkin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slatkin (1991) Genetics</p>
+</dd></dl>
+
 </dd></dl>
 
 <span class="target" id="module-libsequence.windows"></span><dl class="class">
 <dt id="libsequence.windows.Windows">
-<em class="property">class </em><code class="descclassname">libsequence.windows.</code><code class="descname">Windows</code><a class="headerlink" href="#libsequence.windows.Windows" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">libsequence.windows.</code><code class="descname">Windows</code><span class="sig-paren">(</span><em>pt</em>, <em>window_size</em>, <em>step_len</em>, <em>starting_pos=0.0</em>, <em>ending_pos=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsequence/windows.html#Windows"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libsequence.windows.Windows" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
 <p>An iterable list of sliding windows created from a <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></p>
-</dd></dl>
-
-<span class="target" id="module-libsequence.extensions"></span><dl class="class">
-<dt id="libsequence.extensions.SimDataVec">
-<em class="property">class </em><code class="descclassname">libsequence.extensions.</code><code class="descname">SimDataVec</code><a class="headerlink" href="#libsequence.extensions.SimDataVec" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
-<p>Wrapper for std::vector&lt;Sequence::SimData&gt; (not the Cython extension 
-class libsequence.polytable.SimData!!)</p>
-<p>This type is useful in the event that you want to process data
-sets in parallel using OpenMP.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">The use case for this type is a Cython-based package extending pylibseq.</p>
-</div>
-<p>Constructor.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>p</strong> &#8211; A list of a list of tuples representing the variation data.</td>
-</tr>
-</tbody>
-</table>
-<p>Example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.extensions</span> <span class="k">as</span> <span class="nn">le</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1">#Create a vector of 5 identical data sets</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1">#with 2 variable sites per data set.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="p">[[(</span><span class="mf">0.1</span><span class="p">,</span><span class="s2">&quot;00100&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s2">&quot;11000&quot;</span><span class="p">)]]</span><span class="o">*</span><span class="mi">5</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">SimDataVec</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</pre></div>
-</div>
 </dd></dl>
 
 <span class="target" id="module-libsequence.msprime"></span><dl class="function">
 <dt id="libsequence.msprime.make_SimData">
 <code class="descclassname">libsequence.msprime.</code><code class="descname">make_SimData</code><span class="sig-paren">(</span><em>g</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsequence/msprime.html#make_SimData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#libsequence.msprime.make_SimData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Construct a <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> from 
+<dd><p>Construct a <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> from
 the output of msprime.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>g</strong> &#8211; The output from msprime</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>g</strong> – The output from msprime</td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">Thanks to Jerome Kelleher for pointing out the quick implementation using msprime &gt;= 0.4.0.</p>
+<p class="last">Thanks to Jerome Kelleher for pointing out the
+quick implementation using msprime &gt;= 0.4.0.</p>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 0.2.0: </span>Much faster implementation via haplotypes in tree sequence</p>
 </div>
 <p>Example:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">msprime</span> <span class="k">as</span> <span class="nn">msp</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">libsequence.msprime</span> <span class="k">import</span> <span class="n">make_SimData</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">msp</span><span class="o">.</span><span class="n">Simulate</span><span class="p">(</span><span class="n">sample_size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span><span class="n">Ne</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span><span class="n">mutation_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="n">msp</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">sample_size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">Ne</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span>                         <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span>                          <span class="n">mutation_rate</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="mf">1e4</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">make_SimData</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -898,7 +701,7 @@ the output of msprime.</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Welcome to pylibseq&#8217;s documentation!</a><ul>
+<li><a class="reference internal" href="#">Welcome to pylibseq’s documentation!</a><ul>
 <li><a class="reference internal" href="#module-libsequence.polytable">Functions and classes</a></li>
 </ul>
 </li>
@@ -906,8 +709,8 @@ the output of msprime.</p>
 </ul>
 
   <h4>Next topic</h4>
-  <p class="topless"><a href="README.html"
-                        title="next chapter">pylibseq: Python bindings for libsequence</a></p>
+  <p class="topless"><a href="pages/overview.html"
+                        title="next chapter">Example workflow</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -939,14 +742,14 @@ the output of msprime.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="README.html" title="pylibseq: Python bindings for libsequence"
+          <a href="pages/overview.html" title="Example workflow"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.1.9post0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.2.0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Kevin Thornton.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.5.3.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
     </div>
   </body>
 </html>
