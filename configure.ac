@@ -45,7 +45,7 @@ dnl 2) package version (i.e. 1.2)
 dnl 3) bug/info/project email address (i.e. bug-foo@gnu.org)
 dnl----
 dnl
-AC_INIT([pylibseq], [0.1.9post0], [krthornt@uci.edu])
+AC_INIT([pylibseq], [0.2.0], [krthornt@uci.edu])
 
 
 dnl----
@@ -398,10 +398,10 @@ dnl Finish #
 dnl#########
 
 dnl Define the files to be configured
-AC_CONFIG_FILES([Makefile setup.py conf.py libsequence/__init__.py])
+AC_CONFIG_FILES([Makefile setup.py doc/conf.py libsequence/__init__.py])
 AC_CONFIG_HEADERS([config.h])
 
-MINLSEQVERSION="1.9.0"
+MINLSEQVERSION="1.9.2"
 AC_SUBST(MINLIBSEQ,$MINLSEQVERSION)
 LIBSEQVERSION=`libsequenceConfig --version`
 
@@ -418,14 +418,14 @@ fi
 AX_CXX_COMPILE_STDCXX_11([noext],[mandatory])
 AC_LANG(C++)
 
-AC_CHECK_HEADER(Sequence/SummStats/Garud.hpp, , [AC_MSG_ERROR([Sequence/SummStats/Garud.hpp not found. libsequence (www.molpopgen.org) >= 1.8.8 required.])])
-AC_CHECK_HEADER(Sequence/SummStats/lHaf.hpp, , [AC_MSG_ERROR([Sequence/SummStats/lHaf.hpp not found. libsequence (www.molpopgen.org) >= 1.8.8 required.])])
+AC_CHECK_HEADER(Sequence/SimData.hpp, , [AC_MSG_ERROR([Sequence/SimData.hpp not found. Please make sure that libsequence
+                                         is installed correctly and that your environment is configured correctly.])])
 
 dnl check for C++ libraries that are required
 AC_LANG_SAVE
           AC_LANG_CPLUSPLUS
           AC_REQUIRE_CPP
-          AC_CHECK_LIB(sequence, main,,[AC_MSG_ERROR([libsequence runtime library does not seem to be here])])
+          AC_CHECK_LIB(sequence, main,,[AC_MSG_ERROR([could not link to libsequence runtime library.])])
 AC_LANG_RESTORE
 
 

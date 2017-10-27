@@ -11,11 +11,9 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   README
-   doc/overview
-   doc/parallel
-   doc/lifetimes
-   doc/extending
+   pages/overview
+   pages/parallel
+   pages/lifetimes
 
 Functions and classes
 ##########################################
@@ -28,11 +26,11 @@ Functions and classes
    :members:
    :show-inheritance:
 
-.. automodule:: libsequence.windows 
+.. automodule:: libsequence.fst
    :members:
    :show-inheritance:
 
-.. automodule:: libsequence.extensions
+.. automodule:: libsequence.windows 
    :members:
    :show-inheritance:
 
