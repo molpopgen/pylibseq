@@ -188,5 +188,8 @@ setup(
     install_requires=['pybind11>=2.1.1'],
     cmdclass={'build_ext': BuildExt},
     packages=PKGS,
+    entry_points={
+        'console_scripts': ['pymsstats = libsequence.msstats_cli:msstats_main']
+    },
     zip_safe=False,
 )
