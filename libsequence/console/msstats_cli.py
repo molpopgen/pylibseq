@@ -39,7 +39,7 @@ def msstats_main(arg_list=None):
     d=pt.SimData()
     data=[]
     rep=0
-    while pt.readSimData(d) is True:
+    while d.from_stdin() is True:
         classic=classic_stats(d)
         if args.garud is True:
             gstats = sstats.garudStats(d)

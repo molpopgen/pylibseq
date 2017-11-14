@@ -114,12 +114,13 @@ PYBIND11_MODULE(polytable, m)
                       "ancestral/derived.")
         .def(py::init<std::vector<double>, std::vector<std::string>>())
         .def(py::init<>())
-        .def_static("from_stdin",[]() -> py::tuple {
-                Sequence::SimData d;
-                std::cin >> d >> std::ws;
-                if(std::cin.eof()) return py::make_tuple(d,false);
-                return py::make_tuple(d,true);
-                })
+        .def("from_stdin",
+             [](Sequence::SimData& d) -> bool {
+                 if (std::cin.eof())
+                     return false;
+                 std::cin >> d >> std::ws;
+                 return true;
+             })
         .def("__init__",
              [](Sequence::SimData& d, const Sequence::polySiteVector& p) {
                  new (&d) Sequence::SimData(p.cbegin(), p.cend());
