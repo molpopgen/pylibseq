@@ -17,6 +17,7 @@
 // along with pylibseq.  If not, see <http://www.gnu.org/licenses/>.
 //
 
+#include <iostream>
 #include <pybind11/pybind11.h>
 #include <pybind11/functional.h>
 #include <pybind11/stl.h>
@@ -113,6 +114,12 @@ PYBIND11_MODULE(polytable, m)
                       "ancestral/derived.")
         .def(py::init<std::vector<double>, std::vector<std::string>>())
         .def(py::init<>())
+        .def_static("from_stdin",[]() -> py::tuple {
+                Sequence::SimData d;
+                std::cin >> d >> std::ws;
+                if(std::cin.eof()) return py::make_tuple(d,false);
+                return py::make_tuple(d,true);
+                })
         .def("__init__",
              [](Sequence::SimData& d, const Sequence::polySiteVector& p) {
                  new (&d) Sequence::SimData(p.cbegin(), p.cend());
