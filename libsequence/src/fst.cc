@@ -10,9 +10,9 @@ PYBIND11_MODULE(fst,m)
 {
     m.doc() ="Fst";
 
-    py::object polytable
-        = (py::object)py::module::import("libsequence.polytable")
-              .attr("PolyTable");
+    //py::object polytable
+    //    = (py::object)py::module::import("libsequence.polytable")
+    //          .attr("PolyTable");
 
     py::class_<Sequence::FST>(m, "Fst", "Fst")
         .def("__init__",

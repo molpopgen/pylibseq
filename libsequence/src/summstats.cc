@@ -16,9 +16,9 @@ PYBIND11_MODULE(summstats, m)
 {
     m.doc() = "Summary statistics";
 
-    py::object polytable
-        = (py::object)py::module::import("libsequence.polytable")
-              .attr("PolyTable");
+    //py::object polytable
+    //    = (py::object)py::module::import("libsequence.polytable")
+    //          .attr("PolyTable");
 
     py::class_<Sequence::PolySNP>(m, "PolySNP",
                                   "Class to calculate summary statistics.")
