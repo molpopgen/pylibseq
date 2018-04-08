@@ -79,7 +79,7 @@ ext_modules = [
     ),
     Extension(
         'libsequence.summstats',
-        ['libsequence/src/summstats.cc'],
+        ['libsequence/src/summstats.cc','libsequence/src/omega_max.cc'],
         library_dirs=LIBRARY_DIRS,
         include_dirs=INCLUDES,
         libraries=['sequence', 'tbb'],
