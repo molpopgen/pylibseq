@@ -12,6 +12,8 @@
 
 namespace py = pybind11;
 
+std::pair<double, double> omega_max(const Sequence::SimData& data);
+
 PYBIND11_MODULE(summstats, m)
 {
     m.doc() = "Summary statistics";
@@ -209,4 +211,16 @@ PYBIND11_MODULE(summstats, m)
 		:param d: A :class:`libsequence.polytable.SimData`.
 		)delim",
           py::arg("d"));
+
+    m.def("omega_max", &omega_max, py::arg("data"),
+          R"delim(
+		Returns the omega max statistic of 
+		Kim and Nielsen (2004) Genetics 167:1513
+		
+		:param data: a :class:`libsequence.polytable.SimData`
+
+		:return: Omega max statistic and corresponding position.
+
+		:rtype: tuple
+		)delim");
 }
