@@ -18,7 +18,7 @@ except subprocess.CalledProcessError as error:
 if libseq_version.stdout.decode('utf8').rstrip() < "1.9.2":
     raise ValueError("libsequence >= " + '1.9.2' + "required")
 
-__version__ = '0.2.0'
+__version__ = '0.2.1a0'
 
 # clang/llvm is default for OS X builds.
 # can over-ride darwin-specific options
@@ -188,5 +188,8 @@ setup(
     install_requires=['pybind11>=2.1.1'],
     cmdclass={'build_ext': BuildExt},
     packages=PKGS,
+    entry_points={
+        'console_scripts': ['pymsstats = libsequence.msstats_cli:msstats_main']
+    },
     zip_safe=False,
 )
