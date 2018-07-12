@@ -91,8 +91,9 @@ PYBIND11_MODULE(polytable, m)
         });
 
     py::class_<Sequence::PolySites, Sequence::PolyTable>(
-        m, "PolySites", "A polymorphism table for Sequence data.  "
-                        "A/G/C/T/N/0/1 is the alphabet for analysis.")
+        m, "PolySites",
+        "A polymorphism table for Sequence data.  "
+        "A/G/C/T/N/0/1 is the alphabet for analysis.")
         .def(py::init<>())
         .def("__init__",
              [](Sequence::PolySites& p, const Sequence::polySiteVector& v) {
@@ -109,9 +110,10 @@ PYBIND11_MODULE(polytable, m)
         });
 
     py::class_<Sequence::SimData, Sequence::PolyTable>(
-        m, "SimData", "A polymorphism table for "
-                      "binary data.  0/1 = "
-                      "ancestral/derived.")
+        m, "SimData",
+        "A polymorphism table for "
+        "binary data.  0/1 = "
+        "ancestral/derived.")
         .def(py::init<std::vector<double>, std::vector<std::string>>())
         .def(py::init<>())
         .def("from_stdin",
@@ -120,7 +122,9 @@ PYBIND11_MODULE(polytable, m)
                      return false;
                  std::cin >> d >> std::ws;
                  return true;
-             })
+             },
+             "Create an instance of this type by reading data from stdin.  "
+             "Useful for reading input from msprime or ms.")
         .def("__init__",
              [](Sequence::SimData& d, const Sequence::polySiteVector& p) {
                  new (&d) Sequence::SimData(p.cbegin(), p.cend());
