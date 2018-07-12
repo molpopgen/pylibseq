@@ -58,6 +58,12 @@ Changelog (rough)
 Installation:
 =======================
 
+For many users, the best way to install the latest release will be via bioconda_,
+
+.. code-block:: bash
+
+    conda -c bioconda install pylibseq
+
 The latest release of the package is available via PyPi_, and can be installed with your favorite Python package manager:
 
 .. code-block:: bash
