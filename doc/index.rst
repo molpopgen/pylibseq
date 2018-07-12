@@ -11,6 +11,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+   pages/changes
    pages/overview
    pages/parallel
    pages/lifetimes
