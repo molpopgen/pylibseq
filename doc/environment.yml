@@ -12,8 +12,3 @@ dependencies:
     - pybind11==2.2.1
     - libsequence
     - ipython
-    - matplotlib
-    - pandas
-    - msprime
-    - gsl
-    - hdf5
