@@ -1,19 +1,33 @@
 import unittest
 import libsequence.variant_matrix
+import numpy as np
+
+V8 = libsequence.variant_matrix.VectorInt8
+VD = libsequence.variant_matrix.VectorDouble
 
 
 class testVariantMatrix(unittest.TestCase):
     @classmethod
     def setUp(self):
-        self.data = [0, 1, 1, 0, 0, 0, 0, 1]
-        self.pos = [0.1, 0.2]
+        self.dlist = [0, 1, 1, 0, 0, 0, 0, 1]
+        self.plist = [0.1, 0.2]
+        self.data = V8(self.dlist)
+        self.pos = VD(self.plist)
+        self.m = libsequence.variant_matrix.VariantMatrix(self.data, self.pos)
+        self.m = libsequence.variant_matrix.VariantMatrix(
+            self.dlist, self.plist)
 
     def testConstruct(self):
-        m = libsequence.variant_matrix.VariantMatrix(self.data, self.pos)
-        self.assertEqual(m.data, self.data)
-        self.assertEqual(m.positions, self.pos)
-        self.assertEqual(m.nsam, 4)
-        self.assertEqual(m.nsites, 2)
+        self.assertEqual(self.m.data, self.data)
+        self.assertEqual(self.m.positions, self.pos)
+        self.assertEqual(self.m.nsam, 4)
+        self.assertEqual(self.m.nsites, 2)
+
+    def testModifyCppDataViaNumpy(self):
+        d = np.array(self.m.data, copy=False)
+        d[2] = 4
+        x = [int(i) for i in self.m.site(0)]
+        self.assertEqual(x[2], 4)
 
 
 class testColumnViews(unittest.TestCase):
@@ -33,7 +47,6 @@ class testColumnViews(unittest.TestCase):
         self.assertEqual(s, self.data[self.m.nsam:])
 
     def testIterateRows(self):
-        import numpy as np
         d = np.array(self.data, dtype=np.int8)
         d = d.reshape((self.m.nsites, self.m.nsam))
         for i in range(self.m.nsam):
