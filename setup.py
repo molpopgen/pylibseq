@@ -58,17 +58,7 @@ LIBRARY_DIRS = [
     os.path.join(sys.prefix, 'lib')
 ]
 
-LIBS = ['tbb']
-
 ext_modules = [
-    Extension(
-        'libsequence.parallel',
-        ['libsequence/src/parallel.cc'],
-        library_dirs=LIBRARY_DIRS,
-        include_dirs=INCLUDES,
-        libraries=['tbb'],
-        language='c++'
-    ),
     Extension(
         'libsequence.polytable',
         ['libsequence/src/polytable.cc'],
@@ -82,7 +72,7 @@ ext_modules = [
         ['libsequence/src/summstats.cc','libsequence/src/omega_max.cc'],
         library_dirs=LIBRARY_DIRS,
         include_dirs=INCLUDES,
-        libraries=['sequence', 'tbb'],
+        libraries=['sequence'],
         language='c++'
     ),
     Extension(
