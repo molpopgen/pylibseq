@@ -91,6 +91,15 @@ ext_modules = [
         libraries=['sequence'],
         language='c++'
     ),
+    Extension(
+        'libsequence.variant_matrix',
+        ['libsequence/src/variant_matrix.cc'],
+        library_dirs=LIBRARY_DIRS,
+        include_dirs=INCLUDES,
+        libraries=['sequence'],
+        language='c++'
+    ),
+
 ]
 
 
