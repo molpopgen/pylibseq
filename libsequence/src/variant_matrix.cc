@@ -55,7 +55,15 @@ PYBIND11_MODULE(variant_matrix, m)
              [](const Sequence::ConstColView &c) {
                  return py::make_iterator(c.begin(), c.end());
              },
-             py::keep_alive<0, 1>());
+             py::keep_alive<0, 1>())
+        .def("as_list", [](const Sequence::ConstColView &c) {
+            py::list rv;
+            for (auto i : c)
+                {
+                    rv.append(static_cast<int>(i));
+                }
+            return rv;
+        });
 
     py::class_<Sequence::ConstRowView>(m, "ConstRowView")
         .def("__len__",
@@ -64,5 +72,13 @@ PYBIND11_MODULE(variant_matrix, m)
              [](const Sequence::ConstRowView &r) {
                  return py::make_iterator(r.begin(), r.end());
              },
-             py::keep_alive<0, 1>());
+             py::keep_alive<0, 1>())
+        .def("as_list", [](const Sequence::ConstRowView &r) {
+            py::list rv;
+            for (auto i : r)
+                {
+                    rv.append(static_cast<int>(i));
+                }
+            return rv;
+        });
 }
