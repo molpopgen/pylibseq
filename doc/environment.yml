@@ -7,9 +7,9 @@ channels:
     - bioconda
 
 dependencies:
-    - python==3.5
+    - python
     - sphinx_rtd_theme==0.1.9
-    - pybind11==2.2.1
+    - pybind11==2.2.2
     - libsequence
     - ipython
     - matplotlib
