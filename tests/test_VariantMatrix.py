@@ -2,20 +2,13 @@ import unittest
 import libsequence.variant_matrix
 import numpy as np
 
-V8 = libsequence.variant_matrix.VectorInt8
-VD = libsequence.variant_matrix.VectorDouble
-
 
 class testVariantMatrix(unittest.TestCase):
     @classmethod
     def setUp(self):
-        self.dlist = [0, 1, 1, 0, 0, 0, 0, 1]
-        self.plist = [0.1, 0.2]
-        self.data = V8(self.dlist)
-        self.pos = VD(self.plist)
+        self.data = [0, 1, 1, 0, 0, 0, 0, 1]
+        self.pos = [0.1, 0.2]
         self.m = libsequence.variant_matrix.VariantMatrix(self.data, self.pos)
-        self.m = libsequence.variant_matrix.VariantMatrix(
-            self.dlist, self.plist)
 
     def testConstruct(self):
         self.assertEqual(self.m.data, self.data)
@@ -25,7 +18,7 @@ class testVariantMatrix(unittest.TestCase):
 
     def testModifyCppDataViaNumpy(self):
         d = np.array(self.m, copy=False)
-        d[0][2]=4
+        d[0][2] = 4
         self.assertEqual(self.m.data[2], 4)
 
     def testFilterSites(self):

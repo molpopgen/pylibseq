@@ -10,17 +10,10 @@
 
 namespace py = pybind11;
 
-PYBIND11_MAKE_OPAQUE(std::vector<double>);
-PYBIND11_MAKE_OPAQUE(std::vector<std::int8_t>);
-
 PYBIND11_MODULE(variant_matrix, m)
 {
-    py::bind_vector<std::vector<double>>(m, "VectorDouble",
-                                         py::buffer_protocol());
-    py::bind_vector<std::vector<std::int8_t>>(m, "VectorInt8",
-                                              py::buffer_protocol());
-
-    py::class_<Sequence::VariantMatrix>(m, "VariantMatrix",py::buffer_protocol())
+    py::class_<Sequence::VariantMatrix>(m, "VariantMatrix",
+                                        py::buffer_protocol())
         .def(py::init<const std::vector<std::int8_t> &,
                       const std::vector<double> &>(),
              py::arg("data"), py::arg("positions"))
@@ -68,7 +61,7 @@ PYBIND11_MODULE(variant_matrix, m)
              })
         .def_buffer([](Sequence::VariantMatrix &m) -> py::buffer_info {
             return py::buffer_info(
-                m.data.data(), /* Pointer to buffer */
+                m.data.data(),       /* Pointer to buffer */
                 sizeof(std::int8_t), /* Size of one scalar */
                 py::format_descriptor<std::int8_t>::
                     format(), /* Python struct-style format descriptor */
