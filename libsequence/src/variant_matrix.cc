@@ -3,6 +3,7 @@
 #include <pybind11/stl_bind.h>
 #include <Sequence/VariantMatrix.hpp>
 #include <Sequence/VariantMatrixViews.hpp>
+#include <Sequence/StateCounts.hpp>
 
 namespace py = pybind11;
 
@@ -81,4 +82,30 @@ PYBIND11_MODULE(variant_matrix, m)
                 }
             return rv;
         });
+
+    py::class_<Sequence::StateCounts>(m, "StateCounts")
+        .def(py::init<const Sequence::ConstRowView &, const std::int8_t>(),
+             py::arg("site"), py::arg("refstate"))
+        .def(py::init<const Sequence::ConstRowView &>())
+        .def_readonly("counts", &Sequence::StateCounts::counts)
+        .def_readonly("refstate", &Sequence::StateCounts::counts)
+        .def_readonly("n", &Sequence::StateCounts::n)
+        .def("__iter__",
+             [](const Sequence::StateCounts &sc) {
+                 return py::make_iterator(sc.counts.begin(), sc.counts.end());
+             },
+             py::keep_alive<0, 1>());
+
+    m.def("process_variable_sites",
+          [](const Sequence::VariantMatrix &m,
+             const std::vector<std::int8_t> &refstates) {
+              return Sequence::process_variable_sites(m, refstates);
+          });
+    m.def("process_variable_sites",
+          [](const Sequence::VariantMatrix &m, const std::int8_t refstate) {
+              return Sequence::process_variable_sites(m, refstate);
+          });
+    m.def("process_variable_sites", [](const Sequence::VariantMatrix &m) {
+        return Sequence::process_variable_sites(m);
+    });
 }
