@@ -13,24 +13,15 @@ namespace py = pybind11;
 PYBIND11_MODULE(variant_matrix, m)
 {
     py::class_<Sequence::VariantMatrix>(m, "VariantMatrix",
-                                        py::buffer_protocol())
+                                        py::buffer_protocol(),
+                                        R"delim(
+        Representation of variation data in matrix format.
+
+        see :ref:`variantmatrix` for discussion.
+        )delim")
         .def(py::init<const std::vector<std::int8_t> &,
                       const std::vector<double> &>(),
              py::arg("data"), py::arg("positions"))
-        .def(py::init([](py::list data, py::list pos) {
-                 std::vector<std::int8_t> d;
-                 std::vector<double> p;
-                 for (auto i : data)
-                     {
-                         d.push_back(i.cast<std::int8_t>());
-                     }
-                 for (auto i : pos)
-                     {
-                         p.push_back(i.cast<double>());
-                     }
-                 return Sequence::VariantMatrix(std::move(d), std::move(p));
-             }),
-             py::arg("data"), py::arg("pos"))
         .def(py::init([](py::array_t<std::int8_t,
                                      py::array::c_style | py::array::forcecast>
                              data,
