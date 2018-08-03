@@ -178,7 +178,7 @@ PYBIND11_MODULE(variant_matrix, m)
              py::arg("site"), py::arg("refstate"))
         .def(py::init<const Sequence::ConstRowView &>())
         .def_readonly("counts", &Sequence::StateCounts::counts)
-        .def_readonly("refstate", &Sequence::StateCounts::counts)
+        .def_readonly("refstate", &Sequence::StateCounts::refstate)
         .def_readonly("n", &Sequence::StateCounts::n)
         .def("__iter__",
              [](const Sequence::StateCounts &sc) {
