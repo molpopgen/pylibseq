@@ -92,7 +92,20 @@ PYBIND11_MODULE(variant_matrix, m)
                 { sizeof(std::int8_t)
                       * m.nsam, /* Strides (in bytes) for each index */
                   sizeof(std::int8_t) });
-        });
+        })
+        .def(py::pickle(
+            [](const Sequence::VariantMatrix &m) {
+                return py::make_tuple(m.data, m.positions);
+            },
+            [](py::tuple t) {
+                if (t.size() != 2)
+                    {
+                        throw std::runtime_error("invalid object state");
+                    }
+                auto d = t[0].cast<std::vector<std::int8_t>>();
+                auto p = t[1].cast<std::vector<double>>();
+                return Sequence::VariantMatrix(std::move(d), std::move(p));
+            }));
 
     py::class_<Sequence::ConstColView>(m, "ConstColView")
         .def("__len__",

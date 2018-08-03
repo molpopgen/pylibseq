@@ -36,6 +36,15 @@ class testVariantMatrix(unittest.TestCase):
             self.m, is_singleton)
         self.assertEqual(self.m.nsites, 1)
 
+    def testPickle(self):
+        import pickle
+        p = pickle.dumps(self.m, -1)
+        up = pickle.loads(p)
+        self.assertEqual(up.data, self.m.data)
+        self.assertEqual(up.positions, self.m.positions)
+        self.assertEqual(up.nsam, self.m.nsam)
+        self.assertEqual(up.nsites, self.m.nsites)
+
 
 class testColumnViews(unittest.TestCase):
     @classmethod
