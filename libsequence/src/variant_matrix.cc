@@ -68,6 +68,22 @@ PYBIND11_MODULE(variant_matrix, m)
             return rv;
         });
 
+    py::class_<Sequence::ColView>(m, "ColView")
+        .def("__len__", [](const Sequence::ColView &c) { return c.size(); })
+        .def("__iter__",
+             [](const Sequence::ColView &c) {
+                 return py::make_iterator(c.begin(), c.end());
+             },
+             py::keep_alive<0, 1>())
+        .def("as_list", [](const Sequence::ColView &c) {
+            py::list rv;
+            for (auto i : c)
+                {
+                    rv.append(static_cast<int>(i));
+                }
+            return rv;
+        });
+
     py::class_<Sequence::ConstRowView>(m, "ConstRowView")
         .def("__len__",
              [](const Sequence::ConstRowView &r) { return r.size(); })
@@ -77,6 +93,22 @@ PYBIND11_MODULE(variant_matrix, m)
              },
              py::keep_alive<0, 1>())
         .def("as_list", [](const Sequence::ConstRowView &r) {
+            py::list rv;
+            for (auto i : r)
+                {
+                    rv.append(static_cast<int>(i));
+                }
+            return rv;
+        });
+
+    py::class_<Sequence::RowView>(m, "RowView")
+        .def("__len__", [](const Sequence::RowView &r) { return r.size(); })
+        .def("__iter__",
+             [](const Sequence::RowView &r) {
+                 return py::make_iterator(r.begin(), r.end());
+             },
+             py::keep_alive<0, 1>())
+        .def("as_list", [](const Sequence::RowView &r) {
             py::list rv;
             for (auto i : r)
                 {

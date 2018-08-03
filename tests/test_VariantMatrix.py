@@ -29,6 +29,21 @@ class testVariantMatrix(unittest.TestCase):
         x = [int(i) for i in self.m.site(0)]
         self.assertEqual(x[2], 4)
 
+    def testFilterSites(self):
+        from collections import Counter
+
+        def is_singleton(x):
+            c = Counter([i for i in x])
+            if len(c) == 2:
+                for i in c.most_common():
+                    if i[1] == 1:
+                        return True
+            return False
+        self.assertEqual(self.m.nsites, 2)
+        libsequence.variant_matrix.filter_sites(
+            self.m, is_singleton)
+        self.assertEqual(self.m.nsites, 1)
+
 
 class testColumnViews(unittest.TestCase):
     @classmethod
