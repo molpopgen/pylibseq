@@ -1,0 +1,199 @@
+.. _variantmatrix:
+
+The VariantMatrix
+================
+
+Variation data are stored in instances of :class:`libsequence.variant_matrix.VariantMatrix`.  This class stores state
+data as signed 8-bit integers and position data as floats (C/C++ doubles).  Missing data are encoded as negative
+numbers.  You can use any negative number for missing data except the minimum possible value of an 8-bit integer, which
+is reserved for internal use as a "mask" value when filtering data out of variant matrices.
+
+.. ipython:: python
+
+    import libsequence.variant_matrix as vm
+
+    # You can construct variant matrices from lists
+    states = [0, 1, 1, 0, 0, 0, 0, 1]
+    pos = [0.1, 0.2]
+
+    m = vm.VariantMatrix(states, pos)
+    print(m.nsites)
+    print(m.nsam)
+
+A variant matrix supports Python's buffer protocol, meaning that it can be converted directly to a numpy array:
+
+.. ipython:: python
+
+    import numpy as np
+
+    ma = np.array(m, copy=False)
+    print(ma)
+
+Our `ma` object is a thin wrapper to the underlying memory allocated by C++, so we can change the data:
+
+.. ipython:: python
+
+    x = ma[0,2]
+    ma[0,2] = -1
+    print(ma)
+    ma[0,2] = x
+    print(ma)
+
+You can construct from numpy arrays:
+
+.. ipython:: python
+
+    m = vm.VariantMatrix(np.array(states, dtype=np.int8).reshape((2,4)), np.array(pos))
+    print(m.nsites)
+    print(m.nsam)
+
+You can access the site and sample data via loops:
+
+.. ipython:: python
+
+    for i in range(m.nsites):
+        s = m.site(i)
+        print([i for i in s])
+
+    for i in range(m.nsam):
+        s = m.sample(i)
+        print([i for i in s])
+
+The types involved in the last example are:
+
+.. ipython:: python
+
+    print(type(m.site(0)))
+    print(type(m.sample(0)))
+
+Counting the states at a site
+-------------------------------------
+
+:class:`libsequence.VariantMatrix.StateCounts` helps process data from matrix rows (sites):
+
+.. ipython:: python
+
+    c = vm.StateCounts(m.site(0))
+    print(c.counts)
+    # The sample size at this site
+    print(c.n)
+    # c is iterable
+    for i in c:
+        print(i)
+
+By convention, missing data affects the sample size at a site:
+
+.. ipython:: python
+
+    ma = np.array(m, copy=False)
+    ma[0,2] = -1
+    c = vm.StateCounts(m.site(0))
+    print(c.counts)
+    print(c.n)
+
+    # restore our object
+    ma[0,2] = x
+
+    print(c.refstate)
+
+You may specify a reference state when counting.  Depending on the analysis, that may mean a literal reference genome
+state, an ancestral state, a minor allele state, etc.
+
+.. ipython:: python
+
+    # Above, no reference state was specified, 
+    # so it is considered missing:
+
+    print(c.refstate)
+
+    # Let's let 0 be the reference state:
+    c = vm.StateCounts(m.site(0), refstate = 0)
+    print(c.counts)
+    print(c.refstate)
+
+You may get all of the counts at all sites in three different ways:
+
+.. ipython:: python
+
+    # Without respect to reference state
+    lc = vm.process_variable_sites(m)
+    for i in lc:
+        print(i.counts, i.refstate)
+    
+    # With a single reference state for all sites
+    lc = vm.process_variable_sites(m, 0)
+    for i in lc:
+        print(i.counts, i.refstate)
+
+    # With a reference specified state for each site
+    lc = vm.process_variable_sites(m, [0, 1])
+    for i in lc:
+        print(i.counts, i.refstate)
+
+
+Encoding missing data
+-------------------------------------
+
+.. ipython:: python
+    :okexcept:
+
+    # This is the value of the reserved state:
+    print(vm.VariantMatrix.mask)
+
+    # Attempting to construct an object with this
+    # value is allowed, but is an error.
+    # Downstream analyses will see this and raise exceptions.
+
+    x = vm.VariantMatrix([0, 1, vm.VariantMatrix.mask, 2], [0.2, 0.5])
+    print(x.data)
+
+    # For example:
+    c = vm.StateCounts(x.site(1))
+
+Filtering VariantMatrix data
+-------------------------------------
+
+You may remove sites and/or samples via the application of functions written in Python.  To filter sites, a function
+must take the return value of :func:`libsequence.variant_matrix.VariantMatrix.site` as an argument:
+
+.. ipython:: python
+
+    # Treat 0 as the reference state
+    def remove_nonref_singletons(d):
+        c = vm.StateCounts(d, 0)
+        # For simplicity, let's remove
+        # missing data from x
+        cnm = [i for i in c if i[0] >= 0]
+        for i in cnm:
+            if i[0] != c.refstate:
+                if i[1] == 1:
+                    return True
+        return False
+
+    # Copy our data
+    m2 = vm.VariantMatrix(m.data, m.positions)
+
+    rv = vm.filter_sites(m2, remove_nonref_singletons)
+    print(np.array(m))
+    print(np.array(m2))
+
+    # This is the number of sites removed:
+    print(rv)
+
+Similarly, we can remove samples:
+
+.. ipython:: python
+
+    # Treat 0 as the reference state
+    def remove_all_ref_samples(x):
+        if all([i==0 for i in x]):
+            return True
+        return False
+
+    m2 = vm.VariantMatrix(m.data, m.positions)
+
+    rv = vm.filter_haplotypes(m2, remove_all_ref_samples)
+
+    print(rv)
+    print(np.array(m))
+    print(np.array(m2))

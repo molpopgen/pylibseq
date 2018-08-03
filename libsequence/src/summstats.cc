@@ -1,11 +1,13 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <numeric>
 #include <Sequence/PolySNP.hpp>
 #include <Sequence/PolySIM.hpp>
 #include <Sequence/PolyTable.hpp>
 #include <Sequence/SimData.hpp>
 #include <Sequence/SummStats/nSL.hpp>
 #include <Sequence/SummStats/Garud.hpp>
+#include <Sequence/summstats/garud.hpp> //The relevant struct from Garud.hpp moved here in libseq 1.9.4
 #include <Sequence/SummStats/lHaf.hpp>
 #include <Sequence/Recombination.hpp>
 #include <Sequence/stateCounter.hpp>
@@ -61,9 +63,10 @@ PYBIND11_MODULE(summstats, m)
         .def("wallsb", &Sequence::PolySNP::WallsB, "Wall's B")
         .def("wallsq", &Sequence::PolySNP::WallsQ, "Wall's Q")
         .def("wallsbprime", &Sequence::PolySNP::WallsBprime, "Wall's B'")
-        .def("rm", &Sequence::PolySNP::Minrec, "Hudson and Kaplan's lower "
-                                               "bound on the number of "
-                                               "recombination events.");
+        .def("rm", &Sequence::PolySNP::Minrec,
+             "Hudson and Kaplan's lower "
+             "bound on the number of "
+             "recombination events.");
 
     py::class_<Sequence::PolySIM, Sequence::PolySNP>(m, "PolySIM",
                                                      R"delim(
@@ -79,8 +82,9 @@ PYBIND11_MODULE(summstats, m)
              });
 
     py::class_<Sequence::stateCounter>(
-        m, "StateCounter", "Tally up the number of occurrences of value "
-                           "polymorphism characters at a site.")
+        m, "StateCounter",
+        "Tally up the number of occurrences of value "
+        "polymorphism characters at a site.")
         .def(py::init<char>(), py::arg("gapchar") = '-')
         .def_readonly("zero", &Sequence::stateCounter::zero,
                       "Number of times '0' was seen at a site.")
@@ -106,26 +110,31 @@ PYBIND11_MODULE(summstats, m)
     m.def(
         "nSLiHS",
         [](const Sequence::SimData& d, py::object core_snps, py::object gmap) {
-            if (gmap.is_none())
+            std::vector<std::tuple<double, double, std::uint32_t>> rv;
+            std::vector<std::size_t> cores;
+            if (!core_snps.is_none())
                 {
-                    if (core_snps.is_none())
-                        {
-                            return Sequence::nSL_t(d);
-                        }
-                    else
-                        {
-                            return Sequence::nSL_t(
-                                d, core_snps.cast<std::vector<std::size_t>>());
-                        }
+                    cores = core_snps.cast<std::vector<std::size_t>>();
                 }
-            if (core_snps.is_none())
+            else
                 {
-                    return Sequence::nSL_t(
-                        d, gmap.cast<std::unordered_map<double, double>>());
+                    cores.resize(d.numsites());
+                    std::iota(cores.begin(), cores.end(), 0);
                 }
-            return Sequence::nSL_t(
-                d, core_snps.cast<std::vector<std::size_t>>(),
-                gmap.cast<std::unordered_map<double, double>>());
+            std::unordered_map<double, double> gm;
+            if (!gmap.is_none())
+                {
+                    gm = gmap.cast<std::unordered_map<double, double>>();
+                }
+            for (auto c : cores)
+                {
+                    auto nsl = Sequence::nSL(c, d, gm);
+                    auto dc = static_cast<std::uint32_t>(
+                        std::count((d.sbegin() + c)->second.begin(),
+                                   (d.sbegin() + c)->second.end(), '1'));
+                    rv.push_back(std::make_tuple(nsl.first, nsl.second, dc));
+                }
+            return rv;
         },
         R"delim(
 		"Raw"/unstandardized :math:`nS_L` and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.
