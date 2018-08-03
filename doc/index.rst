@@ -14,7 +14,6 @@ Contents:
    pages/changes
    pages/vmatrix
    pages/deprecated_overview
-   pages/parallel
    pages/lifetimes
 
 Functions and classes
