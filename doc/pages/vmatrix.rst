@@ -66,6 +66,9 @@ The types involved in the last example are:
     print(type(m.site(0)))
     print(type(m.sample(0)))
 
+Counting the states at a site
+-------------------------------------
+
 :class:`libsequence.VariantMatrix.StateCounts` helps process data from matrix rows (sites):
 
 .. ipython:: python
@@ -107,6 +110,26 @@ state, an ancestral state, a minor allele state, etc.
     c = vm.StateCounts(m.site(0), refstate = 0)
     print(c.counts)
     print(c.refstate)
+
+You may get all of the counts at all sites in three different ways:
+
+.. ipython:: python
+
+    # Without respect to reference state
+    lc = vm.process_variable_sites(m)
+    for i in lc:
+        print(i.counts, i.refstate)
+    
+    # With a single reference state for all sites
+    lc = vm.process_variable_sites(m, 0)
+    for i in lc:
+        print(i.counts, i.refstate)
+
+    # With a reference specified state for each site
+    lc = vm.process_variable_sites(m, [0, 1])
+    for i in lc:
+        print(i.counts, i.refstate)
+
 
 Encoding missing data
 -------------------------------------
