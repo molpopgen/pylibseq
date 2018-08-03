@@ -42,7 +42,9 @@ The recommended method for installing libsequence_ is bioconda_.  If you do not 
 
 If you want to modify the package, you will need pybind11_ installed via your favorite Python package manager.
 
-The supported platforms are Linux and OS X.
+Currently, only Linux is supported.  The reason is that OS X's case-insensitive file system is preventing current
+versions of libsequence from compiling.  This situation will be resolved once all deprecated features are removed from
+libsequence_
 
 Changelog (rough)
 ==============================
