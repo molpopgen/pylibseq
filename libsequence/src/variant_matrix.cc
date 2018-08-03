@@ -31,18 +31,40 @@ PYBIND11_MODULE(variant_matrix, m)
                  return Sequence::VariantMatrix(std::move(d), std::move(p));
              }),
              py::arg("data"), py::arg("pos"))
-        .def(py::init([](py::array_t<std::int8_t> data,
+        .def(py::init([](py::array_t<std::int8_t,
+                                     py::array::c_style | py::array::forcecast>
+                             data,
                          py::array_t<double> pos) {
+                 if (data.ndim() != 2)
+                     {
+                         throw std::invalid_argument(
+                             "data must be a 2d ndarray");
+                     }
+                 if (pos.ndim() != 1)
+                     {
+                         throw std::invalid_argument(
+                             "pos must be a 1d ndarray");
+                     }
+                 if (pos.size() != data.shape(0))
+                     {
+                         throw(std::invalid_argument(
+                             "len(pos) must equal data.shape[0]"));
+                     }
+                 auto data_ptr = data.unchecked<2>();
                  std::vector<std::int8_t> d;
-                 std::vector<double> p;
-                 for (auto i : data)
+                 d.reserve(data.size());
+                 for (decltype(data_ptr.shape(0)) i = 0; i < data_ptr.shape(0);
+                      ++i)
                      {
-                         d.push_back(i.cast<std::int8_t>());
+                         for (decltype(data_ptr.shape(1)) j = 0;
+                              j < data_ptr.shape(1); ++j)
+                             {
+                                 d.push_back(*data_ptr.data(i, j));
+                             }
                      }
-                 for (auto i : pos)
-                     {
-                         p.push_back(i.cast<double>());
-                     }
+                 auto pos_ptr = pos.unchecked<1>();
+                 std::vector<double> p(pos_ptr.data(0),
+                                       pos_ptr.data(0) + pos.size());
                  return Sequence::VariantMatrix(std::move(d), std::move(p));
              }),
              py::arg("data"), py::arg("pos"))
@@ -68,7 +90,7 @@ PYBIND11_MODULE(variant_matrix, m)
                 2,            /* Number of dimensions */
                 { m.nsites, m.nsam }, /* Buffer dimensions */
                 { sizeof(std::int8_t)
-                      * m.nsites, /* Strides (in bytes) for each index */
+                      * m.nsam, /* Strides (in bytes) for each index */
                   sizeof(std::int8_t) });
         });
 

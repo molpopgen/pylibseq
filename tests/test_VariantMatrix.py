@@ -37,6 +37,16 @@ class testVariantMatrix(unittest.TestCase):
         self.assertEqual(self.m.nsites, 1)
 
 
+class testCreationFromNumpy(unittest.TestCase):
+    def testConstruct(self):
+        d = np.array([0, 1, 1, 0, 0, 0, 0, 1], dtype=np.int8).reshape((2, 4))
+        pos = np.array([0.1, 0.2])
+        m = libsequence.variant_matrix.VariantMatrix(d, pos)
+        ma = np.array(m)
+        self.assertTrue(np.array_equal(np.sum(ma, axis=0), np.sum(d, axis=0)))
+        self.assertTrue(np.array_equal(np.sum(ma, axis=1), np.sum(d, axis=1)))
+
+
 class testColumnViews(unittest.TestCase):
     @classmethod
     def setUp(self):
@@ -60,6 +70,32 @@ class testColumnViews(unittest.TestCase):
             c = self.m.sample(i)
             s = np.array([j for j in c], dtype=np.int8)
             self.assertTrue(np.array_equal(s, d[:, i]))
+
+
+class testDataFromMsprime(unittest.TestCase):
+    def testDirectConversionOfData(self):
+        """
+        Test is only run is msprime is
+        available for import
+        """
+        try:
+            import msprime
+            try:
+                ts = msprime.simulate(10, mutation_rate=10, random_seed=666)
+                gm = ts.genotype_matrix()
+                pos = np.array([i.position for i in ts.sites()])
+                m = libsequence.variant_matrix.VariantMatrix(gm, pos)
+                # If the data conversion is correct, the row and
+                # column sums must match
+                ma = np.array(m, copy=False)
+                self.assertTrue(np.array_equal(
+                    np.sum(ma, axis=0), np.sum(gm, axis=0)))
+                self.assertTrue(np.array_equal(
+                    np.sum(ma, axis=1), np.sum(gm, axis=1)))
+            except:
+                raise
+        except:
+            pass
 
 
 if __name__ == "__main__":
