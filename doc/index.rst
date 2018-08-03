@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    pages/changes
+   pages/vmatrix
    pages/deprecated_overview
    pages/parallel
    pages/lifetimes
