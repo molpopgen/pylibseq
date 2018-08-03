@@ -20,7 +20,7 @@ PYBIND11_MODULE(variant_matrix, m)
     py::bind_vector<std::vector<std::int8_t>>(m, "VectorInt8",
                                               py::buffer_protocol());
 
-    py::class_<Sequence::VariantMatrix>(m, "VariantMatrix")
+    py::class_<Sequence::VariantMatrix>(m, "VariantMatrix",py::buffer_protocol())
         .def(py::init<const std::vector<std::int8_t> &,
                       const std::vector<double> &>(),
              py::arg("data"), py::arg("positions"))
@@ -65,7 +65,19 @@ PYBIND11_MODULE(variant_matrix, m)
         .def("sample",
              [](const Sequence::VariantMatrix &m, const std::size_t i) {
                  return Sequence::get_ConstColView(m, i);
-             });
+             })
+        .def_buffer([](Sequence::VariantMatrix &m) -> py::buffer_info {
+            return py::buffer_info(
+                m.data.data(), /* Pointer to buffer */
+                sizeof(std::int8_t), /* Size of one scalar */
+                py::format_descriptor<std::int8_t>::
+                    format(), /* Python struct-style format descriptor */
+                2,            /* Number of dimensions */
+                { m.nsites, m.nsam }, /* Buffer dimensions */
+                { sizeof(std::int8_t)
+                      * m.nsites, /* Strides (in bytes) for each index */
+                  sizeof(std::int8_t) });
+        });
 
     py::class_<Sequence::ConstColView>(m, "ConstColView")
         .def("__len__",

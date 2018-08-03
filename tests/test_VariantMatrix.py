@@ -24,10 +24,9 @@ class testVariantMatrix(unittest.TestCase):
         self.assertEqual(self.m.nsites, 2)
 
     def testModifyCppDataViaNumpy(self):
-        d = np.array(self.m.data, copy=False)
-        d[2] = 4
-        x = [int(i) for i in self.m.site(0)]
-        self.assertEqual(x[2], 4)
+        d = np.array(self.m, copy=False)
+        d[0][2]=4
+        self.assertEqual(self.m.data[2], 4)
 
     def testFilterSites(self):
         from collections import Counter
