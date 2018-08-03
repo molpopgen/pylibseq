@@ -12,3 +12,4 @@ dependencies:
     - pybind11==2.2.1
     - libsequence
     - ipython
+    - matplotlib
