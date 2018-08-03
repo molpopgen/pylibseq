@@ -176,6 +176,11 @@ PYBIND11_MODULE(variant_matrix, m)
     py::class_<Sequence::StateCounts>(m, "StateCounts")
         .def(py::init<const Sequence::ConstRowView &, const std::int8_t>(),
              py::arg("site"), py::arg("refstate"))
+        .def(py::init([](const Sequence::RowView &v, const std::int8_t ref) {
+                 Sequence::ConstRowView r(v.data, v.size());
+                 return r;
+             }),
+             py::arg("v"), py::arg("refstate") = -1)
         .def(py::init<const Sequence::ConstRowView &>())
         .def_readonly("counts", &Sequence::StateCounts::counts)
         .def_readonly("refstate", &Sequence::StateCounts::refstate)
