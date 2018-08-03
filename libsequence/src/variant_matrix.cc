@@ -100,12 +100,16 @@ PYBIND11_MODULE(variant_matrix, m)
           [](const Sequence::VariantMatrix &m,
              const std::vector<std::int8_t> &refstates) {
               return Sequence::process_variable_sites(m, refstates);
-          });
+          },
+          py::arg("m"), py::arg("refstates"));
     m.def("process_variable_sites",
           [](const Sequence::VariantMatrix &m, const std::int8_t refstate) {
               return Sequence::process_variable_sites(m, refstate);
-          });
-    m.def("process_variable_sites", [](const Sequence::VariantMatrix &m) {
-        return Sequence::process_variable_sites(m);
-    });
+          },
+          py::arg("m"), py::arg("refstate"));
+    m.def("process_variable_sites",
+          [](const Sequence::VariantMatrix &m) {
+              return Sequence::process_variable_sites(m);
+          },
+          py::arg("m"));
 }
