@@ -12,20 +12,28 @@ Contents:
    :maxdepth: 2
 
    pages/changes
-   pages/overview
+   pages/deprecated_overview
    pages/parallel
    pages/lifetimes
 
 Functions and classes
 ##########################################
 
-.. automodule:: libsequence.polytable
+.. automodule:: libsequence.variant_matrix
    :members:
    :show-inheritance:
 
 .. automodule:: libsequence.summstats 
    :members:
    :show-inheritance:
+
+Deprecated Functions and classes
+##########################################
+
+.. automodule:: libsequence.polytable
+   :members:
+   :show-inheritance:
+
 
 .. automodule:: libsequence.fst
    :members:
