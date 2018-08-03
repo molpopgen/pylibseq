@@ -115,7 +115,7 @@ PYBIND11_MODULE(variant_matrix, m)
           },
           py::arg("m"));
 
-    m.def("filter_haplotypes",&Sequence::filter_haplotypes);
+    m.def("filter_haplotypes", &Sequence::filter_haplotypes);
 
-    m.def("filter_sites",&Sequence::filter_sites);
+    m.def("filter_sites", &Sequence::filter_sites);
 }
