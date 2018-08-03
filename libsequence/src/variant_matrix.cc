@@ -1,8 +1,10 @@
 #include <pybind11/pybind11.h>
+#include <pybind11/functional.h>
 #include <pybind11/stl.h>
 #include <pybind11/stl_bind.h>
 #include <Sequence/VariantMatrix.hpp>
 #include <Sequence/VariantMatrixViews.hpp>
+#include <Sequence/variant_matrix/filtering.hpp>
 #include <Sequence/StateCounts.hpp>
 
 namespace py = pybind11;
@@ -112,4 +114,8 @@ PYBIND11_MODULE(variant_matrix, m)
               return Sequence::process_variable_sites(m);
           },
           py::arg("m"));
+
+    m.def("filter_haplotypes",&Sequence::filter_haplotypes);
+
+    m.def("filter_sites",&Sequence::filter_sites);
 }
