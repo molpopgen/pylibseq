@@ -1,5 +1,6 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/functional.h>
+#include <pybind11/numpy.h>
 #include <pybind11/stl.h>
 #include <pybind11/stl_bind.h>
 #include <Sequence/VariantMatrix.hpp>
@@ -24,6 +25,21 @@ PYBIND11_MODULE(variant_matrix, m)
                       const std::vector<double> &>(),
              py::arg("data"), py::arg("positions"))
         .def(py::init([](py::list data, py::list pos) {
+                 std::vector<std::int8_t> d;
+                 std::vector<double> p;
+                 for (auto i : data)
+                     {
+                         d.push_back(i.cast<std::int8_t>());
+                     }
+                 for (auto i : pos)
+                     {
+                         p.push_back(i.cast<double>());
+                     }
+                 return Sequence::VariantMatrix(std::move(d), std::move(p));
+             }),
+             py::arg("data"), py::arg("pos"))
+        .def(py::init([](py::array_t<std::int8_t> data,
+                         py::array_t<double> pos) {
                  std::vector<std::int8_t> d;
                  std::vector<double> p;
                  for (auto i : data)
