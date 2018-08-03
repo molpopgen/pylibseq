@@ -1,13 +1,18 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <numeric>
+#include <Sequence/VariantMatrix.hpp>
+#include <Sequence/summstats.hpp>
+#include <Sequence/summstats/ld.hpp>
+
+//The following headers are
+//from the deprecated libsequence API
 #include <Sequence/PolySNP.hpp>
 #include <Sequence/PolySIM.hpp>
 #include <Sequence/PolyTable.hpp>
 #include <Sequence/SimData.hpp>
 #include <Sequence/SummStats/nSL.hpp>
 #include <Sequence/SummStats/Garud.hpp>
-#include <Sequence/summstats/garud.hpp> //The relevant struct from Garud.hpp moved here in libseq 1.9.4
 #include <Sequence/SummStats/lHaf.hpp>
 #include <Sequence/Recombination.hpp>
 #include <Sequence/stateCounter.hpp>
@@ -20,10 +25,69 @@ PYBIND11_MODULE(summstats, m)
 {
     m.doc() = "Summary statistics";
 
+    //These are the "libsequence 2.0"
+    //functions
+
+    m.def("thetapi", &Sequence::thetapi);
+    m.def("thetaw", &Sequence::thetaw);
+    m.def("nvariable_sites", &Sequence::nvariable_sites);
+    m.def("nbiallelic_sites", &Sequence::nbiallelic_sites);
+    m.def("total_number_of_mutations", &Sequence::total_number_of_mutations);
+    m.def("tajd", &Sequence::tajd);
+    m.def("hprime",
+          [](const Sequence::VariantMatrix& m, const std::int8_t refstate) {
+              return Sequence::hprime(m, refstate);
+          });
+    m.def("hprime", [](const Sequence::VariantMatrix& m,
+                       const std::vector<std::int8_t>& refstates) {
+        return Sequence::hprime(m, refstates);
+    });
+    m.def("faywuh",
+          [](const Sequence::VariantMatrix& m, const std::int8_t refstate) {
+              return Sequence::faywuh(m, refstate);
+          });
+    m.def("faywuh", [](const Sequence::VariantMatrix& m,
+                       const std::vector<std::int8_t>& refstates) {
+        return Sequence::faywuh(m, refstates);
+    });
+    m.def("difference_matrix", &Sequence::difference_matrix);
+    m.def("label_haplotypes", &Sequence::label_haplotypes);
+    m.def("number_of_haplotypes", &Sequence::number_of_haplotypes);
+    m.def("haplotype_diversity", &Sequence::haplotype_diversity);
+    m.def("rmin", &Sequence::rmin);
+    m.def("nsl", &Sequence::nsl);
+    py::class_<Sequence::GarudStats>(m, "GarudStats")
+        .def_readonly("H1", &Sequence::GarudStats::H1)
+        .def_readonly("H12", &Sequence::GarudStats::H12)
+        .def_readonly("H2H1", &Sequence::GarudStats::H2H1);
+    m.def("garud_statistics", &Sequence::garud_statistics);
+    m.def("two_locus_haplotype_counts", &Sequence::two_locus_haplotype_counts);
+
+    py::class_<Sequence::AlleleCounts>(m, "AlleleCounts")
+        .def_readonly("nstates", &Sequence::AlleleCounts::nstates)
+        .def_readonly("nmissing", &Sequence::AlleleCounts::nmissing);
+
+    m.def("allele_counts", [](const Sequence::VariantMatrix& m) {
+        return Sequence::allele_counts(m);
+    });
+
+    m.def("non_reference_allele_counts",
+          [](const Sequence::VariantMatrix& m, const std::int8_t refstate) {
+              return Sequence::non_reference_allele_counts(m, refstate);
+          });
+
+    m.def("non_reference_allele_counts",
+          [](const Sequence::VariantMatrix& m,
+             const std::vector<std::int8_t>& refstates) {
+              return Sequence::non_reference_allele_counts(m, refstates);
+          });
+
     //py::object polytable
     //    = (py::object)py::module::import("libsequence.polytable")
     //          .attr("PolyTable");
 
+    //Everything below here is from the
+    //deprecated libsequence 1.x world
     py::class_<Sequence::PolySNP>(m, "PolySNP",
                                   "Class to calculate summary statistics.")
         .def("__init__",
