@@ -28,12 +28,32 @@ PYBIND11_MODULE(summstats, m)
     //These are the "libsequence 2.0"
     //functions
 
-    m.def("thetapi", &Sequence::thetapi);
-    m.def("thetaw", &Sequence::thetaw);
+    m.def("thetapi", &Sequence::thetapi,
+          R"delim(
+            Mean number of pairwise differences.
+
+            :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
+            )delim");
+    m.def("thetaw", &Sequence::thetaw,
+          R"delim(
+            Watterson's theta.
+
+            :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
+
+            .. note::
+
+                Calculated from the total number of mutations.
+            )delim");
     m.def("nvariable_sites", &Sequence::nvariable_sites);
     m.def("nbiallelic_sites", &Sequence::nbiallelic_sites);
     m.def("total_number_of_mutations", &Sequence::total_number_of_mutations);
-    m.def("tajd", &Sequence::tajd);
+    m.def("tajd", &Sequence::tajd,
+          R"delim(
+            Tajima's D.
+
+            :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
+            )delim");
+
     m.def("hprime",
           [](const Sequence::VariantMatrix& m, const std::int8_t refstate) {
               return Sequence::hprime(m, refstate);
@@ -54,7 +74,14 @@ PYBIND11_MODULE(summstats, m)
     m.def("label_haplotypes", &Sequence::label_haplotypes);
     m.def("number_of_haplotypes", &Sequence::number_of_haplotypes);
     m.def("haplotype_diversity", &Sequence::haplotype_diversity);
-    m.def("rmin", &Sequence::rmin);
+    m.def("rmin", &Sequence::rmin,
+          R"delim(
+            Hudson and Kaplan's estimate of the minimum number
+            of recombination events.
+
+            :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
+            )delim");
+
     m.def("nsl", &Sequence::nsl);
     py::class_<Sequence::GarudStats>(m, "GarudStats")
         .def_readonly("H1", &Sequence::GarudStats::H1)
