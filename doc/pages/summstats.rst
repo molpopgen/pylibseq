@@ -71,5 +71,16 @@ These labels are used internally to count the number of haplotypes:
     # the data from msprime:
     print(len(np.unique(gm.transpose(),axis=0)))
 
+What about performance?
+
+.. ipython:: python
+
+    %timeit -n 10 -r 1 sstats.number_of_haplotypes(vm)
+
+.. ipython:: python
+    
+    %timeit -n 10 -r 1 len(np.unique(gm.transpose(),axis=0))
+   
+
 .. _msprime: http://msprime.readthedocs.io
 
