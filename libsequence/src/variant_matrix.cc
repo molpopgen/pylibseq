@@ -242,14 +242,8 @@ PYBIND11_MODULE(variant_matrix, m)
 
             See :ref:`variantmatrix`
             )delim")
-        .def(py::init<const Sequence::ConstRowView &, const std::int8_t>(),
-             py::arg("site"), py::arg("refstate"))
-        .def(py::init([](const Sequence::RowView &v, const std::int8_t ref) {
-                 Sequence::ConstRowView r(v.data, v.size());
-                 return r;
-             }),
-             py::arg("v"), py::arg("refstate") = -1)
-        .def(py::init<const Sequence::ConstRowView &>())
+        .def(py::init<>())
+        .def(py::init<std::int8_t>())
         .def_readonly("counts", &Sequence::StateCounts::counts)
         .def_readonly("refstate", &Sequence::StateCounts::refstate)
         .def_readonly("n", &Sequence::StateCounts::n)
