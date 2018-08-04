@@ -16,6 +16,11 @@ Contents:
    pages/deprecated_overview
    pages/lifetimes
 
+Bibliography
+##########################################
+
+.. bibliography:: references.bib
+
 Functions and classes
 ##########################################
 
