@@ -236,7 +236,7 @@ PYBIND11_MODULE(variant_matrix, m)
             return rv;
         });
 
-    py::class_<Sequence::StateCounts>(m, "StateCounts",
+    py::class_<Sequence::StateCounts>(m, "StateCounts", py::buffer_protocol(),
                                       R"delim(
             Count the states at a site in a VariantMatrix.
 
@@ -251,7 +251,32 @@ PYBIND11_MODULE(variant_matrix, m)
              [](const Sequence::StateCounts &sc) {
                  return py::make_iterator(sc.counts.begin(), sc.counts.end());
              },
-             py::keep_alive<0, 1>());
+             py::keep_alive<0, 1>())
+        .def("__len__",
+             [](const Sequence::StateCounts &c) { return c.counts.size(); })
+        .def("__getitem__",
+             [](const Sequence::StateCounts &c, const std::size_t i) {
+                 if (i >= c.counts.size())
+                     {
+                         throw std::invalid_argument("index out of range");
+                     }
+                 return c.counts[i];
+             })
+        .def("__call__",
+             [](Sequence::StateCounts &c, Sequence::ConstRowView &r) { c(r); })
+        .def_buffer([](Sequence::StateCounts &c) -> py::buffer_info {
+            return py::buffer_info(
+                c.counts.data(),      /* Pointer to buffer */
+                sizeof(std::int32_t), /* Size of one scalar */
+                py::format_descriptor<std::int32_t>::
+                    format(), /* Python struct-style format descriptor */
+                1,            /* Number of dimensions */
+                { c.counts.size() }, /* Buffer dimensions */
+                {
+                    sizeof(std::int32_t)
+                    /* Strides (in bytes) for each index */
+                });
+        });
 
     m.def("process_variable_sites",
           [](const Sequence::VariantMatrix &m, py::object refstates) {
@@ -271,7 +296,7 @@ PYBIND11_MODULE(variant_matrix, m)
               return Sequence::process_variable_sites(
                   m, refstates.cast<std::vector<std::int8_t>>());
           },
-          py::arg("m"), py::arg("refstates")=nullptr,
+          py::arg("m"), py::arg("refstates") = nullptr,
           R"delim(
           Obtain state counts for all sites
 
