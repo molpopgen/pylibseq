@@ -31,12 +31,20 @@ PYBIND11_MODULE(summstats, m)
     m.def("thetapi", &Sequence::thetapi,
           R"delim(
             Mean number of pairwise differences.
+            
+            See :cite:`Tajima1983-it` for details.
 
             :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
+            
+            .. note::
+
+                Implemented as sum of site heterozygosity.
             )delim");
     m.def("thetaw", &Sequence::thetaw,
           R"delim(
             Watterson's theta.
+
+            See :cite:`Watterson1975-ej` for details.
 
             :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
 
@@ -50,6 +58,8 @@ PYBIND11_MODULE(summstats, m)
     m.def("tajd", &Sequence::tajd,
           R"delim(
             Tajima's D.
+
+            See :cite:`Tajima1989-de` for details.
 
             :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
             )delim");
@@ -70,7 +80,13 @@ PYBIND11_MODULE(summstats, m)
                        const std::vector<std::int8_t>& refstates) {
         return Sequence::faywuh(m, refstates);
     });
-    m.def("difference_matrix", &Sequence::difference_matrix);
+    m.def("difference_matrix", &Sequence::difference_matrix,
+          R"delim(
+            Return the nummber of differences between all
+            samples in a VariantMatrix
+
+            :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
+            )delim");
     m.def("label_haplotypes", &Sequence::label_haplotypes);
     m.def("number_of_haplotypes", &Sequence::number_of_haplotypes);
     m.def("haplotype_diversity", &Sequence::haplotype_diversity);
@@ -79,7 +95,14 @@ PYBIND11_MODULE(summstats, m)
             Hudson and Kaplan's estimate of the minimum number
             of recombination events.
 
+            See :cite:`Hudson1985-cq` for details.
+
             :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
+
+            .. note::
+
+                Sites with more than two allelic states to not 
+                contribute to the analysis.
             )delim");
 
     m.def("nsl", &Sequence::nsl);
