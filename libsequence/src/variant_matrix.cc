@@ -243,10 +243,12 @@ PYBIND11_MODULE(variant_matrix, m)
             See :ref:`variantmatrix`
             )delim")
         .def(py::init<>())
-        .def(py::init<std::int8_t>(),py::arg("refstate"))
-        .def_readonly("counts", &Sequence::StateCounts::counts)
-        .def_readonly("refstate", &Sequence::StateCounts::refstate)
-        .def_readonly("n", &Sequence::StateCounts::n)
+        .def(py::init<std::int8_t>(), py::arg("refstate"))
+        .def_readonly("counts", &Sequence::StateCounts::counts,
+                      "The counts for each possible non-missing allelic state")
+        .def_readonly("refstate", &Sequence::StateCounts::refstate,
+                      "The reference state.")
+        .def_readonly("n", &Sequence::StateCounts::n, "The sample size.")
         .def("__iter__",
              [](const Sequence::StateCounts &sc) {
                  return py::make_iterator(sc.counts.begin(), sc.counts.end());
@@ -264,8 +266,8 @@ PYBIND11_MODULE(variant_matrix, m)
              })
         .def("__call__",
              [](Sequence::StateCounts &c, Sequence::ConstRowView &r) { c(r); })
-        .def("__call__",
-             [](Sequence::StateCounts &c, const Sequence::RowView &r) { c(r); })
+        .def("__call__", [](Sequence::StateCounts &c,
+                            const Sequence::RowView &r) { c(r); })
         .def_buffer([](Sequence::StateCounts &c) -> py::buffer_info {
             return py::buffer_info(
                 c.counts.data(),      /* Pointer to buffer */
