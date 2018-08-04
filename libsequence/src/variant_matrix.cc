@@ -53,17 +53,8 @@ PYBIND11_MODULE(variant_matrix, m)
                              "len(pos) must equal data.shape[0]"));
                      }
                  auto data_ptr = data.unchecked<2>();
-                 std::vector<std::int8_t> d;
-                 d.reserve(data.size());
-                 for (decltype(data_ptr.shape(0)) i = 0; i < data_ptr.shape(0);
-                      ++i)
-                     {
-                         for (decltype(data_ptr.shape(1)) j = 0;
-                              j < data_ptr.shape(1); ++j)
-                             {
-                                 d.push_back(*data_ptr.data(i, j));
-                             }
-                     }
+                 std::vector<std::int8_t> d(data_ptr.data(0, 0),
+                                            data_ptr.data(0, 0) + data.size());
                  auto pos_ptr = pos.unchecked<1>();
                  std::vector<double> p(pos_ptr.data(0),
                                        pos_ptr.data(0) + pos.size());
