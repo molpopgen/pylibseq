@@ -73,22 +73,34 @@ Counting the states at a site
 
 .. ipython:: python
 
-    c = vm.StateCounts(m.site(0))
-    print(c.counts)
+    c = vm.StateCounts()
+    # These objects are callable classes:
+    c(m.site(0))
+    print(c.counts[:3])
     # The sample size at this site
     print(c.n)
-    # c is iterable
+    # c is iterable...
     for i in c:
-        print(i)
-
+        if i > 0:
+            print(i)
+    #...and indexable...
+    for i in range(len(c)):
+        if c[i] > 0:
+            print(i,c[i])
+    #...and supports the buffer protocol
+    ca = np.array(c)
+    nonzero_states = np.where(ca > 0)
+    print(nonzero_states[0])
+    ca[nonzero_states[0]]
+            
 By convention, missing data affects the sample size at a site:
 
 .. ipython:: python
 
     ma = np.array(m, copy=False)
     ma[0,2] = -1
-    c = vm.StateCounts(m.site(0))
-    print(c.counts)
+    c(m.site(0))
+    print(c.counts[:3])
     print(c.n)
 
     # restore our object
@@ -107,8 +119,9 @@ state, an ancestral state, a minor allele state, etc.
     print(c.refstate)
 
     # Let's let 0 be the reference state:
-    c = vm.StateCounts(m.site(0), refstate = 0)
-    print(c.counts)
+    c = vm.StateCounts(refstate = 0)
+    c(m.site(0))
+    print(c.counts[:3])
     print(c.refstate)
 
 You may get all of the counts at all sites in three different ways:
@@ -118,17 +131,17 @@ You may get all of the counts at all sites in three different ways:
     # Without respect to reference state
     lc = vm.process_variable_sites(m)
     for i in lc:
-        print(i.counts, i.refstate)
+        print(i.counts[:2], i.refstate)
     
     # With a single reference state for all sites
     lc = vm.process_variable_sites(m, 0)
     for i in lc:
-        print(i.counts, i.refstate)
+        print(i.counts[:2], i.refstate)
 
     # With a reference specified state for each site
     lc = vm.process_variable_sites(m, [0, 1])
     for i in lc:
-        print(i.counts, i.refstate)
+        print(i.counts[:2], i.refstate)
 
 
 Encoding missing data
@@ -148,7 +161,7 @@ Encoding missing data
     print(x.data)
 
     # For example:
-    c = vm.StateCounts(x.site(1))
+    c(x.site(1))
 
 Filtering VariantMatrix data
 -------------------------------------
@@ -158,22 +171,22 @@ must take the return value of :func:`libsequence.variant_matrix.VariantMatrix.si
 
 .. ipython:: python
 
-    # Treat 0 as the reference state
-    def remove_nonref_singletons(d):
-        c = vm.StateCounts(d, 0)
-        # For simplicity, let's remove
-        # missing data from x
-        cnm = [i for i in c if i[0] >= 0]
-        for i in cnm:
-            if i[0] != c.refstate:
-                if i[1] == 1:
-                    return True
-        return False
+    class RemoveNonRefSingletons(object):
+        def __init__(self):
+            # Treat 0 as the reference state
+            self.__c = vm.StateCounts(0)
+        def __call__(self, x):
+            self.__c(x)
+            n=np.array(self.__c, copy=False)
+            singletons = np.where(n == 1)
+            if len(singletons[0])>0:
+                return True
+            return False
 
     # Copy our data
     m2 = vm.VariantMatrix(m.data, m.positions)
 
-    rv = vm.filter_sites(m2, remove_nonref_singletons)
+    rv = vm.filter_sites(m2, RemoveNonRefSingletons())
     print(np.array(m))
     print(np.array(m2))
 
