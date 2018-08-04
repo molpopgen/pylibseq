@@ -54,15 +54,30 @@ to fill the upper triangle of a matrix:
             assert(len(diffs[0])==dm[dummy])
             dummy+=1
 
-It is possible to get a unique label assigned to each haplotype:
+In a similar fashion, we can obtain true/false data on whether pairs of haplotypes differ:
+
+.. ipython:: python
+
+    diff_yes_or_no = sstats.is_different_matrix(vm)
+
+The contents of this matrix have the exact same layout as `diffs` described above.  The difference is that the data
+elements are encoded as 0 = identical, 1 = different.  This calculation is **much** faster than the previous.
+
+.. note::
+
+    Missing data do not contribute to samples being considered different, nor to the 
+    number of differences.
+
+It is also possible to get a unique label assigned to each haplotype:
 
 .. ipython:: python
 
     labels = np.array(sstats.label_haplotypes(vm),dtype=np.int32)
     print(len(np.unique(labels)))
 
-These labels are used internally to count the number of haplotypes:
+Internally, the results from `is_different_matrix` are used to assign the labels.
 
+These labels are likewise used internally to count the number of haplotypes:
 
 .. ipython:: python
 
@@ -75,11 +90,11 @@ What about performance?
 
 .. ipython:: python
 
-    %timeit -n 10 -r 1 sstats.number_of_haplotypes(vm)
+    %timeit -n 10 -r 10 sstats.number_of_haplotypes(vm)
 
 .. ipython:: python
     
-    %timeit -n 10 -r 1 len(np.unique(gm.transpose(),axis=0))
+    %timeit -n 10 -r 10 len(np.unique(gm.transpose(),axis=0))
    
 
 .. _msprime: http://msprime.readthedocs.io
