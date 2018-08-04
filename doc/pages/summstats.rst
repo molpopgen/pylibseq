@@ -54,5 +54,22 @@ to fill the upper triangle of a matrix:
             assert(len(diffs[0])==dm[dummy])
             dummy+=1
 
+It is possible to get a unique label assigned to each haplotype:
+
+.. ipython:: python
+
+    labels = np.array(sstats.label_haplotypes(vm),dtype=np.int32)
+    print(len(np.unique(labels)))
+
+These labels are used internally to count the number of haplotypes:
+
+
+.. ipython:: python
+
+    print(sstats.number_of_haplotypes(vm))
+    # Confirm result via direct comparison to 
+    # the data from msprime:
+    print(len(np.unique(gm.transpose(),axis=0)))
+
 .. _msprime: http://msprime.readthedocs.io
 
