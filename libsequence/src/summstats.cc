@@ -80,6 +80,13 @@ PYBIND11_MODULE(summstats, m)
                        const std::vector<std::int8_t>& refstates) {
         return Sequence::faywuh(m, refstates);
     });
+    m.def("is_different_matrix", &Sequence::difference_matrix,
+          R"delim(
+            Return whether or not pairs of 
+            samples in a VariantMatrix differ
+
+            :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
+            )delim");
     m.def("difference_matrix", &Sequence::difference_matrix,
           R"delim(
             Return the nummber of differences between all
