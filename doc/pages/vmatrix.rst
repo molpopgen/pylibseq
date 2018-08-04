@@ -193,6 +193,10 @@ must take the return value of :func:`libsequence.variant_matrix.VariantMatrix.si
     # This is the number of sites removed:
     print(rv)
 
+Performance tip: I wrote the callable as a class so that a StateCounts could be stored as member data.  The reason is
+that :attr:`libsequence.variant_matrix.StateCounts.counts` is a buffer whose memory is re-used for each call.  Thus,
+storing an instance saves repeated memory allocation/deallocation events for each site.
+
 Similarly, we can remove samples:
 
 .. ipython:: python
