@@ -129,7 +129,7 @@ PYBIND11_MODULE(variant_matrix, m)
             .. note:: 
 
                 Testing using iPython's "timeit" suggests that
-                reating a VariantMatrix this way is only a bit slower
+                creating a VariantMatrix this way is only a bit slower
                 than a direct call to the VariantMatrix constructor
                 with the relevant numpy arrays.  However, this
                 function is preferred for "huge" data sets where you
