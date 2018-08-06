@@ -75,6 +75,67 @@ PYBIND11_MODULE(variant_matrix, m)
             >>> m = vm.VariantMatrix(d,p)
             )delim",
              py::arg("data"), py::arg("pos"))
+        .def_static(
+            "from_TreeSequence",
+            [](py::object ts) -> Sequence::VariantMatrix {
+                //If a not-TreeSequence is passed in, "duck typing"
+                //fails, and an exception will be raised.
+
+                //Allocate space on the C++ side for our data
+                std::vector<std::int8_t> data;
+                auto nsam = ts.attr("num_samples").cast<std::size_t>();
+                auto nsites = ts.attr("num_sites").cast<std::size_t>();
+                data.reserve(nsam * nsites);
+                std::vector<double> pos;
+                pos.reserve(nsites);
+
+                //Get the iterator over the variants
+                py::iterable v = ts.attr("variants")();
+                auto vi = py::iter(v);
+                //This is our numpy array type.
+                //The forecast flag will force auto-cast
+                //from the uint8_t Jerome uses to the int8_t
+                //used here (and in scikit-allel).
+                using array_type
+                    = py::array_t<std::int8_t,
+                                  py::array::c_style | py::array::forcecast>;
+                //Iterate over the variants:
+                while (vi != py::iterator::sentinel())
+                    {
+                        py::handle variant = *vi;
+                        auto a = variant.attr("genotypes").cast<array_type>();
+                        auto d = a.unchecked<1>();
+                        data.insert(data.end(), d.data(0),
+                                    d.data(0) + a.size());
+                        auto p = variant.attr("position").cast<double>();
+                        pos.push_back(p);
+                        ++vi;
+                    }
+                //Move our vectors into a VariantMatrix, 
+                //thus avoiding a copy during construction
+                return Sequence::VariantMatrix(std::move(data),
+                                               std::move(pos));
+            },
+            py::arg("ts"),
+            R"delim(
+            Create a VariantMatrix from an msprime.TreeSequence
+            
+            :param ts: A TreeSequence
+            
+            A TreeSequence object is the output of `msprime.simulate`,
+            or, equivalently, certain forward simulations that use
+            that format for storing results.
+
+            .. note:: 
+
+                Testing using iPython's "timeit" suggests that
+                reating a VariantMatrix this way is only a bit slower
+                than a direct call to the VariantMatrix constructor
+                with the relevant numpy arrays.  However, this
+                function is preferred for "huge" data sets where you
+                may run out of memory because both msprime and pylibseq
+                must make huge allocations.
+            )delim")
         .def_readonly("data", &Sequence::VariantMatrix::data,
                       "Return raw data as list")
         .def_readonly("positions", &Sequence::VariantMatrix::positions,
