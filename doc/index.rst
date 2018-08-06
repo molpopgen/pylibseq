@@ -14,6 +14,7 @@ Contents:
    pages/changes
    pages/vmatrix
    pages/summstats
+   pages/treesequences
    pages/deprecated_overview
    pages/lifetimes
 

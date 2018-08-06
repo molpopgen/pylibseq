@@ -17,7 +17,7 @@ also show how to interchange data between msprime_ :cite:`Kelleher2016-cb` and p
     ts = msprime.simulate(100, mutation_rate=250., recombination_rate=250., random_seed=42)
 
     # TreeSequence -> VariantMatrix
-    vm = vmat.VariantMatrix(ts.genotype_matrix(),ts.tables.sites.position)
+    vm = vmat.VariantMatrix.from_TreeSequence(ts)
 
     # Standard summary stats
     pi = sstats.thetapi(vm)
