@@ -3,6 +3,7 @@
 #include <pybind11/numpy.h>
 #include <pybind11/stl.h>
 #include <pybind11/stl_bind.h>
+#include <Sequence/AlleleCountMatrix.hpp>
 #include <Sequence/VariantMatrix.hpp>
 #include <Sequence/VariantMatrixViews.hpp>
 #include <Sequence/variant_matrix/filtering.hpp>
@@ -12,6 +13,32 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(variant_matrix, m)
 {
+    py::class_<Sequence::AlleleCountMatrix>(m, "AlleleCountMatrix",
+                                            py::buffer_protocol())
+        .def(py::init<const Sequence::VariantMatrix &>())
+        .def_readonly("counts", &Sequence::AlleleCountMatrix::counts)
+        .def_readonly("nrow", &Sequence::AlleleCountMatrix::nrow)
+        .def_readonly("ncol", &Sequence::AlleleCountMatrix::ncol)
+        .def_buffer(
+            [](const Sequence::AlleleCountMatrix &c) -> py::buffer_info {
+                using value_type = Sequence::AlleleCountMatrix::value_type;
+                return py::buffer_info(
+                    //TODO: fix this const_cast hack
+                    //once pybind11 supports read-only
+                    //buffers!
+                    const_cast<value_type *>(
+                        c.counts.data()), /* Pointer to buffer */
+                    sizeof(value_type),   /* Size of one scalar */
+                    py::format_descriptor<value_type>::
+                        format(), /* Python struct-style format descriptor */
+                    2,            /* Number of dimensions */
+                    { c.ncol, c.nrow }, /* Buffer dimensions */
+                    {
+                        sizeof(value_type) * c.nrow, sizeof(value_type)
+                        /* Strides (in bytes) for each index */
+                    });
+            });
+
     py::class_<Sequence::VariantMatrix>(m, "VariantMatrix",
                                         py::buffer_protocol(),
                                         R"delim(
@@ -77,7 +104,8 @@ PYBIND11_MODULE(variant_matrix, m)
              py::arg("data"), py::arg("pos"))
         .def_static(
             "from_TreeSequence",
-            [](py::object ts) -> Sequence::VariantMatrix {
+            [](py::object ts,
+               const std::int8_t max_allele) -> Sequence::VariantMatrix {
                 //If a not-TreeSequence is passed in, "duck typing"
                 //fails, and an exception will be raised.
 
@@ -111,12 +139,12 @@ PYBIND11_MODULE(variant_matrix, m)
                         pos.push_back(p);
                         ++vi;
                     }
-                //Move our vectors into a VariantMatrix, 
+                //Move our vectors into a VariantMatrix,
                 //thus avoiding a copy during construction
-                return Sequence::VariantMatrix(std::move(data),
-                                               std::move(pos));
+                return Sequence::VariantMatrix(std::move(data), std::move(pos),
+                                               max_allele);
             },
-            py::arg("ts"),
+            py::arg("ts"), py::arg("max_allele") = 1,
             R"delim(
             Create a VariantMatrix from an msprime.TreeSequence
             
@@ -146,6 +174,10 @@ PYBIND11_MODULE(variant_matrix, m)
                       "Number of samples")
         .def_readonly_static("mask", &Sequence::VariantMatrix::mask,
                              "Reserved missing data state")
+        .def("count_alleles",
+             [](const Sequence::VariantMatrix &m) {
+                 return Sequence::AlleleCountMatrix(m);
+             })
         .def("site",
              [](const Sequence::VariantMatrix &m, const std::size_t i) {
                  return Sequence::get_ConstRowView(m, i);

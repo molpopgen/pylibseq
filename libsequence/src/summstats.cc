@@ -2,6 +2,7 @@
 #include <pybind11/stl.h>
 #include <numeric>
 #include <Sequence/VariantMatrix.hpp>
+#include <Sequence/AlleleCountMatrix.hpp>
 #include <Sequence/summstats.hpp>
 #include <Sequence/summstats/ld.hpp>
 
@@ -39,7 +40,9 @@ PYBIND11_MODULE(summstats, m)
             .. note::
 
                 Implemented as sum of site heterozygosity.
-            )delim");
+            )delim",
+          py::arg("m"));
+
     m.def("thetaw", &Sequence::thetaw,
           R"delim(
             Watterson's theta.
@@ -55,7 +58,7 @@ PYBIND11_MODULE(summstats, m)
     m.def("nvariable_sites", &Sequence::nvariable_sites);
     m.def("nbiallelic_sites", &Sequence::nbiallelic_sites);
     m.def("total_number_of_mutations", &Sequence::total_number_of_mutations);
-    m.def("tajd", &Sequence::tajd,
+    m.def("tajd",&Sequence::thetapi,
           R"delim(
             Tajima's D.
 
@@ -64,19 +67,20 @@ PYBIND11_MODULE(summstats, m)
             :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
             )delim");
 
+
     m.def("hprime",
-          [](const Sequence::VariantMatrix& m, const std::int8_t refstate) {
+          [](const Sequence::AlleleCountMatrix& m, const std::int8_t refstate) {
               return Sequence::hprime(m, refstate);
           });
-    m.def("hprime", [](const Sequence::VariantMatrix& m,
+    m.def("hprime", [](const Sequence::AlleleCountMatrix& m,
                        const std::vector<std::int8_t>& refstates) {
         return Sequence::hprime(m, refstates);
     });
     m.def("faywuh",
-          [](const Sequence::VariantMatrix& m, const std::int8_t refstate) {
+          [](const Sequence::AlleleCountMatrix& m, const std::int8_t refstate) {
               return Sequence::faywuh(m, refstate);
           });
-    m.def("faywuh", [](const Sequence::VariantMatrix& m,
+    m.def("faywuh", [](const Sequence::AlleleCountMatrix& m,
                        const std::vector<std::int8_t>& refstates) {
         return Sequence::faywuh(m, refstates);
     });
@@ -124,17 +128,17 @@ PYBIND11_MODULE(summstats, m)
         .def_readonly("nstates", &Sequence::AlleleCounts::nstates)
         .def_readonly("nmissing", &Sequence::AlleleCounts::nmissing);
 
-    m.def("allele_counts", [](const Sequence::VariantMatrix& m) {
+    m.def("allele_counts", [](const Sequence::AlleleCountMatrix& m) {
         return Sequence::allele_counts(m);
     });
 
     m.def("non_reference_allele_counts",
-          [](const Sequence::VariantMatrix& m, const std::int8_t refstate) {
+          [](const Sequence::AlleleCountMatrix& m, const std::int8_t refstate) {
               return Sequence::non_reference_allele_counts(m, refstate);
           });
 
     m.def("non_reference_allele_counts",
-          [](const Sequence::VariantMatrix& m,
+          [](const Sequence::AlleleCountMatrix& m,
              const std::vector<std::int8_t>& refstates) {
               return Sequence::non_reference_allele_counts(m, refstates);
           });
