@@ -58,7 +58,7 @@ PYBIND11_MODULE(summstats, m)
     m.def("nvariable_sites", &Sequence::nvariable_sites);
     m.def("nbiallelic_sites", &Sequence::nbiallelic_sites);
     m.def("total_number_of_mutations", &Sequence::total_number_of_mutations);
-    m.def("tajd",&Sequence::thetapi,
+    m.def("tajd",&Sequence::tajd,
           R"delim(
             Tajima's D.
 
