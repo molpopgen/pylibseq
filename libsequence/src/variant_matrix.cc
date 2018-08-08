@@ -38,9 +38,9 @@ PYBIND11_MODULE(variant_matrix, m)
                     py::format_descriptor<value_type>::
                         format(), /* Python struct-style format descriptor */
                     2,            /* Number of dimensions */
-                    { c.ncol, c.nrow }, /* Buffer dimensions */
+                    { c.nrow, c.ncol }, /* Buffer dimensions */
                     {
-                        sizeof(value_type) * c.nrow, sizeof(value_type)
+                        sizeof(value_type) * c.ncol, sizeof(value_type)
                         /* Strides (in bytes) for each index */
                     });
             });
