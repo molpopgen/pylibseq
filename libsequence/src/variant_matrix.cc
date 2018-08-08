@@ -19,6 +19,12 @@ PYBIND11_MODULE(variant_matrix, m)
         .def_readonly("counts", &Sequence::AlleleCountMatrix::counts)
         .def_readonly("nrow", &Sequence::AlleleCountMatrix::nrow)
         .def_readonly("ncol", &Sequence::AlleleCountMatrix::ncol)
+        .def("row",
+             [](const Sequence::AlleleCountMatrix &c, const std::size_t i) {
+                 auto x = c.row(i);
+                 return py::make_iterator(x.first, x.second);
+             },
+             py::keep_alive<0, 1>())
         .def_buffer(
             [](const Sequence::AlleleCountMatrix &c) -> py::buffer_info {
                 using value_type = Sequence::AlleleCountMatrix::value_type;
