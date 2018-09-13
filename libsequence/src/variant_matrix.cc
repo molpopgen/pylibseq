@@ -7,6 +7,7 @@
 #include <Sequence/VariantMatrix.hpp>
 #include <Sequence/VariantMatrixViews.hpp>
 #include <Sequence/variant_matrix/filtering.hpp>
+#include <Sequence/variant_matrix/windows.hpp>
 #include <Sequence/StateCounts.hpp>
 
 namespace py = pybind11;
@@ -25,6 +26,23 @@ PYBIND11_MODULE(variant_matrix, m)
                  return py::make_iterator(x.first, x.second);
              },
              py::keep_alive<0, 1>())
+        .def("__getitem__",
+             [](const Sequence::AlleleCountMatrix &am, py::slice slice) {
+                 std::size_t start, stop, step, slicelength;
+                 if (!slice.compute(am.counts.size(), &start, &stop, &step,
+                                    &slicelength))
+                     throw py::error_already_set();
+                 std::vector<int> c;
+                 int nrow = 0;
+                 for (size_t i = 0; i < slicelength; ++i, ++nrow)
+                     {
+                         auto r = am.row(start);
+                         c.insert(c.end(), r.first, r.second);
+                         start += step;
+                     }
+                 return Sequence::AlleleCountMatrix(std::move(c), am.ncol,
+                                                    nrow, am.nsam);
+             })
         .def_buffer(
             [](const Sequence::AlleleCountMatrix &c) -> py::buffer_info {
                 using value_type = Sequence::AlleleCountMatrix::value_type;
@@ -220,6 +238,18 @@ PYBIND11_MODULE(variant_matrix, m)
                       * m.nsam, /* Strides (in bytes) for each index */
                   sizeof(std::int8_t) });
         })
+        .def("window",
+             [](const Sequence::VariantMatrix &m, const double beg,
+                const double end) {
+                 return Sequence::make_window(m, beg, end);
+             },
+             py::arg("beg"), py::arg("end"))
+        .def("slice",
+             [](const Sequence::VariantMatrix &m, const double beg,
+                const double end, const std::size_t i, const std::size_t j) {
+                 return Sequence::make_slice(m, beg, end, i, j);
+             },
+             py::arg("beg"), py::arg("end"), py::arg("i"), py::arg("j"))
         .def(py::pickle(
             [](const Sequence::VariantMatrix &m) {
                 return py::make_tuple(m.data, m.positions);
