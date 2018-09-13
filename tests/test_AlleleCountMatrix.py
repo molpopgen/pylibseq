@@ -24,6 +24,14 @@ class testAlleleCountMatrix(unittest.TestCase):
         self.assertTrue(np.array_equal(np.array(ac_slice),
                                        np.array(acw)))
 
+    def testArbitrarySubset(self):
+        indexes = [1, 3, 4, 11, 15]
+        acw = self.ac[indexes]
+        for i, j in zip(indexes, range(len(indexes))):
+            row_i = self.ac.row(i)
+            row_j = acw.row(j)
+            self.assertTrue(all(k == l for k, l in zip(row_i, row_j)) is True)
+
 
 if __name__ == "__main__":
     unittest.main()

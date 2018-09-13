@@ -43,6 +43,20 @@ PYBIND11_MODULE(variant_matrix, m)
                  return Sequence::AlleleCountMatrix(std::move(c), am.ncol,
                                                     nrow, am.nsam);
              })
+        .def("__getitem__",
+             [](const Sequence::AlleleCountMatrix &am,
+                py::array_t<std::size_t> x) {
+                 auto r = x.unchecked<1>();
+                 std::vector<int> c;
+                 int nrow = 0;
+                 for (std::size_t i = 0; i < r.shape(0); ++i, ++nrow)
+                     {
+                         auto row = am.row(r(i));
+                         c.insert(c.end(), row.first, row.second);
+                     }
+                 return Sequence::AlleleCountMatrix(std::move(c), am.ncol,
+                                                    nrow, am.nsam);
+             })
         .def_buffer(
             [](const Sequence::AlleleCountMatrix &c) -> py::buffer_info {
                 using value_type = Sequence::AlleleCountMatrix::value_type;
