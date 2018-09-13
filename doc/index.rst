@@ -13,8 +13,14 @@ Contents:
 
    pages/changes
    pages/vmatrix
+   pages/summstats
+   pages/treesequences
    pages/deprecated_overview
    pages/lifetimes
+
+.. rubric:: References
+
+.. bibliography:: Zreferences.bib
 
 Functions and classes
 ##########################################

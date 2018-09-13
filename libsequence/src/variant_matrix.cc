@@ -3,6 +3,7 @@
 #include <pybind11/numpy.h>
 #include <pybind11/stl.h>
 #include <pybind11/stl_bind.h>
+#include <Sequence/AlleleCountMatrix.hpp>
 #include <Sequence/VariantMatrix.hpp>
 #include <Sequence/VariantMatrixViews.hpp>
 #include <Sequence/variant_matrix/filtering.hpp>
@@ -12,6 +13,38 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(variant_matrix, m)
 {
+    py::class_<Sequence::AlleleCountMatrix>(m, "AlleleCountMatrix",
+                                            py::buffer_protocol())
+        .def(py::init<const Sequence::VariantMatrix &>())
+        .def_readonly("counts", &Sequence::AlleleCountMatrix::counts)
+        .def_readonly("nrow", &Sequence::AlleleCountMatrix::nrow)
+        .def_readonly("ncol", &Sequence::AlleleCountMatrix::ncol)
+        .def("row",
+             [](const Sequence::AlleleCountMatrix &c, const std::size_t i) {
+                 auto x = c.row(i);
+                 return py::make_iterator(x.first, x.second);
+             },
+             py::keep_alive<0, 1>())
+        .def_buffer(
+            [](const Sequence::AlleleCountMatrix &c) -> py::buffer_info {
+                using value_type = Sequence::AlleleCountMatrix::value_type;
+                return py::buffer_info(
+                    //TODO: fix this const_cast hack
+                    //once pybind11 supports read-only
+                    //buffers!
+                    const_cast<value_type *>(
+                        c.counts.data()), /* Pointer to buffer */
+                    sizeof(value_type),   /* Size of one scalar */
+                    py::format_descriptor<value_type>::
+                        format(), /* Python struct-style format descriptor */
+                    2,            /* Number of dimensions */
+                    { c.nrow, c.ncol }, /* Buffer dimensions */
+                    {
+                        sizeof(value_type) * c.ncol, sizeof(value_type)
+                        /* Strides (in bytes) for each index */
+                    });
+            });
+
     py::class_<Sequence::VariantMatrix>(m, "VariantMatrix",
                                         py::buffer_protocol(),
                                         R"delim(
@@ -75,6 +108,68 @@ PYBIND11_MODULE(variant_matrix, m)
             >>> m = vm.VariantMatrix(d,p)
             )delim",
              py::arg("data"), py::arg("pos"))
+        .def_static(
+            "from_TreeSequence",
+            [](py::object ts,
+               const std::int8_t max_allele) -> Sequence::VariantMatrix {
+                //If a not-TreeSequence is passed in, "duck typing"
+                //fails, and an exception will be raised.
+
+                //Allocate space on the C++ side for our data
+                std::vector<std::int8_t> data;
+                auto nsam = ts.attr("num_samples").cast<std::size_t>();
+                auto nsites = ts.attr("num_sites").cast<std::size_t>();
+                data.reserve(nsam * nsites);
+                std::vector<double> pos;
+                pos.reserve(nsites);
+
+                //Get the iterator over the variants
+                py::iterable v = ts.attr("variants")();
+                auto vi = py::iter(v);
+                //This is our numpy array type.
+                //The forecast flag will force auto-cast
+                //from the uint8_t Jerome uses to the int8_t
+                //used here (and in scikit-allel).
+                using array_type
+                    = py::array_t<std::int8_t,
+                                  py::array::c_style | py::array::forcecast>;
+                //Iterate over the variants:
+                while (vi != py::iterator::sentinel())
+                    {
+                        py::handle variant = *vi;
+                        auto a = variant.attr("genotypes").cast<array_type>();
+                        auto d = a.unchecked<1>();
+                        data.insert(data.end(), d.data(0),
+                                    d.data(0) + a.size());
+                        auto p = variant.attr("position").cast<double>();
+                        pos.push_back(p);
+                        ++vi;
+                    }
+                //Move our vectors into a VariantMatrix,
+                //thus avoiding a copy during construction
+                return Sequence::VariantMatrix(std::move(data), std::move(pos),
+                                               max_allele);
+            },
+            py::arg("ts"), py::arg("max_allele") = 1,
+            R"delim(
+            Create a VariantMatrix from an msprime.TreeSequence
+            
+            :param ts: A TreeSequence
+            
+            A TreeSequence object is the output of `msprime.simulate`,
+            or, equivalently, certain forward simulations that use
+            that format for storing results.
+
+            .. note:: 
+
+                Testing using iPython's "timeit" suggests that
+                creating a VariantMatrix this way is only a bit slower
+                than a direct call to the VariantMatrix constructor
+                with the relevant numpy arrays.  However, this
+                function is preferred for "huge" data sets where you
+                may run out of memory because both msprime and pylibseq
+                must make huge allocations.
+            )delim")
         .def_readonly("data", &Sequence::VariantMatrix::data,
                       "Return raw data as list")
         .def_readonly("positions", &Sequence::VariantMatrix::positions,
@@ -85,6 +180,10 @@ PYBIND11_MODULE(variant_matrix, m)
                       "Number of samples")
         .def_readonly_static("mask", &Sequence::VariantMatrix::mask,
                              "Reserved missing data state")
+        .def("count_alleles",
+             [](const Sequence::VariantMatrix &m) {
+                 return Sequence::AlleleCountMatrix(m);
+             })
         .def("site",
              [](const Sequence::VariantMatrix &m, const std::size_t i) {
                  return Sequence::get_ConstRowView(m, i);
@@ -227,28 +326,51 @@ PYBIND11_MODULE(variant_matrix, m)
             return rv;
         });
 
-    py::class_<Sequence::StateCounts>(m, "StateCounts",
+    py::class_<Sequence::StateCounts>(m, "StateCounts", py::buffer_protocol(),
                                       R"delim(
             Count the states at a site in a VariantMatrix.
 
             See :ref:`variantmatrix`
             )delim")
-        .def(py::init<const Sequence::ConstRowView &, const std::int8_t>(),
-             py::arg("site"), py::arg("refstate"))
-        .def(py::init([](const Sequence::RowView &v, const std::int8_t ref) {
-                 Sequence::ConstRowView r(v.data, v.size());
-                 return r;
-             }),
-             py::arg("v"), py::arg("refstate") = -1)
-        .def(py::init<const Sequence::ConstRowView &>())
-        .def_readonly("counts", &Sequence::StateCounts::counts)
-        .def_readonly("refstate", &Sequence::StateCounts::refstate)
-        .def_readonly("n", &Sequence::StateCounts::n)
+        .def(py::init<>())
+        .def(py::init<std::int8_t>(), py::arg("refstate"))
+        .def_readonly("counts", &Sequence::StateCounts::counts,
+                      "The counts for each possible non-missing allelic state")
+        .def_readonly("refstate", &Sequence::StateCounts::refstate,
+                      "The reference state.")
+        .def_readonly("n", &Sequence::StateCounts::n, "The sample size.")
         .def("__iter__",
              [](const Sequence::StateCounts &sc) {
                  return py::make_iterator(sc.counts.begin(), sc.counts.end());
              },
-             py::keep_alive<0, 1>());
+             py::keep_alive<0, 1>())
+        .def("__len__",
+             [](const Sequence::StateCounts &c) { return c.counts.size(); })
+        .def("__getitem__",
+             [](const Sequence::StateCounts &c, const std::size_t i) {
+                 if (i >= c.counts.size())
+                     {
+                         throw std::invalid_argument("index out of range");
+                     }
+                 return c.counts[i];
+             })
+        .def("__call__",
+             [](Sequence::StateCounts &c, Sequence::ConstRowView &r) { c(r); })
+        .def("__call__", [](Sequence::StateCounts &c,
+                            const Sequence::RowView &r) { c(r); })
+        .def_buffer([](Sequence::StateCounts &c) -> py::buffer_info {
+            return py::buffer_info(
+                c.counts.data(),      /* Pointer to buffer */
+                sizeof(std::int32_t), /* Size of one scalar */
+                py::format_descriptor<std::int32_t>::
+                    format(), /* Python struct-style format descriptor */
+                1,            /* Number of dimensions */
+                { c.counts.size() }, /* Buffer dimensions */
+                {
+                    sizeof(std::int32_t)
+                    /* Strides (in bytes) for each index */
+                });
+        });
 
     m.def("process_variable_sites",
           [](const Sequence::VariantMatrix &m, py::object refstates) {
