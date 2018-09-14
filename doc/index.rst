@@ -13,7 +13,6 @@ Contents:
 
    pages/changes
    pages/vmatrix
-   pages/summstatsVariantMatrix
    pages/summstats
    pages/treesequences
    pages/deprecated_overview
