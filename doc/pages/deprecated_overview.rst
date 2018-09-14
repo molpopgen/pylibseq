@@ -120,19 +120,7 @@ Linkage disequilibrium
 
 The function ``libsequence.summstats.ld`` returns pairwise LD stats as a
 ``list`` of ``dict``\ s. The return value is easily coerced into a
-``pandas.DataFrame``:
-
-.. ipython:: python
-
-    from libsequence.summstats import ld
-    import pandas as pd
-    pairwise = ld(sd)
-    print(type(pairwise))
-    print(type(pairwise[0]))
-    print(pairwise[0])
-    pairwise_nicer = pd.DataFrame(pairwise)
-    pairwise_nicer.head()
-
+``pandas.DataFrame``.
 
 :math:`F_{ST}`
 --------------

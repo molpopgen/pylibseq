@@ -58,17 +58,7 @@ LIBRARY_DIRS = [
     os.path.join(sys.prefix, 'lib')
 ]
 
-LIBS = ['tbb']
-
 ext_modules = [
-    Extension(
-        'libsequence.parallel',
-        ['libsequence/src/parallel.cc'],
-        library_dirs=LIBRARY_DIRS,
-        include_dirs=INCLUDES,
-        libraries=['tbb'],
-        language='c++'
-    ),
     Extension(
         'libsequence.polytable',
         ['libsequence/src/polytable.cc'],
@@ -79,10 +69,10 @@ ext_modules = [
     ),
     Extension(
         'libsequence.summstats',
-        ['libsequence/src/summstats.cc'],
+        ['libsequence/src/summstats.cc','libsequence/src/omega_max.cc'],
         library_dirs=LIBRARY_DIRS,
         include_dirs=INCLUDES,
-        libraries=['sequence', 'tbb'],
+        libraries=['sequence'],
         language='c++'
     ),
     Extension(
@@ -101,6 +91,15 @@ ext_modules = [
         libraries=['sequence'],
         language='c++'
     ),
+    Extension(
+        'libsequence.variant_matrix',
+        ['libsequence/src/variant_matrix.cc'],
+        library_dirs=LIBRARY_DIRS,
+        include_dirs=INCLUDES,
+        libraries=['sequence'],
+        language='c++'
+    ),
+
 ]
 
 
@@ -188,5 +187,8 @@ setup(
     install_requires=['pybind11>=2.1.1'],
     cmdclass={'build_ext': BuildExt},
     packages=PKGS,
+    entry_points={
+        'console_scripts': ['pymsstats = libsequence.msstats_cli:msstats_main']
+    },
     zip_safe=False,
 )
