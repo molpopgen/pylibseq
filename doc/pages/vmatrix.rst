@@ -69,7 +69,37 @@ The types involved in the last example are:
 Counting the states at a site
 -------------------------------------
 
-:class:`libsequence.VariantMatrix.StateCounts` helps process data from matrix rows (sites):
+The most straightforward way to get the allele counts at all sites is via
+:class:`libsequence.variant_matrix.AlleleCountMatrix`:
+
+.. ipython:: python
+
+    import msprime
+
+    ts = msprime.simulate(10, mutation_rate=25, random_seed=666)
+    m = vm.VariantMatrix.from_TreeSequence(ts)
+    ac = m.count_alleles()
+    print(np.array(ac)[:5])
+
+    # Confirm that the counts are the same as 
+    # what msprime thinks:
+    vi = ts.variants()
+    for i in range(5):
+        v = next(vi)
+        ones = np.count_nonzero(v.genotypes)
+        print(len(v.genotypes)-ones, ones)
+
+    # These count objects are sliceable...
+    print(np.array(ac[1:ac.nrow:25]))
+
+    # ...and indexable via lists
+    print(np.array(ac[[0,1,2,3,4]]))
+
+The allele count data are stored in order of allele label, starting with zero.  The sum
+of allele counts at a site is the sample size at that site.
+
+:class:`libsequence.VariantMatrix.StateCounts` provides a means to generate allele counts
+on-demand for a site:
 
 .. ipython:: python
 
@@ -130,17 +160,19 @@ You may get all of the counts at all sites in three different ways:
 
     # Without respect to reference state
     lc = vm.process_variable_sites(m)
-    for i in lc:
+    for i in lc[:5]:
         print(i.counts[:2], i.refstate)
     
     # With a single reference state for all sites
     lc = vm.process_variable_sites(m, 0)
-    for i in lc:
+    for i in lc[:5]:
         print(i.counts[:2], i.refstate)
 
     # With a reference specified state for each site
-    lc = vm.process_variable_sites(m, [0, 1])
-    for i in lc:
+    rstats = [0 for i in range(m.nsites)]
+    rstats[0:len(rstats):2] = [1 for i in range(0,len(rstats),2)] 
+    lc = vm.process_variable_sites(m, rstats)
+    for i in lc[:5]:
         print(i.counts[:2], i.refstate)
 
 
