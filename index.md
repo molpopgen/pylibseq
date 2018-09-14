@@ -1,16 +1,16 @@
-##The fwdpy home page
+# The fwdpy home page
 
 This is the homepage for __pylibseq__, which provides Python bindings to the C++ library [libsequence](http://github.com/molpopgen/libsequence)
 
-###Source code
+## Source code
 
 The source code is [here](https://github.com/molpopgen/pylibseq)
 
-### Documentation
+## Documentation
 
 * [Manual](_build/html/index.html) in html format.
 
-###Citation
+## Citation
 
 If you use __pylibseq__ for yor research, please cite the following manuscript, which is the basis for this package:
 
