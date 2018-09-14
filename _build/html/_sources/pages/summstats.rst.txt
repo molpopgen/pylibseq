@@ -6,6 +6,9 @@ Calculating summary statistics
 This page is a tutorial on calculating summary statistics from a :class:`libsequence.variant_matrix.VariantMatrix`.  We
 also show how to interchange data between msprime_ :cite:`Kelleher2016-cb` and pylibseq.
 
+Simple overview of concepts
+-------------------------------------------------------
+
 .. ipython:: python
 
     import msprime
@@ -18,11 +21,46 @@ also show how to interchange data between msprime_ :cite:`Kelleher2016-cb` and p
 
     # TreeSequence -> VariantMatrix
     vm = vmat.VariantMatrix.from_TreeSequence(ts)
-
+    # VariantMatrix -> AlleleCountMatrix
+    ac = vm.count_alleles()
     # Standard summary stats
-    pi = sstats.thetapi(vm)
-    tajd = sstats.tajd(vm)
-    hprime = sstats.hprime(vm, 0) # 0 = reference state = ancestral state
+    pi = sstats.thetapi(ac)
+    tajd = sstats.tajd(ac)
+    hprime = sstats.hprime(ac, 0) # 0 = reference state = ancestral state
+
+Summary statistic functions are found in :mod:`libsequence.summstats`.  Certain 
+summary statistics can be calculated simply from allele counts via
+:class:`libsequence.variant_matrix.AlleleCountMatrix`. Calculations invovling linkage disequilibrium
+will typically require the entire :class:`libsequence.variant_matrix.VariantMatrix` object.
+
+The following examples rely on msprime :cite:`Kelleher2016-cb` to generate input data, but 
+the concepts hold more generally.
+    
+Distribution of Tajima's D from msprime 
+------------------------------------------------------------------------------
+
+.. plot:: pyplots/tajd.py
+    :include-source:
+
+
+Binning the :math:`nS_L` statistic from coalescent simulations
+------------------------------------------------------------------------------
+
+"Haplotype homozygosity" statistics are very popular in certain circles.  Doing any kind of statistics
+with them requires binning "neutral" or "reference" SNPs by allele frequency so that you can convert
+raw scores into z-scores.  In simulation studies, it makes sense to calibrate the means and standard
+deviations per bin based on simulations of a null model.  Here, I show how to do this for the :math:`nS_L`
+statistic of :cite:`Ferrer-Admetlla2014-wa`.
+
+The relevant function here is :func:`libsequence.summstats.nsl`, which returns instances of
+:class:`libsequence.summstats.nSLresults`.
+
+
+.. plot:: pyplots/nSLbins.py
+    :include-source:
+
+Other useful statistics
+----------------------------------------------------------------
 
 Some more complex descriptors of the data are available
 
