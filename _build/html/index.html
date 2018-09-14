@@ -5,16 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Welcome to pylibseq’s documentation! &#8212; pylibseq 0.2.0 documentation</title>
-    
+    <title>Welcome to pylibseq’s documentation! &#8212; pylibseq 0.2.1a0 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.2.0',
+        VERSION:     '0.2.1a0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,10 +21,10 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Example workflow" href="pages/overview.html" /> 
+    <link rel="next" title="Changes" href="pages/changes.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -40,9 +37,9 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="pages/overview.html" title="Example workflow"
+          <a href="pages/changes.html" title="Changes"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.2.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.2.1a0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -56,237 +53,426 @@
 <p>Contents:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="pages/overview.html">Example workflow</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pages/overview.html#assigning-to-an-object">Assigning to an object</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pages/overview.html#summary-statistics">Summary statistics</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pages/overview.html#filtering-sites">Filtering sites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pages/overview.html#sliding-windows">Sliding windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pages/overview.html#linkage-disequilibrium">Linkage disequilibrium</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pages/overview.html#id1"><span class="math">\(F_{ST}\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/changes.html">Changes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/changes.html#version-0-2-1">Version 0.2.1</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="pages/parallel.html">Parallel computation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/vmatrix.html">The VariantMatrix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/vmatrix.html#counting-the-states-at-a-site">Counting the states at a site</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/vmatrix.html#encoding-missing-data">Encoding missing data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/vmatrix.html#filtering-variantmatrix-data">Filtering VariantMatrix data</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pages/summstatsVariantMatrix.html">Calculating summary statistics from a VariantMatrix</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/summstatsVariantMatrix.html#distribution-of-tajima-s-d-from-msprime">Distribution of Tajima’s D from msprime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/summstatsVariantMatrix.html#binning-the-statistic-from-coalescent-simulations">Binning the <span class="math">\(nS_L\)</span> statistic from coalescent simulations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pages/summstats.html">Calculating summary statistics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/treesequences.html">Tree Sequences</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/deprecated_overview.html">Example workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pages/deprecated_overview.html#assigning-to-an-object">Assigning to an object</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/deprecated_overview.html#summary-statistics">Summary statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/deprecated_overview.html#filtering-sites">Filtering sites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/deprecated_overview.html#sliding-windows">Sliding windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/deprecated_overview.html#linkage-disequilibrium">Linkage disequilibrium</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pages/deprecated_overview.html#id1"><span class="math">\(F_{ST}\)</span></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="pages/lifetimes.html">Object lifetimes</a></li>
 </ul>
 </div>
-<div class="section" id="module-libsequence.polytable">
-<span id="functions-and-classes"></span><h2>Functions and classes<a class="headerlink" href="#module-libsequence.polytable" title="Permalink to this headline">¶</a></h2>
-<p>Access to libsequence’s polymorphism table classes and related functions</p>
+<p class="rubric">References</p>
+<p id="bibtex-bibliography-index-0"><table class="docutils citation" frame="void" id="ferrer-admetlla2014-wa" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[FALKN14]</td><td><em>(<a class="fn-backref" href="#id2">1</a>, <a class="fn-backref" href="#id3">2</a>)</em> Anna Ferrer-Admetlla, Mason Liang, Thorfinn Korneliussen, and Rasmus Nielsen. On detecting incomplete soft or hard selective sweeps using haplotype structure. <em>Mol. Biol. Evol.</em>, 31(5):1275–1291, May 2014.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="hudson1985-cq" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[HK85]</a></td><td>R&nbsp;R Hudson and N&nbsp;L Kaplan. Statistical properties of the number of recombination events in the history of a sample of DNA sequences. <em>Genetics</em>, 111(1):147–164, September 1985.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="kelleher2016-cb" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[KEM16]</a></td><td>Jerome Kelleher, Alison&nbsp;M Etheridge, and Gilean McVean. Efficient coalescent simulation and genealogical analysis for large sample sizes. <em>PLoS Comput. Biol.</em>, 12(5):e1004842, May 2016.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="tajima1983-it" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[Taj83]</a></td><td>F&nbsp;Tajima. Evolutionary relationship of DNA sequences in finite populations. <em>Genetics</em>, 105(2):437–460, October 1983.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="tajima1989-de" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[Taj89]</a></td><td>F&nbsp;Tajima. Statistical method for testing the neutral mutation hypothesis by DNA polymorphism. <em>Genetics</em>, 123(3):585–595, November 1989.</td></tr>
+</tbody>
+</table>
+<table class="docutils citation" frame="void" id="watterson1975-ej" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[Wat75]</a></td><td>G&nbsp;A Watterson. On the number of segregating sites in genetical models without recombination. <em>Theor. Popul. Biol.</em>, 7(2):256–276, April 1975.</td></tr>
+</tbody>
+</table>
+</p>
+<div class="section" id="module-libsequence.variant_matrix">
+<span id="functions-and-classes"></span><h2>Functions and classes<a class="headerlink" href="#module-libsequence.variant_matrix" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="libsequence.polytable.PolySites">
-<em class="property">class </em><code class="descclassname">libsequence.polytable.</code><code class="descname">PolySites</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.PolySites" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></p>
-<p>A polymorphism table for Sequence data.  A/G/C/T/N/0/1 is the alphabet for analysis.</p>
-<p>Overloaded function.</p>
-<ol class="arabic simple">
-<li>__init__(self: libsequence.polytable.PolySites) -&gt; None</li>
-<li>__init__(self: libsequence.polytable.PolySites, arg0: List[Tuple[float, str]]) -&gt; None</li>
-</ol>
-</dd></dl>
-
-<dl class="class">
-<dt id="libsequence.polytable.PolyTable">
-<em class="property">class </em><code class="descclassname">libsequence.polytable.</code><code class="descname">PolyTable</code><a class="headerlink" href="#libsequence.polytable.PolyTable" title="Permalink to this definition">¶</a></dt>
+<dt id="libsequence.variant_matrix.AlleleCountMatrix">
+<em class="property">class </em><code class="descclassname">libsequence.variant_matrix.</code><code class="descname">AlleleCountMatrix</code><span class="sig-paren">(</span><em>self: libsequence.variant_matrix.AlleleCountMatrix</em>, <em>arg0: Sequence::VariantMatrix</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.variant_matrix.AlleleCountMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
-<p>Base class for polymorphism tables</p>
-<dl class="method">
-<dt id="libsequence.polytable.PolyTable.assign">
-<code class="descname">assign</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.PolyTable.assign" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li>assign(self: libsequence.polytable.PolyTable, arg0: List[Tuple[float, str]]) -&gt; None</li>
-</ol>
-<p>Assign data from a tuple of (position,data), where data are encoded as an str.</p>
-<ol class="arabic simple" start="2">
-<li>assign(self: libsequence.polytable.PolyTable, arg0: List[float], arg1: List[str]) -&gt; None</li>
-</ol>
-<p>Assign data from a list of positions and a  list of strings representing variable positions.</p>
+<p>A matrix of allele counts. This object supports the buffer protocol.</p>
+<p>Construct from a <a class="reference internal" href="#libsequence.variant_matrix.VariantMatrix" title="libsequence.variant_matrix.VariantMatrix"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></a></p>
+<dl class="attribute">
+<dt id="libsequence.variant_matrix.AlleleCountMatrix.counts">
+<code class="descname">counts</code><a class="headerlink" href="#libsequence.variant_matrix.AlleleCountMatrix.counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Flattened view of the raw data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libsequence.variant_matrix.AlleleCountMatrix.ncol">
+<code class="descname">ncol</code><a class="headerlink" href="#libsequence.variant_matrix.AlleleCountMatrix.ncol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of columns (allelic states) in the matrix.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libsequence.variant_matrix.AlleleCountMatrix.nrow">
+<code class="descname">nrow</code><a class="headerlink" href="#libsequence.variant_matrix.AlleleCountMatrix.nrow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of rows (sites) in the matrix.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libsequence.variant_matrix.AlleleCountMatrix.nsam">
+<code class="descname">nsam</code><a class="headerlink" href="#libsequence.variant_matrix.AlleleCountMatrix.nsam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sample size of the original VariantMatrix.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="libsequence.polytable.PolyTable.data">
-<code class="descname">data</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#libsequence.polytable.PolyTable.data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libsequence.polytable.PolyTable.empty">
-<code class="descname">empty</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#libsequence.polytable.PolyTable.empty" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return whether or not container is empty.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.polytable.PolyTable.numsites">
-<code class="descname">numsites</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.polytable.PolyTable.numsites" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return number of variable sites (columns).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.polytable.PolyTable.pos">
-<code class="descname">pos</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="headerlink" href="#libsequence.polytable.PolyTable.pos" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="libsequence.polytable.PolyTable.position">
-<code class="descname">position</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em>, <em>i: int</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.polytable.PolyTable.position" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return value of the i-th position.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.polytable.PolyTable.size">
-<code class="descname">size</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.polytable.PolyTable.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return number of elements (rows).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="libsequence.polytable.PolyTable.swap">
-<code class="descname">swap</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em>, <em>arg0: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.polytable.PolyTable.swap" title="Permalink to this definition">¶</a></dt>
-<dd><p>Swap data with another polymorphism table</p>
+<dt id="libsequence.variant_matrix.AlleleCountMatrix.row">
+<code class="descname">row</code><span class="sig-paren">(</span><em>self: libsequence.variant_matrix.AlleleCountMatrix</em>, <em>i: int</em><span class="sig-paren">)</span> &#x2192; iterator<a class="headerlink" href="#libsequence.variant_matrix.AlleleCountMatrix.row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an iterator over the i-th site.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="libsequence.polytable.SimData">
-<em class="property">class </em><code class="descclassname">libsequence.polytable.</code><code class="descname">SimData</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.SimData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></p>
-<p>A polymorphism table for binary data.  0/1 = ancestral/derived.</p>
+<dt id="libsequence.variant_matrix.ColView">
+<em class="property">class </em><code class="descclassname">libsequence.variant_matrix.</code><code class="descname">ColView</code><a class="headerlink" href="#libsequence.variant_matrix.ColView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<p>View of a VariantMatrix column.</p>
+<p>See <a class="reference internal" href="pages/vmatrix.html#variantmatrix"><span class="std std-ref">The VariantMatrix</span></a></p>
+<dl class="method">
+<dt id="libsequence.variant_matrix.ColView.as_list">
+<code class="descname">as_list</code><span class="sig-paren">(</span><em>self: libsequence.variant_matrix.ColView</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libsequence.variant_matrix.ColView.as_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return contents as a list.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libsequence.variant_matrix.ConstColView">
+<em class="property">class </em><code class="descclassname">libsequence.variant_matrix.</code><code class="descname">ConstColView</code><a class="headerlink" href="#libsequence.variant_matrix.ConstColView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<p>Immutable view of a VariantMatrix column.</p>
+<p>See <a class="reference internal" href="pages/vmatrix.html#variantmatrix"><span class="std std-ref">The VariantMatrix</span></a>.</p>
+<dl class="method">
+<dt id="libsequence.variant_matrix.ConstColView.as_list">
+<code class="descname">as_list</code><span class="sig-paren">(</span><em>self: libsequence.variant_matrix.ConstColView</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libsequence.variant_matrix.ConstColView.as_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return contents as a list.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libsequence.variant_matrix.ConstRowView">
+<em class="property">class </em><code class="descclassname">libsequence.variant_matrix.</code><code class="descname">ConstRowView</code><a class="headerlink" href="#libsequence.variant_matrix.ConstRowView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<p>Immutable view of a sample.</p>
+<p>See <a class="reference internal" href="pages/vmatrix.html#variantmatrix"><span class="std std-ref">The VariantMatrix</span></a>.</p>
+<dl class="method">
+<dt id="libsequence.variant_matrix.ConstRowView.as_list">
+<code class="descname">as_list</code><span class="sig-paren">(</span><em>self: libsequence.variant_matrix.ConstRowView</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libsequence.variant_matrix.ConstRowView.as_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return contents as a list.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libsequence.variant_matrix.RowView">
+<em class="property">class </em><code class="descclassname">libsequence.variant_matrix.</code><code class="descname">RowView</code><a class="headerlink" href="#libsequence.variant_matrix.RowView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<p>View of a sample in a VariantMatrix.</p>
+<p>See <a class="reference internal" href="pages/vmatrix.html#variantmatrix"><span class="std std-ref">The VariantMatrix</span></a>.</p>
+<dl class="method">
+<dt id="libsequence.variant_matrix.RowView.as_list">
+<code class="descname">as_list</code><span class="sig-paren">(</span><em>self: libsequence.variant_matrix.RowView</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libsequence.variant_matrix.RowView.as_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libsequence.variant_matrix.StateCounts">
+<em class="property">class </em><code class="descclassname">libsequence.variant_matrix.</code><code class="descname">StateCounts</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.variant_matrix.StateCounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<p>Count the states at a site in a VariantMatrix.</p>
+<p>See <a class="reference internal" href="pages/vmatrix.html#variantmatrix"><span class="std std-ref">The VariantMatrix</span></a></p>
 <p>Overloaded function.</p>
 <ol class="arabic simple">
-<li>__init__(self: libsequence.polytable.SimData, arg0: List[float], arg1: List[str]) -&gt; None</li>
-<li>__init__(self: libsequence.polytable.SimData) -&gt; None</li>
-<li>__init__(self: libsequence.polytable.SimData, arg0: List[Tuple[float, str]]) -&gt; None</li>
+<li>__init__(self: libsequence.variant_matrix.StateCounts) -&gt; None</li>
+<li>__init__(self: libsequence.variant_matrix.StateCounts, refstate: int) -&gt; None</li>
 </ol>
+<dl class="attribute">
+<dt id="libsequence.variant_matrix.StateCounts.counts">
+<code class="descname">counts</code><a class="headerlink" href="#libsequence.variant_matrix.StateCounts.counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>The counts for each possible non-missing allelic state</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="libsequence.polytable.isValid">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">isValid</code><span class="sig-paren">(</span><em>arg0: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#libsequence.polytable.isValid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return True/False if a polymorphism table is/isn’t valid for further analysis.</p>
+<dl class="attribute">
+<dt id="libsequence.variant_matrix.StateCounts.n">
+<code class="descname">n</code><a class="headerlink" href="#libsequence.variant_matrix.StateCounts.n" title="Permalink to this definition">¶</a></dt>
+<dd><p>The sample size.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="libsequence.polytable.removeAmbiguous">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">removeAmbiguous</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeAmbiguous" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li>removeAmbiguous(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
-<li>removeAmbiguous(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
-</ol>
+<dl class="attribute">
+<dt id="libsequence.variant_matrix.StateCounts.refstate">
+<code class="descname">refstate</code><a class="headerlink" href="#libsequence.variant_matrix.StateCounts.refstate" title="Permalink to this definition">¶</a></dt>
+<dd><p>The reference state.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="libsequence.polytable.removeColumns">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">removeColumns</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeColumns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overloaded function.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="libsequence.variant_matrix.VariantMatrix">
+<em class="property">class </em><code class="descclassname">libsequence.variant_matrix.</code><code class="descname">VariantMatrix</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.variant_matrix.VariantMatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<p>Representation of variation data in matrix format.</p>
+<p>see <a class="reference internal" href="pages/vmatrix.html#variantmatrix"><span class="std std-ref">The VariantMatrix</span></a> for discussion.</p>
+<p>Overloaded function.</p>
 <ol class="arabic">
-<li><p class="first">removeColumns(arg0: libsequence.polytable.SimData, arg1: Callable[[Sequence::stateCounter], bool]) -&gt; libsequence.polytable.SimData</p>
+<li><p class="first">__init__(self: libsequence.variant_matrix.VariantMatrix, data: List[int], positions: List[float]) -&gt; None</p>
 <blockquote>
-<div><p>Remove columns from a <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> 
-based on a function taking a <a class="reference internal" href="#libsequence.summstats.StateCounter" title="libsequence.summstats.StateCounter"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.StateCounter</span></code></a>
-as an argument.</p>
+<div><p>Construct with a lists of input data.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">param p:</th><td class="field-body">A <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a>.</td>
+<tr class="field-odd field"><th class="field-name">param data:</th><td class="field-body">The state data.</td>
 </tr>
-<tr class="field-even field"><th class="field-name">param f:</th><td class="field-body">A callable taking a <a class="reference internal" href="#libsequence.summstats.StateCounter" title="libsequence.summstats.StateCounter"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.StateCounter</span></code></a> and returning True/False.</td>
+<tr class="field-even field"><th class="field-name">type data:</th><td class="field-body">list</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">A <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a>.</td>
+<tr class="field-odd field"><th class="field-name">param positons:</th><td class="field-body">List of mutation positions.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">type positions:</th><td class="field-body">list</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Sites are kept for which the callable returns False</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.variant_matrix</span> <span class="k">as</span> <span class="nn">vm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">VariantMatrix</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">])</span>
+</pre></div>
 </div>
 </div></blockquote>
 </li>
-<li><p class="first">removeColumns(d: libsequence.polytable.PolySites, fxn: Callable[[Sequence::stateCounter], bool], skip_ancestral: bool=False, anc: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</p>
+<li><p class="first">__init__(self: libsequence.variant_matrix.VariantMatrix, data: numpy.ndarray[int8], pos: numpy.ndarray[float64]) -&gt; None</p>
 <blockquote>
-<div><p>Remove columns from a <a class="reference internal" href="#libsequence.polytable.PolySites" title="libsequence.polytable.PolySites"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolySites</span></code></a> 
-based on a function taking a <a class="reference internal" href="#libsequence.summstats.StateCounter" title="libsequence.summstats.StateCounter"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.StateCounter</span></code></a>
-as an argument.</p>
+<div><blockquote>
+<div><p>Construct with numpy arrays</p>
+</div></blockquote>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">param p:</th><td class="field-body"><p class="first">A <a class="reference internal" href="#libsequence.polytable.PolySites" title="libsequence.polytable.PolySites"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolySites</span></code></a>.</p>
-</td>
+<tr class="field-odd field"><th class="field-name">param data:</th><td class="field-body">2d ndarray with dtype numpy.int8</td>
 </tr>
-<tr class="field-even field"><th class="field-name">param f:</th><td class="field-body"><p class="first">A callable taking a <a class="reference internal" href="#libsequence.summstats.StateCounter" title="libsequence.summstats.StateCounter"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.StateCounter</span></code></a> and returning True/False.</p>
-</td>
+<tr class="field-even field"><th class="field-name">type data:</th><td class="field-body">list</td>
 </tr>
-<tr class="field-odd field"><th class="field-name" colspan="2">param skip_ancestral:</th></tr>
-<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">(False) Whether to skip ancestral sequence.</p>
-</td>
+<tr class="field-odd field"><th class="field-name">param positons:</th><td class="field-body">1d array with dtype np.float</td>
 </tr>
-<tr class="field-even field"><th class="field-name">param anc:</th><td class="field-body"><ol class="first arabic simple" start="0">
-<li>Index of ancestral sequence.</li>
-</ol>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">param gapchar:</th><td class="field-body"><p class="first">(‘-‘) The gap character.</p>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body"><p class="first last">A <a class="reference internal" href="#libsequence.polytable.PolySites" title="libsequence.polytable.PolySites"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolySites</span></code></a>.</p>
-</td>
+<tr class="field-even field"><th class="field-name">type positions:</th><td class="field-body">list</td>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Sites are kept for which the callable returns False</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence.variant_matrix</span> <span class="k">as</span> <span class="nn">vm</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">0.2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="n">vm</span><span class="o">.</span><span class="n">VariantMatrix</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
 </div>
 </div></blockquote>
 </li>
 </ol>
+<dl class="method">
+<dt id="libsequence.variant_matrix.VariantMatrix.count_alleles">
+<code class="descname">count_alleles</code><span class="sig-paren">(</span><em>self: libsequence.variant_matrix.VariantMatrix</em><span class="sig-paren">)</span> &#x2192; libsequence.variant_matrix.AlleleCountMatrix<a class="headerlink" href="#libsequence.variant_matrix.VariantMatrix.count_alleles" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="libsequence.variant_matrix.VariantMatrix.data">
+<code class="descname">data</code><a class="headerlink" href="#libsequence.variant_matrix.VariantMatrix.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return raw data as list</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.variant_matrix.VariantMatrix.from_TreeSequence">
+<code class="descname">from_TreeSequence</code><span class="sig-paren">(</span><em>ts: object</em>, <em>max_allele: int=1</em><span class="sig-paren">)</span> &#x2192; libsequence.variant_matrix.VariantMatrix<a class="headerlink" href="#libsequence.variant_matrix.VariantMatrix.from_TreeSequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a VariantMatrix from an msprime.TreeSequence</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ts</strong> – A TreeSequence from msprime <a class="reference internal" href="#kelleher2016-cb" id="id1">[KEM16]</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>A TreeSequence object is the output of <cite>msprime.simulate</cite>,
+or, equivalently, certain forward simulations that use
+that format for storing results.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Testing using iPython’s “timeit” suggests that
+creating a VariantMatrix this way is only a bit slower
+than a direct call to the VariantMatrix constructor
+with the relevant numpy arrays.  However, this
+function is preferred for “huge” data sets where you
+may run out of memory because both msprime and pylibseq
+must make huge allocations.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libsequence.variant_matrix.VariantMatrix.nsam">
+<code class="descname">nsam</code><a class="headerlink" href="#libsequence.variant_matrix.VariantMatrix.nsam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of samples</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libsequence.variant_matrix.VariantMatrix.nsites">
+<code class="descname">nsites</code><a class="headerlink" href="#libsequence.variant_matrix.VariantMatrix.nsites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of positions</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libsequence.variant_matrix.VariantMatrix.positions">
+<code class="descname">positions</code><a class="headerlink" href="#libsequence.variant_matrix.VariantMatrix.positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return positions as list</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.variant_matrix.VariantMatrix.sample">
+<code class="descname">sample</code><span class="sig-paren">(</span><em>self: libsequence.variant_matrix.VariantMatrix</em>, <em>i: int</em><span class="sig-paren">)</span> &#x2192; Sequence::internal::col_view_&lt;signed char const*&gt;<a class="headerlink" href="#libsequence.variant_matrix.VariantMatrix.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a view of the i-th sample.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>i</strong> (<em>int</em>) – Index</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variantmatrix.ConstColView</span></code></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.variant_matrix.VariantMatrix.site">
+<code class="descname">site</code><span class="sig-paren">(</span><em>self: libsequence.variant_matrix.VariantMatrix</em>, <em>i: int</em><span class="sig-paren">)</span> &#x2192; Sequence::internal::row_view_&lt;signed char const*&gt;<a class="headerlink" href="#libsequence.variant_matrix.VariantMatrix.site" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a view of the i-th site.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>i</strong> (<em>int</em>) – Index</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#libsequence.variant_matrix.ConstRowView" title="libsequence.variant_matrix.ConstRowView"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.ConstRowView</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.variant_matrix.VariantMatrix.slice">
+<code class="descname">slice</code><span class="sig-paren">(</span><em>self: libsequence.variant_matrix.VariantMatrix</em>, <em>beg: float</em>, <em>end: float</em>, <em>i: int</em>, <em>j: int</em><span class="sig-paren">)</span> &#x2192; libsequence.variant_matrix.VariantMatrix<a class="headerlink" href="#libsequence.variant_matrix.VariantMatrix.slice" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libsequence.variant_matrix.VariantMatrix.window">
+<code class="descname">window</code><span class="sig-paren">(</span><em>self: libsequence.variant_matrix.VariantMatrix</em>, <em>beg: float</em>, <em>end: float</em><span class="sig-paren">)</span> &#x2192; libsequence.variant_matrix.VariantMatrix<a class="headerlink" href="#libsequence.variant_matrix.VariantMatrix.window" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="function">
-<dt id="libsequence.polytable.removeGaps">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">removeGaps</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeGaps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li>removeGaps(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
-<li>removeGaps(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
-</ol>
+<dt id="libsequence.variant_matrix.filter_haplotypes">
+<code class="descclassname">libsequence.variant_matrix.</code><code class="descname">filter_haplotypes</code><span class="sig-paren">(</span><em>m: libsequence.variant_matrix.VariantMatrix, f: Callable[[libsequence.variant_matrix.ColView], bool]</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.variant_matrix.filter_haplotypes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove site data from a VariantMatrix</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>m</strong> (<a class="reference internal" href="#libsequence.variant_matrix.VariantMatrix" title="libsequence.variant_matrix.VariantMatrix"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></a>) – A variant matrix</li>
+<li><strong>f</strong> (<em>callable</em>) – A function</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>See <a class="reference internal" href="pages/vmatrix.html#variantmatrix"><span class="std std-ref">The VariantMatrix</span></a> for details.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="libsequence.polytable.removeMissing">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">removeMissing</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeMissing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li>removeMissing(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
-<li>removeMissing(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
-</ol>
+<dt id="libsequence.variant_matrix.filter_sites">
+<code class="descclassname">libsequence.variant_matrix.</code><code class="descname">filter_sites</code><span class="sig-paren">(</span><em>m: libsequence.variant_matrix.VariantMatrix, f: Callable[[libsequence.variant_matrix.RowView], bool]</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.variant_matrix.filter_sites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove sample data from a VariantMatrix</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>m</strong> (<a class="reference internal" href="#libsequence.variant_matrix.VariantMatrix" title="libsequence.variant_matrix.VariantMatrix"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></a>) – A variant matrix</li>
+<li><strong>f</strong> (<em>callable</em>) – A function</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>See <a class="reference internal" href="pages/vmatrix.html#variantmatrix"><span class="std std-ref">The VariantMatrix</span></a> for details.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="libsequence.polytable.removeMono">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">removeMono</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeMono" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li>removeMono(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
-<li>removeMono(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
-</ol>
-</dd></dl>
-
-<dl class="function">
-<dt id="libsequence.polytable.removeMultiHits">
-<code class="descclassname">libsequence.polytable.</code><code class="descname">removeMultiHits</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeMultiHits" title="Permalink to this definition">¶</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li>removeMultiHits(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
-<li>removeMultiHits(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
-</ol>
+<dt id="libsequence.variant_matrix.process_variable_sites">
+<code class="descclassname">libsequence.variant_matrix.</code><code class="descname">process_variable_sites</code><span class="sig-paren">(</span><em>m: libsequence.variant_matrix.VariantMatrix</em>, <em>refstates: object=None</em><span class="sig-paren">)</span> &#x2192; List[libsequence.variant_matrix.StateCounts]<a class="headerlink" href="#libsequence.variant_matrix.process_variable_sites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Obtain state counts for all sites</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>m</strong> (<a class="reference internal" href="#libsequence.variant_matrix.VariantMatrix" title="libsequence.variant_matrix.VariantMatrix"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></a>) – data</li>
+<li><strong>refstates</strong> (<em>object</em>) – The reference states for each sites.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of <a class="reference internal" href="#libsequence.variant_matrix.StateCounts" title="libsequence.variant_matrix.StateCounts"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.StateCounts</span></code></a></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>See <a class="reference internal" href="pages/vmatrix.html#variantmatrix"><span class="std std-ref">The VariantMatrix</span></a> for examples.</p>
 </dd></dl>
 
 <span class="target" id="module-libsequence.summstats"></span><p>Summary statistics</p>
 <dl class="class">
 <dt id="libsequence.summstats.PolySIM">
-<em class="property">class </em><code class="descclassname">libsequence.summstats.</code><code class="descname">PolySIM</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySIM</em>, <em>arg0: libsequence.polytable.SimData</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.summstats.PolySIM" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">libsequence.summstats.</code><code class="descname">PolySIM</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySIM</em>, <em>arg0: Sequence::SimData</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.summstats.PolySIM" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#libsequence.summstats.PolySNP" title="libsequence.summstats.PolySNP"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.PolySNP</span></code></a></p>
 <p>Class to calculate summary statistics for 0/1-encoded data
 in a <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> object.</p>
@@ -300,7 +486,7 @@ in a <a class="reference internal" href="#libsequence.polytable.SimData" title="
 
 <dl class="class">
 <dt id="libsequence.summstats.PolySNP">
-<em class="property">class </em><code class="descclassname">libsequence.summstats.</code><code class="descname">PolySNP</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em>, <em>pt: libsequence.polytable.PolyTable</em>, <em>haveOutgroup: bool=False</em>, <em>outgroup: int=0</em>, <em>totMuts: bool=True</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.summstats.PolySNP" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">libsequence.summstats.</code><code class="descname">PolySNP</code><span class="sig-paren">(</span><em>self: libsequence.summstats.PolySNP</em>, <em>pt: Sequence::PolyTable</em>, <em>haveOutgroup: bool=False</em>, <em>outgroup: int=0</em>, <em>totMuts: bool=True</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.summstats.PolySNP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
 <p>Class to calculate summary statistics.</p>
 <dl class="method">
@@ -421,7 +607,7 @@ in a <a class="reference internal" href="#libsequence.polytable.SimData" title="
 
 <dl class="class">
 <dt id="libsequence.summstats.StateCounter">
-<em class="property">class </em><code class="descclassname">libsequence.summstats.</code><code class="descname">StateCounter</code><span class="sig-paren">(</span><em>self: libsequence.summstats.StateCounter</em>, <em>gapchar: str=’-‘</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.summstats.StateCounter" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">libsequence.summstats.</code><code class="descname">StateCounter</code><span class="sig-paren">(</span><em>self: libsequence.summstats.StateCounter</em>, <em>gapchar: str='-'</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.summstats.StateCounter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
 <p>Tally up the number of occurrences of value polymorphism characters at a site.</p>
 <dl class="attribute">
@@ -475,8 +661,38 @@ in a <a class="reference internal" href="#libsequence.polytable.SimData" title="
 </dd></dl>
 
 <dl class="function">
+<dt id="libsequence.summstats.allele_counts">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">allele_counts</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.AlleleCountMatrix</em><span class="sig-paren">)</span> &#x2192; List[libsequence.summstats.AlleleCounts]<a class="headerlink" href="#libsequence.summstats.allele_counts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.difference_matrix">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">difference_matrix</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.VariantMatrix</em><span class="sig-paren">)</span> &#x2192; List[int]<a class="headerlink" href="#libsequence.summstats.difference_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the nummber of differences between all
+samples in a VariantMatrix</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>m</strong> – A <a class="reference internal" href="#libsequence.variant_matrix.VariantMatrix" title="libsequence.variant_matrix.VariantMatrix"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.faywuh">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">faywuh</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.faywuh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>faywuh(arg0: libsequence.variant_matrix.AlleleCountMatrix, arg1: int) -&gt; float</li>
+<li>faywuh(arg0: libsequence.variant_matrix.AlleleCountMatrix, arg1: List[int]) -&gt; float</li>
+</ol>
+</dd></dl>
+
+<dl class="function">
 <dt id="libsequence.summstats.garudStats">
-<code class="descclassname">libsequence.summstats.</code><code class="descname">garudStats</code><span class="sig-paren">(</span><em>d: libsequence.polytable.SimData</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#libsequence.summstats.garudStats" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">libsequence.summstats.</code><code class="descname">garudStats</code><span class="sig-paren">(</span><em>d: Sequence::SimData</em><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#libsequence.summstats.garudStats" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the H1, H12, and H2/H1 statistics from PMC4338236 as a dict.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -489,8 +705,48 @@ in a <a class="reference internal" href="#libsequence.polytable.SimData" title="
 </dd></dl>
 
 <dl class="function">
+<dt id="libsequence.summstats.garud_statistics">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">garud_statistics</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.VariantMatrix</em><span class="sig-paren">)</span> &#x2192; libsequence.summstats.GarudStats<a class="headerlink" href="#libsequence.summstats.garud_statistics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.haplotype_diversity">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">haplotype_diversity</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.VariantMatrix</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.haplotype_diversity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.hprime">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">hprime</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.hprime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>hprime(arg0: libsequence.variant_matrix.AlleleCountMatrix, arg1: int) -&gt; float</li>
+<li>hprime(arg0: libsequence.variant_matrix.AlleleCountMatrix, arg1: List[int]) -&gt; float</li>
+</ol>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.is_different_matrix">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">is_different_matrix</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.VariantMatrix</em><span class="sig-paren">)</span> &#x2192; List[int]<a class="headerlink" href="#libsequence.summstats.is_different_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether or not pairs of 
+samples in a VariantMatrix differ</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>m</strong> – A <a class="reference internal" href="#libsequence.variant_matrix.VariantMatrix" title="libsequence.variant_matrix.VariantMatrix"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.label_haplotypes">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">label_haplotypes</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.VariantMatrix</em><span class="sig-paren">)</span> &#x2192; List[int]<a class="headerlink" href="#libsequence.summstats.label_haplotypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="libsequence.summstats.ld">
-<code class="descclassname">libsequence.summstats.</code><code class="descname">ld</code><span class="sig-paren">(</span><em>p: libsequence.polytable.PolyTable</em>, <em>have_outgroup: bool=False</em>, <em>outgroup: int=0</em>, <em>mincount: int=1</em>, <em>maxd: float=1.7976931348623157e+308</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libsequence.summstats.ld" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">libsequence.summstats.</code><code class="descname">ld</code><span class="sig-paren">(</span><em>p: Sequence::PolyTable</em>, <em>have_outgroup: bool=False</em>, <em>outgroup: int=0</em>, <em>mincount: int=1</em>, <em>maxd: float=1.7976931348623157e+308</em><span class="sig-paren">)</span> &#x2192; list<a class="headerlink" href="#libsequence.summstats.ld" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return pairwise LD statistics.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -517,7 +773,7 @@ in a <a class="reference internal" href="#libsequence.polytable.SimData" title="
 
 <dl class="function">
 <dt id="libsequence.summstats.lhaf">
-<code class="descclassname">libsequence.summstats.</code><code class="descname">lhaf</code><span class="sig-paren">(</span><em>arg0: libsequence.polytable.SimData</em>, <em>arg1: float</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="headerlink" href="#libsequence.summstats.lhaf" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">libsequence.summstats.</code><code class="descname">lhaf</code><span class="sig-paren">(</span><em>arg0: Sequence::SimData</em>, <em>arg1: float</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="headerlink" href="#libsequence.summstats.lhaf" title="Permalink to this definition">¶</a></dt>
 <dd><p><span class="math">\(l-HAF\)</span> from Ronen et al. DOI:10.1371/journal.pgen.1005527</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -545,7 +801,7 @@ in a <a class="reference internal" href="#libsequence.polytable.SimData" title="
 
 <dl class="function">
 <dt id="libsequence.summstats.nSLiHS">
-<code class="descclassname">libsequence.summstats.</code><code class="descname">nSLiHS</code><span class="sig-paren">(</span><em>d: libsequence.polytable.SimData</em>, <em>core_snps: object=None</em>, <em>gmap: object=None</em><span class="sig-paren">)</span> &#x2192; List[Tuple[float, float, int]]<a class="headerlink" href="#libsequence.summstats.nSLiHS" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">libsequence.summstats.</code><code class="descname">nSLiHS</code><span class="sig-paren">(</span><em>d: Sequence::SimData</em>, <em>core_snps: object=None</em>, <em>gmap: object=None</em><span class="sig-paren">)</span> &#x2192; List[Tuple[float, float, int]]<a class="headerlink" href="#libsequence.summstats.nSLiHS" title="Permalink to this definition">¶</a></dt>
 <dd><blockquote>
 <div><p>“Raw”/unstandardized <span class="math">\(nS_L\)</span> and iHS from Ferrer-Admetlla et al. doi:10.1093/molbev/msu077.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -575,12 +831,405 @@ in a <a class="reference internal" href="#libsequence.polytable.SimData" title="
 </table>
 </dd></dl>
 
+<dl class="class">
+<dt id="libsequence.summstats.nSLresults">
+<em class="property">class </em><code class="descclassname">libsequence.summstats.</code><code class="descname">nSLresults</code><a class="headerlink" href="#libsequence.summstats.nSLresults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<p>Holds nSL, iHS, and non-reference count at core SNP.  Statistics calculated according to <a class="reference internal" href="#ferrer-admetlla2014-wa" id="id2">[FALKN14]</a>.</p>
+<dl class="attribute">
+<dt id="libsequence.summstats.nSLresults.core_count">
+<code class="descname">core_count</code><a class="headerlink" href="#libsequence.summstats.nSLresults.core_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Core mutation count in sample</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libsequence.summstats.nSLresults.ihs">
+<code class="descname">ihs</code><a class="headerlink" href="#libsequence.summstats.nSLresults.ihs" title="Permalink to this definition">¶</a></dt>
+<dd><p>iHS</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="libsequence.summstats.nSLresults.nsl">
+<code class="descname">nsl</code><a class="headerlink" href="#libsequence.summstats.nSLresults.nsl" title="Permalink to this definition">¶</a></dt>
+<dd><p>nSL</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.nbiallelic_sites">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">nbiallelic_sites</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.AlleleCountMatrix</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.summstats.nbiallelic_sites" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.non_reference_allele_counts">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">non_reference_allele_counts</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.summstats.non_reference_allele_counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>non_reference_allele_counts(arg0: libsequence.variant_matrix.AlleleCountMatrix, arg1: int) -&gt; List[libsequence.summstats.AlleleCounts]</li>
+<li>non_reference_allele_counts(arg0: libsequence.variant_matrix.AlleleCountMatrix, arg1: List[int]) -&gt; List[libsequence.summstats.AlleleCounts]</li>
+</ol>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.nsl">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">nsl</code><span class="sig-paren">(</span><em>m: libsequence.variant_matrix.VariantMatrix</em>, <em>core: int</em>, <em>refstate: int</em><span class="sig-paren">)</span> &#x2192; libsequence.summstats.nSLresults<a class="headerlink" href="#libsequence.summstats.nsl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate nSL and iHS according to <a class="reference internal" href="#ferrer-admetlla2014-wa" id="id3">[FALKN14]</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>m</strong> (<a class="reference internal" href="#libsequence.variant_matrix.VariantMatrix" title="libsequence.variant_matrix.VariantMatrix"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></a>) – The data</li>
+<li><strong>core</strong> (<em>int</em>) – Index of the core snp</li>
+<li><strong>refstate</strong> (<em>int</em>) – Value of the reference state</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.number_of_haplotypes">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">number_of_haplotypes</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.VariantMatrix</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.summstats.number_of_haplotypes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.nvariable_sites">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">nvariable_sites</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.AlleleCountMatrix</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.summstats.nvariable_sites" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.omega_max">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">omega_max</code><span class="sig-paren">(</span><em>data: Sequence::SimData</em><span class="sig-paren">)</span> &#x2192; Tuple[float, float]<a class="headerlink" href="#libsequence.summstats.omega_max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the omega max statistic of 
+Kim and Nielsen (2004) Genetics 167:1513</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>data</strong> – a <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Omega max statistic and corresponding position.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.rmin">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">rmin</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.VariantMatrix</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.summstats.rmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hudson and Kaplan’s estimate of the minimum number
+of recombination events.</p>
+<p>See <a class="reference internal" href="#hudson1985-cq" id="id4">[HK85]</a> for details.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>m</strong> – A <a class="reference internal" href="#libsequence.variant_matrix.VariantMatrix" title="libsequence.variant_matrix.VariantMatrix"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Sites with more than two allelic states to not 
+contribute to the analysis.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.tajd">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">tajd</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.AlleleCountMatrix</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.tajd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tajima’s D.</p>
+<p>See <a class="reference internal" href="#tajima1989-de" id="id5">[Taj89]</a> for details.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>m</strong> – A <a class="reference internal" href="#libsequence.variant_matrix.VariantMatrix" title="libsequence.variant_matrix.VariantMatrix"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.thetapi">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">thetapi</code><span class="sig-paren">(</span><em>m: libsequence.variant_matrix.AlleleCountMatrix</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.thetapi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean number of pairwise differences.</p>
+<p>See <a class="reference internal" href="#tajima1983-it" id="id6">[Taj83]</a> for details.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>m</strong> – A <a class="reference internal" href="#libsequence.variant_matrix.VariantMatrix" title="libsequence.variant_matrix.VariantMatrix"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Implemented as sum of site heterozygosity.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.thetaw">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">thetaw</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.AlleleCountMatrix</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.summstats.thetaw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Watterson’s theta.</p>
+<p>See <a class="reference internal" href="#watterson1975-ej" id="id7">[Wat75]</a> for details.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>m</strong> – A <a class="reference internal" href="#libsequence.variant_matrix.VariantMatrix" title="libsequence.variant_matrix.VariantMatrix"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Calculated from the total number of mutations.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.total_number_of_mutations">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">total_number_of_mutations</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.AlleleCountMatrix</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.summstats.total_number_of_mutations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="libsequence.summstats.two_locus_haplotype_counts">
+<code class="descclassname">libsequence.summstats.</code><code class="descname">two_locus_haplotype_counts</code><span class="sig-paren">(</span><em>arg0: libsequence.variant_matrix.VariantMatrix</em>, <em>arg1: int</em>, <em>arg2: int</em>, <em>arg3: bool</em><span class="sig-paren">)</span> &#x2192; List[Sequence::TwoLocusCounts]<a class="headerlink" href="#libsequence.summstats.two_locus_haplotype_counts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-libsequence.polytable">
+<span id="deprecated-functions-and-classes"></span><h2>Deprecated Functions and classes<a class="headerlink" href="#module-libsequence.polytable" title="Permalink to this headline">¶</a></h2>
+<p>Access to libsequence’s polymorphism table classes and related functions</p>
+<dl class="class">
+<dt id="libsequence.polytable.PolySites">
+<em class="property">class </em><code class="descclassname">libsequence.polytable.</code><code class="descname">PolySites</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.PolySites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></p>
+<p>A polymorphism table for Sequence data.  A/G/C/T/N/0/1 is the alphabet for analysis.</p>
+<p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: libsequence.polytable.PolySites) -&gt; None</li>
+<li>__init__(self: libsequence.polytable.PolySites, arg0: List[Tuple[float, str]]) -&gt; None</li>
+</ol>
+</dd></dl>
+
+<dl class="class">
+<dt id="libsequence.polytable.PolyTable">
+<em class="property">class </em><code class="descclassname">libsequence.polytable.</code><code class="descname">PolyTable</code><a class="headerlink" href="#libsequence.polytable.PolyTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
+<p>Base class for polymorphism tables</p>
+<dl class="method">
+<dt id="libsequence.polytable.PolyTable.assign">
+<code class="descname">assign</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.PolyTable.assign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>assign(self: libsequence.polytable.PolyTable, arg0: List[Tuple[float, str]]) -&gt; None</li>
+</ol>
+<p>Assign data from a tuple of (position,data), where data are encoded as an str.</p>
+<ol class="arabic simple" start="2">
+<li>assign(self: libsequence.polytable.PolyTable, arg0: List[float], arg1: List[str]) -&gt; None</li>
+</ol>
+<p>Assign data from a list of positions and a  list of strings representing variable positions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.polytable.PolyTable.data">
+<code class="descname">data</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#libsequence.polytable.PolyTable.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libsequence.polytable.PolyTable.empty">
+<code class="descname">empty</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#libsequence.polytable.PolyTable.empty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return whether or not container is empty.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.polytable.PolyTable.numsites">
+<code class="descname">numsites</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.polytable.PolyTable.numsites" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return number of variable sites (columns).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.polytable.PolyTable.pos">
+<code class="descname">pos</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; List[float]<a class="headerlink" href="#libsequence.polytable.PolyTable.pos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="libsequence.polytable.PolyTable.position">
+<code class="descname">position</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em>, <em>i: int</em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#libsequence.polytable.PolyTable.position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return value of the i-th position.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.polytable.PolyTable.size">
+<code class="descname">size</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#libsequence.polytable.PolyTable.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return number of elements (rows).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.polytable.PolyTable.swap">
+<code class="descname">swap</code><span class="sig-paren">(</span><em>self: libsequence.polytable.PolyTable</em>, <em>arg0: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.polytable.PolyTable.swap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Swap data with another polymorphism table</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="libsequence.polytable.SimData">
+<em class="property">class </em><code class="descclassname">libsequence.polytable.</code><code class="descname">SimData</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.SimData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#libsequence.polytable.PolyTable" title="libsequence.polytable.PolyTable"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolyTable</span></code></a></p>
+<p>A polymorphism table for binary data.  0/1 = ancestral/derived.</p>
+<p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: libsequence.polytable.SimData, arg0: List[float], arg1: List[str]) -&gt; None</li>
+<li>__init__(self: libsequence.polytable.SimData) -&gt; None</li>
+<li>__init__(self: libsequence.polytable.SimData, arg0: List[Tuple[float, str]]) -&gt; None</li>
+</ol>
+<dl class="method">
+<dt id="libsequence.polytable.SimData.from_stdin">
+<code class="descname">from_stdin</code><span class="sig-paren">(</span><em>self: libsequence.polytable.SimData</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#libsequence.polytable.SimData.from_stdin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an instance of this type by reading data from stdin.  Useful for reading input from msprime or ms.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.polytable.isValid">
+<code class="descclassname">libsequence.polytable.</code><code class="descname">isValid</code><span class="sig-paren">(</span><em>arg0: libsequence.polytable.PolyTable</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#libsequence.polytable.isValid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True/False if a polymorphism table is/isn’t valid for further analysis.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.polytable.removeAmbiguous">
+<code class="descclassname">libsequence.polytable.</code><code class="descname">removeAmbiguous</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeAmbiguous" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>removeAmbiguous(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
+<li>removeAmbiguous(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
+</ol>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.polytable.removeColumns">
+<code class="descclassname">libsequence.polytable.</code><code class="descname">removeColumns</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeColumns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic">
+<li><p class="first">removeColumns(arg0: libsequence.polytable.SimData, arg1: Callable[[libsequence.summstats.StateCounter], bool]) -&gt; libsequence.polytable.SimData</p>
+<blockquote>
+<div><p>Remove columns from a <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a> 
+based on a function taking a <a class="reference internal" href="#libsequence.summstats.StateCounter" title="libsequence.summstats.StateCounter"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.StateCounter</span></code></a>
+as an argument.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param p:</th><td class="field-body">A <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a>.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param f:</th><td class="field-body">A callable taking a <a class="reference internal" href="#libsequence.summstats.StateCounter" title="libsequence.summstats.StateCounter"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.StateCounter</span></code></a> and returning True/False.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rtype:</th><td class="field-body">A <a class="reference internal" href="#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.SimData</span></code></a>.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Sites are kept for which the callable returns False</p>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">removeColumns(d: libsequence.polytable.PolySites, fxn: Callable[[libsequence.summstats.StateCounter], bool], skip_ancestral: bool=False, anc: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</p>
+<blockquote>
+<div><p>Remove columns from a <a class="reference internal" href="#libsequence.polytable.PolySites" title="libsequence.polytable.PolySites"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolySites</span></code></a> 
+based on a function taking a <a class="reference internal" href="#libsequence.summstats.StateCounter" title="libsequence.summstats.StateCounter"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.StateCounter</span></code></a>
+as an argument.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">param p:</th><td class="field-body"><p class="first">A <a class="reference internal" href="#libsequence.polytable.PolySites" title="libsequence.polytable.PolySites"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolySites</span></code></a>.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param f:</th><td class="field-body"><p class="first">A callable taking a <a class="reference internal" href="#libsequence.summstats.StateCounter" title="libsequence.summstats.StateCounter"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.StateCounter</span></code></a> and returning True/False.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name" colspan="2">param skip_ancestral:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><p class="first">(False) Whether to skip ancestral sequence.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">param anc:</th><td class="field-body"><ol class="first arabic simple" start="0">
+<li>Index of ancestral sequence.</li>
+</ol>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">param gapchar:</th><td class="field-body"><p class="first">(‘-‘) The gap character.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">rtype:</th><td class="field-body"><p class="first last">A <a class="reference internal" href="#libsequence.polytable.PolySites" title="libsequence.polytable.PolySites"><code class="xref py py-class docutils literal"><span class="pre">libsequence.polytable.PolySites</span></code></a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Sites are kept for which the callable returns False</p>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.polytable.removeGaps">
+<code class="descclassname">libsequence.polytable.</code><code class="descname">removeGaps</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeGaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>removeGaps(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
+<li>removeGaps(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
+</ol>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.polytable.removeMissing">
+<code class="descclassname">libsequence.polytable.</code><code class="descname">removeMissing</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeMissing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>removeMissing(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
+<li>removeMissing(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
+</ol>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.polytable.removeMono">
+<code class="descclassname">libsequence.polytable.</code><code class="descname">removeMono</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeMono" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>removeMono(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
+<li>removeMono(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
+</ol>
+</dd></dl>
+
+<dl class="function">
+<dt id="libsequence.polytable.removeMultiHits">
+<code class="descclassname">libsequence.polytable.</code><code class="descname">removeMultiHits</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.polytable.removeMultiHits" title="Permalink to this definition">¶</a></dt>
+<dd><p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>removeMultiHits(polytable: libsequence.polytable.SimData, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.SimData</li>
+<li>removeMultiHits(polytable: libsequence.polytable.PolySites, skip_ancestral: bool=False, ancestral: int=0, gapchar: str=’-‘) -&gt; libsequence.polytable.PolySites</li>
+</ol>
+</dd></dl>
+
 <span class="target" id="module-libsequence.fst"></span><p>Fst</p>
 <dl class="class">
 <dt id="libsequence.fst.Fst">
 <em class="property">class </em><code class="descclassname">libsequence.fst.</code><code class="descname">Fst</code><a class="headerlink" href="#libsequence.fst.Fst" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">pybind11_builtins.pybind11_object</span></code></p>
-<p>__init__(<a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs)
+<p>__init__(<a href="#id8"><span class="problematic" id="id9">*</span></a>args, <a href="#id10"><span class="problematic" id="id11">**</span></a>kwargs)
 Overloaded function.</p>
 <ol class="arabic simple">
 <li>__init__(self: libsequence.fst.Fst, polytable: libsequence.polytable.PolyTable, config: List[int], haveOutgroup: bool=False, outgroup: int=0) -&gt; None</li>
@@ -702,15 +1351,16 @@ quick implementation using msprime &gt;= 0.4.0.</p>
   <h3><a href="#">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Welcome to pylibseq’s documentation!</a><ul>
-<li><a class="reference internal" href="#module-libsequence.polytable">Functions and classes</a></li>
+<li><a class="reference internal" href="#module-libsequence.variant_matrix">Functions and classes</a></li>
+<li><a class="reference internal" href="#module-libsequence.polytable">Deprecated Functions and classes</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 
   <h4>Next topic</h4>
-  <p class="topless"><a href="pages/overview.html"
-                        title="next chapter">Example workflow</a></p>
+  <p class="topless"><a href="pages/changes.html"
+                        title="next chapter">Changes</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -742,14 +1392,14 @@ quick implementation using msprime &gt;= 0.4.0.</p>
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="pages/overview.html" title="Example workflow"
+          <a href="pages/changes.html" title="Changes"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.2.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.2.1a0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Kevin Thornton.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
     </div>
   </body>
 </html>

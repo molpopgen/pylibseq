@@ -5,16 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Parallel computation &#8212; pylibseq 0.2.0 documentation</title>
-    
+    <title>Changes &#8212; pylibseq 0.2.1a0 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '0.2.0',
+        VERSION:     '0.2.1a0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true,
@@ -24,11 +21,11 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Object lifetimes" href="lifetimes.html" />
-    <link rel="prev" title="Example workflow" href="overview.html" /> 
+    <link rel="next" title="The VariantMatrix" href="vmatrix.html" />
+    <link rel="prev" title="Welcome to pylibseq’s documentation!" href="../index.html" /> 
   </head>
   <body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -41,12 +38,12 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="lifetimes.html" title="Object lifetimes"
+          <a href="vmatrix.html" title="The VariantMatrix"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="overview.html" title="Example workflow"
+          <a href="../index.html" title="Welcome to pylibseq’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.1a0 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -55,14 +52,15 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="parallel-computation">
-<h1>Parallel computation<a class="headerlink" href="#parallel-computation" title="Permalink to this headline">¶</a></h1>
-<p>Under the hood, libsequence using Intel’s <a class="reference external" href="http://www.threadbuildingblocks.org">TBB</a> library for parallelism.  By default, <a class="reference external" href="http://www.threadbuildingblocks.org">TBB</a> will automatically deterimine the optimal number of cores to use.  However, that behavior may not be desirable in certain contexts.  For example, on managed HPC systems you may be expected to keep your use of cores under control.  You make limit the maximum number of threads used as follows:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">libsequence.parallel</span> <span class="k">import</span> <span class="n">Scheduler</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">init</span> <span class="o">=</span> <span class="n">Scheduler</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-</pre></div>
+  <div class="section" id="changes">
+<h1>Changes<a class="headerlink" href="#changes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="version-0-2-1">
+<h2>Version 0.2.1<a class="headerlink" href="#version-0-2-1" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Added <a class="reference internal" href="../index.html#libsequence.summstats.omega_max" title="libsequence.summstats.omega_max"><code class="xref py py-func docutils literal"><span class="pre">libsequence.summstats.omega_max()</span></code></a></li>
+<li>Added <a class="reference internal" href="../index.html#libsequence.polytable.SimData.from_stdin" title="libsequence.polytable.SimData.from_stdin"><code class="xref py py-func docutils literal"><span class="pre">libsequence.polytable.SimData.from_stdin()</span></code></a></li>
+</ul>
 </div>
-<p>Any value less than one will result in the <a class="reference external" href="http://www.threadbuildingblocks.org">TBB</a> default number of threads being used.</p>
 </div>
 
 
@@ -71,16 +69,24 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Changes</a><ul>
+<li><a class="reference internal" href="#version-0-2-1">Version 0.2.1</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Previous topic</h4>
-  <p class="topless"><a href="overview.html"
-                        title="previous chapter">Example workflow</a></p>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Welcome to pylibseq’s documentation!</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="lifetimes.html"
-                        title="next chapter">Object lifetimes</a></p>
+  <p class="topless"><a href="vmatrix.html"
+                        title="next chapter">The VariantMatrix</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/pages/parallel.rst.txt"
+      <li><a href="../_sources/pages/changes.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -108,17 +114,17 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="lifetimes.html" title="Object lifetimes"
+          <a href="vmatrix.html" title="The VariantMatrix"
              >next</a> |</li>
         <li class="right" >
-          <a href="overview.html" title="Example workflow"
+          <a href="../index.html" title="Welcome to pylibseq’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.0 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.1a0 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Kevin Thornton.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.2.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
     </div>
   </body>
 </html>

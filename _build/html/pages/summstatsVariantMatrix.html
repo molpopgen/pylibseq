@@ -1,0 +1,227 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Calculating summary statistics from a VariantMatrix &#8212; pylibseq 0.2.1a0 documentation</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.2.1a0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Calculating summary statistics" href="summstats.html" />
+    <link rel="prev" title="The VariantMatrix" href="vmatrix.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="summstats.html" title="Calculating summary statistics"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="vmatrix.html" title="The VariantMatrix"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.1a0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="calculating-summary-statistics-from-a-variantmatrix">
+<span id="summstatsvm"></span><h1>Calculating summary statistics from a VariantMatrix<a class="headerlink" href="#calculating-summary-statistics-from-a-variantmatrix" title="Permalink to this headline">¶</a></h1>
+<p>Summary statistic functions are found in <a class="reference internal" href="../index.html#module-libsequence.summstats" title="libsequence.summstats"><code class="xref py py-mod docutils literal"><span class="pre">libsequence.summstats</span></code></a>.  Certain
+summary statistics can be calculated simply from allele counts via
+<a class="reference internal" href="../index.html#libsequence.variant_matrix.AlleleCountMatrix" title="libsequence.variant_matrix.AlleleCountMatrix"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.AlleleCountMatrix</span></code></a>. Calculations invovling linkage disequilibrium
+will typically require the entire <a class="reference internal" href="../index.html#libsequence.variant_matrix.VariantMatrix" title="libsequence.variant_matrix.VariantMatrix"><code class="xref py py-class docutils literal"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></a> object.</p>
+<p>The following examples rely on msprime <a class="reference internal" href="../index.html#kelleher2016-cb" id="id1">[KEM16]</a> to generate input data, but
+the concepts hold more generally.</p>
+<div class="section" id="distribution-of-tajima-s-d-from-msprime">
+<h2>Distribution of Tajima’s D from msprime<a class="headerlink" href="#distribution-of-tajima-s-d-from-msprime" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">msprime</span>
+<span class="kn">import</span> <span class="nn">libsequence.variant_matrix</span> <span class="kn">as</span> <span class="nn">vmatrix</span>
+<span class="kn">import</span> <span class="nn">libsequence.summstats</span> <span class="kn">as</span> <span class="nn">sstats</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+
+<span class="n">D</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">num_replicates</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                           <span class="n">mutation_rate</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span>
+                           <span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">vmatrix</span><span class="o">.</span><span class="n">VariantMatrix</span><span class="o">.</span><span class="n">from_TreeSequence</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+    <span class="n">ac</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">count_alleles</span><span class="p">()</span>
+    <span class="n">D</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sstats</span><span class="o">.</span><span class="n">tajd</span><span class="p">(</span><span class="n">ac</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">distplot</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../pyplots/tajd.py">Source code</a>, <a class="reference external" href="../pyplots/tajd.png">png</a>, <a class="reference external" href="../pyplots/tajd.hires.png">hires.png</a>, <a class="reference external" href="../pyplots/tajd.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../_images/tajd.png" src="../_images/tajd.png" />
+</div>
+</div>
+<div class="section" id="binning-the-statistic-from-coalescent-simulations">
+<h2>Binning the <span class="math">\(nS_L\)</span> statistic from coalescent simulations<a class="headerlink" href="#binning-the-statistic-from-coalescent-simulations" title="Permalink to this headline">¶</a></h2>
+<p>“Haplotype homozygosity” statistics are very popular in certain circles.  Doing any kind of statistics
+with them requires binning “neutral” or “reference” SNPs by allele frequency so that you can convert
+raw scores into z-scores.  In simulation studies, it makes sense to calibrate the means and standard
+deviations per bin based on simulations of a null model.  Here, I show how to do this for the <span class="math">\(nS_L\)</span>
+statistic of <a class="reference internal" href="../index.html#ferrer-admetlla2014-wa" id="id2">[FALKN14]</a>.</p>
+<p>The relevant function here is <a class="reference internal" href="../index.html#libsequence.summstats.nsl" title="libsequence.summstats.nsl"><code class="xref py py-func docutils literal"><span class="pre">libsequence.summstats.nsl()</span></code></a>, which returns instances of
+<a class="reference internal" href="../index.html#libsequence.summstats.nSLresults" title="libsequence.summstats.nSLresults"><code class="xref py py-class docutils literal"><span class="pre">libsequence.summstats.nSLresults</span></code></a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">import</span> <span class="nn">msprime</span>
+<span class="kn">import</span> <span class="nn">libsequence.variant_matrix</span>
+<span class="kn">import</span> <span class="nn">libsequence.summstats</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+
+<span class="n">Datum</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;Datum&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;dafbin&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;sd&#39;</span><span class="p">])</span>
+
+
+<span class="k">def</span> <span class="nf">get_bin_stats</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">binsize</span><span class="p">,</span> <span class="n">minfreq</span><span class="p">):</span>
+    <span class="c1"># Get unstandardized nSL for all markers:</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">vm</span><span class="o">.</span><span class="n">nsites</span><span class="p">):</span>
+        <span class="n">raw</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">libsequence</span><span class="o">.</span><span class="n">summstats</span><span class="o">.</span><span class="n">nsl</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="c1"># Filter out any NaN values and values</span>
+    <span class="c1"># not passing our DAF filter</span>
+    <span class="n">raw</span> <span class="o">=</span> <span class="p">[(</span><span class="n">i</span><span class="o">.</span><span class="n">nsl</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">core_count</span><span class="p">)</span>
+           <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">raw</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">core_count</span> <span class="o">&gt;=</span> <span class="n">minfreq</span> <span class="ow">and</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">nsl</span><span class="p">)]</span>
+    <span class="c1"># Convert to numpy array</span>
+    <span class="c1"># for binning</span>
+    <span class="n">raw_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">raw</span><span class="p">)</span>
+    <span class="c1"># Assign data to</span>
+    <span class="c1"># bins based on DAF count</span>
+    <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">digitize</span><span class="p">(</span><span class="n">raw_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">vm</span><span class="o">.</span><span class="n">nsam</span><span class="p">,</span> <span class="n">binsize</span><span class="p">))</span>
+
+    <span class="c1"># Get mean and SD per bin</span>
+    <span class="c1"># and return data</span>
+    <span class="n">rv</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">bins</span><span class="p">):</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bins</span> <span class="o">==</span> <span class="n">b</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="n">raw_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">][</span><span class="n">w</span><span class="p">]</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">sd</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
+        <span class="n">rv</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Datum</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">sd</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">rv</span>
+
+
+<span class="n">binsize</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">minfreq</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">nreps</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">nsam</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">seed</span> <span class="o">=</span> <span class="mi">42</span><span class="o">*</span><span class="mi">666</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">nsam</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span>
+                           <span class="n">recombination_rate</span><span class="o">=</span><span class="mf">25.0</span><span class="p">,</span>
+                           <span class="n">num_replicates</span><span class="o">=</span><span class="n">nreps</span><span class="p">,</span>
+                           <span class="n">random_seed</span><span class="o">=</span><span class="n">seed</span><span class="p">):</span>
+    <span class="n">vm</span> <span class="o">=</span> <span class="n">libsequence</span><span class="o">.</span><span class="n">variant_matrix</span><span class="o">.</span><span class="n">VariantMatrix</span><span class="o">.</span><span class="n">from_TreeSequence</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+    <span class="n">bins</span> <span class="o">=</span> <span class="n">get_bin_stats</span><span class="p">(</span><span class="n">vm</span><span class="p">,</span> <span class="n">binsize</span><span class="p">,</span> <span class="n">minfreq</span><span class="p">)</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">bins</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">Datum</span><span class="o">.</span><span class="n">_fields</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;dafbin&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+<span class="c1"># plot DAF bin vs mean nSL statistic in bin</span>
+<span class="n">g</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="s1">&#39;dafbin&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;line&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>(<a class="reference external" href="../pyplots/nSLbins.py">Source code</a>, <a class="reference external" href="../pyplots/nSLbins.png">png</a>, <a class="reference external" href="../pyplots/nSLbins.hires.png">hires.png</a>, <a class="reference external" href="../pyplots/nSLbins.pdf">pdf</a>)</p>
+<div class="figure">
+<img alt="../_images/nSLbins.png" src="../_images/nSLbins.png" />
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Calculating summary statistics from a VariantMatrix</a><ul>
+<li><a class="reference internal" href="#distribution-of-tajima-s-d-from-msprime">Distribution of Tajima’s D from msprime</a></li>
+<li><a class="reference internal" href="#binning-the-statistic-from-coalescent-simulations">Binning the <span class="math">\(nS_L\)</span> statistic from coalescent simulations</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="vmatrix.html"
+                        title="previous chapter">The VariantMatrix</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="summstats.html"
+                        title="next chapter">Calculating summary statistics</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/pages/summstatsVariantMatrix.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="summstats.html" title="Calculating summary statistics"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="vmatrix.html" title="The VariantMatrix"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.1a0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2015, Kevin Thornton.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

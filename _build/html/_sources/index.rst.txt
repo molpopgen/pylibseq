@@ -11,20 +11,36 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   pages/overview
-   pages/parallel
+   pages/changes
+   pages/vmatrix
+   pages/summstatsVariantMatrix
+   pages/summstats
+   pages/treesequences
+   pages/deprecated_overview
    pages/lifetimes
+
+.. rubric:: References
+
+.. bibliography:: Zreferences.bib
 
 Functions and classes
 ##########################################
 
-.. automodule:: libsequence.polytable
+.. automodule:: libsequence.variant_matrix
    :members:
    :show-inheritance:
 
 .. automodule:: libsequence.summstats 
    :members:
    :show-inheritance:
+
+Deprecated Functions and classes
+##########################################
+
+.. automodule:: libsequence.polytable
+   :members:
+   :show-inheritance:
+
 
 .. automodule:: libsequence.fst
    :members:
