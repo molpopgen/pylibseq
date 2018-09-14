@@ -58,7 +58,7 @@ PYBIND11_MODULE(summstats, m)
     m.def("nvariable_sites", &Sequence::nvariable_sites);
     m.def("nbiallelic_sites", &Sequence::nbiallelic_sites);
     m.def("total_number_of_mutations", &Sequence::total_number_of_mutations);
-    m.def("tajd",&Sequence::tajd,
+    m.def("tajd", &Sequence::tajd,
           R"delim(
             Tajima's D.
 
@@ -67,19 +67,18 @@ PYBIND11_MODULE(summstats, m)
             :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
             )delim");
 
-
-    m.def("hprime",
-          [](const Sequence::AlleleCountMatrix& m, const std::int8_t refstate) {
-              return Sequence::hprime(m, refstate);
-          });
+    m.def("hprime", [](const Sequence::AlleleCountMatrix& m,
+                       const std::int8_t refstate) {
+        return Sequence::hprime(m, refstate);
+    });
     m.def("hprime", [](const Sequence::AlleleCountMatrix& m,
                        const std::vector<std::int8_t>& refstates) {
         return Sequence::hprime(m, refstates);
     });
-    m.def("faywuh",
-          [](const Sequence::AlleleCountMatrix& m, const std::int8_t refstate) {
-              return Sequence::faywuh(m, refstate);
-          });
+    m.def("faywuh", [](const Sequence::AlleleCountMatrix& m,
+                       const std::int8_t refstate) {
+        return Sequence::faywuh(m, refstate);
+    });
     m.def("faywuh", [](const Sequence::AlleleCountMatrix& m,
                        const std::vector<std::int8_t>& refstates) {
         return Sequence::faywuh(m, refstates);
@@ -116,7 +115,28 @@ PYBIND11_MODULE(summstats, m)
                 contribute to the analysis.
             )delim");
 
-    m.def("nsl", &Sequence::nsl);
+    py::class_<Sequence::nSLiHS>(
+        m, "nSLresults",
+        "Holds nSL, iHS, and non-reference count at core SNP.  Statistics "
+        "calculated according to :cite:`Ferrer-Admetlla2014-wa`.")
+        .def_readonly("nsl", &Sequence::nSLiHS::nsl, "nSL")
+        .def_readonly("ihs", &Sequence::nSLiHS::ihs, "iHS")
+        .def_readonly("core_count", &Sequence::nSLiHS::core_count,
+                      "Core mutation count in sample");
+
+    m.def("nsl", &Sequence::nsl, py::arg("m"), py::arg("core"),
+          py::arg("refstate"),
+          R"delim(
+            Calculate nSL and iHS according to :cite:`Ferrer-Admetlla2014-wa`.
+
+            :param m: The data
+            :type m: :class:`libsequence.variant_matrix.VariantMatrix`
+            :param core: Index of the core snp
+            :type core: int
+            :param refstate: Value of the reference state
+            :type refstate: int
+            )delim");
+
     py::class_<Sequence::GarudStats>(m, "GarudStats")
         .def_readonly("H1", &Sequence::GarudStats::H1)
         .def_readonly("H12", &Sequence::GarudStats::H12)
@@ -132,10 +152,11 @@ PYBIND11_MODULE(summstats, m)
         return Sequence::allele_counts(m);
     });
 
-    m.def("non_reference_allele_counts",
-          [](const Sequence::AlleleCountMatrix& m, const std::int8_t refstate) {
-              return Sequence::non_reference_allele_counts(m, refstate);
-          });
+    m.def(
+        "non_reference_allele_counts",
+        [](const Sequence::AlleleCountMatrix& m, const std::int8_t refstate) {
+            return Sequence::non_reference_allele_counts(m, refstate);
+        });
 
     m.def("non_reference_allele_counts",
           [](const Sequence::AlleleCountMatrix& m,
