@@ -14,18 +14,27 @@ namespace py = pybind11;
 
 PYBIND11_MODULE(variant_matrix, m)
 {
-    py::class_<Sequence::AlleleCountMatrix>(m, "AlleleCountMatrix",
-                                            py::buffer_protocol())
-        .def(py::init<const Sequence::VariantMatrix &>())
-        .def_readonly("counts", &Sequence::AlleleCountMatrix::counts)
-        .def_readonly("nrow", &Sequence::AlleleCountMatrix::nrow)
-        .def_readonly("ncol", &Sequence::AlleleCountMatrix::ncol)
+    py::class_<Sequence::AlleleCountMatrix>(
+        m, "AlleleCountMatrix", py::buffer_protocol(),
+        "A matrix of allele counts. This object supports the buffer protocol.")
+        .def(py::init<const Sequence::VariantMatrix &>(),
+             "Construct from a "
+             ":class:`libsequence.variant_matrix.VariantMatrix`")
+        .def_readonly("counts", &Sequence::AlleleCountMatrix::counts,
+                      "Flattened view of the raw data.")
+        .def_readonly("nrow", &Sequence::AlleleCountMatrix::nrow,
+                      "Number of rows (sites) in the matrix.")
+        .def_readonly("ncol", &Sequence::AlleleCountMatrix::ncol,
+                      "Number of columns (allelic states) in the matrix.")
+        .def_readonly("nsam", &Sequence::AlleleCountMatrix::nsam,
+                      "Sample size of the original VariantMatrix.")
         .def("row",
              [](const Sequence::AlleleCountMatrix &c, const std::size_t i) {
                  auto x = c.row(i);
                  return py::make_iterator(x.first, x.second);
              },
-             py::keep_alive<0, 1>())
+             py::keep_alive<0, 1>(), py::arg("i"),
+             "Return an iterator over the i-th site.")
         .def("__getitem__",
              [](const Sequence::AlleleCountMatrix &am, py::slice slice) {
                  std::size_t start, stop, step, slicelength;
@@ -186,7 +195,7 @@ PYBIND11_MODULE(variant_matrix, m)
             R"delim(
             Create a VariantMatrix from an msprime.TreeSequence
             
-            :param ts: A TreeSequence
+            :param ts: A TreeSequence from msprime :cite:`Kelleher2016-cb`.
             
             A TreeSequence object is the output of `msprime.simulate`,
             or, equivalently, certain forward simulations that use

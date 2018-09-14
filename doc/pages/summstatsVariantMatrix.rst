@@ -8,7 +8,10 @@ summary statistics can be calculated simply from allele counts via
 :class:`libsequence.variant_matrix.AlleleCountMatrix`. Calculations invovling linkage disequilibrium
 will typically require the entire :class:`libsequence.variant_matrix.VariantMatrix` object.
 
-Distribution of Tajima's D from msprime
+The following examples rely on msprime :cite:`Kelleher2016-cb` to generate input data, but 
+the concepts hold more generally.
+
+Distribution of Tajima's D from msprime 
 ------------------------------------------------------------------------------
 
 .. plot:: pyplots/tajd.py
