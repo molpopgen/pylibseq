@@ -124,18 +124,27 @@ PYBIND11_MODULE(summstats, m)
         .def_readonly("core_count", &Sequence::nSLiHS::core_count,
                       "Core mutation count in sample");
 
-    m.def("nsl", &Sequence::nsl, py::arg("m"), py::arg("core"),
-          py::arg("refstate"),
-          R"delim(
-            Calculate nSL and iHS according to :cite:`Ferrer-Admetlla2014-wa`.
+    m.def("nsl",
+          [](const Sequence::VariantMatrix& m, const std::int8_t refstate) {
+              return Sequence::nsl(m, refstate);
+          });
 
-            :param m: The data
-            :type m: :class:`libsequence.variant_matrix.VariantMatrix`
-            :param core: Index of the core snp
-            :type core: int
-            :param refstate: Value of the reference state
-            :type refstate: int
-            )delim");
+    //m.def("nsl",
+    //      [](const Sequence::VariantMatrix& m, const std::size_t core,
+    //         const std::int8_t refstate) {
+    //          return Sequence::nsl(m, core, refstate);
+    //      },
+    //      py::arg("m"), py::arg("core"), py::arg("refstate"),
+    //      R"delim(
+    //        Calculate nSL and iHS according to :cite:`Ferrer-Admetlla2014-wa`.
+
+    //        :param m: The data
+    //        :type m: :class:`libsequence.variant_matrix.VariantMatrix`
+    //        :param core: Index of the core snp
+    //        :type core: int
+    //        :param refstate: Value of the reference state
+    //        :type refstate: int
+    //        )delim");
 
     py::class_<Sequence::GarudStats>(m, "GarudStats")
         .def_readonly("H1", &Sequence::GarudStats::H1)
