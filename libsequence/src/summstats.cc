@@ -129,6 +129,10 @@ PYBIND11_MODULE(summstats, m)
               return Sequence::nsl(m, refstate);
           });
 
+    m.def("nslx",
+          [](const Sequence::VariantMatrix& m, const std::int8_t refstate,
+             const int x) { return Sequence::nslx(m, refstate, x); });
+
     //m.def("nsl",
     //      [](const Sequence::VariantMatrix& m, const std::size_t core,
     //         const std::int8_t refstate) {
