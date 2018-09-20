@@ -1,5 +1,7 @@
 #include <pybind11/pybind11.h>
+#include <pybind11/numpy.h>
 #include <pybind11/stl.h>
+#include <pybind11/stl_bind.h>
 #include <numeric>
 #include <Sequence/VariantMatrix.hpp>
 #include <Sequence/AlleleCountMatrix.hpp>
@@ -19,6 +21,8 @@
 #include <Sequence/stateCounter.hpp>
 
 namespace py = pybind11;
+
+PYBIND11_MAKE_OPAQUE(std::vector<Sequence::nSLiHS>);
 
 std::pair<double, double> omega_max(const Sequence::SimData& data);
 
@@ -115,6 +119,8 @@ PYBIND11_MODULE(summstats, m)
                 contribute to the analysis.
             )delim");
 
+    PYBIND11_NUMPY_DTYPE(Sequence::nSLiHS, nsl, ihs, core_count);
+
     py::class_<Sequence::nSLiHS>(
         m, "nSLresults",
         "Holds nSL, iHS, and non-reference count at core SNP.  Statistics "
@@ -123,6 +129,9 @@ PYBIND11_MODULE(summstats, m)
         .def_readonly("ihs", &Sequence::nSLiHS::ihs, "iHS")
         .def_readonly("core_count", &Sequence::nSLiHS::core_count,
                       "Core mutation count in sample");
+
+    py::bind_vector<std::vector<Sequence::nSLiHS>>(
+        m, "VecnSLResults", py::module_local(false), py::buffer_protocol());
 
     m.def("nsl",
           [](const Sequence::VariantMatrix& m, const std::int8_t refstate) {
