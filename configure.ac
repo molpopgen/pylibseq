@@ -398,7 +398,7 @@ dnl Finish #
 dnl#########
 
 dnl Define the files to be configured
-AC_CONFIG_FILES([Makefile setup.py docs/conf.py libsequence/__init__.py])
+AC_CONFIG_FILES([Makefile setup.py requirements.txt docs/conf.py libsequence/__init__.py])
 AC_CONFIG_HEADERS([config.h])
 
 MINLSEQVERSION="1.9.6"
@@ -412,6 +412,9 @@ then
 else
 	echo "libsequence version $LIBSEQVERSION detected"
 fi
+
+MINPYBIND11VERSION="2.2.3"
+AC_SUBST(MINPYBIND11,$MINPYBIND11VERSION)
 
 #AC_ARG_ENABLE([cython],AS_HELP_STRING([--enable-cython],[Use Cython for compilation]),[AC_SUBST(EXTENSION,".pyx") AC_SUBST(CYTHONIMPORT,"from Cython.Build import cythonize") AC_SUBST(CYTHONIZE,"cythonize(extensions,gdb_debug=False)")],[AC_SUBST(EXTENSION,".cpp") AC_SUBST(CYTHONIMPORT,"") AC_SUBST(CYTHONIZE,"extensions")])
 

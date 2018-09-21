@@ -634,6 +634,7 @@ CPPFLAGS
 LDFLAGS
 CXXFLAGS
 CXX
+MINPYBIND11
 MINLIBSEQ
 PYTHON_LIBS
 PYTHON_INCLUDES
@@ -3247,7 +3248,7 @@ PYTHON_LIBS=$pc_cv_python_libs
 
 
 
-ac_config_files="$ac_config_files Makefile setup.py docs/conf.py libsequence/__init__.py"
+ac_config_files="$ac_config_files Makefile setup.py requirements.txt docs/conf.py libsequence/__init__.py"
 
 ac_config_headers="$ac_config_headers config.h"
 
@@ -3263,6 +3264,10 @@ then
 else
 	echo "libsequence version $LIBSEQVERSION detected"
 fi
+
+MINPYBIND11VERSION="2.2.3"
+MINPYBIND11=$MINPYBIND11VERSION
+
 
 #AC_ARG_ENABLE([cython],AS_HELP_STRING([--enable-cython],[Use Cython for compilation]),[AC_SUBST(EXTENSION,".pyx") AC_SUBST(CYTHONIMPORT,"from Cython.Build import cythonize") AC_SUBST(CYTHONIZE,"cythonize(extensions,gdb_debug=False)")],[AC_SUBST(EXTENSION,".cpp") AC_SUBST(CYTHONIMPORT,"") AC_SUBST(CYTHONIZE,"extensions")])
 
@@ -5075,6 +5080,7 @@ do
   case $ac_config_target in
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "setup.py") CONFIG_FILES="$CONFIG_FILES setup.py" ;;
+    "requirements.txt") CONFIG_FILES="$CONFIG_FILES requirements.txt" ;;
     "docs/conf.py") CONFIG_FILES="$CONFIG_FILES docs/conf.py" ;;
     "libsequence/__init__.py") CONFIG_FILES="$CONFIG_FILES libsequence/__init__.py" ;;
     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
