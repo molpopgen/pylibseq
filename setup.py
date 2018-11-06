@@ -15,10 +15,10 @@ try:
 except subprocess.CalledProcessError as error:
     print("Fatal error:", error)
 
-if libseq_version.stdout.decode('utf8').rstrip() < "1.9.2":
-    raise ValueError("libsequence >= " + '1.9.2' + "required")
+if libseq_version.stdout.decode('utf8').rstrip() < "1.9.6":
+    raise ValueError("libsequence >= " + '1.9.6' + "required")
 
-__version__ = '0.2.1a0'
+__version__ = '0.2.1'
 
 # clang/llvm is default for OS X builds.
 # can over-ride darwin-specific options
@@ -184,7 +184,7 @@ setup(
     data_files=[('pylibseq', ['COPYING', 'README.rst'])],
     long_description=long_desc,
     ext_modules=ext_modules,
-    install_requires=['pybind11>=2.1.1'],
+    install_requires=['pybind11>=2.2.3', 'msprime>=0.5.0'],
     cmdclass={'build_ext': BuildExt},
     packages=PKGS,
     entry_points={

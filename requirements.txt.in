@@ -1,4 +1,4 @@
-pybind11 >= 2.2.3
+pybind11 >= @MINPYBIND11@
 setuptools
 msprime >= 0.4.0
 

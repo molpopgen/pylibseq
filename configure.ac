@@ -45,7 +45,7 @@ dnl 2) package version (i.e. 1.2)
 dnl 3) bug/info/project email address (i.e. bug-foo@gnu.org)
 dnl----
 dnl
-AC_INIT([pylibseq], [0.2.1a0], [krthornt@uci.edu])
+AC_INIT([pylibseq], [0.2.1], [krthornt@uci.edu])
 
 
 dnl----
@@ -398,10 +398,10 @@ dnl Finish #
 dnl#########
 
 dnl Define the files to be configured
-AC_CONFIG_FILES([Makefile setup.py doc/conf.py libsequence/__init__.py])
+AC_CONFIG_FILES([Makefile setup.py requirements.txt docs/conf.py libsequence/__init__.py])
 AC_CONFIG_HEADERS([config.h])
 
-MINLSEQVERSION="1.9.2"
+MINLSEQVERSION="1.9.6"
 AC_SUBST(MINLIBSEQ,$MINLSEQVERSION)
 LIBSEQVERSION=`libsequenceConfig --version`
 
@@ -412,6 +412,9 @@ then
 else
 	echo "libsequence version $LIBSEQVERSION detected"
 fi
+
+MINPYBIND11VERSION="2.2.3"
+AC_SUBST(MINPYBIND11,$MINPYBIND11VERSION)
 
 #AC_ARG_ENABLE([cython],AS_HELP_STRING([--enable-cython],[Use Cython for compilation]),[AC_SUBST(EXTENSION,".pyx") AC_SUBST(CYTHONIMPORT,"from Cython.Build import cythonize") AC_SUBST(CYTHONIZE,"cythonize(extensions,gdb_debug=False)")],[AC_SUBST(EXTENSION,".cpp") AC_SUBST(CYTHONIMPORT,"") AC_SUBST(CYTHONIZE,"extensions")])
 

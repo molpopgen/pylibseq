@@ -1,3 +1,4 @@
+#include <iostream>
 #include <pybind11/pybind11.h>
 #include <pybind11/functional.h>
 #include <pybind11/numpy.h>
@@ -8,6 +9,7 @@
 #include <Sequence/VariantMatrixViews.hpp>
 #include <Sequence/variant_matrix/filtering.hpp>
 #include <Sequence/variant_matrix/windows.hpp>
+#include <Sequence/variant_matrix/msformat.hpp>
 #include <Sequence/StateCounts.hpp>
 
 namespace py = pybind11;
@@ -494,4 +496,15 @@ PYBIND11_MODULE(variant_matrix, m)
             See :ref:`variantmatrix` for details.
             )delim",
           py::arg("m"), py::arg("f"));
+
+    // Various I/O for VariantMatrix in "ms" format
+    m.def("ms_from_stdin", []() -> py::object{
+        if (std::cin.eof())
+            {
+                return py::none();
+            }
+        auto vm = Sequence::from_msformat(std::cin);
+        py::object o = py::cast(std::move(vm));
+        return o;
+    });
 }

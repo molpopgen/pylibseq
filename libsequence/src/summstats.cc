@@ -1,5 +1,7 @@
 #include <pybind11/pybind11.h>
+#include <pybind11/numpy.h>
 #include <pybind11/stl.h>
+#include <pybind11/stl_bind.h>
 #include <numeric>
 #include <Sequence/VariantMatrix.hpp>
 #include <Sequence/AlleleCountMatrix.hpp>
@@ -19,6 +21,8 @@
 #include <Sequence/stateCounter.hpp>
 
 namespace py = pybind11;
+
+PYBIND11_MAKE_OPAQUE(std::vector<Sequence::nSLiHS>);
 
 std::pair<double, double> omega_max(const Sequence::SimData& data);
 
@@ -115,6 +119,8 @@ PYBIND11_MODULE(summstats, m)
                 contribute to the analysis.
             )delim");
 
+    PYBIND11_NUMPY_DTYPE(Sequence::nSLiHS, nsl, ihs, core_count);
+
     py::class_<Sequence::nSLiHS>(
         m, "nSLresults",
         "Holds nSL, iHS, and non-reference count at core SNP.  Statistics "
@@ -124,18 +130,34 @@ PYBIND11_MODULE(summstats, m)
         .def_readonly("core_count", &Sequence::nSLiHS::core_count,
                       "Core mutation count in sample");
 
-    m.def("nsl", &Sequence::nsl, py::arg("m"), py::arg("core"),
-          py::arg("refstate"),
-          R"delim(
-            Calculate nSL and iHS according to :cite:`Ferrer-Admetlla2014-wa`.
+    py::bind_vector<std::vector<Sequence::nSLiHS>>(
+        m, "VecnSLResults", py::module_local(false), py::buffer_protocol());
 
-            :param m: The data
-            :type m: :class:`libsequence.variant_matrix.VariantMatrix`
-            :param core: Index of the core snp
-            :type core: int
-            :param refstate: Value of the reference state
-            :type refstate: int
-            )delim");
+    m.def("nsl",
+          [](const Sequence::VariantMatrix& m, const std::int8_t refstate) {
+              return Sequence::nsl(m, refstate);
+          });
+
+    m.def("nslx",
+          [](const Sequence::VariantMatrix& m, const std::int8_t refstate,
+             const int x) { return Sequence::nslx(m, refstate, x); });
+
+    //m.def("nsl",
+    //      [](const Sequence::VariantMatrix& m, const std::size_t core,
+    //         const std::int8_t refstate) {
+    //          return Sequence::nsl(m, core, refstate);
+    //      },
+    //      py::arg("m"), py::arg("core"), py::arg("refstate"),
+    //      R"delim(
+    //        Calculate nSL and iHS according to :cite:`Ferrer-Admetlla2014-wa`.
+
+    //        :param m: The data
+    //        :type m: :class:`libsequence.variant_matrix.VariantMatrix`
+    //        :param core: Index of the core snp
+    //        :type core: int
+    //        :param refstate: Value of the reference state
+    //        :type refstate: int
+    //        )delim");
 
     py::class_<Sequence::GarudStats>(m, "GarudStats")
         .def_readonly("H1", &Sequence::GarudStats::H1)
