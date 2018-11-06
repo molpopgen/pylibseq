@@ -32,9 +32,8 @@ Development branch:
 Requirements:
 ===================================
 
-* libsequence_ must be installed on your system.  **Currently, this package requires the dev branch of libsequence**
-* TBB_ must be installed on your system.
-* Python 2 or Python 3
+* libsequence_ must be installed on your system.  **Currently, this package requires libsequence >= 1.9.6**
+* Python 3
 * An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughly, this means GCC >= 4.8 and clang >= 3.5.
 
 .. note:: If you installing from GitHub, then pybind11_ is a dependency.
@@ -43,7 +42,9 @@ The recommended method for installing libsequence_ is bioconda_.  If you do not 
 
 If you want to modify the package, you will need pybind11_ installed via your favorite Python package manager.
 
-The supported platforms are Linux and OS X.
+Currently, only Linux is supported.  The reason is that OS X's case-insensitive file system is preventing current
+versions of libsequence from compiling.  This situation will be resolved once all deprecated features are removed from
+libsequence_
 
 Changelog (rough)
 ==============================
@@ -57,6 +58,12 @@ Changelog (rough)
 
 Installation:
 =======================
+
+For many users, the best way to install the latest release will be via bioconda_,
+
+.. code-block:: bash
+
+    conda -c bioconda install pylibseq
 
 The latest release of the package is available via PyPi_, and can be installed with your favorite Python package manager:
 
@@ -126,5 +133,4 @@ Documentation:
 .. _Manual: http://molpopgen.github.io/pylibseq/_build/html/index.html
 .. _homepage: http://molpopgen.github.io/pylibseq/
 .. _PyPi: https://pypi.python.org
-.. _TBB: http://www.threadbuildingblocks.org
 .. _bioconda: https://bioconda.github.io

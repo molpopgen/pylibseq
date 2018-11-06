@@ -15,10 +15,10 @@ try:
 except subprocess.CalledProcessError as error:
     print("Fatal error:", error)
 
-if libseq_version.stdout.decode('utf8').rstrip() < "1.9.2":
-    raise ValueError("libsequence >= " + '1.9.2' + "required")
+if libseq_version.stdout.decode('utf8').rstrip() < "1.9.6":
+    raise ValueError("libsequence >= " + '1.9.6' + "required")
 
-__version__ = '0.2.0'
+__version__ = '0.2.1'
 
 # clang/llvm is default for OS X builds.
 # can over-ride darwin-specific options
@@ -58,17 +58,7 @@ LIBRARY_DIRS = [
     os.path.join(sys.prefix, 'lib')
 ]
 
-LIBS = ['tbb']
-
 ext_modules = [
-    Extension(
-        'libsequence.parallel',
-        ['libsequence/src/parallel.cc'],
-        library_dirs=LIBRARY_DIRS,
-        include_dirs=INCLUDES,
-        libraries=['tbb'],
-        language='c++'
-    ),
     Extension(
         'libsequence.polytable',
         ['libsequence/src/polytable.cc'],
@@ -79,10 +69,10 @@ ext_modules = [
     ),
     Extension(
         'libsequence.summstats',
-        ['libsequence/src/summstats.cc'],
+        ['libsequence/src/summstats.cc','libsequence/src/omega_max.cc'],
         library_dirs=LIBRARY_DIRS,
         include_dirs=INCLUDES,
-        libraries=['sequence', 'tbb'],
+        libraries=['sequence'],
         language='c++'
     ),
     Extension(
@@ -101,6 +91,15 @@ ext_modules = [
         libraries=['sequence'],
         language='c++'
     ),
+    Extension(
+        'libsequence.variant_matrix',
+        ['libsequence/src/variant_matrix.cc'],
+        library_dirs=LIBRARY_DIRS,
+        include_dirs=INCLUDES,
+        libraries=['sequence'],
+        language='c++'
+    ),
+
 ]
 
 
@@ -185,8 +184,11 @@ setup(
     data_files=[('pylibseq', ['COPYING', 'README.rst'])],
     long_description=long_desc,
     ext_modules=ext_modules,
-    install_requires=['pybind11>=2.1.1'],
+    install_requires=['pybind11>=2.2.3', 'msprime>=0.5.0'],
     cmdclass={'build_ext': BuildExt},
     packages=PKGS,
+    entry_points={
+        'console_scripts': ['pymsstats = libsequence.msstats_cli:msstats_main']
+    },
     zip_safe=False,
 )
