@@ -32,8 +32,8 @@ Development branch:
 Requirements:
 ===================================
 
-* libsequence_ must be installed on your system.  **Currently, this package requires the dev branch of libsequence**
-* Python 2 or Python 3
+* libsequence_ must be installed on your system.  **Currently, this package requires libsequence >= 1.9.6**
+* Python 3
 * An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughly, this means GCC >= 4.8 and clang >= 3.5.
 
 .. note:: If you installing from GitHub, then pybind11_ is a dependency.
