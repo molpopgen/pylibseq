@@ -184,7 +184,7 @@ setup(
     data_files=[('pylibseq', ['COPYING', 'README.rst'])],
     long_description=long_desc,
     ext_modules=ext_modules,
-    install_requires=['pybind11>=@MINPYBIND11@', 'msprime>=0.5.0'],
+    install_requires=['pybind11>=@MINPYBIND11@'],
     cmdclass={'build_ext': BuildExt},
     packages=PKGS,
     entry_points={
