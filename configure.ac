@@ -401,7 +401,7 @@ dnl Define the files to be configured
 AC_CONFIG_FILES([Makefile setup.py requirements.txt docs/conf.py libsequence/__init__.py])
 AC_CONFIG_HEADERS([config.h])
 
-MINLSEQVERSION="1.9.6"
+MINLSEQVERSION="1.9.7"
 AC_SUBST(MINLIBSEQ,$MINLSEQVERSION)
 LIBSEQVERSION=`libsequenceConfig --version`
 
