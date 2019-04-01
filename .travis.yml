@@ -42,6 +42,6 @@ install:
 script:
     - export LD_LIBRARY_PATH=$HOME/miniconda/lib
     - export CPPFLAGS="-I$HOME/miniconda/include $CPPFLAGS"
-    - export LDFLAGS="-L$HOME/miniconda/lib $LDFLAGS"
+    - export LDFLAGS="-Wl,-rpath,$HOME/miniconda/lib -L$HOME/miniconda/lib $LDFLAGS"
     - python setup.py build_ext -i --gcc
     - python -m unittest discover tests
