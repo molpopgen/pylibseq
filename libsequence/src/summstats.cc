@@ -14,9 +14,9 @@
 #include <Sequence/PolySIM.hpp>
 #include <Sequence/PolyTable.hpp>
 #include <Sequence/SimData.hpp>
-#include <Sequence/SummStats/nSL.hpp>
-#include <Sequence/SummStats/Garud.hpp>
-#include <Sequence/SummStats/lHaf.hpp>
+#include <Sequence/SummStatsDeprecated/nSL.hpp>
+#include <Sequence/SummStatsDeprecated/Garud.hpp>
+#include <Sequence/SummStatsDeprecated/lHaf.hpp>
 #include <Sequence/Recombination.hpp>
 #include <Sequence/stateCounter.hpp>
 
@@ -26,10 +26,8 @@ PYBIND11_MAKE_OPAQUE(std::vector<Sequence::nSLiHS>);
 
 std::pair<double, double> omega_max(const Sequence::SimData& data);
 
-PYBIND11_MODULE(summstats, m)
+void init_summstats(py::module & m)
 {
-    m.doc() = "Summary statistics";
-
     //These are the "libsequence 2.0"
     //functions
 
