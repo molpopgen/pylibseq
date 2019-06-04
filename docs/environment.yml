@@ -1,14 +1,13 @@
 name: pylibseq_docs
 
 channels:
-    - conda-forge
     - defaults
-    - r
     - bioconda
+    - conda-forge
 
 dependencies:
     - sphinx_rtd_theme==0.1.9
-    - pybind11==2.2.2
-    - libsequence
+    - pybind11==2.2.3
+    - msprime
     - ipython
     - matplotlib
