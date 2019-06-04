@@ -12,3 +12,4 @@ dependencies:
     - ipython
     - matplotlib
     - cmake
+    - sphinxcontrib-bibtex
