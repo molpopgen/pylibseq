@@ -14,7 +14,8 @@
 
 namespace py = pybind11;
 
-void init_VariantMatrix(py::module & m)
+void
+init_VariantMatrix(py::module &m)
 {
     py::class_<Sequence::AlleleCountMatrix>(
         m, "AlleleCountMatrix", py::buffer_protocol(),
@@ -30,13 +31,14 @@ void init_VariantMatrix(py::module & m)
                       "Number of columns (allelic states) in the matrix.")
         .def_readonly("nsam", &Sequence::AlleleCountMatrix::nsam,
                       "Sample size of the original VariantMatrix.")
-        .def("row",
-             [](const Sequence::AlleleCountMatrix &c, const std::size_t i) {
-                 auto x = c.row(i);
-                 return py::make_iterator(x.first, x.second);
-             },
-             py::keep_alive<0, 1>(), py::arg("i"),
-             "Return an iterator over the i-th site.")
+        .def(
+            "row",
+            [](const Sequence::AlleleCountMatrix &c, const std::size_t i) {
+                auto x = c.row(i);
+                return py::make_iterator(x.first, x.second);
+            },
+            py::keep_alive<0, 1>(), py::arg("i"),
+            "Return an iterator over the i-th site.")
         .def("__getitem__",
              [](const Sequence::AlleleCountMatrix &am, py::slice slice) {
                  std::size_t start, stop, step, slicelength;
@@ -102,7 +104,7 @@ void init_VariantMatrix(py::module & m)
 
         :param data: The state data.
         :type data: list
-        :param positons: List of mutation positions.
+        :param positions: List of mutation positions.
         :type positions: list
 
         >>> import libsequence.variant_matrix as vm
@@ -141,7 +143,7 @@ void init_VariantMatrix(py::module & m)
 
             :param data: 2d ndarray with dtype numpy.int8
             :type data: list
-            :param positons: 1d array with dtype np.float
+            :param positions: 1d array with dtype np.float
             :type positions: list
 
             >>> import libsequence.variant_matrix as vm
@@ -215,8 +217,16 @@ void init_VariantMatrix(py::module & m)
             )delim")
         .def_readonly("data", &Sequence::VariantMatrix::data,
                       "Return raw data as list")
-        .def_readonly("positions", &Sequence::VariantMatrix::positions,
-                      "Return positions as list")
+        .def_property_readonly(
+            "positions",
+            [](const Sequence::VariantMatrix &self)->pybind11::array_t<double> {
+                auto rv = pybind11::array_t<double>(
+                    { self.positions.size() }, { sizeof(double) },
+                    self.positions.data(), pybind11::cast(self.positions));
+                rv.attr("flags").attr("writeable") = false;
+                return rv;
+            },
+            "Return positions as numpy array")
         .def_readonly("nsites", &Sequence::VariantMatrix::nsites,
                       "Number of positions")
         .def_readonly("nsam", &Sequence::VariantMatrix::nsam,
@@ -227,30 +237,32 @@ void init_VariantMatrix(py::module & m)
              [](const Sequence::VariantMatrix &m) {
                  return Sequence::AlleleCountMatrix(m);
              })
-        .def("site",
-             [](const Sequence::VariantMatrix &m, const std::size_t i) {
-                 return Sequence::get_ConstRowView(m, i);
-             },
-             R"delim(
+        .def(
+            "site",
+            [](const Sequence::VariantMatrix &m, const std::size_t i) {
+                return Sequence::get_ConstRowView(m, i);
+            },
+            R"delim(
              Return a view of the i-th site.
              
              :param i: Index
              :type i: int
              :rtype: :class:`libsequence.variant_matrix.ConstRowView`
              )delim",
-             py::arg("i"))
-        .def("sample",
-             [](const Sequence::VariantMatrix &m, const std::size_t i) {
-                 return Sequence::get_ConstColView(m, i);
-             },
-             R"delim(
+            py::arg("i"))
+        .def(
+            "sample",
+            [](const Sequence::VariantMatrix &m, const std::size_t i) {
+                return Sequence::get_ConstColView(m, i);
+            },
+            R"delim(
              Return a view of the i-th sample.
              
              :param i: Index
              :type i: int
              :rtype: :class:`libsequence.variantmatrix.ConstColView`
              )delim",
-             py::arg("i"))
+            py::arg("i"))
         .def_buffer([](Sequence::VariantMatrix &m) -> py::buffer_info {
             return py::buffer_info(
                 m.data.data(),       /* Pointer to buffer */
@@ -263,18 +275,20 @@ void init_VariantMatrix(py::module & m)
                       * m.nsam, /* Strides (in bytes) for each index */
                   sizeof(std::int8_t) });
         })
-        .def("window",
-             [](const Sequence::VariantMatrix &m, const double beg,
-                const double end) {
-                 return Sequence::make_window(m, beg, end);
-             },
-             py::arg("beg"), py::arg("end"))
-        .def("slice",
-             [](const Sequence::VariantMatrix &m, const double beg,
-                const double end, const std::size_t i, const std::size_t j) {
-                 return Sequence::make_slice(m, beg, end, i, j);
-             },
-             py::arg("beg"), py::arg("end"), py::arg("i"), py::arg("j"))
+        .def(
+            "window",
+            [](const Sequence::VariantMatrix &m, const double beg,
+               const double end) {
+                return Sequence::make_window(m, beg, end);
+            },
+            py::arg("beg"), py::arg("end"))
+        .def(
+            "slice",
+            [](const Sequence::VariantMatrix &m, const double beg,
+               const double end, const std::size_t i, const std::size_t j) {
+                return Sequence::make_slice(m, beg, end, i, j);
+            },
+            py::arg("beg"), py::arg("end"), py::arg("i"), py::arg("j"))
         .def(py::pickle(
             [](const Sequence::VariantMatrix &m) {
                 return py::make_tuple(m.data, m.positions);
@@ -297,21 +311,23 @@ void init_VariantMatrix(py::module & m)
             )delim")
         .def("__len__",
              [](const Sequence::ConstColView &c) { return c.size(); })
-        .def("__iter__",
-             [](const Sequence::ConstColView &c) {
-                 return py::make_iterator(c.begin(), c.end());
-             },
-             py::keep_alive<0, 1>())
-        .def("as_list",
-             [](const Sequence::ConstColView &c) {
-                 py::list rv;
-                 for (auto i : c)
-                     {
-                         rv.append(static_cast<int>(i));
-                     }
-                 return rv;
-             },
-             "Return contents as a list.");
+        .def(
+            "__iter__",
+            [](const Sequence::ConstColView &c) {
+                return py::make_iterator(c.begin(), c.end());
+            },
+            py::keep_alive<0, 1>())
+        .def(
+            "as_list",
+            [](const Sequence::ConstColView &c) {
+                py::list rv;
+                for (auto i : c)
+                    {
+                        rv.append(static_cast<int>(i));
+                    }
+                return rv;
+            },
+            "Return contents as a list.");
 
     py::class_<Sequence::ColView>(m, "ColView",
                                   R"delim(
@@ -320,21 +336,23 @@ void init_VariantMatrix(py::module & m)
         See :ref:`variantmatrix`
         )delim")
         .def("__len__", [](const Sequence::ColView &c) { return c.size(); })
-        .def("__iter__",
-             [](const Sequence::ColView &c) {
-                 return py::make_iterator(c.begin(), c.end());
-             },
-             py::keep_alive<0, 1>())
-        .def("as_list",
-             [](const Sequence::ColView &c) {
-                 py::list rv;
-                 for (auto i : c)
-                     {
-                         rv.append(static_cast<int>(i));
-                     }
-                 return rv;
-             },
-             "Return contents as a list.");
+        .def(
+            "__iter__",
+            [](const Sequence::ColView &c) {
+                return py::make_iterator(c.begin(), c.end());
+            },
+            py::keep_alive<0, 1>())
+        .def(
+            "as_list",
+            [](const Sequence::ColView &c) {
+                py::list rv;
+                for (auto i : c)
+                    {
+                        rv.append(static_cast<int>(i));
+                    }
+                return rv;
+            },
+            "Return contents as a list.");
 
     py::class_<Sequence::ConstRowView>(m, "ConstRowView",
                                        R"delim(
@@ -344,21 +362,23 @@ void init_VariantMatrix(py::module & m)
         )delim")
         .def("__len__",
              [](const Sequence::ConstRowView &r) { return r.size(); })
-        .def("__iter__",
-             [](const Sequence::ConstRowView &r) {
-                 return py::make_iterator(r.begin(), r.end());
-             },
-             py::keep_alive<0, 1>())
-        .def("as_list",
-             [](const Sequence::ConstRowView &r) {
-                 py::list rv;
-                 for (auto i : r)
-                     {
-                         rv.append(static_cast<int>(i));
-                     }
-                 return rv;
-             },
-             "Return contents as a list.");
+        .def(
+            "__iter__",
+            [](const Sequence::ConstRowView &r) {
+                return py::make_iterator(r.begin(), r.end());
+            },
+            py::keep_alive<0, 1>())
+        .def(
+            "as_list",
+            [](const Sequence::ConstRowView &r) {
+                py::list rv;
+                for (auto i : r)
+                    {
+                        rv.append(static_cast<int>(i));
+                    }
+                return rv;
+            },
+            "Return contents as a list.");
 
     py::class_<Sequence::RowView>(m, "RowView",
                                   R"delim(
@@ -367,11 +387,12 @@ void init_VariantMatrix(py::module & m)
         See :ref:`variantmatrix`.
         )delim")
         .def("__len__", [](const Sequence::RowView &r) { return r.size(); })
-        .def("__iter__",
-             [](const Sequence::RowView &r) {
-                 return py::make_iterator(r.begin(), r.end());
-             },
-             py::keep_alive<0, 1>())
+        .def(
+            "__iter__",
+            [](const Sequence::RowView &r) {
+                return py::make_iterator(r.begin(), r.end());
+            },
+            py::keep_alive<0, 1>())
         .def("as_list", [](const Sequence::RowView &r) {
             py::list rv;
             for (auto i : r)
@@ -394,11 +415,12 @@ void init_VariantMatrix(py::module & m)
         .def_readonly("refstate", &Sequence::StateCounts::refstate,
                       "The reference state.")
         .def_readonly("n", &Sequence::StateCounts::n, "The sample size.")
-        .def("__iter__",
-             [](const Sequence::StateCounts &sc) {
-                 return py::make_iterator(sc.counts.begin(), sc.counts.end());
-             },
-             py::keep_alive<0, 1>())
+        .def(
+            "__iter__",
+            [](const Sequence::StateCounts &sc) {
+                return py::make_iterator(sc.counts.begin(), sc.counts.end());
+            },
+            py::keep_alive<0, 1>())
         .def("__len__",
              [](const Sequence::StateCounts &c) { return c.counts.size(); })
         .def("__getitem__",
@@ -427,26 +449,27 @@ void init_VariantMatrix(py::module & m)
                 });
         });
 
-    m.def("process_variable_sites",
-          [](const Sequence::VariantMatrix &m, py::object refstates) {
-              if (refstates.is_none())
-                  {
-                      return Sequence::process_variable_sites(m);
-                  }
-              try
-                  {
-                      py::int_ rs(refstates);
-                      return Sequence::process_variable_sites(
-                          m, rs.cast<std::int8_t>());
-                  }
-              catch (...)
-                  {
-                  }
-              return Sequence::process_variable_sites(
-                  m, refstates.cast<std::vector<std::int8_t>>());
-          },
-          py::arg("m"), py::arg("refstates") = nullptr,
-          R"delim(
+    m.def(
+        "process_variable_sites",
+        [](const Sequence::VariantMatrix &m, py::object refstates) {
+            if (refstates.is_none())
+                {
+                    return Sequence::process_variable_sites(m);
+                }
+            try
+                {
+                    py::int_ rs(refstates);
+                    return Sequence::process_variable_sites(
+                        m, rs.cast<std::int8_t>());
+                }
+            catch (...)
+                {
+                }
+            return Sequence::process_variable_sites(
+                m, refstates.cast<std::vector<std::int8_t>>());
+        },
+        py::arg("m"), py::arg("refstates") = nullptr,
+        R"delim(
           Obtain state counts for all sites
 
           :param m: data
@@ -498,7 +521,7 @@ void init_VariantMatrix(py::module & m)
           py::arg("m"), py::arg("f"));
 
     // Various I/O for VariantMatrix in "ms" format
-    m.def("ms_from_stdin", []() -> py::object{
+    m.def("ms_from_stdin", []() -> py::object {
         if (std::cin.eof())
             {
                 return py::none();
