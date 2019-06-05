@@ -3,7 +3,7 @@
 Calculating summary statistics
 ================================================================
 
-This page is a tutorial on calculating summary statistics from a :class:`libsequence.variant_matrix.VariantMatrix`.  We
+This page is a tutorial on calculating summary statistics from a :class:`libsequence.VariantMatrix`.  We
 also show how to interchange data between msprime_ :cite:`Kelleher2016-cb` and pylibseq.
 
 Simple overview of concepts
@@ -22,10 +22,6 @@ Simple overview of concepts
     vm = libsequence.VariantMatrix.from_TreeSequence(ts)
     # VariantMatrix -> AlleleCountMatrix
     ac = vm.count_alleles()
-    # Standard summary stats
-    pi = libsequence.thetapi(ac)
-    tajd = libsequence.tajd(ac)
-    hprime = libsequence.hprime(ac, 0) # 0 = reference state = ancestral state
 
 Certain summary statistics can be calculated simply from allele counts via
 :class:`libsequence.AlleleCountMatrix`. Calculations invovling linkage disequilibrium
@@ -33,29 +29,119 @@ will typically require the entire :class:`libsequence.VariantMatrix` object.
 
 The following examples rely on msprime :cite:`Kelleher2016-cb` to generate input data, but 
 the concepts hold more generally.
-    
+
+List of "classic"/standard summary statistics
+-------------------------------------------------------
+
+Nucleotide diversity, or :math:`\pi` :cite:`Tajima1983-it`:
+
+.. autofunction:: libsequence.thetapi
+
+.. ipython:: python
+
+    print(libsequence.thetapi(ac))
+
+Watterson's estimator of :math:`\theta`, :cite:`Watterson1975-ej`:
+
+.. autofunction:: libsequence.thetaw
+
+.. ipython:: python
+
+    print(libsequence.thetaw(ac))
+
+Tajima's :math:`D`, :cite:`Tajima1989-de`:
+
+.. autofunction:: libsequence.tajd
+
+.. ipython:: python
+
+    print(libsequence.tajd(ac))
+
+Fay and Wu's test statistic, :math:`\pi - \hat\theta_H` :cite:`Fay2000-ef` has two overloads.
+The first takes
+a single ancestral state as an argument.  The latter takes a
+list of ancestral states (one per site in the variant matrix):
+
+.. autofunction:: libsequence.faywuh
+
+.. ipython:: python
+
+    print(libsequence.faywuh(ac, 0))
+
+The :math:`H'` statistic :cite:`Zeng2006-is` should be preferred to
+the Fay and Wu test statistic:
+
+.. autofunction:: libsequence.hprime
+
+.. ipython:: python
+
+    print(libsequence.hprime(ac, 0))
+
+Summaries of haplotype variation :cite:`Depaulis1998-ol`:
+
+.. autofunction:: libsequence.number_of_haplotypes
+.. autofunction:: libsequence.haplotype_diversity
+
+.. ipython:: python
+
+    print(libsequence.number_of_haplotypes(vm))
+    print(libsequence.haplotype_diversity(vm))
+
+The :math:`nS_L` and :math:`iHS` "haplotype homozygosity" statistics
+defined in :cite:`Ferrer-Admetlla2014-wa`:
+
+.. autofunction:: libsequence.nsl
+
+This function returns a list of instances of the following:
+
+.. autoclass:: libsequence.nSLresults
+    :members:
+
+Values of `nan` imply that haplotype homozygosity for a particular core
+variant was not broken within the matrix.  This is the same procedure
+used in :cite:`Ferrer-Admetlla2014-wa`.  The return value order
+corresponds to the row order of the input data:
+
+.. ipython:: python
+
+    nsl = libsequence.nsl(vm, 0)
+    for i in nsl[:4]:
+       print(i.core_count, i.ihs, i.nsl)
+
+The following variant only allows haplotype homozygosity to be
+broken up by mutations where the non-reference count is :math:`\leq x`:
+
+.. autofunction:: libsequence.nslx
+
+.. ipython:: python
+
+    nslx = libsequence.nslx(vm, 0, 1)
+
+The haplotype diversity statistics from :cite:`Garud2015-ob`:
+
+.. autofunction:: libsequence.garud_statistics
+
+.. autoclass:: libsequence.GarudStats
+    :members:
+
+.. ipython:: python
+
+    g = libsequence.garud_statistics(vm)
+    print(g.H1, g.H12, g.H2H1)
+
+
+.. autofunction:: libsequence.two_locus_haplotype_counts
+.. autofunction:: libsequence.allele_counts
+.. autofunction:: libsequence.non_reference_allele_counts
+.. autoclass:: libsequence.AlleleCounts
+    :members:
+
 Distribution of Tajima's D from msprime 
 ------------------------------------------------------------------------------
 
 .. plot:: pyplots/tajd.py
     :include-source:
 
-
-Binning the :math:`nS_L` statistic from coalescent simulations
-------------------------------------------------------------------------------
-
-"Haplotype homozygosity" statistics are very popular in certain circles.  Doing any kind of statistics
-with them requires binning "neutral" or "reference" SNPs by allele frequency so that you can convert
-raw scores into z-scores.  In simulation studies, it makes sense to calibrate the means and standard
-deviations per bin based on simulations of a null model.  Here, I show how to do this for the :math:`nS_L`
-statistic of :cite:`Ferrer-Admetlla2014-wa`.
-
-The relevant function here is :func:`libsequence.nsl`, which returns instances of
-:class:`libsequence.nSLresults`.
-
-
-.. plot:: pyplots/nSLbins.py
-    :include-source:
 
 Other useful statistics
 ----------------------------------------------------------------
@@ -96,6 +182,8 @@ In a similar fashion, we can obtain true/false data on whether pairs of haplotyp
 
     diff_yes_or_no = libsequence.is_different_matrix(vm)
 
+.. autofunction:: libsequence.is_different_matrix
+
 The contents of this matrix have the exact same layout as `diffs` described above.  The difference is that the data
 elements are encoded as 0 = identical, 1 = different.  This calculation is **much** faster than the previous.
 
@@ -110,6 +198,8 @@ It is also possible to get a unique label assigned to each haplotype:
 
     labels = np.array(libsequence.label_haplotypes(vm),dtype=np.int32)
     print(len(np.unique(labels)))
+
+.. autofunction:: libsequence.label_haplotypes
 
 Internally, the results from `is_different_matrix` are used to assign the labels.
 

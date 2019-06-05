@@ -12,4 +12,5 @@ dependencies:
     - ipython
     - matplotlib
     - cmake
+    - seaborn
     - sphinxcontrib-bibtex

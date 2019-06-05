@@ -199,7 +199,7 @@ Filtering VariantMatrix data
 -------------------------------------
 
 You may remove sites and/or samples via the application of functions written in Python.  To filter sites, a function
-must take the return value of :func:`libsequence.variant_matrix.VariantMatrix.site` as an argument:
+must take the return value of :func:`libsequence.VariantMatrix.site` as an argument:
 
 .. ipython:: python
 
@@ -219,8 +219,8 @@ must take the return value of :func:`libsequence.variant_matrix.VariantMatrix.si
     m2 = libsequence.VariantMatrix(m.data, m.positions)
 
     rv = libsequence.filter_sites(m2, RemoveNonRefSingletons())
-    print(np.array(m))
-    print(np.array(m2))
+    print(np.array(m).shape)
+    print(np.array(m2).shape)
 
     # This is the number of sites removed:
     print(rv)
@@ -244,5 +244,5 @@ Similarly, we can remove samples:
     rv = libsequence.filter_haplotypes(m2, remove_all_ref_samples)
 
     print(rv)
-    print(np.array(m))
-    print(np.array(m2))
+    print(np.array(m).shape)
+    print(np.array(m2).shape)

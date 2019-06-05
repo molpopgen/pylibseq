@@ -4,7 +4,7 @@ Tree Sequences
 ================================
 
 pylibseq is able to generate instances of :class:`libsequence.VariantMatrix` from a Python object
-representing a "tree sequence" :cite:`Kelleher2018-fu`. Currently, the primary method of interacting with these data
+representing a "tree sequence" :cite:`Kelleher2018-mc`. Currently, the primary method of interacting with these data
 structures is via msprime_.
 
 There are two methods to get data into a VariantMatrix.  The first is via numpy arrays as described in
