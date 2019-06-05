@@ -142,6 +142,29 @@ Distribution of Tajima's D from msprime
 .. plot:: pyplots/tajd.py
     :include-source:
 
+"Sliding window" analysis
+----------------------------------------------------------------------------
+
+To analyze different genomic intervals, or "windows", you have two options.
+Any statistic needing the allele count data can easily be gotten via a slice 
+of your existing data:
+
+.. ipython:: python
+
+    lefts = np.arange(0, 1, 0.2)
+    for l in lefts:
+        p = np.where((vm.positions >= l)&(vm.positions < l+0.2))[0]
+        ac_slice=ac[p[0]:p[-1]+1]
+        assert len(ac_slice) == len(p)
+        print(libsequence.thetapi(ac_slice))
+
+For analyses needing the entire matrix, you may create a new :class:`libsequence.VariantMatrix`
+from each slice of the numpy input array as needed.
+
+.. todo::
+
+    Add wrappers for libsequence's internal functions for getting windows
+    from a VariantMatrix
 
 Other useful statistics
 ----------------------------------------------------------------

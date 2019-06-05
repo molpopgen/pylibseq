@@ -70,6 +70,10 @@ init_VariantMatrix(py::module &m)
                  return Sequence::AlleleCountMatrix(std::move(c), am.ncol,
                                                     nrow, am.nsam);
              })
+        .def("__len__",
+             [](const Sequence::AlleleCountMatrix &self) {
+                 return self.nrow;
+             })
         .def_buffer(
             [](const Sequence::AlleleCountMatrix &c) -> py::buffer_info {
                 using value_type = Sequence::AlleleCountMatrix::value_type;
@@ -219,7 +223,8 @@ init_VariantMatrix(py::module &m)
                       "Return raw data as list")
         .def_property_readonly(
             "positions",
-            [](const Sequence::VariantMatrix &self)->pybind11::array_t<double> {
+            [](const Sequence::VariantMatrix &self)
+                -> pybind11::array_t<double> {
                 auto rv = pybind11::array_t<double>(
                     { self.positions.size() }, { sizeof(double) },
                     self.positions.data(), pybind11::cast(self.positions));

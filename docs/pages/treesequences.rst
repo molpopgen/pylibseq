@@ -14,6 +14,7 @@ There are two methods to get data into a VariantMatrix.  The first is via numpy 
 
     import msprime
     import libsequence
+    import numpy as np
 
     # Get a TreeSequence from msprime:
     ts = msprime.simulate(100, mutation_rate = 100)
@@ -27,7 +28,7 @@ The second method is to call a class method of VariantMatrix:
 
     m2 = libsequence.VariantMatrix.from_TreeSequence(ts)
     assert(m.data == m2.data)
-    assert(m.positions == m2.positions)
+    assert(np.array_equal(m.positions, m2.positions))
 
 The second method is a touch slower than the first, but it uses about half as much memory.  The reason is that getting
 the genotype matrix from the TreeSequence requires allocating the entire matrix.  The second method only asks msprime to
