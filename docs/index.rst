@@ -6,6 +6,8 @@
 Welcome to pylibseq's documentation!
 =================================================
 
+If you use `pylibseq` in your research please cite the following papers: :cite:`Thornton2003-wj`
+
 Contents:
 
 .. toctree::
