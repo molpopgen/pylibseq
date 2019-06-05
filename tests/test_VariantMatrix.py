@@ -12,7 +12,7 @@ class testVariantMatrix(unittest.TestCase):
 
     def testConstruct(self):
         self.assertEqual(self.m.data, self.data)
-        self.assertEqual(self.m.positions, self.pos)
+        self.assertTrue(np.array_equal(self.m.positions, self.pos))
         self.assertEqual(self.m.nsam, 4)
         self.assertEqual(self.m.nsites, 2)
 
@@ -41,7 +41,7 @@ class testVariantMatrix(unittest.TestCase):
         p = pickle.dumps(self.m, -1)
         up = pickle.loads(p)
         self.assertEqual(up.data, self.m.data)
-        self.assertEqual(up.positions, self.m.positions)
+        self.assertTrue(np.array_equal(up.positions, self.m.positions))
         self.assertEqual(up.nsam, self.m.nsam)
         self.assertEqual(up.nsites, self.m.nsites)
 
