@@ -18,7 +18,7 @@ except subprocess.CalledProcessError as error:
 if libseq_version.stdout.decode('utf8').rstrip() < "1.9.6":
     raise ValueError("libsequence >= " + '1.9.6' + "required")
 
-__version__ = '0.2.1'
+__version__ = '0.2.1.post0'
 
 # clang/llvm is default for OS X builds.
 # can over-ride darwin-specific options
