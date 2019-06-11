@@ -3253,7 +3253,7 @@ ac_config_files="$ac_config_files Makefile setup.py requirements.txt docs/conf.p
 ac_config_headers="$ac_config_headers config.h"
 
 
-MINLSEQVERSION="1.9.6"
+MINLSEQVERSION="1.9.7"
 MINLIBSEQ=$MINLSEQVERSION
 
 LIBSEQVERSION=`libsequenceConfig --version`

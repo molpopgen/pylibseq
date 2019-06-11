@@ -15,8 +15,8 @@ try:
 except subprocess.CalledProcessError as error:
     print("Fatal error:", error)
 
-if libseq_version.stdout.decode('utf8').rstrip() < "@MINLIBSEQ@":
-    raise ValueError("libsequence >= " + '@MINLIBSEQ@' + "required")
+if libseq_version.stdout.decode('utf8').rstrip() != "@MINLIBSEQ@":
+    raise ValueError("libsequence == " + '@MINLIBSEQ@' + "required")
 
 __version__ = '@PACKAGE_VERSION@'
 
