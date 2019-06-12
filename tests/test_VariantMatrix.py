@@ -109,6 +109,7 @@ class testCreationFromNumpy(unittest.TestCase):
     def testFilterSites(self):
         m = libsequence.VariantMatrix(self.d, self.pos)
         libsequence.filter_sites(m, is_singleton)
+        self.assertEqual(m.nsites, 1)
 
 
 class testDataFromMsprime(unittest.TestCase):
