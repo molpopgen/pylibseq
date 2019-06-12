@@ -11,7 +11,8 @@ class testVariantMatrix(unittest.TestCase):
         self.m = libsequence.VariantMatrix(self.data, self.pos)
 
     def testConstruct(self):
-        self.assertEqual(self.m.data, self.data)
+        self.assertTrue(np.array_equal(self.m.data, np.array(
+            self.data).reshape(self.m.nsites, self.m.nsam)))
         self.assertTrue(np.array_equal(self.m.positions, self.pos))
         self.assertEqual(self.m.nsam, 4)
         self.assertEqual(self.m.nsites, 2)
@@ -19,7 +20,7 @@ class testVariantMatrix(unittest.TestCase):
     def testModifyCppDataViaNumpy(self):
         d = np.array(self.m, copy=False)
         d[0][2] = 4
-        self.assertEqual(self.m.data[2], 4)
+        self.assertEqual(self.m.data[0][2], 4)
 
     def testFilterSites(self):
         from collections import Counter

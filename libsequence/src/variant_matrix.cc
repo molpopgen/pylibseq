@@ -71,9 +71,7 @@ init_VariantMatrix(py::module &m)
                                                     nrow, am.nsam);
              })
         .def("__len__",
-             [](const Sequence::AlleleCountMatrix &self) {
-                 return self.nrow;
-             })
+             [](const Sequence::AlleleCountMatrix &self) { return self.nrow; })
         .def_buffer(
             [](const Sequence::AlleleCountMatrix &c) -> py::buffer_info {
                 using value_type = Sequence::AlleleCountMatrix::value_type;
@@ -219,23 +217,35 @@ init_VariantMatrix(py::module &m)
                 may run out of memory because both msprime and pylibseq
                 must make huge allocations.
             )delim")
-        .def_readonly("data", &Sequence::VariantMatrix::data,
-                      "Return raw data as list")
+        .def_property_readonly(
+            "data",
+            [](const Sequence::VariantMatrix &self) {
+                auto rv = pybind11::array_t<std::int8_t>(
+                    { self.nsites(), self.nsam() }, self.data(),
+                    pybind11::cast(self));
+                rv.attr("flags").attr("writeable") = false;
+                return rv;
+            },
+            "Return raw data as numpy array")
         .def_property_readonly(
             "positions",
             [](const Sequence::VariantMatrix &self)
                 -> pybind11::array_t<double> {
                 auto rv = pybind11::array_t<double>(
-                    { self.positions.size() }, { sizeof(double) },
-                    self.positions.data(), pybind11::cast(self.positions));
+                    { self.nsites() }, { sizeof(double) }, self.pbegin(),
+                    pybind11::cast(self.pbegin()));
                 rv.attr("flags").attr("writeable") = false;
                 return rv;
             },
             "Return positions as numpy array")
-        .def_readonly("nsites", &Sequence::VariantMatrix::nsites,
-                      "Number of positions")
-        .def_readonly("nsam", &Sequence::VariantMatrix::nsam,
-                      "Number of samples")
+        .def_property_readonly(
+            "nsites",
+            [](const Sequence::VariantMatrix &self) { return self.nsites(); },
+            "Number of positions")
+        .def_property_readonly(
+            "nsam",
+            [](const Sequence::VariantMatrix &self) { return self.nsam(); },
+            "Number of samples")
         .def_readonly_static("mask", &Sequence::VariantMatrix::mask,
                              "Reserved missing data state")
         .def("count_alleles",
@@ -270,14 +280,14 @@ init_VariantMatrix(py::module &m)
             py::arg("i"))
         .def_buffer([](Sequence::VariantMatrix &m) -> py::buffer_info {
             return py::buffer_info(
-                m.data.data(),       /* Pointer to buffer */
+                m.data(),            /* Pointer to buffer */
                 sizeof(std::int8_t), /* Size of one scalar */
                 py::format_descriptor<std::int8_t>::
                     format(), /* Python struct-style format descriptor */
                 2,            /* Number of dimensions */
-                { m.nsites, m.nsam }, /* Buffer dimensions */
+                { m.nsites(), m.nsam() }, /* Buffer dimensions */
                 { sizeof(std::int8_t)
-                      * m.nsam, /* Strides (in bytes) for each index */
+                      * m.nsam(), /* Strides (in bytes) for each index */
                   sizeof(std::int8_t) });
         })
         .def(
@@ -293,20 +303,20 @@ init_VariantMatrix(py::module &m)
                const double end, const std::size_t i, const std::size_t j) {
                 return Sequence::make_slice(m, beg, end, i, j);
             },
-            py::arg("beg"), py::arg("end"), py::arg("i"), py::arg("j"))
-        .def(py::pickle(
-            [](const Sequence::VariantMatrix &m) {
-                return py::make_tuple(m.data, m.positions);
-            },
-            [](py::tuple t) {
-                if (t.size() != 2)
-                    {
-                        throw std::runtime_error("invalid object state");
-                    }
-                auto d = t[0].cast<std::vector<std::int8_t>>();
-                auto p = t[1].cast<std::vector<double>>();
-                return Sequence::VariantMatrix(std::move(d), std::move(p));
-            }));
+            py::arg("beg"), py::arg("end"), py::arg("i"), py::arg("j"));
+    //.def(py::pickle(
+    //    [](const Sequence::VariantMatrix &m) {
+    //        return py::make_tuple(m.data, m.positions);
+    //    },
+    //    [](py::tuple t) {
+    //        if (t.size() != 2)
+    //            {
+    //                throw std::runtime_error("invalid object state");
+    //            }
+    //        auto d = t[0].cast<std::vector<std::int8_t>>();
+    //        auto p = t[1].cast<std::vector<double>>();
+    //        return Sequence::VariantMatrix(std::move(d), std::move(p));
+    //    }));
 
     py::class_<Sequence::ConstColView>(m, "ConstColView",
                                        R"delim(
