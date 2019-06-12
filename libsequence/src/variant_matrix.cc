@@ -14,12 +14,246 @@
 
 namespace py = pybind11;
 
+class NumpyGenotypeCapsule : public Sequence::GenotypeCapsule
+{
+  private:
+    py::array_t<std::int8_t> buffer;
+    std::size_t nsites_, nsam_;
+
+    std::size_t
+    fill_nsites()
+    {
+        auto r = buffer.unchecked<2>();
+        return r.shape(0);
+    }
+    std::size_t
+    fill_nsam()
+    {
+        auto r = buffer.unchecked<2>();
+        return r.shape(1);
+    }
+
+  public:
+    explicit NumpyGenotypeCapsule(
+        py::array_t<std::int8_t, py::array::c_style | py::array::forcecast>
+            input)
+        : buffer(input), nsites_(fill_nsites()), nsam_(fill_nsam())
+    {
+        buffer.attr("flags").attr("writeable") = false;
+    }
+
+    std::size_t &
+    nsites()
+    {
+        return nsites_;
+    }
+
+    std::size_t &
+    nsam()
+    {
+        return nsam_;
+    }
+
+    std::size_t
+    nsites() const
+    {
+        return nsites_;
+    }
+
+    std::size_t
+    nsam() const
+    {
+        return nsam_;
+    }
+
+    std::int8_t &operator[](std::size_t i) { return buffer.mutable_data()[i]; }
+
+    const std::int8_t &operator[](std::size_t i) const
+    {
+        return buffer.data()[i];
+    }
+
+    std::int8_t *
+    data() final
+    {
+        return buffer.mutable_data();
+    }
+
+    const std::int8_t *
+    data() const final
+    {
+        return buffer.data();
+    }
+
+    const std::int8_t *
+    cdata() const final
+    {
+        return buffer.data();
+    }
+
+    std::unique_ptr<GenotypeCapsule>
+    clone() const final
+    {
+        return std::unique_ptr<GenotypeCapsule>(
+            new NumpyGenotypeCapsule(this->buffer));
+    }
+
+    std::int8_t *
+    begin() final
+    {
+        return buffer.mutable_data();
+    }
+
+    const std::int8_t *
+    begin() const final
+    {
+        return buffer.data();
+    }
+
+    std::int8_t *
+    end() final
+    {
+        return buffer.mutable_data() + buffer.size();
+    }
+
+    const std::int8_t *
+    end() const final
+    {
+        return buffer.data() + buffer.size();
+    }
+
+    const std::int8_t *
+    cbegin() const final
+    {
+        return begin();
+    }
+
+    const std::int8_t *
+    cend() const final
+    {
+        return end();
+    }
+
+    bool
+    empty() const final
+    {
+        return !nsites();
+    }
+
+    std::size_t
+    size() const final
+    {
+        return buffer.size();
+    }
+};
+
+class NumpyPositionCapsule : public Sequence::PositionCapsule
+{
+  private:
+    py::array_t<double> buffer;
+
+  public:
+    explicit NumpyPositionCapsule(py::array_t<double> input) : buffer(input)
+    {
+        if (buffer.ndim() != 1)
+            {
+                throw std::invalid_argument(
+                    "positions must be a one-dimensional array");
+            }
+        buffer.attr("flags").attr("writeable") = false;
+    }
+
+    double &operator[](std::size_t i) { return buffer.mutable_data()[i]; }
+
+    const double &operator[](std::size_t i) const { return buffer.data()[i]; }
+
+    double *
+    data() final
+    {
+        return buffer.mutable_data();
+    }
+
+    const double *
+    data() const final
+    {
+        return buffer.data();
+    }
+
+    const double *
+    cdata() const final
+    {
+        return buffer.data();
+    }
+
+    std::unique_ptr<PositionCapsule>
+    clone() const final
+    {
+        return std::unique_ptr<PositionCapsule>(
+            new NumpyPositionCapsule(*this));
+    }
+
+    double *
+    begin() final
+    {
+        return buffer.mutable_data();
+    }
+
+    const double *
+    begin() const final
+    {
+        return buffer.data();
+    }
+
+    const double *
+    cbegin() const final
+    {
+        return buffer.data();
+    }
+
+    double *
+    end() final
+    {
+        return buffer.mutable_data() + buffer.size();
+    }
+
+    const double *
+    end() const final
+    {
+        return buffer.data() + buffer.size();
+    }
+
+    const double *
+    cend() const final
+    {
+        return buffer.data() + buffer.size();
+    }
+
+    bool
+    empty() const final
+    {
+        return buffer.size() == 0;
+    }
+
+    std::size_t
+    size() const final
+    {
+        return buffer.size();
+    }
+
+    std::size_t
+    nsites() const
+    {
+        return buffer.size();
+    }
+};
+
 void
 init_VariantMatrix(py::module &m)
 {
     py::class_<Sequence::AlleleCountMatrix>(
         m, "AlleleCountMatrix", py::buffer_protocol(),
-        "A matrix of allele counts. This object supports the buffer protocol.")
+        "A matrix of allele counts. This object supports the buffer "
+        "protocol.")
         .def(py::init<const Sequence::VariantMatrix &>(),
              "Construct from a "
              ":class:`libsequence.variant_matrix.VariantMatrix`")
@@ -93,7 +327,7 @@ init_VariantMatrix(py::module &m)
             });
 
     py::class_<Sequence::VariantMatrix>(m, "VariantMatrix",
-                                        py::buffer_protocol(),
+                                        //py::buffer_protocol(),
                                         R"delim(
         Representation of variation data in matrix format.
 
@@ -113,34 +347,41 @@ init_VariantMatrix(py::module &m)
         >>> m = vm.VariantMatrix([0,1,1,0],[0.1,0.2])
              )delim",
              py::arg("data"), py::arg("positions"))
-        .def(py::init([](py::array_t<std::int8_t,
-                                     py::array::c_style | py::array::forcecast>
-                             data,
-                         py::array_t<double> pos) {
-                 if (data.ndim() != 2)
-                     {
-                         throw std::invalid_argument(
-                             "data must be a 2d ndarray");
-                     }
-                 if (pos.ndim() != 1)
-                     {
-                         throw std::invalid_argument(
-                             "pos must be a 1d ndarray");
-                     }
-                 if (pos.size() != data.shape(0))
-                     {
-                         throw(std::invalid_argument(
-                             "len(pos) must equal data.shape[0]"));
-                     }
-                 auto data_ptr = data.unchecked<2>();
-                 std::vector<std::int8_t> d(data_ptr.data(0, 0),
-                                            data_ptr.data(0, 0) + data.size());
-                 auto pos_ptr = pos.unchecked<1>();
-                 std::vector<double> p(pos_ptr.data(0),
-                                       pos_ptr.data(0) + pos.size());
-                 return Sequence::VariantMatrix(std::move(d), std::move(p));
-             }),
-             R"delim(
+        .def(
+            py::init([](py::array_t<std::int8_t,
+                                    py::array::c_style | py::array::forcecast>
+                            data,
+                        py::array_t<double> pos) {
+                std::unique_ptr<Sequence::GenotypeCapsule> dp(
+                    new NumpyGenotypeCapsule(data));
+                std::unique_ptr<Sequence::PositionCapsule> pp(
+                    new NumpyPositionCapsule(pos));
+                return Sequence::VariantMatrix(std::move(dp), std::move(pp));
+
+                //if (data.ndim() != 2)
+                //    {
+                //        throw std::invalid_argument(
+                //            "data must be a 2d ndarray");
+                //    }
+                //if (pos.ndim() != 1)
+                //    {
+                //        throw std::invalid_argument(
+                //            "pos must be a 1d ndarray");
+                //    }
+                //if (pos.size() != data.shape(0))
+                //    {
+                //        throw(std::invalid_argument(
+                //            "len(pos) must equal data.shape[0]"));
+                //    }
+                //auto data_ptr = data.unchecked<2>();
+                //std::vector<std::int8_t> d(data_ptr.data(0, 0),
+                //                           data_ptr.data(0, 0) + data.size());
+                //auto pos_ptr = pos.unchecked<1>();
+                //std::vector<double> p(pos_ptr.data(0),
+                //                      pos_ptr.data(0) + pos.size());
+                //return Sequence::VariantMatrix(std::move(d), std::move(p));
+            }),
+            R"delim(
              Construct with numpy arrays
 
             :param data: 2d ndarray with dtype numpy.int8
@@ -154,7 +395,7 @@ init_VariantMatrix(py::module &m)
             >>> p = np.array([0.1,0.2])
             >>> m = vm.VariantMatrix(d,p)
             )delim",
-             py::arg("data"), py::arg("pos"))
+            py::arg("data"), py::arg("pos"))
         .def_static(
             "from_TreeSequence",
             [](py::object ts,
@@ -221,7 +462,7 @@ init_VariantMatrix(py::module &m)
             "data",
             [](const Sequence::VariantMatrix &self) {
                 auto rv = pybind11::array_t<std::int8_t>(
-                    { self.nsites(), self.nsam() }, self.data(),
+                    { self.nsites(), self.nsam() }, self.cdata(),
                     pybind11::cast(self));
                 rv.attr("flags").attr("writeable") = false;
                 return rv;
@@ -278,18 +519,18 @@ init_VariantMatrix(py::module &m)
              :rtype: :class:`libsequence.variantmatrix.ConstColView`
              )delim",
             py::arg("i"))
-        .def_buffer([](Sequence::VariantMatrix &m) -> py::buffer_info {
-            return py::buffer_info(
-                m.data(),            /* Pointer to buffer */
-                sizeof(std::int8_t), /* Size of one scalar */
-                py::format_descriptor<std::int8_t>::
-                    format(), /* Python struct-style format descriptor */
-                2,            /* Number of dimensions */
-                { m.nsites(), m.nsam() }, /* Buffer dimensions */
-                { sizeof(std::int8_t)
-                      * m.nsam(), /* Strides (in bytes) for each index */
-                  sizeof(std::int8_t) });
-        })
+        //.def_buffer([](Sequence::VariantMatrix &m) -> py::buffer_info {
+        //    return py::buffer_info(
+        //        m.data(),            /* Pointer to buffer */
+        //        sizeof(std::int8_t), /* Size of one scalar */
+        //        py::format_descriptor<std::int8_t>::
+        //            format(), /* Python struct-style format descriptor */
+        //        2,            /* Number of dimensions */
+        //        { m.nsites(), m.nsam() }, /* Buffer dimensions */
+        //        { sizeof(std::int8_t)
+        //              * m.nsam(), /* Strides (in bytes) for each index */
+        //          sizeof(std::int8_t) });
+        //})
         .def(
             "window",
             [](const Sequence::VariantMatrix &m, const double beg,

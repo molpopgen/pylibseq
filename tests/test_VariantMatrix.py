@@ -18,9 +18,9 @@ class testVariantMatrix(unittest.TestCase):
         self.assertEqual(self.m.nsites, 2)
 
     def testModifyCppDataViaNumpy(self):
-        d = np.array(self.m, copy=False)
-        d[0][2] = 4
-        self.assertEqual(self.m.data[0][2], 4)
+        d = np.array(self.m.data, copy=False)
+        with self.assertRaises(ValueError):
+            d[0][2] = 4
 
     def testFilterSites(self):
         from collections import Counter
@@ -77,7 +77,10 @@ class testCreationFromNumpy(unittest.TestCase):
         d = np.array([0, 1, 1, 0, 0, 0, 0, 1], dtype=np.int8).reshape((2, 4))
         pos = np.array([0.1, 0.2])
         m = libsequence.VariantMatrix(d, pos)
-        ma = np.array(m)
+        self.assertTrue(m.data.flags.writeable is False)
+        # d is changed to non-writeable, too!
+        self.assertTrue(d.flags.writeable is False)
+        ma = np.array(m.data, copy=True)
         self.assertTrue(np.array_equal(np.sum(ma, axis=0), np.sum(d, axis=0)))
         self.assertTrue(np.array_equal(np.sum(ma, axis=1), np.sum(d, axis=1)))
 
