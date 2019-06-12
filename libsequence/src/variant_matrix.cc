@@ -303,20 +303,23 @@ init_VariantMatrix(py::module &m)
                const double end, const std::size_t i, const std::size_t j) {
                 return Sequence::make_slice(m, beg, end, i, j);
             },
-            py::arg("beg"), py::arg("end"), py::arg("i"), py::arg("j"));
-    //.def(py::pickle(
-    //    [](const Sequence::VariantMatrix &m) {
-    //        return py::make_tuple(m.data, m.positions);
-    //    },
-    //    [](py::tuple t) {
-    //        if (t.size() != 2)
-    //            {
-    //                throw std::runtime_error("invalid object state");
-    //            }
-    //        auto d = t[0].cast<std::vector<std::int8_t>>();
-    //        auto p = t[1].cast<std::vector<double>>();
-    //        return Sequence::VariantMatrix(std::move(d), std::move(p));
-    //    }));
+            py::arg("beg"), py::arg("end"), py::arg("i"), py::arg("j"))
+        .def(py::pickle(
+            [](const Sequence::VariantMatrix &m) {
+                std::vector<std::int8_t> temp(
+                    m.data(), m.data() + m.nsites() * m.nsam());
+                std::vector<double> ptemp(m.pbegin(), m.pend());
+                return py::make_tuple(std::move(temp), std::move(ptemp));
+            },
+            [](py::tuple t) {
+                if (t.size() != 2)
+                    {
+                        throw std::runtime_error("invalid object state");
+                    }
+                auto d = t[0].cast<std::vector<std::int8_t>>();
+                auto p = t[1].cast<std::vector<double>>();
+                return Sequence::VariantMatrix(std::move(d), std::move(p));
+            }));
 
     py::class_<Sequence::ConstColView>(m, "ConstColView",
                                        R"delim(
