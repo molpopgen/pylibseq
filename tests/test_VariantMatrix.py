@@ -3,6 +3,16 @@ import libsequence
 import numpy as np
 
 
+def is_singleton(x):
+    from collections import Counter
+    c = Counter([i for i in x])
+    if len(c) == 2:
+        for i in c.most_common():
+            if i[1] == 1:
+                return True
+    return False
+
+
 class testVariantMatrix(unittest.TestCase):
     @classmethod
     def setUp(self):
@@ -23,15 +33,6 @@ class testVariantMatrix(unittest.TestCase):
             d[0][2] = 4
 
     def testFilterSites(self):
-        from collections import Counter
-
-        def is_singleton(x):
-            c = Counter([i for i in x])
-            if len(c) == 2:
-                for i in c.most_common():
-                    if i[1] == 1:
-                        return True
-            return False
         self.assertEqual(self.m.nsites, 2)
         libsequence.filter_sites(
             self.m, is_singleton)
@@ -73,16 +74,41 @@ class testColumnViews(unittest.TestCase):
 
 
 class testCreationFromNumpy(unittest.TestCase):
+    @classmethod
+    def setUp(self):
+        self.d = np.array([0, 1, 1, 0, 0, 0, 0, 1],
+                          dtype=np.int8).reshape((2, 4))
+        self.pos = np.array([0.1, 0.2])
+
     def testConstruct(self):
-        d = np.array([0, 1, 1, 0, 0, 0, 0, 1], dtype=np.int8).reshape((2, 4))
-        pos = np.array([0.1, 0.2])
-        m = libsequence.VariantMatrix(d, pos)
+        m = libsequence.VariantMatrix(self.d, self.pos)
         self.assertTrue(m.data.flags.writeable is False)
         # d is changed to non-writeable, too!
-        self.assertTrue(d.flags.writeable is False)
+        self.assertTrue(self.d.flags.writeable is True)
         ma = np.array(m.data, copy=True)
-        self.assertTrue(np.array_equal(np.sum(ma, axis=0), np.sum(d, axis=0)))
-        self.assertTrue(np.array_equal(np.sum(ma, axis=1), np.sum(d, axis=1)))
+        self.assertTrue(np.array_equal(
+            np.sum(ma, axis=0), np.sum(self.d, axis=0)))
+        self.assertTrue(np.array_equal(
+            np.sum(ma, axis=1), np.sum(self.d, axis=1)))
+
+    def testIteration(self):
+        m = libsequence.VariantMatrix(self.d, self.pos)
+        for i in range(m.nsites):
+            c = m.site(i)
+            self.assertEqual(len(c), m.nsam)
+        s = np.array([j for j in m.site(0)])
+        self.assertTrue(np.array_equal(s, self.d[0, ]))
+        s = np.array([j for j in m.site(1)])
+        self.assertTrue(np.array_equal(s, self.d[1, ]))
+
+        for i in range(m.nsam):
+            c = m.sample(i)
+            s = np.array([j for j in c], dtype=np.int8)
+            self.assertTrue(np.array_equal(s, self.d[:, i]))
+
+    def testFilterSites(self):
+        m = libsequence.VariantMatrix(self.d, self.pos)
+        libsequence.filter_sites(m, is_singleton)
 
 
 class testDataFromMsprime(unittest.TestCase):

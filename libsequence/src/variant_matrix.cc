@@ -39,7 +39,7 @@ class NumpyGenotypeCapsule : public Sequence::GenotypeCapsule
             input)
         : buffer(input), nsites_(fill_nsites()), nsam_(fill_nsam())
     {
-        buffer.attr("flags").attr("writeable") = false;
+        //buffer.attr("flags").attr("writeable") = false;
     }
 
     std::size_t &
@@ -160,7 +160,7 @@ class NumpyPositionCapsule : public Sequence::PositionCapsule
                 throw std::invalid_argument(
                     "positions must be a one-dimensional array");
             }
-        buffer.attr("flags").attr("writeable") = false;
+        //buffer.attr("flags").attr("writeable") = false;
     }
 
     double &operator[](std::size_t i) { return buffer.mutable_data()[i]; }
