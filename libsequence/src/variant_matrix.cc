@@ -234,6 +234,21 @@ class NumpyPositionCapsule : public Sequence::PositionCapsule
     }
 };
 
+
+class MockVM
+{
+  private:
+    std::unique_ptr<Sequence::GenotypeCapsule> g;
+    std::unique_ptr<Sequence::PositionCapsule> p;
+
+  public:
+    MockVM(std::unique_ptr<Sequence::GenotypeCapsule> g_,
+           std::unique_ptr<Sequence::PositionCapsule> p_)
+        : g(std::move(g_)), p(std::move(p_))
+    {
+    }
+};
+
 void
 init_VariantMatrix(py::module &m)
 {
@@ -778,4 +793,17 @@ init_VariantMatrix(py::module &m)
         py::object o = py::cast(std::move(vm));
         return o;
     });
+
+    py::class_<MockVM>(m, "MockVM")
+        .def(py::init([](py::array_t<std::int8_t,
+                                     py::array::c_style | py::array::forcecast>
+                             data,
+                         py::array_t<double> pos,
+                         std::int8_t max_allele_value) {
+            std::unique_ptr<Sequence::GenotypeCapsule> dp(
+                new NumpyGenotypeCapsule(data));
+            std::unique_ptr<Sequence::PositionCapsule> pp(
+                new NumpyPositionCapsule(pos));
+            return MockVM(std::move(dp), std::move(pp));
+        }));
 }
