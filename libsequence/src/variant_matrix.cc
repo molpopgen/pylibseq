@@ -723,8 +723,16 @@ init_VariantMatrix(py::module &m)
 
     m.def(
         "filter_haplotypes",
-        [](Sequence::VariantMatrix &m, const std::function<bool(const Sequence::ConstColView &)> &f) {
-            return Sequence::filter_haplotypes(m, f);
+        [](Sequence::VariantMatrix &m, py::function f) {
+            if (m.resizable())
+                {
+                    auto cpp_func = f.cast<
+                        std::function<bool(const Sequence::ColView &)>>();
+                    return Sequence::filter_haplotypes(m, cpp_func);
+                }
+            auto cpp_func = f.cast<
+                std::function<bool(const Sequence::ConstColView &)>>();
+            return Sequence::filter_haplotypes(m, cpp_func);
         },
         R"delim(
             Remove site data from a VariantMatrix
@@ -738,17 +746,31 @@ init_VariantMatrix(py::module &m)
 
             .. note::
 
-                Currently, the implementation works via a copy 
-                of the data. If the the VariantMatrix was initially
+                If the the VariantMatrix was initially
                 created from a numpy array, its internal state
-                is changed to be based on C++ vectors
+                is changed to be based on C++ vectors, meaning
+                that a copy happened internally.
             )delim",
         py::arg("m"), py::arg("f"));
 
     m.def(
         "filter_sites",
-        [](Sequence::VariantMatrix &m, const std::function<bool(const Sequence::ConstRowView &)> &f) {
-            return Sequence::filter_sites(m, f);
+        //[](Sequence::VariantMatrix &m,
+        //   const std::function<bool(const Sequence::ConstRowView &)> &f) {
+        //    return Sequence::filter_sites(m, f);
+        //},
+        [](Sequence::VariantMatrix &m, py::function f) {
+            if (m.resizable())
+                {
+                    auto cpp_func = f.cast<
+                        std::function<bool(const Sequence::RowView &)>>();
+
+                    return Sequence::filter_sites(m, cpp_func);
+                }
+            auto cpp_func = f.cast<
+                std::function<bool(const Sequence::ConstRowView &)>>();
+
+            return Sequence::filter_sites(m, cpp_func);
         },
         R"delim(
             Remove sample data from a VariantMatrix
@@ -762,10 +784,10 @@ init_VariantMatrix(py::module &m)
 
             .. note::
 
-                Currently, the implementation works via a copy 
-                of the data. If the the VariantMatrix was initially
+                If the the VariantMatrix was initially
                 created from a numpy array, its internal state
-                is changed to be based on C++ vectors
+                is changed to be based on C++ vectors, meaning
+                that a copy happened internally.
             )delim",
         py::arg("m"), py::arg("f"));
 
