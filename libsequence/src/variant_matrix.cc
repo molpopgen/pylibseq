@@ -132,6 +132,12 @@ class NumpyGenotypeCapsule : public Sequence::GenotypeCapsule
     {
         return buffer.size();
     }
+
+    bool
+    resizable() const final
+    {
+        return false;
+    }
 };
 
 class NumpyPositionCapsule : public Sequence::PositionCapsule
@@ -231,6 +237,12 @@ class NumpyPositionCapsule : public Sequence::PositionCapsule
     nsites() const
     {
         return buffer.size();
+    }
+
+    bool
+    resizable() const final
+    {
+        return false;
     }
 };
 
@@ -709,8 +721,12 @@ init_VariantMatrix(py::module &m)
     //      },
     //      py::arg("m"));
 
-    m.def("filter_haplotypes", &Sequence::filter_haplotypes,
-          R"delim(
+    m.def(
+        "filter_haplotypes",
+        [](Sequence::VariantMatrix &m, const std::function<bool(const Sequence::ConstColView &)> &f) {
+            return Sequence::filter_haplotypes(m, f);
+        },
+        R"delim(
             Remove site data from a VariantMatrix
 
             :param m: A variant matrix
@@ -719,11 +735,22 @@ init_VariantMatrix(py::module &m)
             :type f: callable
 
             See :ref:`variantmatrix` for details.
-            )delim",
-          py::arg("m"), py::arg("f"));
 
-    m.def("filter_sites", &Sequence::filter_sites,
-          R"delim(
+            .. note::
+
+                Currently, the implementation works via a copy 
+                of the data. If the the VariantMatrix was initially
+                created from a numpy array, its internal state
+                is changed to be based on C++ vectors
+            )delim",
+        py::arg("m"), py::arg("f"));
+
+    m.def(
+        "filter_sites",
+        [](Sequence::VariantMatrix &m, const std::function<bool(const Sequence::ConstRowView &)> &f) {
+            return Sequence::filter_sites(m, f);
+        },
+        R"delim(
             Remove sample data from a VariantMatrix
 
             :param m: A variant matrix
@@ -732,8 +759,15 @@ init_VariantMatrix(py::module &m)
             :type f: callable
 
             See :ref:`variantmatrix` for details.
+
+            .. note::
+
+                Currently, the implementation works via a copy 
+                of the data. If the the VariantMatrix was initially
+                created from a numpy array, its internal state
+                is changed to be based on C++ vectors
             )delim",
-          py::arg("m"), py::arg("f"));
+        py::arg("m"), py::arg("f"));
 
     // Various I/O for VariantMatrix in "ms" format
     m.def("ms_from_stdin", []() -> py::object {
