@@ -20,24 +20,11 @@ class NumpyGenotypeCapsule : public Sequence::GenotypeCapsule
     py::array_t<std::int8_t> buffer;
     std::size_t nsites_, nsam_;
 
-    std::size_t
-    fill_nsites()
-    {
-        auto r = buffer.unchecked<2>();
-        return r.shape(0);
-    }
-    std::size_t
-    fill_nsam()
-    {
-        auto r = buffer.unchecked<2>();
-        return r.shape(1);
-    }
-
   public:
     explicit NumpyGenotypeCapsule(
         py::array_t<std::int8_t, py::array::c_style | py::array::forcecast>
             input)
-        : buffer(input), nsites_(fill_nsites()), nsam_(fill_nsam())
+        : buffer(input), nsites_(buffer.shape(0)), nsam_(buffer.shape(1))
     {
         //buffer.attr("flags").attr("writeable") = false;
     }
