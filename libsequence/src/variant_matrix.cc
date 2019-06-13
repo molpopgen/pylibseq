@@ -24,9 +24,9 @@ class NumpyGenotypeCapsule : public Sequence::GenotypeCapsule
     explicit NumpyGenotypeCapsule(
         py::array_t<std::int8_t, py::array::c_style | py::array::forcecast>
             input)
-        : buffer(input), nsites_(buffer.shape(0)), nsam_(buffer.shape(1))
+        : buffer(std::move(input)), nsites_(buffer.shape(0)),
+          nsam_(buffer.shape(1))
     {
-        //buffer.attr("flags").attr("writeable") = false;
     }
 
     std::size_t &
@@ -140,14 +140,14 @@ class NumpyPositionCapsule : public Sequence::PositionCapsule
     py::array_t<double> buffer;
 
   public:
-    explicit NumpyPositionCapsule(py::array_t<double> input) : buffer(input)
+    explicit NumpyPositionCapsule(py::array_t<double> input)
+        : buffer(std::move(input))
     {
         if (buffer.ndim() != 1)
             {
                 throw std::invalid_argument(
                     "positions must be a one-dimensional array");
             }
-        //buffer.attr("flags").attr("writeable") = false;
     }
 
     double &operator[](std::size_t i) { return buffer.mutable_data()[i]; }
@@ -234,7 +234,6 @@ class NumpyPositionCapsule : public Sequence::PositionCapsule
     }
 };
 
-
 class MockVM
 {
   private:
@@ -248,6 +247,19 @@ class MockVM
     {
     }
 };
+
+Sequence::VariantMatrix
+mslike_from_numpy(
+    py::array_t<std::int8_t, py::array::c_style | py::array::forcecast>
+        genotypes,
+    py::array_t<double> positions)
+{
+    std::unique_ptr<Sequence::GenotypeCapsule> pp(
+        new NumpyGenotypeCapsule(std::move(genotypes)));
+    std::unique_ptr<Sequence::PositionCapsule> gp(
+        new NumpyPositionCapsule(std::move(positions)));
+    return Sequence::VariantMatrix(std::move(pp), std::move(gp), 1);
+}
 
 void
 init_VariantMatrix(py::module &m)
@@ -349,43 +361,19 @@ init_VariantMatrix(py::module &m)
         >>> m = vm.VariantMatrix([0,1,1,0],[0.1,0.2])
              )delim",
              py::arg("data"), py::arg("positions"))
-        .def(
-            py::init([](py::array_t<std::int8_t,
-                                    py::array::c_style | py::array::forcecast>
-                            data,
-                        py::array_t<double> pos,
-                        std::int8_t max_allele_value) {
-                std::unique_ptr<Sequence::GenotypeCapsule> dp(
-                    new NumpyGenotypeCapsule(data));
-                std::unique_ptr<Sequence::PositionCapsule> pp(
-                    new NumpyPositionCapsule(pos));
-                return Sequence::VariantMatrix(std::move(dp), std::move(pp),
-                                               max_allele_value);
-
-                //if (data.ndim() != 2)
-                //    {
-                //        throw std::invalid_argument(
-                //            "data must be a 2d ndarray");
-                //    }
-                //if (pos.ndim() != 1)
-                //    {
-                //        throw std::invalid_argument(
-                //            "pos must be a 1d ndarray");
-                //    }
-                //if (pos.size() != data.shape(0))
-                //    {
-                //        throw(std::invalid_argument(
-                //            "len(pos) must equal data.shape[0]"));
-                //    }
-                //auto data_ptr = data.unchecked<2>();
-                //std::vector<std::int8_t> d(data_ptr.data(0, 0),
-                //                           data_ptr.data(0, 0) + data.size());
-                //auto pos_ptr = pos.unchecked<1>();
-                //std::vector<double> p(pos_ptr.data(0),
-                //                      pos_ptr.data(0) + pos.size());
-                //return Sequence::VariantMatrix(std::move(d), std::move(p));
-            }),
-            R"delim(
+        .def(py::init([](py::array_t<std::int8_t,
+                                     py::array::c_style | py::array::forcecast>
+                             data,
+                         py::array_t<double> pos,
+                         std::int8_t max_allele_value) {
+                 std::unique_ptr<Sequence::GenotypeCapsule> dp(
+                     new NumpyGenotypeCapsule(std::move(data)));
+                 std::unique_ptr<Sequence::PositionCapsule> pp(
+                     new NumpyPositionCapsule(std::move(pos)));
+                 return Sequence::VariantMatrix(std::move(dp), std::move(pp),
+                                                max_allele_value);
+             }),
+             R"delim(
              Construct with numpy arrays
 
             :param data: 2d ndarray with dtype numpy.int8
@@ -399,50 +387,20 @@ init_VariantMatrix(py::module &m)
             >>> p = np.array([0.1,0.2])
             >>> m = vm.VariantMatrix(d,p)
             )delim",
-            py::arg("data"), py::arg("pos"), py::arg("max_allele_value") = -1)
+             py::arg("data"), py::arg("pos"), py::arg("max_allele_value") = -1)
         .def_static(
             "from_TreeSequence",
-            [](py::object ts,
-               const std::int8_t max_allele) -> Sequence::VariantMatrix {
+            [](py::object ts) -> Sequence::VariantMatrix {
                 //If a not-TreeSequence is passed in, "duck typing"
                 //fails, and an exception will be raised.
-
-                //Allocate space on the C++ side for our data
-                std::vector<std::int8_t> data;
-                auto nsam = ts.attr("num_samples").cast<std::size_t>();
-                auto nsites = ts.attr("num_sites").cast<std::size_t>();
-                data.reserve(nsam * nsites);
-                std::vector<double> pos;
-                pos.reserve(nsites);
-
-                //Get the iterator over the variants
-                py::iterable v = ts.attr("variants")();
-                auto vi = py::iter(v);
-                //This is our numpy array type.
-                //The forecast flag will force auto-cast
-                //from the uint8_t Jerome uses to the int8_t
-                //used here (and in scikit-allel).
-                using array_type
-                    = py::array_t<std::int8_t,
-                                  py::array::c_style | py::array::forcecast>;
-                //Iterate over the variants:
-                while (vi != py::iterator::sentinel())
-                    {
-                        py::handle variant = *vi;
-                        auto a = variant.attr("genotypes").cast<array_type>();
-                        auto d = a.unchecked<1>();
-                        data.insert(data.end(), d.data(0),
-                                    d.data(0) + a.size());
-                        auto p = variant.attr("position").cast<double>();
-                        pos.push_back(p);
-                        ++vi;
-                    }
-                //Move our vectors into a VariantMatrix,
-                //thus avoiding a copy during construction
-                return Sequence::VariantMatrix(std::move(data), std::move(pos),
-                                               max_allele);
+                auto g = ts.attr("genotype_matrix")();
+                auto p = ts.attr("tables")
+                             .attr("sites")
+                             .attr("position")
+                             .cast<py::array_t<double>>();
+                return mslike_from_numpy(std::move(g), std::move(p));
             },
-            py::arg("ts"), py::arg("max_allele") = 1,
+            py::arg("ts"),
             R"delim(
             Create a VariantMatrix from an msprime.TreeSequence
             
@@ -452,15 +410,9 @@ init_VariantMatrix(py::module &m)
             or, equivalently, certain forward simulations that use
             that format for storing results.
 
-            .. note:: 
-
-                Testing using iPython's "timeit" suggests that
-                creating a VariantMatrix this way is only a bit slower
-                than a direct call to the VariantMatrix constructor
-                with the relevant numpy arrays.  However, this
-                function is preferred for "huge" data sets where you
-                may run out of memory because both msprime and pylibseq
-                must make huge allocations.
+            This function is a convenience function. Internally,
+            the output from msprime are cast from 8-bit unsigned
+            integers to 8-bit signed integers.
             )delim")
         .def_property_readonly(
             "data",
