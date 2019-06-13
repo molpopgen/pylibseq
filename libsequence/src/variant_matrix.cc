@@ -338,12 +338,14 @@ init_VariantMatrix(py::module &m)
             py::init([](py::array_t<std::int8_t,
                                     py::array::c_style | py::array::forcecast>
                             data,
-                        py::array_t<double> pos) {
+                        py::array_t<double> pos,
+                        std::int8_t max_allele_value) {
                 std::unique_ptr<Sequence::GenotypeCapsule> dp(
                     new NumpyGenotypeCapsule(data));
                 std::unique_ptr<Sequence::PositionCapsule> pp(
                     new NumpyPositionCapsule(pos));
-                return Sequence::VariantMatrix(std::move(dp), std::move(pp));
+                return Sequence::VariantMatrix(std::move(dp), std::move(pp),
+                                               max_allele_value);
 
                 //if (data.ndim() != 2)
                 //    {
@@ -382,7 +384,7 @@ init_VariantMatrix(py::module &m)
             >>> p = np.array([0.1,0.2])
             >>> m = vm.VariantMatrix(d,p)
             )delim",
-            py::arg("data"), py::arg("pos"))
+            py::arg("data"), py::arg("pos"), py::arg("max_allele_value") = -1)
         .def_static(
             "from_TreeSequence",
             [](py::object ts,
