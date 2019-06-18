@@ -38,13 +38,27 @@ Our `ma` object is a thin read-only wrapper to the underlying memory allocated b
     except ValueError:
        print("exception raised")
 
-You can construct from numpy arrays:
+You can construct from `numpy` arrays without making a copy!  Internally, the `VariantMatrix` will hold a reference 
+to the original data:
 
 .. ipython:: python
-
-    m = libsequence.VariantMatrix(np.array(states, dtype=np.int8).reshape((2,4)), np.array(pos))
+   
+    import sys
+    states_array = np.array(states, dtype=np.int8).reshape((2,4))
+    pos_array = np.array(pos)
+    print(sys.getrefcount(states_array), sys.getrefcount(pos_array))
+    m = libsequence.VariantMatrix(states_array, pos_array)
+    print(sys.getrefcount(states_array), sys.getrefcount(pos_array))
     print(m.nsites)
     print(m.nsam)
+
+The ability to get data from `numpy` arrays copy-free means that we can get data from tools like msprime_ and fwdpy11_ into `pylibseq` for "free".
+
+.. note::
+
+    When `msprime` generates genotype data as a numpy array, the dtype
+    is `np.uint8`, but the `VariantMatrix` dtype is `np.int8`.  Thus, a
+    cast must take place, which slows down the conversion somewhat.
 
 You can access the site and sample data via loops:
 
@@ -219,8 +233,8 @@ must take the return value of :func:`libsequence.VariantMatrix.site` as an argum
     m2 = libsequence.VariantMatrix(m.data, m.positions)
 
     rv = libsequence.filter_sites(m2, RemoveNonRefSingletons())
-    print(np.array(m).shape)
-    print(np.array(m2).shape)
+    print(m.data.shape)
+    print(m2.data.shape)
 
     # This is the number of sites removed:
     print(rv)
@@ -244,5 +258,8 @@ Similarly, we can remove samples:
     rv = libsequence.filter_haplotypes(m2, remove_all_ref_samples)
 
     print(rv)
-    print(np.array(m).shape)
-    print(np.array(m2).shape)
+    print(m.data.shape)
+    print(m2.data.shape)
+
+.. _msprime: http://msprime.readthedocs.io
+.. _fwdpy11: http://fwdpy11.readthedocs.io

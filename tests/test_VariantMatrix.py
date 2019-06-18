@@ -13,6 +13,20 @@ def is_singleton(x):
     return False
 
 
+class RemoveNonRefSingletons(object):
+    def __init__(self):
+        # Treat 0 as the reference state
+        self.__c = libsequence.StateCounts(0)
+
+    def __call__(self, x):
+        self.__c(x)
+        n = np.array(self.__c, copy=False)
+        singletons = np.where(n == 1)
+        if len(singletons[0]) > 0:
+            return True
+        return False
+
+
 class testVariantMatrix(unittest.TestCase):
     @classmethod
     def setUp(self):
@@ -79,37 +93,52 @@ class testCreationFromNumpy(unittest.TestCase):
         self.d = np.array([0, 1, 1, 0, 0, 0, 0, 1],
                           dtype=np.int8).reshape((2, 4))
         self.pos = np.array([0.1, 0.2])
+        self.m = libsequence.VariantMatrix(self.d, self.pos)
 
     def testConstruct(self):
-        m = libsequence.VariantMatrix(self.d, self.pos)
-        self.assertTrue(m.data.flags.writeable is False)
+        self.assertTrue(self.m.data.flags.writeable is False)
         # d is changed to non-writeable, too!
         self.assertTrue(self.d.flags.writeable is True)
-        ma = np.array(m.data, copy=True)
+        ma = np.array(self.m.data, copy=True)
         self.assertTrue(np.array_equal(
             np.sum(ma, axis=0), np.sum(self.d, axis=0)))
         self.assertTrue(np.array_equal(
             np.sum(ma, axis=1), np.sum(self.d, axis=1)))
 
     def testIteration(self):
-        m = libsequence.VariantMatrix(self.d, self.pos)
-        for i in range(m.nsites):
-            c = m.site(i)
-            self.assertEqual(len(c), m.nsam)
-        s = np.array([j for j in m.site(0)])
+        for i in range(self.m.nsites):
+            c = self.m.site(i)
+            self.assertEqual(len(c), self.m.nsam)
+        s = np.array([j for j in self.m.site(0)])
         self.assertTrue(np.array_equal(s, self.d[0, ]))
-        s = np.array([j for j in m.site(1)])
+        s = np.array([j for j in self.m.site(1)])
         self.assertTrue(np.array_equal(s, self.d[1, ]))
 
-        for i in range(m.nsam):
-            c = m.sample(i)
+        for i in range(self.m.nsam):
+            c = self.m.sample(i)
             s = np.array([j for j in c], dtype=np.int8)
             self.assertTrue(np.array_equal(s, self.d[:, i]))
 
     def testFilterSites(self):
-        m = libsequence.VariantMatrix(self.d, self.pos)
-        libsequence.filter_sites(m, is_singleton)
-        self.assertEqual(m.nsites, 1)
+        libsequence.filter_sites(self.m, is_singleton)
+        self.assertEqual(self.m.nsites, 1)
+
+    def testFilterSites2(self):
+        rv = libsequence.filter_sites(self.m, RemoveNonRefSingletons())
+        self.assertEqual(rv, 1)
+
+    def testFilterSites3(self):
+        m2 = libsequence.VariantMatrix(self.m.data, self.m.positions)
+        rv = libsequence.filter_sites(m2, RemoveNonRefSingletons())
+        self.assertEqual(rv, 1)
+
+    def testCountStates(self):
+        c = libsequence.StateCounts()
+        try:
+            for i in range(self.m.nsites):
+                c(self.m.site(i))
+        except:
+            self.fail("unexpected exception")
 
 
 class testDataFromMsprime(unittest.TestCase):

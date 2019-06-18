@@ -158,13 +158,18 @@ of your existing data:
         assert len(ac_slice) == len(p)
         print(libsequence.thetapi(ac_slice))
 
-For analyses needing the entire matrix, you may create a new :class:`libsequence.VariantMatrix`
-from each slice of the numpy input array as needed.
+We may also use :func:`libsequence.VariantMatrix.window` to obtain new `VariantMatrix` instances
+corresponding to sub-windows of the data:
 
-.. todo::
+.. ipython:: python
 
-    Add wrappers for libsequence's internal functions for getting windows
-    from a VariantMatrix
+    for l in lefts:
+        w = vm.window(l, l+0.2)
+        acw = w.count_alleles()
+        print(libsequence.thetapi(acw))
+
+Window creation is :math:`O(log(vm.nsites))` in time and has trivial additional memory requirements,
+as the returned object does not own its own data buffer.
 
 Other useful statistics
 ----------------------------------------------------------------
