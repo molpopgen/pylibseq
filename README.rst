@@ -23,11 +23,17 @@ Master branch:
    :target: https://travis-ci.org/molpopgen/pylibseq
    :alt: Travis CI Build Status (master branch)
 
+.. image:: https://circleci.com/gh/molpopgen/pylibseq/tree/master.svg?style=svg
+    :target: https://circleci.com/gh/molpopgen/pylibseq/tree/master
+
 Development branch:
 
 .. image:: https://travis-ci.org/molpopgen/pylibseq.svg?branch=dev
    :target: https://travis-ci.org/molpopgen/pylibseq
    :alt: Travis CI Build Status (dev branch)
+
+.. image:: https://circleci.com/gh/molpopgen/pylibseq/tree/dev.svg?style=svg
+    :target: https://circleci.com/gh/molpopgen/pylibseq/tree/dev
 
 Citation
 ====================================================
