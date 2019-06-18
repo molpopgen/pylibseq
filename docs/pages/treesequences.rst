@@ -27,8 +27,8 @@ The second method is to call a class method of VariantMatrix:
 .. ipython:: python
 
     m2 = libsequence.VariantMatrix.from_TreeSequence(ts)
-    assert(m.data == m2.data)
-    assert(np.array_equal(m.positions, m2.positions))
+    assert np.array_equal(m.data, m2.data)
+    assert np.array_equal(m.positions, m2.positions)
 
 The second method is a touch slower than the first, but it uses about half as much memory.  The reason is that getting
 the genotype matrix from the TreeSequence requires allocating the entire matrix.  The second method only asks msprime to
