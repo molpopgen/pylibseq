@@ -6,16 +6,20 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Object lifetimes &#8212; pylibseq 0.2.1 documentation</title>
+    <title>Object lifetimes &#8212; pylibseq 0.2.2 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Literature cited" href="zreferences.html" />
     <link rel="prev" title="Example workflow" href="deprecated_overview.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -25,12 +29,12 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
+          <a href="zreferences.html" title="Literature cited"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="deprecated_overview.html" title="Example workflow"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -43,15 +47,15 @@
 <h1>Object lifetimes<a class="headerlink" href="#object-lifetimes" title="Permalink to this headline">¶</a></h1>
 <p>This package provides two types of classes:</p>
 <ul class="simple">
-<li>Classes containing data, such as <a class="reference internal" href="../index.html#libsequence.polytable.SimData" title="libsequence.polytable.SimData"><code class="xref py py-class docutils literal notranslate"><span class="pre">libsequence.polytable.SimData</span></code></a> and <a class="reference internal" href="../index.html#libsequence.polytable.PolySites" title="libsequence.polytable.PolySites"><code class="xref py py-class docutils literal notranslate"><span class="pre">libsequence.polytable.PolySites</span></code></a></li>
-<li>Classes analyzing the data in the previous type of class, <em>e.g.</em> <a class="reference internal" href="../index.html#libsequence.summstats.PolySIM" title="libsequence.summstats.PolySIM"><code class="xref py py-class docutils literal notranslate"><span class="pre">libsequence.summstats.PolySIM</span></code></a> and <a class="reference internal" href="../index.html#libsequence.summstats.PolySNP" title="libsequence.summstats.PolySNP"><code class="xref py py-class docutils literal notranslate"><span class="pre">libsequence.summstats.PolySNP</span></code></a></li>
+<li>Classes containing data, such as <code class="xref py py-class docutils literal notranslate"><span class="pre">libsequence.SimData</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">libsequence.PolySites</span></code></li>
+<li>Classes analyzing the data in the previous type of class, <em>e.g.</em> <code class="xref py py-class docutils literal notranslate"><span class="pre">libsequence.PolySIM</span></code> and <code class="xref py py-class docutils literal notranslate"><span class="pre">libsequence.PolySNP</span></code></li>
 </ul>
 <p>In general, one uses these objects as follows:</p>
 <div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#This is a &#39;data&#39; class:</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">SimData</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">libsequence</span><span class="o">.</span><span class="n">SimData</span><span class="p">()</span>
 <span class="n">data</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span> <span class="p">[(</span><span class="mf">0.1</span><span class="p">,</span><span class="s2">&quot;010101&quot;</span><span class="p">),(</span><span class="mf">0.2</span><span class="p">,</span><span class="s2">&quot;101010&quot;</span><span class="p">)]</span> <span class="p">)</span>
 <span class="c1">#This is an &quot;analyze data&quot; class:</span>
-<span class="n">analyze</span> <span class="o">=</span> <span class="n">PolySim</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">analyze</span> <span class="o">=</span> <span class="n">libsequence</span><span class="o">.</span><span class="n">PolySim</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">d</span> <span class="o">=</span> <span class="n">analyze</span><span class="o">.</span><span class="n">tajimasd</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -67,6 +71,9 @@
   <h4>Previous topic</h4>
   <p class="topless"><a href="deprecated_overview.html"
                         title="previous chapter">Example workflow</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="zreferences.html"
+                        title="next chapter">Literature cited</a></p>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
@@ -97,17 +104,17 @@
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
+          <a href="zreferences.html" title="Literature cited"
+             >next</a> |</li>
         <li class="right" >
           <a href="deprecated_overview.html" title="Example workflow"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Kevin Thornton.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>

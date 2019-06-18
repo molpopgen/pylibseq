@@ -6,14 +6,17 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Tree Sequences &#8212; pylibseq 0.2.1 documentation</title>
+    <title>Tree Sequences &#8212; pylibseq 0.2.2 documentation</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Example workflow" href="deprecated_overview.html" />
@@ -26,15 +29,12 @@
           <a href="../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="deprecated_overview.html" title="Example workflow"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="summstats.html" title="Calculating summary statistics"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.2 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -45,28 +45,30 @@
             
   <div class="section" id="tree-sequences">
 <span id="treeseqeuences"></span><h1>Tree Sequences<a class="headerlink" href="#tree-sequences" title="Permalink to this headline">¶</a></h1>
-<p>pylibseq is able to generate instances of <a class="reference internal" href="../index.html#libsequence.variant_matrix.VariantMatrix" title="libsequence.variant_matrix.VariantMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></a> from a Python object
-representing a “tree sequence” [Kelleher2018-fu]. Currently, the primary method of interacting with these data
+<p>pylibseq is able to generate instances of <a class="reference internal" href="../index.html#libsequence.VariantMatrix" title="libsequence.VariantMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">libsequence.VariantMatrix</span></code></a> from a Python object
+representing a “tree sequence” <a class="reference internal" href="zreferences.html#kelleher2018-mc" id="id1">[6]</a>. Currently, the primary method of interacting with these data
 structures is via <a class="reference external" href="http://msprime.readthedocs.io">msprime</a>.</p>
 <p>There are two methods to get data into a VariantMatrix.  The first is via numpy arrays as described in
 <a class="reference internal" href="vmatrix.html#variantmatrix"><span class="std std-ref">The VariantMatrix</span></a>:</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">msprime</span>
 
-<span class="gp">In [2]: </span><span class="kn">import</span> <span class="nn">libsequence.variant_matrix</span> <span class="kn">as</span> <span class="nn">vmat</span>
+<span class="gp">In [2]: </span><span class="kn">import</span> <span class="nn">libsequence</span>
+
+<span class="gp">In [3]: </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="go"># Get a TreeSequence from msprime:</span>
-<span class="gp">In [3]: </span><span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">mutation_rate</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">mutation_rate</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
 
 <span class="go"># Use numpy arrays to make VariantMatrix</span>
-<span class="gp">In [4]: </span><span class="n">m</span> <span class="o">=</span> <span class="n">vmat</span><span class="o">.</span><span class="n">VariantMatrix</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">genotype_matrix</span><span class="p">(),</span> <span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
+<span class="gp">In [5]: </span><span class="n">m</span> <span class="o">=</span> <span class="n">libsequence</span><span class="o">.</span><span class="n">VariantMatrix</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">genotype_matrix</span><span class="p">(),</span> <span class="n">ts</span><span class="o">.</span><span class="n">tables</span><span class="o">.</span><span class="n">sites</span><span class="o">.</span><span class="n">position</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The second method is to call a class method of VariantMatrix:</p>
-<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [5]: </span><span class="n">m2</span> <span class="o">=</span> <span class="n">vmat</span><span class="o">.</span><span class="n">VariantMatrix</span><span class="o">.</span><span class="n">from_TreeSequence</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="n">m2</span> <span class="o">=</span> <span class="n">libsequence</span><span class="o">.</span><span class="n">VariantMatrix</span><span class="o">.</span><span class="n">from_TreeSequence</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
 
-<span class="gp">In [6]: </span><span class="k">assert</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">In [7]: </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
 
-<span class="gp">In [7]: </span><span class="k">assert</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">positions</span> <span class="o">==</span> <span class="n">m2</span><span class="o">.</span><span class="n">positions</span><span class="p">)</span>
+<span class="gp">In [8]: </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">positions</span><span class="p">,</span> <span class="n">m2</span><span class="o">.</span><span class="n">positions</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The second method is a touch slower than the first, but it uses about half as much memory.  The reason is that getting
@@ -116,20 +118,17 @@ generate a 1d numpy array of length <cite>ts.num_samples</cite>, but does so onc
           <a href="../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="deprecated_overview.html" title="Example workflow"
              >next</a> |</li>
         <li class="right" >
           <a href="summstats.html" title="Calculating summary statistics"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.1 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">pylibseq 0.2.2 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
         &#169; Copyright 2015, Kevin Thornton.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.9.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
     </div>
   </body>
 </html>
