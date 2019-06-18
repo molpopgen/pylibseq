@@ -3,12 +3,12 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.6-stretch
-    working_directory: /home/circleci/fwdpy11
+    working_directory: /home/circleci/pylibseq
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci *
       - restore_cache:
-          key: fwdpy11-{{ .Branch }}
+          key: pylibseq-{{ .Branch }}
       - run:
           name: Checkout submodules
           command: |
@@ -19,9 +19,9 @@ jobs:
           name: Install dependencies and set path
           command: |
             sudo apt-get update
-            sudo apt-get install libgsl0-dev libcunit1-dev libconfig-dev cmake
+            sudo apt-get install libgsl0-dev cmake
             pip install --user -r requirements.txt
-            pip install --user cppimport twine
+            pip install --user cppimport twine msprime
             curl -L https://github.com/pybind/pybind11/archive/v2.2.4.tar.gz > pybind11-2.2.4.tar.gz
             tar xzf pybind11-2.2.4.tar.gz
             # Skip running the pybind11 unit suite--not needed...
@@ -29,7 +29,7 @@ jobs:
             # way to set path persistently https://circleci.com/docs/2.0/env-vars/#setting-path
             echo 'export PATH=/home/circleci/.local/bin:$PATH' >> $BASH_ENV
       - save_cache:
-          key: fwdpy11-{{ .Branch }}
+          key: pylibseq-{{ .Branch }}
           paths:
             - "/home/circleci/.local"
 
@@ -44,17 +44,10 @@ jobs:
             python -m unittest discover tests
 
       - run:
-          name: Test building and running the plugin
-          command: |
-            PYTHONPATH=. cmake examples/plugin
-            make
-            PYTHONPATH=. python examples/plugin/test_plugin.py
-
-      - run:
           name: Build the manual and run doctests
           command: |
-            make html -C doc
-            make doctest -C doc
+            make html -C docs
+            make doctest -C docs
 
       - run:
           name: Make sure we can build a distribution tarball.
@@ -68,5 +61,5 @@ jobs:
             python -m venv venv
             source venv/bin/activate 
             pip install --upgrade setuptools pip pybind11
-            pip install dist/fwdpy11-0.2.2.tar.gz 
+            pip install dist/pylibseq-0.2.2.tar.gz 
 

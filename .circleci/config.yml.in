@@ -44,13 +44,6 @@ jobs:
             python -m unittest discover tests
 
       - run:
-          name: Test building and running the plugin
-          command: |
-            PYTHONPATH=. cmake examples/plugin
-            make
-            PYTHONPATH=. python examples/plugin/test_plugin.py
-
-      - run:
           name: Build the manual and run doctests
           command: |
             make html -C docs
