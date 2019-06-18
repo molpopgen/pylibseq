@@ -1,8 +1,16 @@
-recursive-include libsequence  *.pyx *.px[di] *.cpp
+recursive-include libsequence *.cpp *.cc *.hpp *.tcc
+recursive-include tests *.cpp *.pyx *.py
 recursive-include m4 *.m4
+include COPYING
+include CMakeLists.txt
+include libsequence/CMakeLists.txt
 include configure
 include setup.py.in
 include config.h.in
 include Makefile.in
 include conf.py.in
+include docs/conf.py
+include docs/conf.py.in
+include docs/Makefile
+recursive-include docs *.rst *.py *.bib
 recursive-include check_deps *
