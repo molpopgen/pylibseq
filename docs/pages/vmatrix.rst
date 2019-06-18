@@ -20,24 +20,23 @@ is reserved for internal use as a "mask" value when filtering data out of varian
     print(m.nsites)
     print(m.nsam)
 
-A variant matrix supports Python's buffer protocol, meaning that it can be converted directly to a numpy array:
+:attr:`libsequence.VariantMatrix.data` allows numpy-based views of the genotype data:
 
 .. ipython:: python
 
     import numpy as np
 
-    ma = np.array(m, copy=False)
+    ma = m.data
     print(ma)
 
-Our `ma` object is a thin wrapper to the underlying memory allocated by C++, so we can change the data:
+Our `ma` object is a thin read-only wrapper to the underlying memory allocated by C++, so we cannot change the data:
 
 .. ipython:: python
 
-    x = ma[0,2]
-    ma[0,2] = -1
-    print(ma)
-    ma[0,2] = x
-    print(ma)
+    try:
+       ma[0,2] = -1
+    except ValueError:
+       print("exception raised")
 
 You can construct from numpy arrays:
 
@@ -127,16 +126,17 @@ By convention, missing data affects the sample size at a site:
 
 .. ipython:: python
 
-    ma = np.array(m, copy=False)
-    ma[0,2] = -1
+    ts = msprime.simulate(10, mutation_rate=10.)
+    # msprime's genotype matrix have dtype np.uint8,
+    # so we must cast to signed int in order to
+    # assign missing data:
+    g = ts.genotype_matrix().astype(np.int8)
+    g[0,0] = -1
+    m = libsequence.VariantMatrix(g, ts.tables.sites.position)
+    print(vm.data[0,0])
     c(m.site(0))
-    print(c.counts[:3])
+    # Sample size reduced by 1 due to missing data
     print(c.n)
-
-    # restore our object
-    ma[0,2] = x
-
-    print(c.refstate)
 
 You may specify a reference state when counting.  Depending on the analysis, that may mean a literal reference genome
 state, an ancestral state, a minor allele state, etc.
