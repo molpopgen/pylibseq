@@ -6,5 +6,6 @@ msprime >= 0.7.1
 sphinx
 ipython
 matplotlib
+seaborn
 sphinxcontrib-bibtex
 
