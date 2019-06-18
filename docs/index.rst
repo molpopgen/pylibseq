@@ -6,6 +6,8 @@
 Welcome to pylibseq's documentation!
 =================================================
 
+If you use `pylibseq` in your research please cite the following papers: :cite:`Thornton2003-wj`
+
 Contents:
 
 .. toctree::
@@ -16,11 +18,8 @@ Contents:
    pages/summstats
    pages/treesequences
    pages/deprecated_overview
-   pages/lifetimes
-
-.. rubric:: References
-
-.. bibliography:: Zreferences.bib
+   pages/lifetimes 
+   pages/zreferences.rst
 
 Functions and classes
 ##########################################
@@ -41,6 +40,9 @@ Functions and classes
    :members:
 
 .. autoclass:: libsequence.ConstRowView
+   :members:
+
+.. autoclass:: libsequence.StateCounts
    :members:
 
 Deprecated functions and classes

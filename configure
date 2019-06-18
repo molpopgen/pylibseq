@@ -2958,7 +2958,7 @@ PYTHON_LIBS=$pc_cv_python_libs
 
 
 
-ac_config_files="$ac_config_files Makefile setup.py requirements.txt docs/conf.py libsequence/__init__.py"
+ac_config_files="$ac_config_files Makefile setup.py requirements.txt docs/conf.py libsequence/__init__.py .circleci/config.yml"
 
 ac_config_headers="$ac_config_headers config.h"
 
@@ -4325,6 +4325,7 @@ do
     "requirements.txt") CONFIG_FILES="$CONFIG_FILES requirements.txt" ;;
     "docs/conf.py") CONFIG_FILES="$CONFIG_FILES docs/conf.py" ;;
     "libsequence/__init__.py") CONFIG_FILES="$CONFIG_FILES libsequence/__init__.py" ;;
+    ".circleci/config.yml") CONFIG_FILES="$CONFIG_FILES .circleci/config.yml" ;;
     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;

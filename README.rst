@@ -68,6 +68,7 @@ Requirements:
 ===================================
 
 * Python 3
+* cmake
 * An up-to-date C++ compiler that is C++11 compatible via the flag -std=c++11.  Roughly, this means GCC >= 4.8 and clang >= 3.5.
 
 .. note:: 
@@ -75,11 +76,10 @@ Requirements:
    As of version 0.2.2, libsequence is included as a git submodule compiled
    directly into the Python package.
 
-   If you installing from GitHub, then pybind11_ is a dependency.
-
-
-If you want to modify the package, you will need pybind11_ installed via your favorite Python package manager.
-
+   If you installing from GitHub, then pybind11_ is a dependency.  Further, 
+   pybind11 must not be installed from a source like PyPi. Rather, it must be
+   installed either from source or via your favorite package manager.  The
+   reason is that we use their cmake macros during the build process.
 
 Changelog (rough)
 ==============================

@@ -1,4 +1,11 @@
 pybind11 >= 2.2.3
 setuptools
-msprime >= 0.6.1
+msprime >= 0.7.1
+
+# For the manual and tests:
+sphinx
+ipython
+matplotlib
+seaborn
+sphinxcontrib-bibtex
 
