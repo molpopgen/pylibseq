@@ -133,6 +133,36 @@ class NumpyGenotypeCapsule : public Sequence::GenotypeCapsule
         return buffer.size();
     }
 
+    std::size_t
+    row_offset() const
+    {
+        return 0;
+    }
+
+    std::size_t
+    col_offset() const
+    {
+        return 0;
+    }
+
+    std::size_t
+    stride() const
+    {
+        return nsam();
+    }
+
+    std::int8_t &
+    operator()(std::size_t site, std::size_t sample)  final
+    {
+        return buffer.mutable_data()[nsam()*site + sample];
+    }
+
+    const std::int8_t &
+    operator()(std::size_t site, std::size_t sample) const final
+    {
+        return buffer.data()[nsam()*site + sample];
+    }
+
     bool
     resizable() const final
     {
