@@ -14,11 +14,302 @@
 
 namespace py = pybind11;
 
-PYBIND11_MODULE(variant_matrix, m)
+class NumpyGenotypeCapsule : public Sequence::GenotypeCapsule
+{
+  private:
+    py::array_t<std::int8_t> buffer;
+    std::size_t nsites_, nsam_;
+
+  public:
+    explicit NumpyGenotypeCapsule(
+        py::array_t<std::int8_t, py::array::c_style | py::array::forcecast>
+            input)
+        : buffer(std::move(input)), nsites_(buffer.shape(0)),
+          nsam_(buffer.shape(1))
+    {
+    }
+
+    std::size_t &
+    nsites()
+    {
+        return nsites_;
+    }
+
+    std::size_t &
+    nsam()
+    {
+        return nsam_;
+    }
+
+    std::size_t
+    nsites() const
+    {
+        return nsites_;
+    }
+
+    std::size_t
+    nsam() const
+    {
+        return nsam_;
+    }
+
+    std::int8_t &operator[](std::size_t i) { return buffer.mutable_data()[i]; }
+
+    const std::int8_t &operator[](std::size_t i) const
+    {
+        return buffer.data()[i];
+    }
+
+    std::int8_t *
+    data() final
+    {
+        return buffer.mutable_data();
+    }
+
+    const std::int8_t *
+    data() const final
+    {
+        return buffer.data();
+    }
+
+    const std::int8_t *
+    cdata() const final
+    {
+        return buffer.data();
+    }
+
+    std::unique_ptr<GenotypeCapsule>
+    clone() const final
+    {
+        return std::unique_ptr<GenotypeCapsule>(
+            new NumpyGenotypeCapsule(this->buffer));
+    }
+
+    std::int8_t *
+    begin() final
+    {
+        return buffer.mutable_data();
+    }
+
+    const std::int8_t *
+    begin() const final
+    {
+        return buffer.data();
+    }
+
+    std::int8_t *
+    end() final
+    {
+        return buffer.mutable_data() + buffer.size();
+    }
+
+    const std::int8_t *
+    end() const final
+    {
+        return buffer.data() + buffer.size();
+    }
+
+    const std::int8_t *
+    cbegin() const final
+    {
+        return begin();
+    }
+
+    const std::int8_t *
+    cend() const final
+    {
+        return end();
+    }
+
+    bool
+    empty() const final
+    {
+        return !nsites();
+    }
+
+    std::size_t
+    size() const final
+    {
+        return buffer.size();
+    }
+
+    std::size_t
+    row_offset() const
+    {
+        return 0;
+    }
+
+    std::size_t
+    col_offset() const
+    {
+        return 0;
+    }
+
+    std::size_t
+    stride() const
+    {
+        return nsam();
+    }
+
+    std::int8_t &
+    operator()(std::size_t site, std::size_t sample)  final
+    {
+        return buffer.mutable_data()[nsam()*site + sample];
+    }
+
+    const std::int8_t &
+    operator()(std::size_t site, std::size_t sample) const final
+    {
+        return buffer.data()[nsam()*site + sample];
+    }
+
+    bool
+    resizable() const final
+    {
+        return false;
+    }
+};
+
+class NumpyPositionCapsule : public Sequence::PositionCapsule
+{
+  private:
+    py::array_t<double> buffer;
+
+  public:
+    explicit NumpyPositionCapsule(py::array_t<double> input)
+        : buffer(std::move(input))
+    {
+        if (buffer.ndim() != 1)
+            {
+                throw std::invalid_argument(
+                    "positions must be a one-dimensional array");
+            }
+    }
+
+    double &operator[](std::size_t i) { return buffer.mutable_data()[i]; }
+
+    const double &operator[](std::size_t i) const { return buffer.data()[i]; }
+
+    double *
+    data() final
+    {
+        return buffer.mutable_data();
+    }
+
+    const double *
+    data() const final
+    {
+        return buffer.data();
+    }
+
+    const double *
+    cdata() const final
+    {
+        return buffer.data();
+    }
+
+    std::unique_ptr<PositionCapsule>
+    clone() const final
+    {
+        return std::unique_ptr<PositionCapsule>(
+            new NumpyPositionCapsule(*this));
+    }
+
+    double *
+    begin() final
+    {
+        return buffer.mutable_data();
+    }
+
+    const double *
+    begin() const final
+    {
+        return buffer.data();
+    }
+
+    const double *
+    cbegin() const final
+    {
+        return buffer.data();
+    }
+
+    double *
+    end() final
+    {
+        return buffer.mutable_data() + buffer.size();
+    }
+
+    const double *
+    end() const final
+    {
+        return buffer.data() + buffer.size();
+    }
+
+    const double *
+    cend() const final
+    {
+        return buffer.data() + buffer.size();
+    }
+
+    bool
+    empty() const final
+    {
+        return buffer.size() == 0;
+    }
+
+    std::size_t
+    size() const final
+    {
+        return buffer.size();
+    }
+
+    std::size_t
+    nsites() const
+    {
+        return buffer.size();
+    }
+
+    bool
+    resizable() const final
+    {
+        return false;
+    }
+};
+
+class MockVM
+{
+  private:
+    std::unique_ptr<Sequence::GenotypeCapsule> g;
+    std::unique_ptr<Sequence::PositionCapsule> p;
+
+  public:
+    MockVM(std::unique_ptr<Sequence::GenotypeCapsule> g_,
+           std::unique_ptr<Sequence::PositionCapsule> p_)
+        : g(std::move(g_)), p(std::move(p_))
+    {
+    }
+};
+
+Sequence::VariantMatrix
+mslike_from_numpy(
+    py::array_t<std::int8_t, py::array::c_style | py::array::forcecast>
+        genotypes,
+    py::array_t<double> positions)
+{
+    std::unique_ptr<Sequence::GenotypeCapsule> pp(
+        new NumpyGenotypeCapsule(std::move(genotypes)));
+    std::unique_ptr<Sequence::PositionCapsule> gp(
+        new NumpyPositionCapsule(std::move(positions)));
+    return Sequence::VariantMatrix(std::move(pp), std::move(gp), 1);
+}
+
+void
+init_VariantMatrix(py::module &m)
 {
     py::class_<Sequence::AlleleCountMatrix>(
         m, "AlleleCountMatrix", py::buffer_protocol(),
-        "A matrix of allele counts. This object supports the buffer protocol.")
+        "A matrix of allele counts. This object supports the buffer "
+        "protocol.")
         .def(py::init<const Sequence::VariantMatrix &>(),
              "Construct from a "
              ":class:`libsequence.variant_matrix.VariantMatrix`")
@@ -30,13 +321,14 @@ PYBIND11_MODULE(variant_matrix, m)
                       "Number of columns (allelic states) in the matrix.")
         .def_readonly("nsam", &Sequence::AlleleCountMatrix::nsam,
                       "Sample size of the original VariantMatrix.")
-        .def("row",
-             [](const Sequence::AlleleCountMatrix &c, const std::size_t i) {
-                 auto x = c.row(i);
-                 return py::make_iterator(x.first, x.second);
-             },
-             py::keep_alive<0, 1>(), py::arg("i"),
-             "Return an iterator over the i-th site.")
+        .def(
+            "row",
+            [](const Sequence::AlleleCountMatrix &c, const std::size_t i) {
+                auto x = c.row(i);
+                return py::make_iterator(x.first, x.second);
+            },
+            py::keep_alive<0, 1>(), py::arg("i"),
+            "Return an iterator over the i-th site.")
         .def("__getitem__",
              [](const Sequence::AlleleCountMatrix &am, py::slice slice) {
                  std::size_t start, stop, step, slicelength;
@@ -68,6 +360,8 @@ PYBIND11_MODULE(variant_matrix, m)
                  return Sequence::AlleleCountMatrix(std::move(c), am.ncol,
                                                     nrow, am.nsam);
              })
+        .def("__len__",
+             [](const Sequence::AlleleCountMatrix &self) { return self.nrow; })
         .def_buffer(
             [](const Sequence::AlleleCountMatrix &c) -> py::buffer_info {
                 using value_type = Sequence::AlleleCountMatrix::value_type;
@@ -89,7 +383,7 @@ PYBIND11_MODULE(variant_matrix, m)
             });
 
     py::class_<Sequence::VariantMatrix>(m, "VariantMatrix",
-                                        py::buffer_protocol(),
+                                        //py::buffer_protocol(),
                                         R"delim(
         Representation of variation data in matrix format.
 
@@ -102,98 +396,53 @@ PYBIND11_MODULE(variant_matrix, m)
 
         :param data: The state data.
         :type data: list
-        :param positons: List of mutation positions.
+        :param positions: List of mutation positions.
         :type positions: list
 
-        >>> import libsequence.variant_matrix as vm
-        >>> m = vm.VariantMatrix([0,1,1,0],[0.1,0.2])
+        >>> import libsequence
+        >>> m = libsequence.VariantMatrix([0,1,1,0],[0.1,0.2])
              )delim",
              py::arg("data"), py::arg("positions"))
         .def(py::init([](py::array_t<std::int8_t,
                                      py::array::c_style | py::array::forcecast>
                              data,
-                         py::array_t<double> pos) {
-                 if (data.ndim() != 2)
-                     {
-                         throw std::invalid_argument(
-                             "data must be a 2d ndarray");
-                     }
-                 if (pos.ndim() != 1)
-                     {
-                         throw std::invalid_argument(
-                             "pos must be a 1d ndarray");
-                     }
-                 if (pos.size() != data.shape(0))
-                     {
-                         throw(std::invalid_argument(
-                             "len(pos) must equal data.shape[0]"));
-                     }
-                 auto data_ptr = data.unchecked<2>();
-                 std::vector<std::int8_t> d(data_ptr.data(0, 0),
-                                            data_ptr.data(0, 0) + data.size());
-                 auto pos_ptr = pos.unchecked<1>();
-                 std::vector<double> p(pos_ptr.data(0),
-                                       pos_ptr.data(0) + pos.size());
-                 return Sequence::VariantMatrix(std::move(d), std::move(p));
+                         py::array_t<double> pos,
+                         std::int8_t max_allele_value) {
+                 std::unique_ptr<Sequence::GenotypeCapsule> dp(
+                     new NumpyGenotypeCapsule(std::move(data)));
+                 std::unique_ptr<Sequence::PositionCapsule> pp(
+                     new NumpyPositionCapsule(std::move(pos)));
+                 return Sequence::VariantMatrix(std::move(dp), std::move(pp),
+                                                max_allele_value);
              }),
              R"delim(
              Construct with numpy arrays
 
             :param data: 2d ndarray with dtype numpy.int8
             :type data: list
-            :param positons: 1d array with dtype np.float
+            :param positions: 1d array with dtype np.float
             :type positions: list
 
-            >>> import libsequence.variant_matrix as vm
+            >>> import libsequence
             >>> import numpy as np
             >>> d = np.array([0,1,1,0],dtype=np.int8).reshape((2,2))
             >>> p = np.array([0.1,0.2])
-            >>> m = vm.VariantMatrix(d,p)
+            >>> m = libsequence.VariantMatrix(d,p)
             )delim",
-             py::arg("data"), py::arg("pos"))
+             py::arg("data"), py::arg("pos"), py::arg("max_allele_value") = -1)
         .def_static(
             "from_TreeSequence",
-            [](py::object ts,
-               const std::int8_t max_allele) -> Sequence::VariantMatrix {
+            [](py::object ts) -> Sequence::VariantMatrix {
                 //If a not-TreeSequence is passed in, "duck typing"
                 //fails, and an exception will be raised.
-
-                //Allocate space on the C++ side for our data
-                std::vector<std::int8_t> data;
-                auto nsam = ts.attr("num_samples").cast<std::size_t>();
-                auto nsites = ts.attr("num_sites").cast<std::size_t>();
-                data.reserve(nsam * nsites);
-                std::vector<double> pos;
-                pos.reserve(nsites);
-
-                //Get the iterator over the variants
-                py::iterable v = ts.attr("variants")();
-                auto vi = py::iter(v);
-                //This is our numpy array type.
-                //The forecast flag will force auto-cast
-                //from the uint8_t Jerome uses to the int8_t
-                //used here (and in scikit-allel).
-                using array_type
-                    = py::array_t<std::int8_t,
-                                  py::array::c_style | py::array::forcecast>;
-                //Iterate over the variants:
-                while (vi != py::iterator::sentinel())
-                    {
-                        py::handle variant = *vi;
-                        auto a = variant.attr("genotypes").cast<array_type>();
-                        auto d = a.unchecked<1>();
-                        data.insert(data.end(), d.data(0),
-                                    d.data(0) + a.size());
-                        auto p = variant.attr("position").cast<double>();
-                        pos.push_back(p);
-                        ++vi;
-                    }
-                //Move our vectors into a VariantMatrix,
-                //thus avoiding a copy during construction
-                return Sequence::VariantMatrix(std::move(data), std::move(pos),
-                                               max_allele);
+                auto g = ts.attr("genotype_matrix")();
+                auto p = ts.attr("tables")
+                             .attr("sites")
+                             .attr("position")
+                             .cast<py::array_t<double>>();
+                return mslike_from_numpy(std::move(g), std::move(p));
             },
-            py::arg("ts"), py::arg("max_allele") = 1,
+            py::arg("ts"),
             R"delim(
             Create a VariantMatrix from an msprime.TreeSequence
             
@@ -203,81 +452,103 @@ PYBIND11_MODULE(variant_matrix, m)
             or, equivalently, certain forward simulations that use
             that format for storing results.
 
-            .. note:: 
-
-                Testing using iPython's "timeit" suggests that
-                creating a VariantMatrix this way is only a bit slower
-                than a direct call to the VariantMatrix constructor
-                with the relevant numpy arrays.  However, this
-                function is preferred for "huge" data sets where you
-                may run out of memory because both msprime and pylibseq
-                must make huge allocations.
+            This function is a convenience function. Internally,
+            the output from msprime are cast from 8-bit unsigned
+            integers to 8-bit signed integers.
             )delim")
-        .def_readonly("data", &Sequence::VariantMatrix::data,
-                      "Return raw data as list")
-        .def_readonly("positions", &Sequence::VariantMatrix::positions,
-                      "Return positions as list")
-        .def_readonly("nsites", &Sequence::VariantMatrix::nsites,
-                      "Number of positions")
-        .def_readonly("nsam", &Sequence::VariantMatrix::nsam,
-                      "Number of samples")
+        .def_property_readonly(
+            "data",
+            [](const Sequence::VariantMatrix &self) {
+                auto rv = pybind11::array_t<std::int8_t>(
+                    { self.nsites(), self.nsam() }, self.cdata(),
+                    pybind11::cast(self));
+                rv.attr("flags").attr("writeable") = false;
+                return rv;
+            },
+            "Return raw data as numpy array")
+        .def_property_readonly(
+            "positions",
+            [](const Sequence::VariantMatrix &self)
+                -> pybind11::array_t<double> {
+                auto rv = pybind11::array_t<double>(
+                    { self.nsites() }, { sizeof(double) }, self.pbegin(),
+                    pybind11::cast(self.pbegin()));
+                rv.attr("flags").attr("writeable") = false;
+                return rv;
+            },
+            "Return positions as numpy array")
+        .def_property_readonly(
+            "nsites",
+            [](const Sequence::VariantMatrix &self) { return self.nsites(); },
+            "Number of positions")
+        .def_property_readonly(
+            "nsam",
+            [](const Sequence::VariantMatrix &self) { return self.nsam(); },
+            "Number of samples")
         .def_readonly_static("mask", &Sequence::VariantMatrix::mask,
                              "Reserved missing data state")
         .def("count_alleles",
              [](const Sequence::VariantMatrix &m) {
                  return Sequence::AlleleCountMatrix(m);
              })
-        .def("site",
-             [](const Sequence::VariantMatrix &m, const std::size_t i) {
-                 return Sequence::get_ConstRowView(m, i);
-             },
-             R"delim(
+        .def(
+            "site",
+            [](const Sequence::VariantMatrix &m, const std::size_t i) {
+                return Sequence::get_ConstRowView(m, i);
+            },
+            R"delim(
              Return a view of the i-th site.
              
              :param i: Index
              :type i: int
              :rtype: :class:`libsequence.variant_matrix.ConstRowView`
              )delim",
-             py::arg("i"))
-        .def("sample",
-             [](const Sequence::VariantMatrix &m, const std::size_t i) {
-                 return Sequence::get_ConstColView(m, i);
-             },
-             R"delim(
+            py::arg("i"))
+        .def(
+            "sample",
+            [](const Sequence::VariantMatrix &m, const std::size_t i) {
+                return Sequence::get_ConstColView(m, i);
+            },
+            R"delim(
              Return a view of the i-th sample.
              
              :param i: Index
              :type i: int
              :rtype: :class:`libsequence.variantmatrix.ConstColView`
              )delim",
-             py::arg("i"))
-        .def_buffer([](Sequence::VariantMatrix &m) -> py::buffer_info {
-            return py::buffer_info(
-                m.data.data(),       /* Pointer to buffer */
-                sizeof(std::int8_t), /* Size of one scalar */
-                py::format_descriptor<std::int8_t>::
-                    format(), /* Python struct-style format descriptor */
-                2,            /* Number of dimensions */
-                { m.nsites, m.nsam }, /* Buffer dimensions */
-                { sizeof(std::int8_t)
-                      * m.nsam, /* Strides (in bytes) for each index */
-                  sizeof(std::int8_t) });
-        })
-        .def("window",
-             [](const Sequence::VariantMatrix &m, const double beg,
-                const double end) {
-                 return Sequence::make_window(m, beg, end);
-             },
-             py::arg("beg"), py::arg("end"))
-        .def("slice",
-             [](const Sequence::VariantMatrix &m, const double beg,
-                const double end, const std::size_t i, const std::size_t j) {
-                 return Sequence::make_slice(m, beg, end, i, j);
-             },
-             py::arg("beg"), py::arg("end"), py::arg("i"), py::arg("j"))
+            py::arg("i"))
+        //.def_buffer([](Sequence::VariantMatrix &m) -> py::buffer_info {
+        //    return py::buffer_info(
+        //        m.data(),            /* Pointer to buffer */
+        //        sizeof(std::int8_t), /* Size of one scalar */
+        //        py::format_descriptor<std::int8_t>::
+        //            format(), /* Python struct-style format descriptor */
+        //        2,            /* Number of dimensions */
+        //        { m.nsites(), m.nsam() }, /* Buffer dimensions */
+        //        { sizeof(std::int8_t)
+        //              * m.nsam(), /* Strides (in bytes) for each index */
+        //          sizeof(std::int8_t) });
+        //})
+        .def(
+            "window",
+            [](const Sequence::VariantMatrix &m, const double beg,
+               const double end) {
+                return Sequence::make_window(m, beg, end);
+            },
+            py::arg("beg"), py::arg("end"))
+        .def(
+            "slice",
+            [](const Sequence::VariantMatrix &m, const double beg,
+               const double end, const std::size_t i, const std::size_t j) {
+                return Sequence::make_slice(m, beg, end, i, j);
+            },
+            py::arg("beg"), py::arg("end"), py::arg("i"), py::arg("j"))
         .def(py::pickle(
             [](const Sequence::VariantMatrix &m) {
-                return py::make_tuple(m.data, m.positions);
+                std::vector<std::int8_t> temp(
+                    m.data(), m.data() + m.nsites() * m.nsam());
+                std::vector<double> ptemp(m.pbegin(), m.pend());
+                return py::make_tuple(std::move(temp), std::move(ptemp));
             },
             [](py::tuple t) {
                 if (t.size() != 2)
@@ -297,21 +568,23 @@ PYBIND11_MODULE(variant_matrix, m)
             )delim")
         .def("__len__",
              [](const Sequence::ConstColView &c) { return c.size(); })
-        .def("__iter__",
-             [](const Sequence::ConstColView &c) {
-                 return py::make_iterator(c.begin(), c.end());
-             },
-             py::keep_alive<0, 1>())
-        .def("as_list",
-             [](const Sequence::ConstColView &c) {
-                 py::list rv;
-                 for (auto i : c)
-                     {
-                         rv.append(static_cast<int>(i));
-                     }
-                 return rv;
-             },
-             "Return contents as a list.");
+        .def(
+            "__iter__",
+            [](const Sequence::ConstColView &c) {
+                return py::make_iterator(c.begin(), c.end());
+            },
+            py::keep_alive<0, 1>())
+        .def(
+            "as_list",
+            [](const Sequence::ConstColView &c) {
+                py::list rv;
+                for (auto i : c)
+                    {
+                        rv.append(static_cast<int>(i));
+                    }
+                return rv;
+            },
+            "Return contents as a list.");
 
     py::class_<Sequence::ColView>(m, "ColView",
                                   R"delim(
@@ -320,21 +593,23 @@ PYBIND11_MODULE(variant_matrix, m)
         See :ref:`variantmatrix`
         )delim")
         .def("__len__", [](const Sequence::ColView &c) { return c.size(); })
-        .def("__iter__",
-             [](const Sequence::ColView &c) {
-                 return py::make_iterator(c.begin(), c.end());
-             },
-             py::keep_alive<0, 1>())
-        .def("as_list",
-             [](const Sequence::ColView &c) {
-                 py::list rv;
-                 for (auto i : c)
-                     {
-                         rv.append(static_cast<int>(i));
-                     }
-                 return rv;
-             },
-             "Return contents as a list.");
+        .def(
+            "__iter__",
+            [](const Sequence::ColView &c) {
+                return py::make_iterator(c.begin(), c.end());
+            },
+            py::keep_alive<0, 1>())
+        .def(
+            "as_list",
+            [](const Sequence::ColView &c) {
+                py::list rv;
+                for (auto i : c)
+                    {
+                        rv.append(static_cast<int>(i));
+                    }
+                return rv;
+            },
+            "Return contents as a list.");
 
     py::class_<Sequence::ConstRowView>(m, "ConstRowView",
                                        R"delim(
@@ -344,21 +619,23 @@ PYBIND11_MODULE(variant_matrix, m)
         )delim")
         .def("__len__",
              [](const Sequence::ConstRowView &r) { return r.size(); })
-        .def("__iter__",
-             [](const Sequence::ConstRowView &r) {
-                 return py::make_iterator(r.begin(), r.end());
-             },
-             py::keep_alive<0, 1>())
-        .def("as_list",
-             [](const Sequence::ConstRowView &r) {
-                 py::list rv;
-                 for (auto i : r)
-                     {
-                         rv.append(static_cast<int>(i));
-                     }
-                 return rv;
-             },
-             "Return contents as a list.");
+        .def(
+            "__iter__",
+            [](const Sequence::ConstRowView &r) {
+                return py::make_iterator(r.begin(), r.end());
+            },
+            py::keep_alive<0, 1>())
+        .def(
+            "as_list",
+            [](const Sequence::ConstRowView &r) {
+                py::list rv;
+                for (auto i : r)
+                    {
+                        rv.append(static_cast<int>(i));
+                    }
+                return rv;
+            },
+            "Return contents as a list.");
 
     py::class_<Sequence::RowView>(m, "RowView",
                                   R"delim(
@@ -367,11 +644,12 @@ PYBIND11_MODULE(variant_matrix, m)
         See :ref:`variantmatrix`.
         )delim")
         .def("__len__", [](const Sequence::RowView &r) { return r.size(); })
-        .def("__iter__",
-             [](const Sequence::RowView &r) {
-                 return py::make_iterator(r.begin(), r.end());
-             },
-             py::keep_alive<0, 1>())
+        .def(
+            "__iter__",
+            [](const Sequence::RowView &r) {
+                return py::make_iterator(r.begin(), r.end());
+            },
+            py::keep_alive<0, 1>())
         .def("as_list", [](const Sequence::RowView &r) {
             py::list rv;
             for (auto i : r)
@@ -394,11 +672,12 @@ PYBIND11_MODULE(variant_matrix, m)
         .def_readonly("refstate", &Sequence::StateCounts::refstate,
                       "The reference state.")
         .def_readonly("n", &Sequence::StateCounts::n, "The sample size.")
-        .def("__iter__",
-             [](const Sequence::StateCounts &sc) {
-                 return py::make_iterator(sc.counts.begin(), sc.counts.end());
-             },
-             py::keep_alive<0, 1>())
+        .def(
+            "__iter__",
+            [](const Sequence::StateCounts &sc) {
+                return py::make_iterator(sc.counts.begin(), sc.counts.end());
+            },
+            py::keep_alive<0, 1>())
         .def("__len__",
              [](const Sequence::StateCounts &c) { return c.counts.size(); })
         .def("__getitem__",
@@ -427,26 +706,27 @@ PYBIND11_MODULE(variant_matrix, m)
                 });
         });
 
-    m.def("process_variable_sites",
-          [](const Sequence::VariantMatrix &m, py::object refstates) {
-              if (refstates.is_none())
-                  {
-                      return Sequence::process_variable_sites(m);
-                  }
-              try
-                  {
-                      py::int_ rs(refstates);
-                      return Sequence::process_variable_sites(
-                          m, rs.cast<std::int8_t>());
-                  }
-              catch (...)
-                  {
-                  }
-              return Sequence::process_variable_sites(
-                  m, refstates.cast<std::vector<std::int8_t>>());
-          },
-          py::arg("m"), py::arg("refstates") = nullptr,
-          R"delim(
+    m.def(
+        "process_variable_sites",
+        [](const Sequence::VariantMatrix &m, py::object refstates) {
+            if (refstates.is_none())
+                {
+                    return Sequence::process_variable_sites(m);
+                }
+            try
+                {
+                    py::int_ rs(refstates);
+                    return Sequence::process_variable_sites(
+                        m, rs.cast<std::int8_t>());
+                }
+            catch (...)
+                {
+                }
+            return Sequence::process_variable_sites(
+                m, refstates.cast<std::vector<std::int8_t>>());
+        },
+        py::arg("m"), py::arg("refstates") = nullptr,
+        R"delim(
           Obtain state counts for all sites
 
           :param m: data
@@ -471,8 +751,20 @@ PYBIND11_MODULE(variant_matrix, m)
     //      },
     //      py::arg("m"));
 
-    m.def("filter_haplotypes", &Sequence::filter_haplotypes,
-          R"delim(
+    m.def(
+        "filter_haplotypes",
+        [](Sequence::VariantMatrix &m, py::function f) {
+            if (m.resizable())
+                {
+                    auto cpp_func = f.cast<
+                        std::function<bool(const Sequence::ColView &)>>();
+                    return Sequence::filter_haplotypes(m, cpp_func);
+                }
+            auto cpp_func = f.cast<
+                std::function<bool(const Sequence::ConstColView &)>>();
+            return Sequence::filter_haplotypes(m, cpp_func);
+        },
+        R"delim(
             Remove site data from a VariantMatrix
 
             :param m: A variant matrix
@@ -481,11 +773,36 @@ PYBIND11_MODULE(variant_matrix, m)
             :type f: callable
 
             See :ref:`variantmatrix` for details.
-            )delim",
-          py::arg("m"), py::arg("f"));
 
-    m.def("filter_sites", &Sequence::filter_sites,
-          R"delim(
+            .. note::
+
+                If the the VariantMatrix was initially
+                created from a numpy array, its internal state
+                is changed to be based on C++ vectors, meaning
+                that a copy happened internally.
+            )delim",
+        py::arg("m"), py::arg("f"));
+
+    m.def(
+        "filter_sites",
+        //[](Sequence::VariantMatrix &m,
+        //   const std::function<bool(const Sequence::ConstRowView &)> &f) {
+        //    return Sequence::filter_sites(m, f);
+        //},
+        [](Sequence::VariantMatrix &m, py::function f) {
+            if (m.resizable())
+                {
+                    auto cpp_func = f.cast<
+                        std::function<bool(const Sequence::RowView &)>>();
+
+                    return Sequence::filter_sites(m, cpp_func);
+                }
+            auto cpp_func = f.cast<
+                std::function<bool(const Sequence::ConstRowView &)>>();
+
+            return Sequence::filter_sites(m, cpp_func);
+        },
+        R"delim(
             Remove sample data from a VariantMatrix
 
             :param m: A variant matrix
@@ -494,11 +811,18 @@ PYBIND11_MODULE(variant_matrix, m)
             :type f: callable
 
             See :ref:`variantmatrix` for details.
+
+            .. note::
+
+                If the the VariantMatrix was initially
+                created from a numpy array, its internal state
+                is changed to be based on C++ vectors, meaning
+                that a copy happened internally.
             )delim",
-          py::arg("m"), py::arg("f"));
+        py::arg("m"), py::arg("f"));
 
     // Various I/O for VariantMatrix in "ms" format
-    m.def("ms_from_stdin", []() -> py::object{
+    m.def("ms_from_stdin", []() -> py::object {
         if (std::cin.eof())
             {
                 return py::none();
@@ -507,4 +831,17 @@ PYBIND11_MODULE(variant_matrix, m)
         py::object o = py::cast(std::move(vm));
         return o;
     });
+
+    py::class_<MockVM>(m, "MockVM")
+        .def(py::init([](py::array_t<std::int8_t,
+                                     py::array::c_style | py::array::forcecast>
+                             data,
+                         py::array_t<double> pos,
+                         std::int8_t max_allele_value) {
+            std::unique_ptr<Sequence::GenotypeCapsule> dp(
+                new NumpyGenotypeCapsule(data));
+            std::unique_ptr<Sequence::PositionCapsule> pp(
+                new NumpyPositionCapsule(pos));
+            return MockVM(std::move(dp), std::move(pp));
+        }));
 }

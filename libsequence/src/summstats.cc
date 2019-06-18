@@ -14,9 +14,9 @@
 #include <Sequence/PolySIM.hpp>
 #include <Sequence/PolyTable.hpp>
 #include <Sequence/SimData.hpp>
-#include <Sequence/SummStats/nSL.hpp>
-#include <Sequence/SummStats/Garud.hpp>
-#include <Sequence/SummStats/lHaf.hpp>
+#include <Sequence/SummStatsDeprecated/nSL.hpp>
+#include <Sequence/SummStatsDeprecated/Garud.hpp>
+#include <Sequence/SummStatsDeprecated/lHaf.hpp>
 #include <Sequence/Recombination.hpp>
 #include <Sequence/stateCounter.hpp>
 
@@ -26,10 +26,9 @@ PYBIND11_MAKE_OPAQUE(std::vector<Sequence::nSLiHS>);
 
 std::pair<double, double> omega_max(const Sequence::SimData& data);
 
-PYBIND11_MODULE(summstats, m)
+void
+init_summstats(py::module& m)
 {
-    m.doc() = "Summary statistics";
-
     //These are the "libsequence 2.0"
     //functions
 
@@ -37,28 +36,24 @@ PYBIND11_MODULE(summstats, m)
           R"delim(
             Mean number of pairwise differences.
             
-            See :cite:`Tajima1983-it` for details.
-
-            :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
+            :param ac: A :class:`libsequence.AlleleCountMatrix`
             
             .. note::
 
                 Implemented as sum of site heterozygosity.
             )delim",
-          py::arg("m"));
+          py::arg("ac"));
 
     m.def("thetaw", &Sequence::thetaw,
           R"delim(
             Watterson's theta.
 
-            See :cite:`Watterson1975-ej` for details.
-
-            :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
+            :param m: A :class:`libsequence.AlleleCountMatrix`
 
             .. note::
 
                 Calculated from the total number of mutations.
-            )delim");
+            )delim",py::arg("ac"));
     m.def("nvariable_sites", &Sequence::nvariable_sites);
     m.def("nbiallelic_sites", &Sequence::nbiallelic_sites);
     m.def("total_number_of_mutations", &Sequence::total_number_of_mutations);
@@ -66,41 +61,57 @@ PYBIND11_MODULE(summstats, m)
           R"delim(
             Tajima's D.
 
-            See :cite:`Tajima1989-de` for details.
+            :param m: A :class:`libsequence.AlleleCountMatrix`
+            )delim",
+          py::arg("ac"));
 
-            :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
-            )delim");
+    m.def(
+        "hprime",
+        [](const Sequence::AlleleCountMatrix& m, const std::int8_t refstate) {
+            return Sequence::hprime(m, refstate);
+        },
+        py::arg("ac"), py::arg("ancestral_state"));
 
-    m.def("hprime", [](const Sequence::AlleleCountMatrix& m,
-                       const std::int8_t refstate) {
-        return Sequence::hprime(m, refstate);
-    });
-    m.def("hprime", [](const Sequence::AlleleCountMatrix& m,
-                       const std::vector<std::int8_t>& refstates) {
-        return Sequence::hprime(m, refstates);
-    });
-    m.def("faywuh", [](const Sequence::AlleleCountMatrix& m,
-                       const std::int8_t refstate) {
-        return Sequence::faywuh(m, refstate);
-    });
-    m.def("faywuh", [](const Sequence::AlleleCountMatrix& m,
-                       const std::vector<std::int8_t>& refstates) {
-        return Sequence::faywuh(m, refstates);
-    });
+    m.def(
+        "hprime",
+        [](const Sequence::AlleleCountMatrix& m,
+           const std::vector<std::int8_t>& refstates) {
+            return Sequence::hprime(m, refstates);
+        },
+        py::arg("ac"), py::arg("ancestral_state"));
+
+    m.def(
+        "faywuh",
+        [](const Sequence::AlleleCountMatrix& m, const std::int8_t refstate) {
+            return Sequence::faywuh(m, refstate);
+        },
+        py::arg("ac"), py::arg("ancestral_state"));
+
+    m.def(
+        "faywuh",
+        [](const Sequence::AlleleCountMatrix& m,
+           const std::vector<std::int8_t>& refstates) {
+            return Sequence::faywuh(m, refstates);
+        },
+        py::arg("ac"), py::arg("ancestral_states"));
+
     m.def("is_different_matrix", &Sequence::difference_matrix,
           R"delim(
             Return whether or not pairs of 
             samples in a VariantMatrix differ
 
-            :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
-            )delim");
+            :param m: A :class:`libsequence.VariantMatrix`
+            )delim",
+          py::arg("m"));
+
     m.def("difference_matrix", &Sequence::difference_matrix,
           R"delim(
             Return the nummber of differences between all
             samples in a VariantMatrix
 
-            :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
-            )delim");
+            :param m: A :class:`libsequence.VariantMatrix`
+            )delim",
+          py::arg("m"));
     m.def("label_haplotypes", &Sequence::label_haplotypes);
     m.def("number_of_haplotypes", &Sequence::number_of_haplotypes);
     m.def("haplotype_diversity", &Sequence::haplotype_diversity);
@@ -109,9 +120,7 @@ PYBIND11_MODULE(summstats, m)
             Hudson and Kaplan's estimate of the minimum number
             of recombination events.
 
-            See :cite:`Hudson1985-cq` for details.
-
-            :param m: A :class:`libsequence.variant_matrix.VariantMatrix`
+            :param m: A :class:`libsequence.VariantMatrix`
 
             .. note::
 
@@ -122,9 +131,7 @@ PYBIND11_MODULE(summstats, m)
     PYBIND11_NUMPY_DTYPE(Sequence::nSLiHS, nsl, ihs, core_count);
 
     py::class_<Sequence::nSLiHS>(
-        m, "nSLresults",
-        "Holds nSL, iHS, and non-reference count at core SNP.  Statistics "
-        "calculated according to :cite:`Ferrer-Admetlla2014-wa`.")
+        m, "nSLresults", "Holds nSL, iHS, and non-reference count at core SNP")
         .def_readonly("nsl", &Sequence::nSLiHS::nsl, "nSL")
         .def_readonly("ihs", &Sequence::nSLiHS::ihs, "iHS")
         .def_readonly("core_count", &Sequence::nSLiHS::core_count,
@@ -133,14 +140,18 @@ PYBIND11_MODULE(summstats, m)
     py::bind_vector<std::vector<Sequence::nSLiHS>>(
         m, "VecnSLResults", py::module_local(false), py::buffer_protocol());
 
-    m.def("nsl",
-          [](const Sequence::VariantMatrix& m, const std::int8_t refstate) {
-              return Sequence::nsl(m, refstate);
-          });
+    m.def(
+        "nsl",
+        [](const Sequence::VariantMatrix& m, const std::int8_t refstate) {
+            return Sequence::nsl(m, refstate);
+        },
+        py::arg("m"), py::arg("refstate"));
 
-    m.def("nslx",
-          [](const Sequence::VariantMatrix& m, const std::int8_t refstate,
-             const int x) { return Sequence::nslx(m, refstate, x); });
+    m.def(
+        "nslx",
+        [](const Sequence::VariantMatrix& m, const std::int8_t refstate,
+           const int x) { return Sequence::nslx(m, refstate, x); },
+        py::arg("m"), py::arg("refstate"), py::arg("x"));
 
     //m.def("nsl",
     //      [](const Sequence::VariantMatrix& m, const std::size_t core,
@@ -152,7 +163,7 @@ PYBIND11_MODULE(summstats, m)
     //        Calculate nSL and iHS according to :cite:`Ferrer-Admetlla2014-wa`.
 
     //        :param m: The data
-    //        :type m: :class:`libsequence.variant_matrix.VariantMatrix`
+    //        :type m: :class:`libsequence.VariantMatrix`
     //        :param core: Index of the core snp
     //        :type core: int
     //        :param refstate: Value of the reference state
@@ -160,15 +171,17 @@ PYBIND11_MODULE(summstats, m)
     //        )delim");
 
     py::class_<Sequence::GarudStats>(m, "GarudStats")
-        .def_readonly("H1", &Sequence::GarudStats::H1)
-        .def_readonly("H12", &Sequence::GarudStats::H12)
-        .def_readonly("H2H1", &Sequence::GarudStats::H2H1);
+        .def_readonly("H1", &Sequence::GarudStats::H1, "Value of H1")
+        .def_readonly("H12", &Sequence::GarudStats::H12, "Value of H2")
+        .def_readonly("H2H1", &Sequence::GarudStats::H2H1, "Value of H2/H1");
     m.def("garud_statistics", &Sequence::garud_statistics);
     m.def("two_locus_haplotype_counts", &Sequence::two_locus_haplotype_counts);
 
     py::class_<Sequence::AlleleCounts>(m, "AlleleCounts")
-        .def_readonly("nstates", &Sequence::AlleleCounts::nstates)
-        .def_readonly("nmissing", &Sequence::AlleleCounts::nmissing);
+        .def_readonly("nstates", &Sequence::AlleleCounts::nstates,
+                      "Number of samples with non-missing states")
+        .def_readonly("nmissing", &Sequence::AlleleCounts::nmissing,
+                      "Number of samples with missing states");
 
     m.def("allele_counts", [](const Sequence::AlleleCountMatrix& m) {
         return Sequence::allele_counts(m);
@@ -194,15 +207,16 @@ PYBIND11_MODULE(summstats, m)
     //deprecated libsequence 1.x world
     py::class_<Sequence::PolySNP>(m, "PolySNP",
                                   "Class to calculate summary statistics.")
-        .def("__init__",
-             [](Sequence::PolySNP& newobj, const Sequence::PolyTable& pt,
-                const bool haveOutgroup, const unsigned outgroup,
-                const bool totMuts) {
-                 new (&newobj)
-                     Sequence::PolySNP(&pt, haveOutgroup, outgroup, totMuts);
-             },
-             py::arg("pt"), py::arg("haveOutgroup") = false,
-             py::arg("outgroup") = 0, py::arg("totMuts") = true)
+        .def(
+            "__init__",
+            [](Sequence::PolySNP& newobj, const Sequence::PolyTable& pt,
+               const bool haveOutgroup, const unsigned outgroup,
+               const bool totMuts) {
+                new (&newobj)
+                    Sequence::PolySNP(&pt, haveOutgroup, outgroup, totMuts);
+            },
+            py::arg("pt"), py::arg("haveOutgroup") = false,
+            py::arg("outgroup") = 0, py::arg("totMuts") = true)
         .def("thetapi", &Sequence::PolySNP::ThetaPi,
              "Sum of site heterozygosity/mean pairwise differences.")
         .def("thetaw", &Sequence::PolySNP::ThetaW,
@@ -332,33 +346,33 @@ PYBIND11_MODULE(summstats, m)
 		.. note:: Only :class:`libsequence.polytable.SimData` types currently supported.
 		)delim");
 
-    m.def("ld",
-          [](const Sequence::PolyTable& p, const bool have_outgroup,
-             const unsigned outgroup, const unsigned mincount,
-             const double maxd) {
-              auto temp = Sequence::Recombination::Disequilibrium(
-                  &p, have_outgroup, outgroup, mincount, maxd);
-              // Before filling a py::list, let's get rid of skipped objects
-              temp.erase(
-                  std::remove_if(temp.begin(), temp.end(),
-                                 [](const Sequence::PairwiseLDstats& s) {
-                                     return s.skipped;
-                                 }),
-                  temp.end());
-              py::list rv;
-              for (auto&& ld : temp)
-                  {
-                      py::dict temp;
-                      temp[py::str("i")] = py::float_(ld.i);
-                      temp[py::str("j")] = py::float_(ld.j);
-                      temp[py::str("rsq")] = py::float_(ld.rsq);
-                      temp[py::str("D")] = py::float_(ld.D);
-                      temp[py::str("Dprime")] = py::float_(ld.Dprime);
-                      rv.append(std::move(temp));
-                  }
-              return rv;
-          },
-          R"delim(
+    m.def(
+        "ld",
+        [](const Sequence::PolyTable& p, const bool have_outgroup,
+           const unsigned outgroup, const unsigned mincount,
+           const double maxd) {
+            auto temp = Sequence::Recombination::Disequilibrium(
+                &p, have_outgroup, outgroup, mincount, maxd);
+            // Before filling a py::list, let's get rid of skipped objects
+            temp.erase(std::remove_if(temp.begin(), temp.end(),
+                                      [](const Sequence::PairwiseLDstats& s) {
+                                          return s.skipped;
+                                      }),
+                       temp.end());
+            py::list rv;
+            for (auto&& ld : temp)
+                {
+                    py::dict temp;
+                    temp[py::str("i")] = py::float_(ld.i);
+                    temp[py::str("j")] = py::float_(ld.j);
+                    temp[py::str("rsq")] = py::float_(ld.rsq);
+                    temp[py::str("D")] = py::float_(ld.D);
+                    temp[py::str("Dprime")] = py::float_(ld.Dprime);
+                    rv.append(std::move(temp));
+                }
+            return rv;
+        },
+        R"delim(
 		Return pairwise LD statistics.
 		
 		:param p: A :class:`libsequence.polytable.PolySites` or :class:`libsequence.polytable.SimData`.
@@ -369,25 +383,26 @@ PYBIND11_MODULE(summstats, m)
 
 		:rtype: list of dict
 		)delim",
-          py::arg("p"), py::arg("have_outgroup") = false,
-          py::arg("outgroup") = 0, py::arg("mincount") = 1,
-          py::arg("maxd") = std::numeric_limits<double>::max());
+        py::arg("p"), py::arg("have_outgroup") = false,
+        py::arg("outgroup") = 0, py::arg("mincount") = 1,
+        py::arg("maxd") = std::numeric_limits<double>::max());
 
-    m.def("garudStats",
-          [](const Sequence::SimData& d) {
-              auto g = Sequence::H1H12(d);
-              py::dict rv;
-              rv[py::str("H1")] = py::float_(g.H1);
-              rv[py::str("H12")] = py::float_(g.H12);
-              rv[py::str("H2H1")] = py::float_(g.H2H1);
-              return rv;
-          },
-          R"delim(
+    m.def(
+        "garudStats",
+        [](const Sequence::SimData& d) {
+            auto g = Sequence::H1H12(d);
+            py::dict rv;
+            rv[py::str("H1")] = py::float_(g.H1);
+            rv[py::str("H12")] = py::float_(g.H12);
+            rv[py::str("H2H1")] = py::float_(g.H2H1);
+            return rv;
+        },
+        R"delim(
 		Returns the H1, H12, and H2/H1 statistics from PMC4338236 as a dict.
 
 		:param d: A :class:`libsequence.polytable.SimData`.
 		)delim",
-          py::arg("d"));
+        py::arg("d"));
 
     m.def("omega_max", &omega_max, py::arg("data"),
           R"delim(
