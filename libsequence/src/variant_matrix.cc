@@ -399,8 +399,8 @@ init_VariantMatrix(py::module &m)
         :param positions: List of mutation positions.
         :type positions: list
 
-        >>> import libsequence.variant_matrix as vm
-        >>> m = vm.VariantMatrix([0,1,1,0],[0.1,0.2])
+        >>> import libsequence
+        >>> m = libsequence.VariantMatrix([0,1,1,0],[0.1,0.2])
              )delim",
              py::arg("data"), py::arg("positions"))
         .def(py::init([](py::array_t<std::int8_t,
@@ -423,11 +423,11 @@ init_VariantMatrix(py::module &m)
             :param positions: 1d array with dtype np.float
             :type positions: list
 
-            >>> import libsequence.variant_matrix as vm
+            >>> import libsequence
             >>> import numpy as np
             >>> d = np.array([0,1,1,0],dtype=np.int8).reshape((2,2))
             >>> p = np.array([0.1,0.2])
-            >>> m = vm.VariantMatrix(d,p)
+            >>> m = libsequence.VariantMatrix(d,p)
             )delim",
              py::arg("data"), py::arg("pos"), py::arg("max_allele_value") = -1)
         .def_static(
