@@ -61,5 +61,5 @@ jobs:
             python -m venv venv
             source venv/bin/activate 
             pip install --upgrade setuptools pip pybind11
-            pip install dist/pylibseq-0.2.2.tar.gz 
+            pip install dist/pylibseq-0.2.3.tar.gz 
 
