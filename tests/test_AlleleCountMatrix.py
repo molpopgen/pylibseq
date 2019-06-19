@@ -7,9 +7,9 @@ import libsequence
 class testAlleleCountMatrix(unittest.TestCase):
     @classmethod
     def setUp(self):
-        ts = msprime.simulate(10, mutation_rate=10, random_seed=42)
+        self.ts = msprime.simulate(10, mutation_rate=10, random_seed=42)
         self.vm = libsequence.VariantMatrix.from_TreeSequence(
-            ts)
+            self.ts)
         self.ac = libsequence.AlleleCountMatrix(self.vm)
 
     def testSubset(self):
@@ -40,6 +40,10 @@ class testAlleleCountMatrix(unittest.TestCase):
             rr = merged.row(i+self.ac.nrow)
             for j, k in zip(r, rr):
                 self.assertEqual(j, k)
+
+    def testFromTreeSequence(self):
+        ac = libsequence.AlleleCountMatrix.from_tskit(self.ts)
+        self.assertTrue(np.array_equal(np.array(ac), np.array(self.ac)))
 
 
 if __name__ == "__main__":

@@ -313,6 +313,36 @@ init_VariantMatrix(py::module &m)
         .def(py::init<const Sequence::VariantMatrix &>(),
              "Construct from a "
              ":class:`libsequence.variant_matrix.VariantMatrix`")
+        .def_static(
+            "from_tskit",
+            [](py::object ts, int chunksize) -> py::object {
+                auto m = py::module::import("libsequence._tskit_tools");
+                return m.attr("AlleleCountMatrix_from_tree_sequence")(
+                    ts, chunksize);
+            },
+            R"delim(
+     Construct AlleleCountMatrix from a tree sequence object from tskit
+     
+     :param ts: A tree sequence
+     :type ts: tskit.TreeSequence
+     :param chunksize: The number of variants to process at once
+     :type chunksize: int
+     :rtype: object
+
+     Returns None if `ts` contains no variants. Else, returns 
+     AlleleCountMatrix.
+
+     >>> import msprime
+     >>> import libsequence
+     >>> import numpy as np
+     >>> ts = msprime.simulate(10, mutation_rate=100)
+     >>> ac = libsequence.AlleleCountMatrix.from_tskit(ts)
+     >>> vm = libsequence.VariantMatrix.from_TreeSequence(ts)
+     >>> vmac = libsequence.AlleleCountMatrix(vm)
+     >>> assert np.array_equal(np.array(ac), np.array(vmac))
+
+     )delim",
+            py::arg("ts"), py::arg("chunksize") = 50)
         .def_readonly("counts", &Sequence::AlleleCountMatrix::counts,
                       "Flattened view of the raw data.")
         .def_readonly("nrow", &Sequence::AlleleCountMatrix::nrow,
@@ -388,10 +418,9 @@ init_VariantMatrix(py::module &m)
                     throw std::invalid_argument("dimension mismatch");
                 }
             auto counts = self.counts;
-            counts.insert(end(counts), begin(acm.counts),
-                          end(acm.counts));
-            return Sequence::AlleleCountMatrix(std::move(counts), self.ncol,
-                                               self.nrow + acm.nrow, self.nsam);
+            counts.insert(end(counts), begin(acm.counts), end(acm.counts));
+            return Sequence::AlleleCountMatrix(
+                std::move(counts), self.ncol, self.nrow + acm.nrow, self.nsam);
         });
 
     py::class_<Sequence::VariantMatrix>(m, "VariantMatrix",
