@@ -152,15 +152,15 @@ class NumpyGenotypeCapsule : public Sequence::GenotypeCapsule
     }
 
     std::int8_t &
-    operator()(std::size_t site, std::size_t sample)  final
+    operator()(std::size_t site, std::size_t sample) final
     {
-        return buffer.mutable_data()[nsam()*site + sample];
+        return buffer.mutable_data()[nsam() * site + sample];
     }
 
     const std::int8_t &
     operator()(std::size_t site, std::size_t sample) const final
     {
-        return buffer.data()[nsam()*site + sample];
+        return buffer.data()[nsam() * site + sample];
     }
 
     bool
@@ -380,7 +380,19 @@ init_VariantMatrix(py::module &m)
                         sizeof(value_type) * c.ncol, sizeof(value_type)
                         /* Strides (in bytes) for each index */
                     });
-            });
+            })
+        .def("_merge", [](const Sequence::AlleleCountMatrix &self,
+                          const Sequence::AlleleCountMatrix &acm) {
+            if (self.nsam != acm.nsam || self.ncol != acm.ncol)
+                {
+                    throw std::invalid_argument("dimension mismatch");
+                }
+            auto counts = self.counts;
+            counts.insert(end(counts), begin(acm.counts),
+                          end(acm.counts));
+            return Sequence::AlleleCountMatrix(std::move(counts), self.ncol,
+                                               self.nrow + acm.nrow, self.nsam);
+        });
 
     py::class_<Sequence::VariantMatrix>(m, "VariantMatrix",
                                         //py::buffer_protocol(),
