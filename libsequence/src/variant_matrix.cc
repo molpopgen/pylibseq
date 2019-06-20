@@ -336,10 +336,7 @@ init_VariantMatrix(py::module &m)
      :type chunksize: int
      :param max_allele_value: Maximum numeric value for a mutation
      :type max_allele_value: int8
-     :rtype: object
-
-     Returns None if `ts` contains no variants. Else, returns 
-     AlleleCountMatrix.
+     :rtype: :class:`libsequence.AlleleCountMatrix`
 
      >>> import msprime
      >>> import libsequence
