@@ -313,12 +313,19 @@ init_VariantMatrix(py::module &m)
         .def(py::init<const Sequence::VariantMatrix &>(),
              "Construct from a "
              ":class:`libsequence.variant_matrix.VariantMatrix`")
+        .def(py::init([](std::vector<std::int32_t> &data,
+                         std::size_t max_allele, std::size_t nsites,
+                         std::size_t nsam) {
+            return Sequence::AlleleCountMatrix(std::move(data), max_allele,
+                                               nsites, nsam);
+        }))
         .def_static(
             "from_tskit",
-            [](py::object ts, int chunksize) -> py::object {
+            [](py::object ts, int chunksize,
+               std::int8_t max_allele_value) -> py::object {
                 auto m = py::module::import("libsequence._tskit_tools");
                 return m.attr("AlleleCountMatrix_from_tree_sequence")(
-                    ts, chunksize);
+                    ts, chunksize, max_allele_value);
             },
             R"delim(
      Construct AlleleCountMatrix from a tree sequence object from tskit
@@ -327,10 +334,9 @@ init_VariantMatrix(py::module &m)
      :type ts: tskit.TreeSequence
      :param chunksize: The number of variants to process at once
      :type chunksize: int
-     :rtype: object
-
-     Returns None if `ts` contains no variants. Else, returns 
-     AlleleCountMatrix.
+     :param max_allele_value: Maximum numeric value for a mutation
+     :type max_allele_value: int8
+     :rtype: :class:`libsequence.AlleleCountMatrix`
 
      >>> import msprime
      >>> import libsequence
@@ -342,7 +348,8 @@ init_VariantMatrix(py::module &m)
      >>> assert np.array_equal(np.array(ac), np.array(vmac))
 
      )delim",
-            py::arg("ts"), py::arg("chunksize") = 50)
+            py::arg("ts"), py::arg("chunksize") = 50,
+            py::arg("max_allele_value") = 1)
         .def_readonly("counts", &Sequence::AlleleCountMatrix::counts,
                       "Flattened view of the raw data.")
         .def_readonly("nrow", &Sequence::AlleleCountMatrix::nrow,
