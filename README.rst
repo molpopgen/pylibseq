@@ -156,7 +156,7 @@ Documentation:
 .. _pybind11: http://pybind11.readthedocs.io/
 .. _Cython: http://www.cython.org
 .. _Python: http://www.python.org/
-.. _Manual: http://molpopgen.github.io/pylibseq/_build/html/index.html
+.. _Manual: http://molpopgen.github.io/pylibseq/docs/_build/html/index.html
 .. _homepage: http://molpopgen.github.io/pylibseq/
 .. _PyPi: https://pypi.python.org
 .. _bioconda: https://bioconda.github.io
