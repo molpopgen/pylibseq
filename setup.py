@@ -10,7 +10,7 @@ import glob
 if sys.version_info < (3, 4):
     raise RuntimeError("Python >= 3.4 required")
 
-__version__ = '0.2.2'
+__version__ = '0.2.3'
 
 # clang/llvm is default for OS X builds.
 # can over-ride darwin-specific options

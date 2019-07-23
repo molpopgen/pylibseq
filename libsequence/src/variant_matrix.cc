@@ -152,15 +152,15 @@ class NumpyGenotypeCapsule : public Sequence::GenotypeCapsule
     }
 
     std::int8_t &
-    operator()(std::size_t site, std::size_t sample)  final
+    operator()(std::size_t site, std::size_t sample) final
     {
-        return buffer.mutable_data()[nsam()*site + sample];
+        return buffer.mutable_data()[nsam() * site + sample];
     }
 
     const std::int8_t &
     operator()(std::size_t site, std::size_t sample) const final
     {
-        return buffer.data()[nsam()*site + sample];
+        return buffer.data()[nsam() * site + sample];
     }
 
     bool
@@ -313,6 +313,65 @@ init_VariantMatrix(py::module &m)
         .def(py::init<const Sequence::VariantMatrix &>(),
              "Construct from a "
              ":class:`libsequence.variant_matrix.VariantMatrix`")
+        .def(py::init([](std::vector<std::int32_t> &data,
+                         std::size_t max_allele, std::size_t nsites,
+                         std::size_t nsam) {
+            return Sequence::AlleleCountMatrix(std::move(data), max_allele,
+                                               nsites, nsam);
+        }))
+        .def_static(
+            "from_tskit",
+            [](py::object ts, std::int8_t max_allele_value) {
+                std::size_t nsamples
+                    = ts.attr("num_samples").cast<std::size_t>();
+                std::size_t nsites = ts.attr("num_sites").cast<std::size_t>();
+                std::vector<std::int32_t> temp(nsites * (max_allele_value + 1),
+                                               0);
+                std::size_t current_site = 0;
+                py::array_t<std::uint8_t, py::array::c_style> a;
+                py::iterator variants = ts.attr("variants")();
+                while (variants != py::iterator::sentinel())
+                    {
+                        a = (*variants).attr("genotypes").cast<decltype(a)>();
+                        // Disable bounds checking
+                        auto r = a.unchecked<1>();
+                        for (std::size_t i = 0; i < nsamples; ++i)
+                            {
+                                if (r[i] > max_allele_value)
+                                    {
+                                        throw std::invalid_argument(
+                                            "incorrect max_allele_value");
+                                    }
+                                ++temp[current_site + r[i]];
+                            }
+                        current_site += (max_allele_value + 1);
+                        ++variants;
+                    }
+                return Sequence::AlleleCountMatrix(
+                    std::move(temp), max_allele_value + 1, nsites, nsamples);
+            },
+            R"delim(
+             Construct AlleleCountMatrix from a tree sequence object from tskit
+             
+             :param ts: A tree sequence
+             :type ts: tskit.TreeSequence
+             :type chunksize: int
+             :param max_allele_value: Maximum numeric value for a mutation
+             :type max_allele_value: int8
+             :rtype: :class:`libsequence.AlleleCountMatrix`
+
+             .. versionadded:: 0.2.3
+
+             >>> import msprime
+             >>> import libsequence
+             >>> import numpy as np
+             >>> ts = msprime.simulate(10, mutation_rate=100)
+             >>> ac = libsequence.AlleleCountMatrix.from_tskit(ts)
+             >>> vm = libsequence.VariantMatrix.from_TreeSequence(ts)
+             >>> vmac = libsequence.AlleleCountMatrix(vm)
+             >>> assert np.array_equal(np.array(ac), np.array(vmac))
+            )delim",
+            py::arg("ts"), py::arg("max_allele_value") = 1)
         .def_readonly("counts", &Sequence::AlleleCountMatrix::counts,
                       "Flattened view of the raw data.")
         .def_readonly("nrow", &Sequence::AlleleCountMatrix::nrow,
@@ -380,7 +439,18 @@ init_VariantMatrix(py::module &m)
                         sizeof(value_type) * c.ncol, sizeof(value_type)
                         /* Strides (in bytes) for each index */
                     });
-            });
+            })
+        .def("_merge", [](const Sequence::AlleleCountMatrix &self,
+                          const Sequence::AlleleCountMatrix &acm) {
+            if (self.nsam != acm.nsam || self.ncol != acm.ncol)
+                {
+                    throw std::invalid_argument("dimension mismatch");
+                }
+            auto counts = self.counts;
+            counts.insert(end(counts), begin(acm.counts), end(acm.counts));
+            return Sequence::AlleleCountMatrix(
+                std::move(counts), self.ncol, self.nrow + acm.nrow, self.nsam);
+        });
 
     py::class_<Sequence::VariantMatrix>(m, "VariantMatrix",
                                         //py::buffer_protocol(),
