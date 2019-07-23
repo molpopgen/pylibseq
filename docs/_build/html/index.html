@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Welcome to pylibseq’s documentation! &#8212; pylibseq 0.2.2 documentation</title>
+    <title>Welcome to pylibseq’s documentation! &#8212; pylibseq 0.2.3 documentation</title>
     <link rel="stylesheet" href="_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     
@@ -30,7 +30,7 @@
         <li class="right" >
           <a href="pages/changes.html" title="Changes"
              accesskey="N">next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.2.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.2.3 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -236,13 +236,54 @@ integers to 8-bit signed integers.</p>
 
 <dl class="class">
 <dt id="libsequence.AlleleCountMatrix">
-<em class="property">class </em><code class="descclassname">libsequence.</code><code class="descname">AlleleCountMatrix</code><span class="sig-paren">(</span><em>self: libsequence._libsequence.AlleleCountMatrix</em>, <em>arg0: Sequence::VariantMatrix</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#libsequence.AlleleCountMatrix" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">libsequence.</code><code class="descname">AlleleCountMatrix</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#libsequence.AlleleCountMatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>A matrix of allele counts. This object supports the buffer protocol.</p>
+<p>Overloaded function.</p>
+<ol class="arabic simple">
+<li>__init__(self: libsequence._libsequence.AlleleCountMatrix, arg0: Sequence::VariantMatrix) -&gt; None</li>
+</ol>
 <p>Construct from a <code class="xref py py-class docutils literal notranslate"><span class="pre">libsequence.variant_matrix.VariantMatrix</span></code></p>
+<ol class="arabic simple" start="2">
+<li>__init__(self: libsequence._libsequence.AlleleCountMatrix, arg0: List[int], arg1: int, arg2: int, arg3: int) -&gt; None</li>
+</ol>
 <dl class="attribute">
 <dt id="libsequence.AlleleCountMatrix.counts">
 <code class="descname">counts</code><a class="headerlink" href="#libsequence.AlleleCountMatrix.counts" title="Permalink to this definition">¶</a></dt>
 <dd><p>Flattened view of the raw data.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="libsequence.AlleleCountMatrix.from_tskit">
+<code class="descname">from_tskit</code><span class="sig-paren">(</span><em>ts: object</em>, <em>max_allele_value: int = 1</em><span class="sig-paren">)</span> &#x2192; libsequence._libsequence.AlleleCountMatrix<a class="headerlink" href="#libsequence.AlleleCountMatrix.from_tskit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Construct AlleleCountMatrix from a tree sequence object from tskit</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ts</strong> (<em>tskit.TreeSequence</em>) – A tree sequence</li>
+<li><strong>max_allele_value</strong> (<em>int8</em>) – Maximum numeric value for a mutation</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#libsequence.AlleleCountMatrix" title="libsequence.AlleleCountMatrix"><code class="xref py py-class docutils literal notranslate"><span class="pre">libsequence.AlleleCountMatrix</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="versionadded">
+<p><span class="versionmodified">New in version 0.2.3.</span></p>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">msprime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">libsequence</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ts</span> <span class="o">=</span> <span class="n">msprime</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">mutation_rate</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ac</span> <span class="o">=</span> <span class="n">libsequence</span><span class="o">.</span><span class="n">AlleleCountMatrix</span><span class="o">.</span><span class="n">from_tskit</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vm</span> <span class="o">=</span> <span class="n">libsequence</span><span class="o">.</span><span class="n">VariantMatrix</span><span class="o">.</span><span class="n">from_TreeSequence</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vmac</span> <span class="o">=</span> <span class="n">libsequence</span><span class="o">.</span><span class="n">AlleleCountMatrix</span><span class="p">(</span><span class="n">vm</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ac</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">vmac</span><span class="p">))</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -417,7 +458,7 @@ integers to 8-bit signed integers.</p>
         <li class="right" >
           <a href="pages/changes.html" title="Changes"
              >next</a> |</li>
-        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.2.2 documentation</a> &#187;</li> 
+        <li class="nav-item nav-item-0"><a href="#">pylibseq 0.2.3 documentation</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
