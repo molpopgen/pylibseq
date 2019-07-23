@@ -321,35 +321,57 @@ init_VariantMatrix(py::module &m)
         }))
         .def_static(
             "from_tskit",
-            [](py::object ts, int chunksize,
-               std::int8_t max_allele_value) -> py::object {
-                auto m = py::module::import("libsequence._tskit_tools");
-                return m.attr("AlleleCountMatrix_from_tree_sequence")(
-                    ts, chunksize, max_allele_value);
+            [](py::object ts, std::int8_t max_allele_value) {
+                std::size_t nsamples
+                    = ts.attr("num_samples").cast<std::size_t>();
+                std::size_t nsites = ts.attr("num_sites").cast<std::size_t>();
+                std::vector<std::int32_t> temp(nsites * (max_allele_value + 1),
+                                               0);
+                std::size_t current_site = 0;
+                py::array_t<std::uint8_t, py::array::c_style> a;
+                py::iterator variants = ts.attr("variants")();
+                while (variants != py::iterator::sentinel())
+                    {
+                        a = (*variants).attr("genotypes").cast<decltype(a)>();
+                        // Disable bounds checking
+                        auto r = a.unchecked<1>();
+                        for (std::size_t i = 0; i < nsamples; ++i)
+                            {
+                                if (r[i] > max_allele_value)
+                                    {
+                                        throw std::invalid_argument(
+                                            "incorrect max_allele_value");
+                                    }
+                                ++temp[current_site + r[i]];
+                            }
+                        current_site += (max_allele_value + 1);
+                        ++variants;
+                    }
+                return Sequence::AlleleCountMatrix(
+                    std::move(temp), max_allele_value + 1, nsites, nsamples);
             },
             R"delim(
-     Construct AlleleCountMatrix from a tree sequence object from tskit
-     
-     :param ts: A tree sequence
-     :type ts: tskit.TreeSequence
-     :param chunksize: The number of variants to process at once
-     :type chunksize: int
-     :param max_allele_value: Maximum numeric value for a mutation
-     :type max_allele_value: int8
-     :rtype: :class:`libsequence.AlleleCountMatrix`
+             Construct AlleleCountMatrix from a tree sequence object from tskit
+             
+             :param ts: A tree sequence
+             :type ts: tskit.TreeSequence
+             :type chunksize: int
+             :param max_allele_value: Maximum numeric value for a mutation
+             :type max_allele_value: int8
+             :rtype: :class:`libsequence.AlleleCountMatrix`
 
-     >>> import msprime
-     >>> import libsequence
-     >>> import numpy as np
-     >>> ts = msprime.simulate(10, mutation_rate=100)
-     >>> ac = libsequence.AlleleCountMatrix.from_tskit(ts)
-     >>> vm = libsequence.VariantMatrix.from_TreeSequence(ts)
-     >>> vmac = libsequence.AlleleCountMatrix(vm)
-     >>> assert np.array_equal(np.array(ac), np.array(vmac))
+             .. versionadded:: 0.2.3
 
-     )delim",
-            py::arg("ts"), py::arg("chunksize") = 50,
-            py::arg("max_allele_value") = 1)
+             >>> import msprime
+             >>> import libsequence
+             >>> import numpy as np
+             >>> ts = msprime.simulate(10, mutation_rate=100)
+             >>> ac = libsequence.AlleleCountMatrix.from_tskit(ts)
+             >>> vm = libsequence.VariantMatrix.from_TreeSequence(ts)
+             >>> vmac = libsequence.AlleleCountMatrix(vm)
+             >>> assert np.array_equal(np.array(ac), np.array(vmac))
+            )delim",
+            py::arg("ts"), py::arg("max_allele_value") = 1)
         .def_readonly("counts", &Sequence::AlleleCountMatrix::counts,
                       "Flattened view of the raw data.")
         .def_readonly("nrow", &Sequence::AlleleCountMatrix::nrow,
