@@ -12,5 +12,6 @@ include conf.py.in
 include docs/conf.py
 include docs/conf.py.in
 include docs/Makefile
+recursive-include tests CMakeLists.tst *.cc *.py
 recursive-include docs *.rst *.py *.bib
 recursive-include check_deps *
