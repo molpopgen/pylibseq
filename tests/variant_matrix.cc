@@ -1,14 +1,14 @@
 #include <pybind11/pybind11.h>
-#include <pybind11/numpy.h>
+#include <pybind11/stl.h>
 #include <Sequence/VariantMatrix.hpp>
 
 namespace py = pybind11;
 
-Sequence::VariantMatrix
+py::object
 create_VariantMatrix(py::list g, py::list p)
 {
-    return Sequence::VariantMatrix(g.cast<std::vector<std::int8_t>>(),
-                                   p.cast<std::vector<double>>());
+    auto __l = py::module::import("libsequence");
+    return __l.attr("create_VariantMatrix")(g,p);
 }
 
 void
