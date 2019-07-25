@@ -1,4 +1,5 @@
-set(CPP_SOURCES src/variant_matrix.cc src/fst.cc src/omega_max.cc src/polytable.cc src/summstats.cc src/windows_cpp.cc)
+set(CPP_SOURCES src/variant_matrix.cc src/fst.cc src/omega_max.cc src/polytable.cc src/summstats.cc src/windows_cpp.cc
+    src/vector_capsules.cc)
 file(GLOB LIBSEQ_SOURCES src/libsequence/src/*.cc src/libsequence/src/Seq/*.cc
     src/libsequence/src/variant_matrix/*.cc 
     src/libsequence/src/summstats/*.cc 

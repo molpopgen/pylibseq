@@ -902,6 +902,19 @@ init_VariantMatrix(py::module &m)
         return o;
     });
 
+    m.def(
+        "create_VariantMatrix",
+        [](std::vector<std::int8_t> g, std::vector<double> p) {
+            return Sequence::VariantMatrix(std::move(g), std::move(p));
+        },
+        R"delim(
+            Helper function to create a
+            :class:`libsequence.VariantMatrix` from external modules.
+
+            .. versionadded:: 0.2.4
+          )delim",
+        py::arg("genotypes"), py::arg("positions"));
+
     py::class_<MockVM>(m, "MockVM")
         .def(py::init([](py::array_t<std::int8_t,
                                      py::array::c_style | py::array::forcecast>

@@ -19,6 +19,4 @@ set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -Wall")
 include_directories(BEFORE libsequence/src/libsequence)
 add_subdirectory(libsequence)
 
-# if(BUILD_UNIT_TESTS)
-#     add_subdirectory(tests)
-# endif(BUILD_UNIT_TESTS)
+add_subdirectory(tests)
